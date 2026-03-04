@@ -1,0 +1,210 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (passContract(); as passContractRef) {
+      <div>
+        <h2 data-cy="passContractDetailsHeading"><span>Pass Contract</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ passContractRef.id }}</span>
+          </dd>
+          <dt><span>Procurement Method Description</span></dt>
+          <dd>
+            <span>{{ passContractRef.procurementMethodDescription }}</span>
+          </dd>
+          <dt><span>Agency Acronym</span></dt>
+          <dd>
+            <span>{{ passContractRef.agencyAcronym }}</span>
+          </dd>
+          <dt><span>Agency Name</span></dt>
+          <dd>
+            <span>{{ passContractRef.agencyName }}</span>
+          </dd>
+          <dt><span>Row Id</span></dt>
+          <dd>
+            <span>{{ passContractRef.rowId }}</span>
+          </dd>
+          <dt><span>Agency</span></dt>
+          <dd>
+            <span>{{ passContractRef.agency }}</span>
+          </dd>
+          <dt><span>Award Date</span></dt>
+          <dd>
+            <span>{{ passContractRef.awardDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Contract Amount</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractAmount }}</span>
+          </dd>
+          <dt><span>End Date</span></dt>
+          <dd>
+            <span>{{ passContractRef.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Contract Number</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractNumber }}</span>
+          </dd>
+          <dt><span>Start Date</span></dt>
+          <dd>
+            <span>{{ passContractRef.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Contract Status</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractStatus }}</span>
+          </dd>
+          <dt><span>Title</span></dt>
+          <dd>
+            <span>{{ passContractRef.title }}</span>
+          </dd>
+          <dt><span>Contracting Officer</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractingOfficer }}</span>
+          </dd>
+          <dt><span>Fiscal Year</span></dt>
+          <dd>
+            <span>{{ passContractRef.fiscalYear }}</span>
+          </dd>
+          <dt><span>Market Type</span></dt>
+          <dd>
+            <span>{{ passContractRef.marketType }}</span>
+          </dd>
+          <dt><span>Commodity Code</span></dt>
+          <dd>
+            <span>{{ passContractRef.commodityCode }}</span>
+          </dd>
+          <dt><span>Commodity Description</span></dt>
+          <dd>
+            <span>{{ passContractRef.commodityDescription }}</span>
+          </dd>
+          <dt><span>Current Option Period</span></dt>
+          <dd>
+            <span>{{ passContractRef.currentOptionPeriod }}</span>
+          </dd>
+          <dt><span>Total Option Periods</span></dt>
+          <dd>
+            <span>{{ passContractRef.totalOptionPeriods }}</span>
+          </dd>
+          <dt><span>Supplier</span></dt>
+          <dd>
+            <span>{{ passContractRef.supplier }}</span>
+          </dd>
+          <dt><span>Description</span></dt>
+          <dd>
+            <span>{{ passContractRef.description }}</span>
+          </dd>
+          <dt><span>Contract Type Description</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractTypeDescription }}</span>
+          </dd>
+          <dt><span>Contracting Officer Email</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractingOfficerEmail }}</span>
+          </dd>
+          <dt><span>Vendor Address</span></dt>
+          <dd>
+            <span>{{ passContractRef.vendorAddress }}</span>
+          </dd>
+          <dt><span>Vendor City</span></dt>
+          <dd>
+            <span>{{ passContractRef.vendorCity }}</span>
+          </dd>
+          <dt><span>Vendor State</span></dt>
+          <dd>
+            <span>{{ passContractRef.vendorState }}</span>
+          </dd>
+          <dt><span>Vendor Zip</span></dt>
+          <dd>
+            <span>{{ passContractRef.vendorZip }}</span>
+          </dd>
+          <dt><span>Published Version Id</span></dt>
+          <dd>
+            <span>{{ passContractRef.publishedVersionId }}</span>
+          </dd>
+          <dt><span>Document Version</span></dt>
+          <dd>
+            <span>{{ passContractRef.documentVersion }}</span>
+          </dd>
+          <dt><span>Last Modified</span></dt>
+          <dd>
+            <span>{{ passContractRef.lastModified | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Contracting Splst</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractingSplst }}</span>
+          </dd>
+          <dt><span>Contracting Splst Email</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractingSplstEmail }}</span>
+          </dd>
+          <dt><span>Source</span></dt>
+          <dd>
+            <span>{{ passContractRef.source }}</span>
+          </dd>
+          <dt><span>Contract Details Link</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractDetailsLink }}</span>
+          </dd>
+          <dt><span>Contract Administrator Name</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractAdministratorName }}</span>
+          </dd>
+          <dt><span>Contract Administrator Email</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractAdministratorEmail }}</span>
+          </dd>
+          <dt><span>Contract Administrator Phone</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractAdministratorPhone }}</span>
+          </dd>
+          <dt><span>Contract Officer Phone</span></dt>
+          <dd>
+            <span>{{ passContractRef.contractOfficerPhone }}</span>
+          </dd>
+          <dt><span>Cw Internal Id</span></dt>
+          <dd>
+            <span>{{ passContractRef.cwInternalId }}</span>
+          </dd>
+          <dt><span>Corporate Phone</span></dt>
+          <dd>
+            <span>{{ passContractRef.corporatePhone }}</span>
+          </dd>
+          <dt><span>Corporate Email Address</span></dt>
+          <dd>
+            <span>{{ passContractRef.corporateEmailAddress }}</span>
+          </dd>
+          <dt><span>Rec Created Date</span></dt>
+          <dd>
+            <span>{{ passContractRef.recCreatedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Rec Updated Date</span></dt>
+          <dd>
+            <span>{{ passContractRef.recUpdatedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Dcs Last Mod Dttm</span></dt>
+          <dd>
+            <span>{{ passContractRef.dcsLastModDttm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Object Id</span></dt>
+          <dd>
+            <span>{{ passContractRef.objectId }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span>Translation missing for entity.action.back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/pass-contract', passContractRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span>Translation missing for entity.action.edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

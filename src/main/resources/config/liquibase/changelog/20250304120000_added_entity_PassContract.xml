@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20250304120000-seq-0" author="jhipster">
+        <createSequence sequenceName="pass_contract_seq" startValue="1050" incrementBy="50"/>
+    </changeSet>
+
+    <!--
+        Added the entity PassContract.
+    -->
+    <changeSet id="20250304120000-1" author="jhipster">
+        <createTable tableName="pass_contract">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PROCUREMENTMETHODDESCRIPTION" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_ACRONYM" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_NAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ROW_ID" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AWARDDATE" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTAMOUNT" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ENDDATE" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="STARTDATE" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTSTATUS" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="TITLE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTINGOFFICER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="FISCALYEAR" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="MARKETTYPE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="COMMODITYCODE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="COMMODITYDESCRIPTION" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CURRENTOPTIONPERIOD" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="TOTALOPTIONPERIODS" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="SUPPLIER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="DESCRIPTION" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTTYPEDESCRIPTION" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTINGOFFICEREMAIL" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="VENDORADDRESS" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="VENDORCITY" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="VENDORSTATE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="VENDORZIP" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="PUBLISHEDVERSIONID" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="DOCUMENTVERSION" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="LASTMODIFIED" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTINGSPLST" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTINGSPLSTEMAIL" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="SOURCE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACT_DETAILS_LINK" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTADMINISTRATORNAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTADMINISTRATOREMAIL" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTADMINISTRATORPHONE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTOFFICERPHONE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CWINTERNALID" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CORPORATEPHONE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CORPORATEEMAILADDRESS" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="REC_CREATED_DATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="REC_UPDATED_DATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="DCS_LAST_MOD_DTTM" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="OBJECTID" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="pass_contract" columnName="LASTMODIFIED" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_contract" columnName="REC_CREATED_DATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_contract" columnName="REC_UPDATED_DATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_contract" columnName="DCS_LAST_MOD_DTTM" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20250304120000-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/pass_contract.csv"
+                  separator=";"
+                  tableName="pass_contract"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="PROCUREMENTMETHODDESCRIPTION" type="string"/>
+            <column name="AGENCY_ACRONYM" type="string"/>
+            <column name="AGENCY_NAME" type="string"/>
+            <column name="ROW_ID" type="numeric"/>
+            <column name="AGENCY" type="string"/>
+            <column name="AWARDDATE" type="date"/>
+            <column name="CONTRACTAMOUNT" type="numeric"/>
+            <column name="ENDDATE" type="date"/>
+            <column name="CONTRACTNUMBER" type="string"/>
+            <column name="STARTDATE" type="date"/>
+            <column name="CONTRACTSTATUS" type="string"/>
+            <column name="TITLE" type="string"/>
+            <column name="CONTRACTINGOFFICER" type="string"/>
+            <column name="FISCALYEAR" type="numeric"/>
+            <column name="MARKETTYPE" type="string"/>
+            <column name="COMMODITYCODE" type="string"/>
+            <column name="COMMODITYDESCRIPTION" type="string"/>
+            <column name="CURRENTOPTIONPERIOD" type="numeric"/>
+            <column name="TOTALOPTIONPERIODS" type="numeric"/>
+            <column name="SUPPLIER" type="string"/>
+            <column name="DESCRIPTION" type="string"/>
+            <column name="CONTRACTTYPEDESCRIPTION" type="string"/>
+            <column name="CONTRACTINGOFFICEREMAIL" type="string"/>
+            <column name="VENDORADDRESS" type="string"/>
+            <column name="VENDORCITY" type="string"/>
+            <column name="VENDORSTATE" type="string"/>
+            <column name="VENDORZIP" type="string"/>
+            <column name="PUBLISHEDVERSIONID" type="string"/>
+            <column name="DOCUMENTVERSION" type="string"/>
+            <column name="LASTMODIFIED" type="date"/>
+            <column name="CONTRACTINGSPLST" type="string"/>
+            <column name="CONTRACTINGSPLSTEMAIL" type="string"/>
+            <column name="SOURCE" type="string"/>
+            <column name="CONTRACT_DETAILS_LINK" type="string"/>
+            <column name="CONTRACTADMINISTRATORNAME" type="string"/>
+            <column name="CONTRACTADMINISTRATOREMAIL" type="string"/>
+            <column name="CONTRACTADMINISTRATORPHONE" type="string"/>
+            <column name="CONTRACTOFFICERPHONE" type="string"/>
+            <column name="CWINTERNALID" type="string"/>
+            <column name="CORPORATEPHONE" type="string"/>
+            <column name="CORPORATEEMAILADDRESS" type="string"/>
+            <column name="REC_CREATED_DATE" type="date"/>
+            <column name="REC_UPDATED_DATE" type="date"/>
+            <column name="DCS_LAST_MOD_DTTM" type="date"/>
+            <column name="OBJECTID" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,52 @@
+import dayjs from 'dayjs/esm';
+
+export interface IPassContract {
+  id: number;
+  procurementMethodDescription?: string | null;
+  agencyAcronym?: string | null;
+  agencyName?: string | null;
+  rowId?: number | null;
+  agency?: string | null;
+  awardDate?: dayjs.Dayjs | null;
+  contractAmount?: number | null;
+  endDate?: dayjs.Dayjs | null;
+  contractNumber?: string | null;
+  startDate?: dayjs.Dayjs | null;
+  contractStatus?: string | null;
+  title?: string | null;
+  contractingOfficer?: string | null;
+  fiscalYear?: number | null;
+  marketType?: string | null;
+  commodityCode?: string | null;
+  commodityDescription?: string | null;
+  currentOptionPeriod?: number | null;
+  totalOptionPeriods?: number | null;
+  supplier?: string | null;
+  description?: string | null;
+  contractTypeDescription?: string | null;
+  contractingOfficerEmail?: string | null;
+  vendorAddress?: string | null;
+  vendorCity?: string | null;
+  vendorState?: string | null;
+  vendorZip?: string | null;
+  publishedVersionId?: string | null;
+  documentVersion?: string | null;
+  lastModified?: dayjs.Dayjs | null;
+  contractingSplst?: string | null;
+  contractingSplstEmail?: string | null;
+  source?: string | null;
+  contractDetailsLink?: string | null;
+  contractAdministratorName?: string | null;
+  contractAdministratorEmail?: string | null;
+  contractAdministratorPhone?: string | null;
+  contractOfficerPhone?: string | null;
+  cwInternalId?: string | null;
+  corporatePhone?: string | null;
+  corporateEmailAddress?: string | null;
+  recCreatedDate?: dayjs.Dayjs | null;
+  recUpdatedDate?: dayjs.Dayjs | null;
+  dcsLastModDttm?: dayjs.Dayjs | null;
+  objectId?: number | null;
+}
+
+export type NewPassContract = Omit<IPassContract, 'id'> & { id: null };

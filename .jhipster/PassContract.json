@@ -1,0 +1,249 @@
+{
+  "annotations": {
+    "changelogDate": "20250304120000"
+  },
+  "changelogDate": "20250304120000",
+  "clientRootFolder": "",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "id": true,
+      "sequenceGeneratorName": "pass_contract_seq"
+    },
+    {
+      "fieldName": "procurementMethodDescription",
+      "fieldNameAsDatabaseColumn": "PROCUREMENTMETHODDESCRIPTION",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agencyAcronym",
+      "fieldNameAsDatabaseColumn": "AGENCY_ACRONYM",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agencyName",
+      "fieldNameAsDatabaseColumn": "AGENCY_NAME",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rowId",
+      "fieldNameAsDatabaseColumn": "ROW_ID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "agency",
+      "fieldNameAsDatabaseColumn": "AGENCY",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "awardDate",
+      "fieldNameAsDatabaseColumn": "AWARDDATE",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contractAmount",
+      "fieldNameAsDatabaseColumn": "CONTRACTAMOUNT",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldNameAsDatabaseColumn": "ENDDATE",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contractNumber",
+      "fieldNameAsDatabaseColumn": "CONTRACTNUMBER",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldNameAsDatabaseColumn": "STARTDATE",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contractStatus",
+      "fieldNameAsDatabaseColumn": "CONTRACTSTATUS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldNameAsDatabaseColumn": "TITLE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractingOfficer",
+      "fieldNameAsDatabaseColumn": "CONTRACTINGOFFICER",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fiscalYear",
+      "fieldNameAsDatabaseColumn": "FISCALYEAR",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "marketType",
+      "fieldNameAsDatabaseColumn": "MARKETTYPE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commodityCode",
+      "fieldNameAsDatabaseColumn": "COMMODITYCODE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commodityDescription",
+      "fieldNameAsDatabaseColumn": "COMMODITYDESCRIPTION",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currentOptionPeriod",
+      "fieldNameAsDatabaseColumn": "CURRENTOPTIONPERIOD",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalOptionPeriods",
+      "fieldNameAsDatabaseColumn": "TOTALOPTIONPERIODS",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "supplier",
+      "fieldNameAsDatabaseColumn": "SUPPLIER",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldNameAsDatabaseColumn": "DESCRIPTION",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractTypeDescription",
+      "fieldNameAsDatabaseColumn": "CONTRACTTYPEDESCRIPTION",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractingOfficerEmail",
+      "fieldNameAsDatabaseColumn": "CONTRACTINGOFFICEREMAIL",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorAddress",
+      "fieldNameAsDatabaseColumn": "VENDORADDRESS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorCity",
+      "fieldNameAsDatabaseColumn": "VENDORCITY",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorState",
+      "fieldNameAsDatabaseColumn": "VENDORSTATE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorZip",
+      "fieldNameAsDatabaseColumn": "VENDORZIP",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publishedVersionId",
+      "fieldNameAsDatabaseColumn": "PUBLISHEDVERSIONID",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentVersion",
+      "fieldNameAsDatabaseColumn": "DOCUMENTVERSION",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModified",
+      "fieldNameAsDatabaseColumn": "LASTMODIFIED",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "contractingSplst",
+      "fieldNameAsDatabaseColumn": "CONTRACTINGSPLST",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractingSplstEmail",
+      "fieldNameAsDatabaseColumn": "CONTRACTINGSPLSTEMAIL",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "source",
+      "fieldNameAsDatabaseColumn": "SOURCE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractDetailsLink",
+      "fieldNameAsDatabaseColumn": "CONTRACT_DETAILS_LINK",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractAdministratorName",
+      "fieldNameAsDatabaseColumn": "CONTRACTADMINISTRATORNAME",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractAdministratorEmail",
+      "fieldNameAsDatabaseColumn": "CONTRACTADMINISTRATOREMAIL",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractAdministratorPhone",
+      "fieldNameAsDatabaseColumn": "CONTRACTADMINISTRATORPHONE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractOfficerPhone",
+      "fieldNameAsDatabaseColumn": "CONTRACTOFFICERPHONE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cwInternalId",
+      "fieldNameAsDatabaseColumn": "CWINTERNALID",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "corporatePhone",
+      "fieldNameAsDatabaseColumn": "CORPORATEPHONE",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "corporateEmailAddress",
+      "fieldNameAsDatabaseColumn": "CORPORATEEMAILADDRESS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "recCreatedDate",
+      "fieldNameAsDatabaseColumn": "REC_CREATED_DATE",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "recUpdatedDate",
+      "fieldNameAsDatabaseColumn": "REC_UPDATED_DATE",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "dcsLastModDttm",
+      "fieldNameAsDatabaseColumn": "DCS_LAST_MOD_DTTM",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "objectId",
+      "fieldNameAsDatabaseColumn": "OBJECTID",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "PassContract",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

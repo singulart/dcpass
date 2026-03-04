@@ -1,0 +1,457 @@
+<div>
+  <h2 id="page-heading" data-cy="PassContractHeading">
+    <span>Pass Contracts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-pass-contract"
+        [routerLink]="['/pass-contract/new']"
+      >
+        <fa-icon icon="plus" />
+        <span>Create a new Pass Contract</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (passContracts().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Pass Contracts found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Id</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="procurementMethodDescription">
+              <div class="d-flex">
+                <span>Procurement Method Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="agencyAcronym">
+              <div class="d-flex">
+                <span>Agency Acronym</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="agencyName">
+              <div class="d-flex">
+                <span>Agency Name</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="rowId">
+              <div class="d-flex">
+                <span>Row Id</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="agency">
+              <div class="d-flex">
+                <span>Agency</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="awardDate">
+              <div class="d-flex">
+                <span>Award Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAmount">
+              <div class="d-flex">
+                <span>Contract Amount</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endDate">
+              <div class="d-flex">
+                <span>End Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractNumber">
+              <div class="d-flex">
+                <span>Contract Number</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startDate">
+              <div class="d-flex">
+                <span>Start Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractStatus">
+              <div class="d-flex">
+                <span>Contract Status</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="title">
+              <div class="d-flex">
+                <span>Title</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingOfficer">
+              <div class="d-flex">
+                <span>Contracting Officer</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fiscalYear">
+              <div class="d-flex">
+                <span>Fiscal Year</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="marketType">
+              <div class="d-flex">
+                <span>Market Type</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="commodityCode">
+              <div class="d-flex">
+                <span>Commodity Code</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="commodityDescription">
+              <div class="d-flex">
+                <span>Commodity Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="currentOptionPeriod">
+              <div class="d-flex">
+                <span>Current Option Period</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="totalOptionPeriods">
+              <div class="d-flex">
+                <span>Total Option Periods</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="supplier">
+              <div class="d-flex">
+                <span>Supplier</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span>Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractTypeDescription">
+              <div class="d-flex">
+                <span>Contract Type Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingOfficerEmail">
+              <div class="d-flex">
+                <span>Contracting Officer Email</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vendorAddress">
+              <div class="d-flex">
+                <span>Vendor Address</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vendorCity">
+              <div class="d-flex">
+                <span>Vendor City</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vendorState">
+              <div class="d-flex">
+                <span>Vendor State</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vendorZip">
+              <div class="d-flex">
+                <span>Vendor Zip</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="publishedVersionId">
+              <div class="d-flex">
+                <span>Published Version Id</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="documentVersion">
+              <div class="d-flex">
+                <span>Document Version</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModified">
+              <div class="d-flex">
+                <span>Last Modified</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingSplst">
+              <div class="d-flex">
+                <span>Contracting Splst</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingSplstEmail">
+              <div class="d-flex">
+                <span>Contracting Splst Email</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="source">
+              <div class="d-flex">
+                <span>Source</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractDetailsLink">
+              <div class="d-flex">
+                <span>Contract Details Link</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAdministratorName">
+              <div class="d-flex">
+                <span>Contract Administrator Name</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAdministratorEmail">
+              <div class="d-flex">
+                <span>Contract Administrator Email</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAdministratorPhone">
+              <div class="d-flex">
+                <span>Contract Administrator Phone</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractOfficerPhone">
+              <div class="d-flex">
+                <span>Contract Officer Phone</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cwInternalId">
+              <div class="d-flex">
+                <span>Cw Internal Id</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="corporatePhone">
+              <div class="d-flex">
+                <span>Corporate Phone</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="corporateEmailAddress">
+              <div class="d-flex">
+                <span>Corporate Email Address</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="recCreatedDate">
+              <div class="d-flex">
+                <span>Rec Created Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="recUpdatedDate">
+              <div class="d-flex">
+                <span>Rec Updated Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dcsLastModDttm">
+              <div class="d-flex">
+                <span>Dcs Last Mod Dttm</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="objectId">
+              <div class="d-flex">
+                <span>Object Id</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (passContract of passContracts(); track trackId(passContract)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/pass-contract', passContract.id, 'view']">{{ passContract.id }}</a>
+              </td>
+              <td>{{ passContract.procurementMethodDescription }}</td>
+              <td>{{ passContract.agencyAcronym }}</td>
+              <td>{{ passContract.agencyName }}</td>
+              <td>{{ passContract.rowId }}</td>
+              <td>{{ passContract.agency }}</td>
+              <td>{{ passContract.awardDate | formatMediumDate }}</td>
+              <td>{{ passContract.contractAmount }}</td>
+              <td>{{ passContract.endDate | formatMediumDate }}</td>
+              <td>{{ passContract.contractNumber }}</td>
+              <td>{{ passContract.startDate | formatMediumDate }}</td>
+              <td>{{ passContract.contractStatus }}</td>
+              <td>{{ passContract.title }}</td>
+              <td>{{ passContract.contractingOfficer }}</td>
+              <td>{{ passContract.fiscalYear }}</td>
+              <td>{{ passContract.marketType }}</td>
+              <td>{{ passContract.commodityCode }}</td>
+              <td>{{ passContract.commodityDescription }}</td>
+              <td>{{ passContract.currentOptionPeriod }}</td>
+              <td>{{ passContract.totalOptionPeriods }}</td>
+              <td>{{ passContract.supplier }}</td>
+              <td>{{ passContract.description }}</td>
+              <td>{{ passContract.contractTypeDescription }}</td>
+              <td>{{ passContract.contractingOfficerEmail }}</td>
+              <td>{{ passContract.vendorAddress }}</td>
+              <td>{{ passContract.vendorCity }}</td>
+              <td>{{ passContract.vendorState }}</td>
+              <td>{{ passContract.vendorZip }}</td>
+              <td>{{ passContract.publishedVersionId }}</td>
+              <td>{{ passContract.documentVersion }}</td>
+              <td>{{ passContract.lastModified | formatMediumDatetime }}</td>
+              <td>{{ passContract.contractingSplst }}</td>
+              <td>{{ passContract.contractingSplstEmail }}</td>
+              <td>{{ passContract.source }}</td>
+              <td>{{ passContract.contractDetailsLink }}</td>
+              <td>{{ passContract.contractAdministratorName }}</td>
+              <td>{{ passContract.contractAdministratorEmail }}</td>
+              <td>{{ passContract.contractAdministratorPhone }}</td>
+              <td>{{ passContract.contractOfficerPhone }}</td>
+              <td>{{ passContract.cwInternalId }}</td>
+              <td>{{ passContract.corporatePhone }}</td>
+              <td>{{ passContract.corporateEmailAddress }}</td>
+              <td>{{ passContract.recCreatedDate | formatMediumDatetime }}</td>
+              <td>{{ passContract.recUpdatedDate | formatMediumDatetime }}</td>
+              <td>{{ passContract.dcsLastModDttm | formatMediumDatetime }}</td>
+              <td>{{ passContract.objectId }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/pass-contract', passContract.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline">Translation missing for entity.action.view</span>
+                  </a>
+
+                  <a [routerLink]="['/pass-contract', passContract.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(passContract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline">Translation missing for entity.action.delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (passContracts().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

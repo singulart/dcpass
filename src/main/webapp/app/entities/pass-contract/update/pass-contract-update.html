@@ -1,0 +1,552 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-pass-contract-heading" data-cy="PassContractCreateUpdateHeading">Create or edit a Pass Contract</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_procurementMethodDescription">Procurement Method Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="procurementMethodDescription"
+            id="field_procurementMethodDescription"
+            data-cy="procurementMethodDescription"
+            formControlName="procurementMethodDescription"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyAcronym">Agency Acronym</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyAcronym"
+            id="field_agencyAcronym"
+            data-cy="agencyAcronym"
+            formControlName="agencyAcronym"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyName">Agency Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyName"
+            id="field_agencyName"
+            data-cy="agencyName"
+            formControlName="agencyName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_rowId">Row Id</label>
+          <input type="number" class="form-control" name="rowId" id="field_rowId" data-cy="rowId" formControlName="rowId" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agency">Agency</label>
+          <input type="text" class="form-control" name="agency" id="field_agency" data-cy="agency" formControlName="agency" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_awardDate">Award Date</label>
+          <div class="input-group">
+            <input
+              id="field_awardDate"
+              data-cy="awardDate"
+              type="text"
+              class="form-control"
+              name="awardDate"
+              ngbDatepicker
+              #awardDateDp="ngbDatepicker"
+              formControlName="awardDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="awardDateDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractAmount">Contract Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="contractAmount"
+            id="field_contractAmount"
+            data-cy="contractAmount"
+            formControlName="contractAmount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractNumber">Contract Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractNumber"
+            id="field_contractNumber"
+            data-cy="contractNumber"
+            formControlName="contractNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractStatus">Contract Status</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractStatus"
+            id="field_contractStatus"
+            data-cy="contractStatus"
+            formControlName="contractStatus"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractingOfficer">Contracting Officer</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractingOfficer"
+            id="field_contractingOfficer"
+            data-cy="contractingOfficer"
+            formControlName="contractingOfficer"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalYear">Fiscal Year</label>
+          <input
+            type="number"
+            class="form-control"
+            name="fiscalYear"
+            id="field_fiscalYear"
+            data-cy="fiscalYear"
+            formControlName="fiscalYear"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_marketType">Market Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="marketType"
+            id="field_marketType"
+            data-cy="marketType"
+            formControlName="marketType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commodityCode">Commodity Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commodityCode"
+            id="field_commodityCode"
+            data-cy="commodityCode"
+            formControlName="commodityCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commodityDescription">Commodity Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commodityDescription"
+            id="field_commodityDescription"
+            data-cy="commodityDescription"
+            formControlName="commodityDescription"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currentOptionPeriod">Current Option Period</label>
+          <input
+            type="number"
+            class="form-control"
+            name="currentOptionPeriod"
+            id="field_currentOptionPeriod"
+            data-cy="currentOptionPeriod"
+            formControlName="currentOptionPeriod"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalOptionPeriods">Total Option Periods</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalOptionPeriods"
+            id="field_totalOptionPeriods"
+            data-cy="totalOptionPeriods"
+            formControlName="totalOptionPeriods"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_supplier">Supplier</label>
+          <input type="text" class="form-control" name="supplier" id="field_supplier" data-cy="supplier" formControlName="supplier" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractTypeDescription">Contract Type Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractTypeDescription"
+            id="field_contractTypeDescription"
+            data-cy="contractTypeDescription"
+            formControlName="contractTypeDescription"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractingOfficerEmail">Contracting Officer Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractingOfficerEmail"
+            id="field_contractingOfficerEmail"
+            data-cy="contractingOfficerEmail"
+            formControlName="contractingOfficerEmail"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_vendorAddress">Vendor Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vendorAddress"
+            id="field_vendorAddress"
+            data-cy="vendorAddress"
+            formControlName="vendorAddress"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_vendorCity">Vendor City</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vendorCity"
+            id="field_vendorCity"
+            data-cy="vendorCity"
+            formControlName="vendorCity"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_vendorState">Vendor State</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vendorState"
+            id="field_vendorState"
+            data-cy="vendorState"
+            formControlName="vendorState"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_vendorZip">Vendor Zip</label>
+          <input type="text" class="form-control" name="vendorZip" id="field_vendorZip" data-cy="vendorZip" formControlName="vendorZip" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_publishedVersionId">Published Version Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="publishedVersionId"
+            id="field_publishedVersionId"
+            data-cy="publishedVersionId"
+            formControlName="publishedVersionId"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_documentVersion">Document Version</label>
+          <input
+            type="text"
+            class="form-control"
+            name="documentVersion"
+            id="field_documentVersion"
+            data-cy="documentVersion"
+            formControlName="documentVersion"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModified">Last Modified</label>
+          <div class="d-flex">
+            <input
+              id="field_lastModified"
+              data-cy="lastModified"
+              type="datetime-local"
+              class="form-control"
+              name="lastModified"
+              formControlName="lastModified"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractingSplst">Contracting Splst</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractingSplst"
+            id="field_contractingSplst"
+            data-cy="contractingSplst"
+            formControlName="contractingSplst"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractingSplstEmail">Contracting Splst Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractingSplstEmail"
+            id="field_contractingSplstEmail"
+            data-cy="contractingSplstEmail"
+            formControlName="contractingSplstEmail"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_source">Source</label>
+          <input type="text" class="form-control" name="source" id="field_source" data-cy="source" formControlName="source" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractDetailsLink">Contract Details Link</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractDetailsLink"
+            id="field_contractDetailsLink"
+            data-cy="contractDetailsLink"
+            formControlName="contractDetailsLink"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractAdministratorName">Contract Administrator Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractAdministratorName"
+            id="field_contractAdministratorName"
+            data-cy="contractAdministratorName"
+            formControlName="contractAdministratorName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractAdministratorEmail">Contract Administrator Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractAdministratorEmail"
+            id="field_contractAdministratorEmail"
+            data-cy="contractAdministratorEmail"
+            formControlName="contractAdministratorEmail"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractAdministratorPhone">Contract Administrator Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractAdministratorPhone"
+            id="field_contractAdministratorPhone"
+            data-cy="contractAdministratorPhone"
+            formControlName="contractAdministratorPhone"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractOfficerPhone">Contract Officer Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractOfficerPhone"
+            id="field_contractOfficerPhone"
+            data-cy="contractOfficerPhone"
+            formControlName="contractOfficerPhone"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cwInternalId">Cw Internal Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="cwInternalId"
+            id="field_cwInternalId"
+            data-cy="cwInternalId"
+            formControlName="cwInternalId"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_corporatePhone">Corporate Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            name="corporatePhone"
+            id="field_corporatePhone"
+            data-cy="corporatePhone"
+            formControlName="corporatePhone"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_corporateEmailAddress">Corporate Email Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="corporateEmailAddress"
+            id="field_corporateEmailAddress"
+            data-cy="corporateEmailAddress"
+            formControlName="corporateEmailAddress"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_recCreatedDate">Rec Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_recCreatedDate"
+              data-cy="recCreatedDate"
+              type="datetime-local"
+              class="form-control"
+              name="recCreatedDate"
+              formControlName="recCreatedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_recUpdatedDate">Rec Updated Date</label>
+          <div class="d-flex">
+            <input
+              id="field_recUpdatedDate"
+              data-cy="recUpdatedDate"
+              type="datetime-local"
+              class="form-control"
+              name="recUpdatedDate"
+              formControlName="recUpdatedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dcsLastModDttm">Dcs Last Mod Dttm</label>
+          <div class="d-flex">
+            <input
+              id="field_dcsLastModDttm"
+              data-cy="dcsLastModDttm"
+              type="datetime-local"
+              class="form-control"
+              name="dcsLastModDttm"
+              formControlName="dcsLastModDttm"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_objectId">Object Id</label>
+          <input type="number" class="form-control" name="objectId" id="field_objectId" data-cy="objectId" formControlName="objectId" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span>Translation missing for entity.action.cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span>Translation missing for entity.action.save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
