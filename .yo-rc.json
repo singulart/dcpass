@@ -1,0 +1,33 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "dcpass",
+    "buildTool": "maven",
+    "cacheProvider": "ehcache",
+    "clientFramework": "angular",
+    "clientTestFrameworks": [],
+    "clientTheme": "brite",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1772658567220,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "enableHibernateCache": true,
+    "enableTranslation": false,
+    "entities": [],
+    "feignClient": null,
+    "jhipsterVersion": "9.0.0-beta.3",
+    "jwtSecretKey": "YjdjZjgzZWU2MDQ1ZjZlZWM5MjAzMTg4NGMzMTY4YmRiMWVjM2FiODVjNzM2YmNlNDFjMDgzNjY0MGU1OTQwMDU2M2I3Y2ZkZTc5MzFiMWRhNGM4OGIwNTk4MWM0NDNiNWNkYmQ4MDVjNDA0YzI2YmM1YjhiMDc5YzhmZThhZDk=",
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "en",
+    "packageName": "io.argorand.poc.dcpass",
+    "prodDatabaseType": "postgresql",
+    "reactive": false,
+    "serverPort": null,
+    "serviceDiscoveryType": null,
+    "syncUserWithIdp": null,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}
