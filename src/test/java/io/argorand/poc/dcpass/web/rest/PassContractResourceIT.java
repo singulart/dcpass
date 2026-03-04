@@ -97,9 +97,8 @@ class PassContractResourceIT {
     private static final String DEFAULT_COMMODITY_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_COMMODITY_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_CURRENT_OPTION_PERIOD = 1;
-    private static final Integer UPDATED_CURRENT_OPTION_PERIOD = 2;
-    private static final Integer SMALLER_CURRENT_OPTION_PERIOD = 1 - 1;
+    private static final String DEFAULT_CURRENT_OPTION_PERIOD = "AAAAAAAAAA";
+    private static final String UPDATED_CURRENT_OPTION_PERIOD = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_TOTAL_OPTION_PERIODS = 1;
     private static final Integer UPDATED_TOTAL_OPTION_PERIODS = 2;
@@ -1638,53 +1637,27 @@ class PassContractResourceIT {
 
     @Test
     @Transactional
-    void getAllPassContractsByCurrentOptionPeriodIsGreaterThanOrEqualToSomething() throws Exception {
+    void getAllPassContractsByCurrentOptionPeriodContainsSomething() throws Exception {
         // Initialize the database
         insertedPassContract = passContractRepository.saveAndFlush(passContract);
 
-        // Get all the passContractList where currentOptionPeriod is greater than or equal to
+        // Get all the passContractList where currentOptionPeriod contains
         defaultPassContractFiltering(
-            "currentOptionPeriod.greaterThanOrEqual=" + DEFAULT_CURRENT_OPTION_PERIOD,
-            "currentOptionPeriod.greaterThanOrEqual=" + UPDATED_CURRENT_OPTION_PERIOD
+            "currentOptionPeriod.contains=" + DEFAULT_CURRENT_OPTION_PERIOD,
+            "currentOptionPeriod.contains=" + UPDATED_CURRENT_OPTION_PERIOD
         );
     }
 
     @Test
     @Transactional
-    void getAllPassContractsByCurrentOptionPeriodIsLessThanOrEqualToSomething() throws Exception {
+    void getAllPassContractsByCurrentOptionPeriodNotContainsSomething() throws Exception {
         // Initialize the database
         insertedPassContract = passContractRepository.saveAndFlush(passContract);
 
-        // Get all the passContractList where currentOptionPeriod is less than or equal to
+        // Get all the passContractList where currentOptionPeriod does not contain
         defaultPassContractFiltering(
-            "currentOptionPeriod.lessThanOrEqual=" + DEFAULT_CURRENT_OPTION_PERIOD,
-            "currentOptionPeriod.lessThanOrEqual=" + SMALLER_CURRENT_OPTION_PERIOD
-        );
-    }
-
-    @Test
-    @Transactional
-    void getAllPassContractsByCurrentOptionPeriodIsLessThanSomething() throws Exception {
-        // Initialize the database
-        insertedPassContract = passContractRepository.saveAndFlush(passContract);
-
-        // Get all the passContractList where currentOptionPeriod is less than
-        defaultPassContractFiltering(
-            "currentOptionPeriod.lessThan=" + UPDATED_CURRENT_OPTION_PERIOD,
-            "currentOptionPeriod.lessThan=" + DEFAULT_CURRENT_OPTION_PERIOD
-        );
-    }
-
-    @Test
-    @Transactional
-    void getAllPassContractsByCurrentOptionPeriodIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        insertedPassContract = passContractRepository.saveAndFlush(passContract);
-
-        // Get all the passContractList where currentOptionPeriod is greater than
-        defaultPassContractFiltering(
-            "currentOptionPeriod.greaterThan=" + SMALLER_CURRENT_OPTION_PERIOD,
-            "currentOptionPeriod.greaterThan=" + DEFAULT_CURRENT_OPTION_PERIOD
+            "currentOptionPeriod.doesNotContain=" + UPDATED_CURRENT_OPTION_PERIOD,
+            "currentOptionPeriod.doesNotContain=" + DEFAULT_CURRENT_OPTION_PERIOD
         );
     }
 

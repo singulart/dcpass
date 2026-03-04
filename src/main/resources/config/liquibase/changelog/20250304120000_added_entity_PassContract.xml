@@ -162,6 +162,15 @@
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+    <changeSet id="20250304120000-2-currentoptionperiod-type" author="jhipster">
+        <modifyDataType tableName="pass_contract" columnName="CURRENTOPTIONPERIOD" newDataType="varchar(255)"/>
+    </changeSet>
+    <changeSet id="20250304120000-3-description-length" author="jhipster">
+        <modifyDataType tableName="pass_contract" columnName="DESCRIPTION" newDataType="varchar(1024)"/>
+    </changeSet>
+    <changeSet id="20250304120000-4-add-id-default" author="jhipster">
+        <addDefaultValue tableName="pass_contract" columnName="id" defaultValueComputed="nextval('pass_contract_seq')" columnDataType="bigint"/>
+    </changeSet>
 
     <!--
         Load sample data generated with Faker.js
@@ -195,7 +204,7 @@
             <column name="MARKETTYPE" type="string"/>
             <column name="COMMODITYCODE" type="string"/>
             <column name="COMMODITYDESCRIPTION" type="string"/>
-            <column name="CURRENTOPTIONPERIOD" type="numeric"/>
+            <column name="CURRENTOPTIONPERIOD" type="string"/>
             <column name="TOTALOPTIONPERIODS" type="numeric"/>
             <column name="SUPPLIER" type="string"/>
             <column name="DESCRIPTION" type="string"/>

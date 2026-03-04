@@ -90,7 +90,7 @@ public class PassContractQueryService extends QueryService<PassContract> {
                 buildStringSpecification(criteria.getMarketType(), PassContract_.marketType),
                 buildStringSpecification(criteria.getCommodityCode(), PassContract_.commodityCode),
                 buildStringSpecification(criteria.getCommodityDescription(), PassContract_.commodityDescription),
-                buildRangeSpecification(criteria.getCurrentOptionPeriod(), PassContract_.currentOptionPeriod),
+                buildStringSpecification(criteria.getCurrentOptionPeriod(), PassContract_.currentOptionPeriod),
                 buildRangeSpecification(criteria.getTotalOptionPeriods(), PassContract_.totalOptionPeriods),
                 buildStringSpecification(criteria.getSupplier(), PassContract_.supplier),
                 buildStringSpecification(criteria.getDescription(), PassContract_.description),

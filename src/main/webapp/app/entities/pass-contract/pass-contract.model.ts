@@ -19,7 +19,7 @@ export interface IPassContract {
   marketType?: string | null;
   commodityCode?: string | null;
   commodityDescription?: string | null;
-  currentOptionPeriod?: number | null;
+  currentOptionPeriod?: string | null;
   totalOptionPeriods?: number | null;
   supplier?: string | null;
   description?: string | null;

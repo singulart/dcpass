@@ -79,7 +79,7 @@ public class PassContract implements Serializable {
     private String commodityDescription;
 
     @Column(name = "CURRENTOPTIONPERIOD")
-    private Integer currentOptionPeriod;
+    private String currentOptionPeriod;
 
     @Column(name = "TOTALOPTIONPERIODS")
     private Integer totalOptionPeriods;
@@ -398,16 +398,16 @@ public class PassContract implements Serializable {
         this.commodityDescription = commodityDescription;
     }
 
-    public Integer getCurrentOptionPeriod() {
+    public String getCurrentOptionPeriod() {
         return this.currentOptionPeriod;
     }
 
-    public PassContract currentOptionPeriod(Integer currentOptionPeriod) {
+    public PassContract currentOptionPeriod(String currentOptionPeriod) {
         this.setCurrentOptionPeriod(currentOptionPeriod);
         return this;
     }
 
-    public void setCurrentOptionPeriod(Integer currentOptionPeriod) {
+    public void setCurrentOptionPeriod(String currentOptionPeriod) {
         this.currentOptionPeriod = currentOptionPeriod;
     }
 
@@ -803,7 +803,7 @@ public class PassContract implements Serializable {
             ", marketType='" + getMarketType() + "'" +
             ", commodityCode='" + getCommodityCode() + "'" +
             ", commodityDescription='" + getCommodityDescription() + "'" +
-            ", currentOptionPeriod=" + getCurrentOptionPeriod() +
+            ", currentOptionPeriod='" + getCurrentOptionPeriod() + "'" +
             ", totalOptionPeriods=" + getTotalOptionPeriods() +
             ", supplier='" + getSupplier() + "'" +
             ", description='" + getDescription() + "'" +

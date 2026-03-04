@@ -48,7 +48,7 @@ public class PassContractDTO implements Serializable {
 
     private String commodityDescription;
 
-    private Integer currentOptionPeriod;
+    private String currentOptionPeriod;
 
     private Integer totalOptionPeriods;
 
@@ -248,11 +248,11 @@ public class PassContractDTO implements Serializable {
         this.commodityDescription = commodityDescription;
     }
 
-    public Integer getCurrentOptionPeriod() {
+    public String getCurrentOptionPeriod() {
         return currentOptionPeriod;
     }
 
-    public void setCurrentOptionPeriod(Integer currentOptionPeriod) {
+    public void setCurrentOptionPeriod(String currentOptionPeriod) {
         this.currentOptionPeriod = currentOptionPeriod;
     }
 
@@ -515,7 +515,7 @@ public class PassContractDTO implements Serializable {
             ", marketType='" + getMarketType() + "'" +
             ", commodityCode='" + getCommodityCode() + "'" +
             ", commodityDescription='" + getCommodityDescription() + "'" +
-            ", currentOptionPeriod=" + getCurrentOptionPeriod() +
+            ", currentOptionPeriod='" + getCurrentOptionPeriod() + "'" +
             ", totalOptionPeriods=" + getTotalOptionPeriods() +
             ", supplier='" + getSupplier() + "'" +
             ", description='" + getDescription() + "'" +

@@ -60,7 +60,7 @@ public class PassContractCriteria implements Serializable, Criteria {
 
     private StringFilter commodityDescription;
 
-    private IntegerFilter currentOptionPeriod;
+    private StringFilter currentOptionPeriod;
 
     private IntegerFilter totalOptionPeriods;
 
@@ -139,7 +139,7 @@ public class PassContractCriteria implements Serializable, Criteria {
         this.marketType = other.optionalMarketType().map(StringFilter::copy).orElse(null);
         this.commodityCode = other.optionalCommodityCode().map(StringFilter::copy).orElse(null);
         this.commodityDescription = other.optionalCommodityDescription().map(StringFilter::copy).orElse(null);
-        this.currentOptionPeriod = other.optionalCurrentOptionPeriod().map(IntegerFilter::copy).orElse(null);
+        this.currentOptionPeriod = other.optionalCurrentOptionPeriod().map(StringFilter::copy).orElse(null);
         this.totalOptionPeriods = other.optionalTotalOptionPeriods().map(IntegerFilter::copy).orElse(null);
         this.supplier = other.optionalSupplier().map(StringFilter::copy).orElse(null);
         this.description = other.optionalDescription().map(StringFilter::copy).orElse(null);
@@ -517,22 +517,22 @@ public class PassContractCriteria implements Serializable, Criteria {
         this.commodityDescription = commodityDescription;
     }
 
-    public IntegerFilter getCurrentOptionPeriod() {
+    public StringFilter getCurrentOptionPeriod() {
         return currentOptionPeriod;
     }
 
-    public Optional<IntegerFilter> optionalCurrentOptionPeriod() {
+    public Optional<StringFilter> optionalCurrentOptionPeriod() {
         return Optional.ofNullable(currentOptionPeriod);
     }
 
-    public IntegerFilter currentOptionPeriod() {
+    public StringFilter currentOptionPeriod() {
         if (currentOptionPeriod == null) {
-            setCurrentOptionPeriod(new IntegerFilter());
+            setCurrentOptionPeriod(new StringFilter());
         }
         return currentOptionPeriod;
     }
 
-    public void setCurrentOptionPeriod(IntegerFilter currentOptionPeriod) {
+    public void setCurrentOptionPeriod(StringFilter currentOptionPeriod) {
         this.currentOptionPeriod = currentOptionPeriod;
     }
 
