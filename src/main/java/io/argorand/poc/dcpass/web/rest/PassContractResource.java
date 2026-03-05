@@ -165,7 +165,7 @@ public class PassContractResource {
         Pageable pageableToUse = pageable;
         if (q != null && !q.isBlank()) {
             String escapedQuery = q.trim().replace("'", "''");
-            Sort relevanceSort = JpaSort.unsafe("pass_contract_fts_rank(search_vector, '" + escapedQuery + "') DESC");
+            Sort relevanceSort = JpaSort.unsafe("pass_contract_fts_rank(searchVector, '" + escapedQuery + "') DESC");
             pageableToUse = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),

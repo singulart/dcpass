@@ -26,6 +26,24 @@
 
   <jhi-filter [filters]="filters" />
 
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <label for="search" class="form-label mb-0">Search</label>
+    <input
+      id="search"
+      type="text"
+      class="form-control"
+      style="max-width: 20rem"
+      placeholder="Enter keyword or keywords..."
+      [(ngModel)]="searchInput"
+      (keydown.enter)="onSearch()"
+      data-cy="searchInput"
+    />
+    <button type="button" class="btn btn-secondary" (click)="onSearch()" data-cy="searchButton">
+      <fa-icon icon="search" />
+      <span class="ms-1">Search</span>
+    </button>
+  </div>
+
   @if (passContracts().length === 0) {
     <div class="alert alert-warning" id="no-result">
       <span>No Pass Contracts found</span>

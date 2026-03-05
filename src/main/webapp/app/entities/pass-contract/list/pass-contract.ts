@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, combineLatest, filter, finalize, tap } from 'rxjs';
 
-import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigation.constants';
+import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
 import { Alert } from 'app/shared/alert/alert';
 import { AlertError } from 'app/shared/alert/alert-error';
@@ -44,6 +44,7 @@ export class PassContract implements OnInit {
 
   sortState = sortStateSignal({});
   filters: IFilterOptions = new FilterOptions();
+  searchInput = '';
 
   itemsPerPage = signal(ITEMS_PER_PAGE);
   totalItems = signal(0);
@@ -97,6 +98,7 @@ export class PassContract implements OnInit {
     this.page.set(+(page ?? 1));
     this.sortState.set(this.sortService.parseSortParam(params.get(SORT) ?? data[DEFAULT_SORT_DATA]));
     this.filters.initializeFromParams(params);
+    this.searchInput = params.get(SEARCH_QUERY_PARAM) ?? '';
   }
 
   protected onResponseSuccess(response: EntityArrayResponseType): void {
@@ -121,18 +123,26 @@ export class PassContract implements OnInit {
       size: this.itemsPerPage(),
       sort: this.sortService.buildSortParam(this.sortState()),
     };
+    if (this.searchInput?.trim()) {
+      queryObject[SEARCH_QUERY_PARAM] = this.searchInput.trim();
+    }
     for (const filterOption of this.filters.filterOptions) {
       queryObject[filterOption.name] = filterOption.values;
     }
     return this.passContractService.query(queryObject).pipe(finalize(() => this.isLoading.set(false)));
   }
 
-  protected handleNavigation(page: number, sortState: SortState, filterOptions?: IFilterOption[]): void {
+  protected handleNavigation(page: number, sortState: SortState, filterOptions?: IFilterOption[], searchOverride?: string): void {
     const queryParamsObj: any = {
       page,
       size: this.itemsPerPage(),
       sort: this.sortService.buildSortParam(sortState),
     };
+
+    const searchValue = searchOverride !== undefined ? searchOverride : this.searchInput;
+    if (searchValue?.trim()) {
+      queryParamsObj[SEARCH_QUERY_PARAM] = searchValue.trim();
+    }
 
     if (filterOptions) {
       for (const filterOption of filterOptions) {
@@ -144,5 +154,9 @@ export class PassContract implements OnInit {
       relativeTo: this.activatedRoute,
       queryParams: queryParamsObj,
     });
+  }
+
+  onSearch(): void {
+    this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
   }
 }
