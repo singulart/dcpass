@@ -12,7 +12,6 @@ const passContractRoute: Routes = [
     data: {
       defaultSort: `id,${ASC}`,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
@@ -20,7 +19,6 @@ const passContractRoute: Routes = [
     resolve: {
       passContract: PassContractResolve,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',

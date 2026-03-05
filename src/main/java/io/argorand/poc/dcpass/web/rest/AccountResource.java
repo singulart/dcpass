@@ -1,21 +1,17 @@
 package io.argorand.poc.dcpass.web.rest;
 
+import io.argorand.poc.dcpass.config.Constants;
 import io.argorand.poc.dcpass.domain.User;
 import io.argorand.poc.dcpass.repository.UserRepository;
 import io.argorand.poc.dcpass.security.SecurityUtils;
-import io.argorand.poc.dcpass.service.MailService;
 import io.argorand.poc.dcpass.service.UserService;
 import io.argorand.poc.dcpass.service.dto.AdminUserDTO;
 import io.argorand.poc.dcpass.service.dto.PasswordChangeDTO;
 import io.argorand.poc.dcpass.web.rest.errors.*;
 import io.argorand.poc.dcpass.web.rest.vm.KeyAndPasswordVM;
-import io.argorand.poc.dcpass.web.rest.vm.ManagedUserVM;
 import jakarta.validation.Valid;
 import java.util.*;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,50 +28,13 @@ public class AccountResource {
         }
     }
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountResource.class);
-
     private final UserRepository userRepository;
 
     private final UserService userService;
 
-    private final MailService mailService;
-
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
         this.userService = userService;
-        this.mailService = mailService;
-    }
-
-    /**
-     * {@code POST  /register} : register the user.
-     *
-     * @param managedUserVM the managed user View Model.
-     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
-     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
-     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
-     */
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
-        if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
-            throw new InvalidPasswordException();
-        }
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
-    }
-
-    /**
-     * {@code GET  /activate} : activate the registered user.
-     *
-     * @param key the activation key.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be activated.
-     */
-    @GetMapping("/activate")
-    public void activateAccount(@RequestParam(value = "key") String key) {
-        Optional<User> user = userService.activateRegistration(key);
-        if (!user.isPresent()) {
-            throw new AccountResourceException("No user was found for this activation key");
-        }
     }
 
     /**
@@ -136,24 +95,8 @@ public class AccountResource {
     }
 
     /**
-     * {@code POST   /account/reset-password/init} : Send an email to reset the password of the user.
-     *
-     * @param mail the mail of the user.
-     */
-    @PostMapping(path = "/account/reset-password/init")
-    public void requestPasswordReset(@RequestBody String mail) {
-        Optional<User> user = userService.requestPasswordReset(mail);
-        if (user.isPresent()) {
-            mailService.sendPasswordResetMail(user.orElseThrow());
-        } else {
-            // Pretend the request has been successful to prevent checking which emails really exist
-            // but log that an invalid attempt has been made
-            LOG.warn("Password reset requested for non existing mail");
-        }
-    }
-
-    /**
      * {@code POST   /account/reset-password/finish} : Finish to reset the password of the user.
+     * Used when user clicks link from creation email (admin-created users) to set initial password.
      *
      * @param keyAndPassword the generated key and the new password.
      * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
@@ -174,8 +117,8 @@ public class AccountResource {
     private static boolean isPasswordLengthInvalid(String password) {
         return (
             StringUtils.isEmpty(password) ||
-            password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
-            password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
+            password.length() < Constants.PASSWORD_MIN_LENGTH ||
+            password.length() > Constants.PASSWORD_MAX_LENGTH
         );
     }
 }

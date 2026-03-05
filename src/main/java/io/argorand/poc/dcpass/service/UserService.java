@@ -5,7 +5,6 @@ import io.argorand.poc.dcpass.domain.Authority;
 import io.argorand.poc.dcpass.domain.User;
 import io.argorand.poc.dcpass.repository.AuthorityRepository;
 import io.argorand.poc.dcpass.repository.UserRepository;
-import io.argorand.poc.dcpass.security.AuthoritiesConstants;
 import io.argorand.poc.dcpass.security.SecurityUtils;
 import io.argorand.poc.dcpass.service.dto.AdminUserDTO;
 import io.argorand.poc.dcpass.service.dto.UserDTO;
@@ -18,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,20 +51,6 @@ public class UserService {
         this.cacheManager = cacheManager;
     }
 
-    public Optional<User> activateRegistration(String key) {
-        LOG.debug("Activating user for activation key {}", key);
-        return userRepository
-            .findOneByActivationKey(key)
-            .map(user -> {
-                // activate given user for the registration key.
-                user.setActivated(true);
-                user.setActivationKey(null);
-                this.clearUserCaches(user);
-                LOG.debug("Activated user: {}", user);
-                return user;
-            });
-    }
-
     public Optional<User> completePasswordReset(String newPassword, String key) {
         LOG.debug("Reset user password for reset key {}", key);
         return userRepository
@@ -79,70 +63,6 @@ public class UserService {
                 this.clearUserCaches(user);
                 return user;
             });
-    }
-
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository
-            .findOneByEmailIgnoreCase(mail)
-            .filter(User::isActivated)
-            .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(Instant.now());
-                this.clearUserCaches(user);
-                return user;
-            });
-    }
-
-    public User registerUser(AdminUserDTO userDTO, String password) {
-        userRepository
-            .findOneByLogin(userDTO.getLogin().toLowerCase())
-            .ifPresent(existingUser -> {
-                boolean removed = removeNonActivatedUser(existingUser);
-                if (!removed) {
-                    throw new UsernameAlreadyUsedException();
-                }
-            });
-        userRepository
-            .findOneByEmailIgnoreCase(userDTO.getEmail())
-            .ifPresent(existingUser -> {
-                boolean removed = removeNonActivatedUser(existingUser);
-                if (!removed) {
-                    throw new EmailAlreadyUsedException();
-                }
-            });
-        User newUser = new User();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(userDTO.getLogin().toLowerCase());
-        // new user gets initially a generated password
-        newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(userDTO.getFirstName());
-        newUser.setLastName(userDTO.getLastName());
-        if (userDTO.getEmail() != null) {
-            newUser.setEmail(userDTO.getEmail().toLowerCase());
-        }
-        newUser.setImageUrl(userDTO.getImageUrl());
-        newUser.setLangKey(userDTO.getLangKey());
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
-        newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
-        this.clearUserCaches(newUser);
-        LOG.debug("Created Information for User: {}", newUser);
-        return newUser;
-    }
-
-    private boolean removeNonActivatedUser(User existingUser) {
-        if (existingUser.isActivated()) {
-            return false;
-        }
-        userRepository.delete(existingUser);
-        userRepository.flush();
-        this.clearUserCaches(existingUser);
-        return true;
     }
 
     public User createUser(AdminUserDTO userDTO) {
@@ -288,22 +208,6 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
-    }
-
-    /**
-     * Not activated users should be automatically deleted after 3 days.
-     * <p>
-     * This is scheduled to get fired every day, at 01:00 (am).
-     */
-    @Scheduled(cron = "0 0 1 * * ?")
-    public void removeNotActivatedUsers() {
-        userRepository
-            .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
-            .forEach(user -> {
-                LOG.debug("Deleting not activated user {}", user.getLogin());
-                userRepository.delete(user);
-                this.clearUserCaches(user);
-            });
     }
 
     /**
