@@ -220,69 +220,6 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
-            <th scope="col" jhiSortBy="id">
-              <div class="d-flex">
-                <span>Id</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="procurementMethodDescription">
-              <div class="d-flex">
-                <span>Procurement Method Description</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="agencyAcronym">
-              <div class="d-flex">
-                <span>Agency Acronym</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="agencyName">
-              <div class="d-flex">
-                <span>Agency Name</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="rowId">
-              <div class="d-flex">
-                <span>Row Id</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="agency">
-              <div class="d-flex">
-                <span>Agency</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="awardDate">
-              <div class="d-flex">
-                <span>Award Date</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractAmount">
-              <div class="d-flex">
-                <span>Contract Amount</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="endDate">
-              <div class="d-flex">
-                <span>End Date</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
             <th scope="col" jhiSortBy="contractNumber">
               <div class="d-flex">
                 <span>Contract Number</span>
@@ -290,9 +227,16 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="startDate">
+            <th scope="col" jhiSortBy="agencyAcronym">
               <div class="d-flex">
-                <span>Start Date</span>
+                <span>Agency</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAmount">
+              <div class="d-flex">
+                <span>Amount</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
@@ -311,9 +255,30 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="contractingOfficer">
+            <th scope="col" jhiSortBy="description">
               <div class="d-flex">
-                <span>Contracting Officer</span>
+                <span>Description</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="awardDate">
+              <div class="d-flex">
+                <span>Award Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startDate">
+              <div class="d-flex">
+                <span>Start Date</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endDate">
+              <div class="d-flex">
+                <span>End Date</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
@@ -325,13 +290,6 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="marketType">
-              <div class="d-flex">
-                <span>Market Type</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
             <th scope="col" jhiSortBy="commodityCode">
               <div class="d-flex">
                 <span>Commodity Code</span>
@@ -339,9 +297,51 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="commodityDescription">
+            <th scope="col" jhiSortBy="contractTypeDescription">
               <div class="d-flex">
-                <span>Commodity Description</span>
+                <span>Type</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="supplier">
+              <div class="d-flex">
+                <span>Supplier</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vendorAddress">
+              <div class="d-flex">
+                <span>Vendor Address</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="corporatePhone">
+              <div class="d-flex">
+                <span>Corporate Phone</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingOfficer">
+              <div class="d-flex">
+                <span>Contracting Officer</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractingSplst">
+              <div class="d-flex">
+                <span>Specialist</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractAdministratorName">
+              <div class="d-flex">
+                <span>Administrator</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
@@ -360,177 +360,16 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="supplier">
+            <th scope="col" jhiSortBy="procurementMethodDescription">
               <div class="d-flex">
-                <span>Supplier</span>
+                <span>Procurement Method Description</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="description">
+            <th scope="col" jhiSortBy="marketType">
               <div class="d-flex">
-                <span>Description</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractTypeDescription">
-              <div class="d-flex">
-                <span>Contract Type Description</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractingOfficerEmail">
-              <div class="d-flex">
-                <span>Contracting Officer Email</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="vendorAddress">
-              <div class="d-flex">
-                <span>Vendor Address</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="vendorCity">
-              <div class="d-flex">
-                <span>Vendor City</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="vendorState">
-              <div class="d-flex">
-                <span>Vendor State</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="vendorZip">
-              <div class="d-flex">
-                <span>Vendor Zip</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="publishedVersionId">
-              <div class="d-flex">
-                <span>Published Version Id</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="documentVersion">
-              <div class="d-flex">
-                <span>Document Version</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="lastModified">
-              <div class="d-flex">
-                <span>Last Modified</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractingSplst">
-              <div class="d-flex">
-                <span>Contracting Splst</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractingSplstEmail">
-              <div class="d-flex">
-                <span>Contracting Splst Email</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="source">
-              <div class="d-flex">
-                <span>Source</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractDetailsLink">
-              <div class="d-flex">
-                <span>Contract Details Link</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractAdministratorName">
-              <div class="d-flex">
-                <span>Contract Administrator Name</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractAdministratorEmail">
-              <div class="d-flex">
-                <span>Contract Administrator Email</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractAdministratorPhone">
-              <div class="d-flex">
-                <span>Contract Administrator Phone</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="contractOfficerPhone">
-              <div class="d-flex">
-                <span>Contract Officer Phone</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="cwInternalId">
-              <div class="d-flex">
-                <span>Cw Internal Id</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="corporatePhone">
-              <div class="d-flex">
-                <span>Corporate Phone</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="corporateEmailAddress">
-              <div class="d-flex">
-                <span>Corporate Email Address</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="recCreatedDate">
-              <div class="d-flex">
-                <span>Rec Created Date</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="recUpdatedDate">
-              <div class="d-flex">
-                <span>Rec Updated Date</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="dcsLastModDttm">
-              <div class="d-flex">
-                <span>Dcs Last Mod Dttm</span>
+                <span>Market Type</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
@@ -549,42 +388,6 @@
           @for (passContract of passContracts(); track trackId(passContract)) {
             <tr data-cy="entityTable">
               <td>
-                <a [routerLink]="['/pass-contract', passContract.id, 'view']">{{ passContract.id }}</a>
-              </td>
-              <td>{{ passContract.procurementMethodDescription }}</td>
-              <td>{{ passContract.agencyAcronym }}</td>
-              <td>{{ passContract.agencyName }}</td>
-              <td>{{ passContract.rowId }}</td>
-              <td>{{ passContract.agency }}</td>
-              <td>{{ passContract.awardDate | formatMediumDate }}</td>
-              <td>{{ passContract.contractAmount }}</td>
-              <td>{{ passContract.endDate | formatMediumDate }}</td>
-              <td>{{ passContract.contractNumber }}</td>
-              <td>{{ passContract.startDate | formatMediumDate }}</td>
-              <td>{{ passContract.contractStatus }}</td>
-              <td>{{ passContract.title }}</td>
-              <td>{{ passContract.contractingOfficer }}</td>
-              <td>{{ passContract.fiscalYear }}</td>
-              <td>{{ passContract.marketType }}</td>
-              <td>{{ passContract.commodityCode }}</td>
-              <td>{{ passContract.commodityDescription }}</td>
-              <td>{{ passContract.currentOptionPeriod }}</td>
-              <td>{{ passContract.totalOptionPeriods }}</td>
-              <td>{{ passContract.supplier }}</td>
-              <td>{{ passContract.description }}</td>
-              <td>{{ passContract.contractTypeDescription }}</td>
-              <td>{{ passContract.contractingOfficerEmail }}</td>
-              <td>{{ passContract.vendorAddress }}</td>
-              <td>{{ passContract.vendorCity }}</td>
-              <td>{{ passContract.vendorState }}</td>
-              <td>{{ passContract.vendorZip }}</td>
-              <td>{{ passContract.publishedVersionId }}</td>
-              <td>{{ passContract.documentVersion }}</td>
-              <td>{{ passContract.lastModified | formatMediumDatetime }}</td>
-              <td>{{ passContract.contractingSplst }}</td>
-              <td>{{ passContract.contractingSplstEmail }}</td>
-              <td>{{ passContract.source }}</td>
-              <td>
                 @if (passContract.contractDetailsLink) {
                   <a
                     [href]="
@@ -595,20 +398,65 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {{ passContract.contractDetailsLink }}
+                    {{ passContract.contractNumber }}
                   </a>
+                } @else {
+                  {{ passContract.contractNumber }}
                 }
               </td>
-              <td>{{ passContract.contractAdministratorName }}</td>
-              <td>{{ passContract.contractAdministratorEmail }}</td>
-              <td>{{ passContract.contractAdministratorPhone }}</td>
-              <td>{{ passContract.contractOfficerPhone }}</td>
-              <td>{{ passContract.cwInternalId }}</td>
+              <td>{{ passContract.agencyAcronym }} {{ passContract.agencyName }} {{ passContract.agency }}</td>
+              <td>{{ passContract.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+              <td>{{ passContract.contractStatus }}</td>
+              <td>{{ passContract.title }}</td>
+              <td [ngbTooltip]="passContract.description ?? ''">
+                {{
+                  (passContract.description?.length ?? 0) > 100
+                    ? passContract.description?.slice(0, 100) + '...'
+                    : (passContract.description ?? '')
+                }}
+              </td>
+              <td>{{ passContract.awardDate | formatMediumDate }}</td>
+              <td>{{ passContract.startDate | formatMediumDate }}</td>
+              <td>{{ passContract.endDate | formatMediumDate }}</td>
+              <td>{{ passContract.fiscalYear }}</td>
+              <td>{{ passContract.commodityCode }} {{ passContract.commodityDescription }}</td>
+              <td>{{ passContract.contractTypeDescription }}</td>
+              <td>
+                @if (passContract.corporateEmailAddress?.trim()) {
+                  <a [href]="'mailto:' + passContract.corporateEmailAddress">{{ passContract.supplier }}</a>
+                } @else {
+                  {{ passContract.supplier }}
+                }
+              </td>
+              <td>
+                {{ passContract.vendorAddress }} {{ passContract.vendorCity }} {{ passContract.vendorState }} {{ passContract.vendorZip }}
+              </td>
               <td>{{ passContract.corporatePhone }}</td>
-              <td>{{ passContract.corporateEmailAddress }}</td>
-              <td>{{ passContract.recCreatedDate | formatMediumDatetime }}</td>
-              <td>{{ passContract.recUpdatedDate | formatMediumDatetime }}</td>
-              <td>{{ passContract.dcsLastModDttm | formatMediumDatetime }}</td>
+              <td>
+                @if (passContract.contractingOfficerEmail?.trim()) {
+                  <a [href]="'mailto:' + passContract.contractingOfficerEmail">{{ passContract.contractingOfficer }}</a>
+                } @else {
+                  {{ passContract.contractingOfficer }}
+                }
+              </td>
+              <td>
+                @if (passContract.contractingSplstEmail?.trim()) {
+                  <a [href]="'mailto:' + passContract.contractingSplstEmail">{{ passContract.contractingSplst }}</a>
+                } @else {
+                  {{ passContract.contractingSplst }}
+                }
+              </td>
+              <td>
+                @if (passContract.contractAdministratorEmail?.trim()) {
+                  <a [href]="'mailto:' + passContract.contractAdministratorEmail">{{ passContract.contractAdministratorName }}</a>
+                } @else {
+                  {{ passContract.contractAdministratorName }}
+                }
+              </td>
+              <td>{{ passContract.currentOptionPeriod }}</td>
+              <td>{{ passContract.totalOptionPeriods }}</td>
+              <td>{{ passContract.procurementMethodDescription }}</td>
+              <td>{{ passContract.marketType }}</td>
               <td>{{ passContract.objectId }}</td>
               <td class="text-end">
                 <div class="btn-group">
