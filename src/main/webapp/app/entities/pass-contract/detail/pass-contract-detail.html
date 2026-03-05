@@ -149,7 +149,19 @@
           </dd>
           <dt><span>Contract Details Link</span></dt>
           <dd>
-            <span>{{ passContractRef.contractDetailsLink }}</span>
+            @if (passContractRef.contractDetailsLink) {
+              <a
+                [href]="
+                  passContractRef.contractDetailsLink.startsWith('http')
+                    ? passContractRef.contractDetailsLink
+                    : 'https://' + passContractRef.contractDetailsLink
+                "
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ passContractRef.contractDetailsLink }}
+              </a>
+            }
           </dd>
           <dt><span>Contract Administrator Name</span></dt>
           <dd>
