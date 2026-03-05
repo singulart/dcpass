@@ -1,4 +1,4 @@
-# dcpass
+# DC PASS (Procurement Automated Support System)
 
 This application was generated using JHipster 9.0.0-beta.3, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v9.0.0-beta.3](https://www.jhipster.tech/documentation-archive/v9.0.0-beta.3).
 

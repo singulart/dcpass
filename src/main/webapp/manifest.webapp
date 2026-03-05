@@ -1,6 +1,6 @@
 {
-  "name": "Dcpass",
-  "short_name": "Dcpass",
+  "name": "dcpass",
+  "short_name": "dcpass",
   "icons": [
     {
       "src": "./content/images/jhipster_family_member_0_head-192.png",

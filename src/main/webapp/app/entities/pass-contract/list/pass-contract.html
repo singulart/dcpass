@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="PassContractHeading">
-    <span>Pass Contracts</span>
+    <span>PASS Contracts</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
@@ -16,7 +16,7 @@
           [routerLink]="['/pass-contract/new']"
         >
           <fa-icon icon="plus" />
-          <span>Create a new Pass Contract</span>
+          <span>Add new</span>
         </button>
       }
     </div>
@@ -48,7 +48,7 @@
 
   @if (passContracts().length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span>No Pass Contracts found</span>
+      <span>No PASS Contracts found</span>
     </div>
   } @else {
     <div class="table-responsive table-entities" id="entities">
@@ -435,18 +435,18 @@
                 <div class="btn-group">
                   <a [routerLink]="['/pass-contract', passContract.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye" />
-                    <span class="d-none d-md-inline">Translation missing for entity.action.view</span>
+                    <span class="d-none d-md-inline">View</span>
                   </a>
 
                   @if (accountService.isAuthenticated()) {
                     <a [routerLink]="['/pass-contract', passContract.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                       <fa-icon icon="pencil-alt" />
-                      <span class="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                      <span class="d-none d-md-inline">Edit</span>
                     </a>
 
                     <button type="submit" (click)="delete(passContract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                       <fa-icon icon="times" />
-                      <span class="d-none d-md-inline">Translation missing for entity.action.delete</span>
+                      <span class="d-none d-md-inline">Delete</span>
                     </button>
                   }
                 </div>

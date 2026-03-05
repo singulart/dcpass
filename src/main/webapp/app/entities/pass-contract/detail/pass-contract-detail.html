@@ -2,7 +2,7 @@
   <div class="col-8">
     @if (passContract(); as passContractRef) {
       <div>
-        <h2 data-cy="passContractDetailsHeading"><span>Pass Contract</span></h2>
+        <h2 data-cy="passContractDetailsHeading"><span>PASS Contracts</span></h2>
 
         <hr />
 
@@ -15,7 +15,7 @@
           <dd>
             <span>{{ passContractRef.id }}</span>
           </dd>
-          <dt><span>Procurement Method Description</span></dt>
+          <dt><span>Procurement Method</span></dt>
           <dd>
             <span>{{ passContractRef.procurementMethodDescription }}</span>
           </dd>
@@ -99,7 +99,7 @@
           <dd>
             <span>{{ passContractRef.description }}</span>
           </dd>
-          <dt><span>Contract Type Description</span></dt>
+          <dt><span>Contract Type</span></dt>
           <dd>
             <span>{{ passContractRef.contractTypeDescription }}</span>
           </dd>
@@ -198,12 +198,12 @@
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left" />&nbsp;<span>Translation missing for entity.action.back</span>
+          <fa-icon icon="arrow-left" />&nbsp;<span>Back</span>
         </button>
 
         @if (accountService.isAuthenticated()) {
           <button type="button" [routerLink]="['/pass-contract', passContractRef.id, 'edit']" class="btn btn-primary">
-            <fa-icon icon="pencil-alt" />&nbsp;<span>Translation missing for entity.action.edit</span>
+            <fa-icon icon="pencil-alt" />&nbsp;<span>Edit</span>
           </button>
         }
       </div>
