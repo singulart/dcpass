@@ -40,7 +40,7 @@
 
     <!-- Helper function for JPA Criteria API (PostgreSQL @@ operator not directly callable from JPA) -->
     <changeSet id="20250304130000-3" author="jhipster" dbms="postgresql">
-        <sql>
+        <sql splitStatements="false">
             CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
             RETURNS boolean AS $$
                 SELECT search_vector @@ plainto_tsquery('english', query);
@@ -50,7 +50,7 @@
     </changeSet>
 
     <changeSet id="20250304130000-4" author="jhipster" dbms="postgresql">
-        <sql>
+        <sql splitStatements="false">
             CREATE OR REPLACE FUNCTION pass_contract_fts_rank(search_vector tsvector, query text)
             RETURNS real AS $$
                 SELECT ts_rank(search_vector, plainto_tsquery('english', query));
