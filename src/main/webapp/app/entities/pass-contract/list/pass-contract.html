@@ -35,7 +35,7 @@
       type="text"
       class="form-control"
       style="max-width: 20rem"
-      placeholder="Enter keyword or keywords..."
+      placeholder="Enter keyword(s)"
       [(ngModel)]="searchInput"
       (keydown.enter)="onSearch()"
       data-cy="searchInput"
@@ -44,6 +44,153 @@
       <fa-icon icon="search" />
       <span class="ms-1">Search</span>
     </button>
+  </div>
+
+  <div class="mb-3">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="advancedSearchCollapsed = !advancedSearchCollapsed"
+      [attr.aria-expanded]="!advancedSearchCollapsed"
+      aria-controls="advancedSearchPanel"
+      data-cy="advancedSearchToggle"
+    >
+      <fa-icon [icon]="advancedSearchCollapsed ? 'chevron-down' : 'chevron-up'" class="me-1" />
+      <span>Advanced Search</span>
+    </button>
+    <div [ngbCollapse]="advancedSearchCollapsed" id="advancedSearchPanel" class="mt-2">
+      <div class="card card-body bg-light">
+        <div class="row g-2 mb-2">
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="awardDateFrom">Award Date From</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="awardDateFrom"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="awardDateFrom"
+                ngbDatepicker
+                #awardDateFromDp="ngbDatepicker"
+                [class.is-invalid]="awardDateRangeValidationError()"
+                data-cy="awardDateFrom"
+              />
+              <button type="button" class="input-group-text" (click)="awardDateFromDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="awardDateTo">Award Date To</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="awardDateTo"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="awardDateTo"
+                ngbDatepicker
+                #awardDateToDp="ngbDatepicker"
+                [class.is-invalid]="awardDateRangeValidationError()"
+                data-cy="awardDateTo"
+              />
+              <button type="button" class="input-group-text" (click)="awardDateToDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="startDateFrom">Start Date From</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="startDateFrom"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="startDateFrom"
+                ngbDatepicker
+                #startDateFromDp="ngbDatepicker"
+                [class.is-invalid]="startDateRangeValidationError()"
+                data-cy="startDateFrom"
+              />
+              <button type="button" class="input-group-text" (click)="startDateFromDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="startDateTo">Start Date To</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="startDateTo"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="startDateTo"
+                ngbDatepicker
+                #startDateToDp="ngbDatepicker"
+                [class.is-invalid]="startDateRangeValidationError()"
+                data-cy="startDateTo"
+              />
+              <button type="button" class="input-group-text" (click)="startDateToDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="endDateFrom">End Date From</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="endDateFrom"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="endDateFrom"
+                ngbDatepicker
+                #endDateFromDp="ngbDatepicker"
+                [class.is-invalid]="endDateRangeValidationError()"
+                data-cy="endDateFrom"
+              />
+              <button type="button" class="input-group-text" (click)="endDateFromDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="endDateTo">End Date To</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="endDateTo"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="endDateTo"
+                ngbDatepicker
+                #endDateToDp="ngbDatepicker"
+                [class.is-invalid]="endDateRangeValidationError()"
+                data-cy="endDateTo"
+              />
+              <button type="button" class="input-group-text" (click)="endDateToDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+        </div>
+        @if (awardDateRangeValidationError()) {
+          <div class="text-danger small mt-1" data-cy="awardDateRangeValidationError">Award Date To must be after Award Date From.</div>
+        }
+        @if (startDateRangeValidationError()) {
+          <div class="text-danger small mt-1" data-cy="startDateRangeValidationError">Start Date To must be after Start Date From.</div>
+        }
+        @if (endDateRangeValidationError()) {
+          <div class="text-danger small mt-1" data-cy="endDateRangeValidationError">End Date To must be after End Date From.</div>
+        }
+      </div>
+    </div>
   </div>
 
   @if (passContracts().length === 0) {

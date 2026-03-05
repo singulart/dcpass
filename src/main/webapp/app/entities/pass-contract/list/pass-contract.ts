@@ -3,11 +3,13 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
+import dayjs from 'dayjs/esm';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, combineLatest, filter, finalize, tap } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
 import { Alert } from 'app/shared/alert/alert';
@@ -47,6 +49,14 @@ export class PassContract implements OnInit {
   filters: IFilterOptions = new FilterOptions();
   searchInput = '';
 
+  advancedSearchCollapsed = true;
+  awardDateFrom: dayjs.Dayjs | null = null;
+  awardDateTo: dayjs.Dayjs | null = null;
+  startDateFrom: dayjs.Dayjs | null = null;
+  startDateTo: dayjs.Dayjs | null = null;
+  endDateFrom: dayjs.Dayjs | null = null;
+  endDateTo: dayjs.Dayjs | null = null;
+
   itemsPerPage = signal(ITEMS_PER_PAGE);
   totalItems = signal(0);
   page = signal(1);
@@ -59,6 +69,31 @@ export class PassContract implements OnInit {
   protected modalService = inject(NgbModal);
 
   trackId = (item: IPassContract): number => this.passContractService.getPassContractIdentifier(item);
+
+  awardDateRangeValidationError(): boolean {
+    if (this.awardDateFrom && this.awardDateTo) {
+      return this.awardDateTo.isBefore(this.awardDateFrom) || this.awardDateTo.isSame(this.awardDateFrom);
+    }
+    return false;
+  }
+
+  startDateRangeValidationError(): boolean {
+    if (this.startDateFrom && this.startDateTo) {
+      return this.startDateTo.isBefore(this.startDateFrom) || this.startDateTo.isSame(this.startDateFrom);
+    }
+    return false;
+  }
+
+  endDateRangeValidationError(): boolean {
+    if (this.endDateFrom && this.endDateTo) {
+      return this.endDateTo.isBefore(this.endDateFrom) || this.endDateTo.isSame(this.endDateFrom);
+    }
+    return false;
+  }
+
+  dateRangeValidationError(): boolean {
+    return this.awardDateRangeValidationError() || this.startDateRangeValidationError() || this.endDateRangeValidationError();
+  }
 
   ngOnInit(): void {
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
@@ -101,6 +136,24 @@ export class PassContract implements OnInit {
     this.sortState.set(this.sortService.parseSortParam(params.get(SORT) ?? data[DEFAULT_SORT_DATA]));
     this.filters.initializeFromParams(params);
     this.searchInput = params.get(SEARCH_QUERY_PARAM) ?? '';
+    const awardDateFromParam = params.get('awardDate.greaterThanOrEqual');
+    const awardDateToParam = params.get('awardDate.lessThanOrEqual');
+    this.awardDateFrom = awardDateFromParam && dayjs(awardDateFromParam).isValid() ? dayjs(awardDateFromParam) : null;
+    this.awardDateTo = awardDateToParam && dayjs(awardDateToParam).isValid() ? dayjs(awardDateToParam) : null;
+
+    const startDateFromParam = params.get('startDate.greaterThanOrEqual');
+    const startDateToParam = params.get('startDate.lessThanOrEqual');
+    this.startDateFrom = startDateFromParam && dayjs(startDateFromParam).isValid() ? dayjs(startDateFromParam) : null;
+    this.startDateTo = startDateToParam && dayjs(startDateToParam).isValid() ? dayjs(startDateToParam) : null;
+
+    const endDateFromParam = params.get('endDate.greaterThanOrEqual');
+    const endDateToParam = params.get('endDate.lessThanOrEqual');
+    this.endDateFrom = endDateFromParam && dayjs(endDateFromParam).isValid() ? dayjs(endDateFromParam) : null;
+    this.endDateTo = endDateToParam && dayjs(endDateToParam).isValid() ? dayjs(endDateToParam) : null;
+
+    if (this.awardDateFrom || this.awardDateTo || this.startDateFrom || this.startDateTo || this.endDateFrom || this.endDateTo) {
+      this.advancedSearchCollapsed = false;
+    }
   }
 
   protected onResponseSuccess(response: EntityArrayResponseType): void {
@@ -128,6 +181,26 @@ export class PassContract implements OnInit {
     if (this.searchInput?.trim()) {
       queryObject[SEARCH_QUERY_PARAM] = this.searchInput.trim();
     }
+    if (!this.dateRangeValidationError()) {
+      if (this.awardDateFrom?.isValid()) {
+        queryObject['awardDate.greaterThanOrEqual'] = this.awardDateFrom.format(DATE_FORMAT);
+      }
+      if (this.awardDateTo?.isValid()) {
+        queryObject['awardDate.lessThanOrEqual'] = this.awardDateTo.format(DATE_FORMAT);
+      }
+      if (this.startDateFrom?.isValid()) {
+        queryObject['startDate.greaterThanOrEqual'] = this.startDateFrom.format(DATE_FORMAT);
+      }
+      if (this.startDateTo?.isValid()) {
+        queryObject['startDate.lessThanOrEqual'] = this.startDateTo.format(DATE_FORMAT);
+      }
+      if (this.endDateFrom?.isValid()) {
+        queryObject['endDate.greaterThanOrEqual'] = this.endDateFrom.format(DATE_FORMAT);
+      }
+      if (this.endDateTo?.isValid()) {
+        queryObject['endDate.lessThanOrEqual'] = this.endDateTo.format(DATE_FORMAT);
+      }
+    }
     for (const filterOption of this.filters.filterOptions) {
       queryObject[filterOption.name] = filterOption.values;
     }
@@ -146,6 +219,27 @@ export class PassContract implements OnInit {
       queryParamsObj[SEARCH_QUERY_PARAM] = searchValue.trim();
     }
 
+    if (!this.dateRangeValidationError()) {
+      if (this.awardDateFrom?.isValid()) {
+        queryParamsObj['awardDate.greaterThanOrEqual'] = this.awardDateFrom.format(DATE_FORMAT);
+      }
+      if (this.awardDateTo?.isValid()) {
+        queryParamsObj['awardDate.lessThanOrEqual'] = this.awardDateTo.format(DATE_FORMAT);
+      }
+      if (this.startDateFrom?.isValid()) {
+        queryParamsObj['startDate.greaterThanOrEqual'] = this.startDateFrom.format(DATE_FORMAT);
+      }
+      if (this.startDateTo?.isValid()) {
+        queryParamsObj['startDate.lessThanOrEqual'] = this.startDateTo.format(DATE_FORMAT);
+      }
+      if (this.endDateFrom?.isValid()) {
+        queryParamsObj['endDate.greaterThanOrEqual'] = this.endDateFrom.format(DATE_FORMAT);
+      }
+      if (this.endDateTo?.isValid()) {
+        queryParamsObj['endDate.lessThanOrEqual'] = this.endDateTo.format(DATE_FORMAT);
+      }
+    }
+
     if (filterOptions) {
       for (const filterOption of filterOptions) {
         queryParamsObj[filterOption.nameAsQueryParam()] = filterOption.values;
@@ -159,6 +253,9 @@ export class PassContract implements OnInit {
   }
 
   onSearch(): void {
+    if (this.dateRangeValidationError()) {
+      return;
+    }
     this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
   }
 }
