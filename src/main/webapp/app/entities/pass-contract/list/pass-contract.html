@@ -408,12 +408,14 @@
               <td>{{ passContract.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
               <td>{{ passContract.contractStatus }}</td>
               <td>{{ passContract.title }}</td>
-              <td [ngbTooltip]="passContract.description ?? ''">
-                {{
-                  (passContract.description?.length ?? 0) > 100
-                    ? passContract.description?.slice(0, 100) + '...'
-                    : (passContract.description ?? '')
-                }}
+              <td class="description-cell">
+                <span [class.description-tooltip]="!!passContract.description" [attr.data-tooltip]="passContract.description ?? ''">
+                  {{
+                    (passContract.description?.length ?? 0) > 100
+                      ? passContract.description?.slice(0, 100) + '...'
+                      : (passContract.description ?? '')
+                  }}
+                </span>
               </td>
               <td>{{ passContract.awardDate | formatMediumDate }}</td>
               <td>{{ passContract.startDate | formatMediumDate }}</td>

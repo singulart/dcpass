@@ -136,6 +136,40 @@ entity list page css
   margin: auto 0;
 }
 
+/* Custom tooltip for truncated description - no layout shift */
+.description-cell {
+  overflow: visible;
+}
+
+.description-cell .description-tooltip {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  cursor: help;
+}
+
+.description-cell .description-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: #333;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-width: 300px;
+  max-width: 600px;
+  width: max-content;
+  z-index: 9999;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* ==========================================================================
 entity detail page css
 ========================================================================== */

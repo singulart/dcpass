@@ -6,7 +6,7 @@ import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/rou
 
 import dayjs from 'dayjs/esm';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModal, NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, combineLatest, filter, finalize, tap } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -31,7 +31,6 @@ import { EntityArrayResponseType, PassContractService } from '../service/pass-co
     FormsModule,
     FontAwesomeModule,
     NgbModule,
-    NgbTooltip,
     AlertError,
     Alert,
     SortDirective,
