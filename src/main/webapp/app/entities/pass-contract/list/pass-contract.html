@@ -3,11 +3,6 @@
     <span>PASS Contracts</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
-        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
-        <span>Refresh list</span>
-      </button>
-
       @if (accountService.isAuthenticated()) {
         <button
           id="jh-create-entity"
