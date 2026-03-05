@@ -162,6 +162,10 @@ public class PassContract implements Serializable {
     @Column(name = "OBJECTID")
     private Long objectId;
 
+    @Column(name = "search_vector", insertable = false, updatable = false)
+    @org.hibernate.annotations.JdbcTypeCode(java.sql.Types.OTHER)
+    private Object searchVector;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

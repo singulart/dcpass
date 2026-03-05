@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Add full-text search support for pass_contract.
+        Creates a generated tsvector column combining searchable text fields and a GIN index for fast lookups.
+    -->
+    <changeSet id="20250304130000-1" author="jhipster" dbms="postgresql">
+        <sql>
+            ALTER TABLE pass_contract ADD COLUMN search_vector tsvector
+            GENERATED ALWAYS AS (
+                setweight(to_tsvector('english', coalesce(TITLE, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(DESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_NAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_ACRONYM, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(SUPPLIER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYCODE, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYDESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTNUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTTYPEDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(PROCUREMENTMETHODDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTINGOFFICER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATORNAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATOREMAIL, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CORPORATEEMAILADDRESS, '')), 'B')
+            ) STORED;
+        </sql>
+        <rollback>
+            ALTER TABLE pass_contract DROP COLUMN IF EXISTS search_vector;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20250304130000-2" author="jhipster" dbms="postgresql">
+        <sql>CREATE INDEX idx_pass_contract_search_vector_gin ON pass_contract USING GIN (search_vector);</sql>
+        <rollback>DROP INDEX IF EXISTS idx_pass_contract_search_vector_gin;</rollback>
+    </changeSet>
+
+    <!-- Helper function for JPA Criteria API (PostgreSQL @@ operator not directly callable from JPA) -->
+    <changeSet id="20250304130000-3" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
+            RETURNS boolean AS $$
+                SELECT search_vector @@ plainto_tsquery('english', query);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>DROP FUNCTION IF EXISTS pass_contract_fts_match(tsvector, text);</rollback>
+    </changeSet>
+
+    <changeSet id="20250304130000-4" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_contract_fts_rank(search_vector tsvector, query text)
+            RETURNS real AS $$
+                SELECT ts_rank(search_vector, plainto_tsquery('english', query));
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>DROP FUNCTION IF EXISTS pass_contract_fts_rank(tsvector, text);</rollback>
+    </changeSet>
+</databaseChangeLog>

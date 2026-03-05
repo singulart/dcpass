@@ -117,9 +117,25 @@ public class PassContractQueryService extends QueryService<PassContract> {
                 buildRangeSpecification(criteria.getRecCreatedDate(), PassContract_.recCreatedDate),
                 buildRangeSpecification(criteria.getRecUpdatedDate(), PassContract_.recUpdatedDate),
                 buildRangeSpecification(criteria.getDcsLastModDttm(), PassContract_.dcsLastModDttm),
-                buildRangeSpecification(criteria.getObjectId(), PassContract_.objectId)
+                buildRangeSpecification(criteria.getObjectId(), PassContract_.objectId),
+                buildFullTextSearchSpecification(criteria.getSearch())
             );
         }
         return specification;
+    }
+
+    /**
+     * Builds a Specification for PostgreSQL full-text search when search query is present.
+     * Uses pass_contract_fts_match(tsvector, text) helper function.
+     */
+    private Specification<PassContract> buildFullTextSearchSpecification(String searchQuery) {
+        if (searchQuery == null || searchQuery.isBlank()) {
+            return Specification.unrestricted();
+        }
+        return (root, query, cb) -> {
+            return cb.isTrue(
+                cb.function("pass_contract_fts_match", Boolean.class, root.get("searchVector"), cb.literal(searchQuery.trim()))
+            );
+        };
     }
 }
