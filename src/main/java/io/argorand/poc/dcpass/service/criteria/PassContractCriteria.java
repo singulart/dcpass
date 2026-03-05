@@ -116,6 +116,8 @@ public class PassContractCriteria implements Serializable, Criteria {
 
     private LongFilter objectId;
 
+    private String search;
+
     private Boolean distinct;
 
     public PassContractCriteria() {}
@@ -167,12 +169,18 @@ public class PassContractCriteria implements Serializable, Criteria {
         this.recUpdatedDate = other.optionalRecUpdatedDate().map(InstantFilter::copy).orElse(null);
         this.dcsLastModDttm = other.optionalDcsLastModDttm().map(InstantFilter::copy).orElse(null);
         this.objectId = other.optionalObjectId().map(LongFilter::copy).orElse(null);
+        this.search = other.search;
         this.distinct = other.distinct;
     }
 
     @Override
     public PassContractCriteria copy() {
         return new PassContractCriteria(this);
+    }
+
+    public PassContractCriteria search(String search) {
+        this.search = search;
+        return this;
     }
 
     public LongFilter getId() {
@@ -1049,6 +1057,18 @@ public class PassContractCriteria implements Serializable, Criteria {
         this.objectId = objectId;
     }
 
+    public String getSearch() {
+        return search;
+    }
+
+    public Optional<String> optionalSearch() {
+        return Optional.ofNullable(search);
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -1124,6 +1144,7 @@ public class PassContractCriteria implements Serializable, Criteria {
             Objects.equals(recUpdatedDate, that.recUpdatedDate) &&
             Objects.equals(dcsLastModDttm, that.dcsLastModDttm) &&
             Objects.equals(objectId, that.objectId) &&
+            Objects.equals(search, that.search) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -1177,6 +1198,7 @@ public class PassContractCriteria implements Serializable, Criteria {
             recUpdatedDate,
             dcsLastModDttm,
             objectId,
+            search,
             distinct
         );
     }
@@ -1231,6 +1253,7 @@ public class PassContractCriteria implements Serializable, Criteria {
             optionalRecUpdatedDate().map(f -> "recUpdatedDate=" + f + ", ").orElse("") +
             optionalDcsLastModDttm().map(f -> "dcsLastModDttm=" + f + ", ").orElse("") +
             optionalObjectId().map(f -> "objectId=" + f + ", ").orElse("") +
+            optionalSearch().map(s -> "search=" + s + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }

@@ -33,7 +33,9 @@ class PassContractCriteriaTest {
         assertThat(passContractCriteria).satisfies(
             criteria ->
                 assertThat(criteria).is(
-                    copyFiltersAre(copy, (a, b) -> (a == null || a instanceof Boolean) ? a == b : (a != b && a.equals(b)))
+                    copyFiltersAre(copy, (a, b) ->
+                        (a == null || a instanceof Boolean) ? a == b : (a instanceof String ? a.equals(b) : (a != b && a.equals(b)))
+                    )
                 ),
             criteria -> assertThat(criteria).isEqualTo(copy),
             criteria -> assertThat(criteria).hasSameHashCodeAs(copy)
@@ -55,7 +57,9 @@ class PassContractCriteriaTest {
         assertThat(passContractCriteria).satisfies(
             criteria ->
                 assertThat(criteria).is(
-                    copyFiltersAre(copy, (a, b) -> (a == null || a instanceof Boolean) ? a == b : (a != b && a.equals(b)))
+                    copyFiltersAre(copy, (a, b) ->
+                        (a == null || a instanceof Boolean) ? a == b : (a instanceof String ? a.equals(b) : (a != b && a.equals(b)))
+                    )
                 ),
             criteria -> assertThat(criteria).isEqualTo(copy),
             criteria -> assertThat(criteria).hasSameHashCodeAs(copy)
@@ -121,6 +125,7 @@ class PassContractCriteriaTest {
         passContractCriteria.recUpdatedDate();
         passContractCriteria.dcsLastModDttm();
         passContractCriteria.objectId();
+        passContractCriteria.search("test");
         passContractCriteria.distinct();
     }
 
@@ -173,6 +178,7 @@ class PassContractCriteriaTest {
                 condition.apply(criteria.getRecUpdatedDate()) &&
                 condition.apply(criteria.getDcsLastModDttm()) &&
                 condition.apply(criteria.getObjectId()) &&
+                condition.apply(criteria.getSearch()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -230,6 +236,7 @@ class PassContractCriteriaTest {
                 condition.apply(criteria.getRecUpdatedDate(), copy.getRecUpdatedDate()) &&
                 condition.apply(criteria.getDcsLastModDttm(), copy.getDcsLastModDttm()) &&
                 condition.apply(criteria.getObjectId(), copy.getObjectId()) &&
+                condition.apply(criteria.getSearch(), copy.getSearch()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );
