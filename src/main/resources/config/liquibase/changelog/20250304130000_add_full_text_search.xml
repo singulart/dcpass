@@ -18,6 +18,7 @@
                 setweight(to_tsvector('english', coalesce(AGENCY_NAME, '')), 'A') ||
                 setweight(to_tsvector('english', coalesce(AGENCY_ACRONYM, '')), 'B') ||
                 setweight(to_tsvector('english', coalesce(SUPPLIER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYCODE, '')), 'A') ||
                 setweight(to_tsvector('english', coalesce(COMMODITYDESCRIPTION, '')), 'A') ||
                 setweight(to_tsvector('english', coalesce(CONTRACTNUMBER, '')), 'A') ||
                 setweight(to_tsvector('english', coalesce(CONTRACTTYPEDESCRIPTION, '')), 'B') ||
