@@ -44,7 +44,7 @@ describe('Main', () => {
   });
 
   describe('page title', () => {
-    const defaultPageTitle = 'Dcpass';
+    const defaultPageTitle = 'DC PASS Contracts';
     const parentRoutePageTitle = 'parentTitle';
     const childRoutePageTitle = 'childTitle';
 
