@@ -248,6 +248,7 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
+            <version>7.2.1.Patch</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.orm</groupId>
