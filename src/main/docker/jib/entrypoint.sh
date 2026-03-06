@@ -37,4 +37,6 @@ file_env 'SPRING_LIQUIBASE_USER'
 file_env 'SPRING_LIQUIBASE_PASSWORD'
 file_env 'JHIPSTER_REGISTRY_PASSWORD'
 
-exec java ${JAVA_OPTS} -noverify -XX:+AlwaysPreTouch -cp /app/resources/:/app/classes/:/app/libs/* "io.argorand.poc.dcpass.DcpassApp"  "$@"
+JAVA_OPTS="-Xmx384m -Xms256m -XX:MaxMetaspaceSize=96m"
+
+exec java ${JAVA_OPTS} -XX:+AlwaysPreTouch -cp /app/resources/:/app/classes/:/app/libs/* "io.argorand.poc.dcpass.DcpassApp"  "$@"

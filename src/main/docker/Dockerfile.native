@@ -1,0 +1,52 @@
+# Multi-stage Dockerfile for GraalVM native image (forces linux/amd64)
+# Build: docker buildx build --platform linux/amd64 -f src/main/docker/Dockerfile.native -t dcpass:native .
+#
+# Uses QEMU emulation on arm64 Mac - build will be slow (~15-30 min) but produces amd64 image.
+
+# -----------------------------------------------------------------------------
+# Stage 1: Build native binary (must be amd64 for target VM)
+# -----------------------------------------------------------------------------
+FROM ghcr.io/graalvm/native-image-community:25-ol9 AS builder
+
+# Install Maven and Node (required for JHipster frontend build)
+RUN microdnf install -y findutils tar gzip curl && microdnf clean all
+RUN curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.12/binaries/apache-maven-3.9.12-bin.tar.gz | tar xz -C /opt && \
+    ln -sf /opt/apache-maven-3.9.12/bin/mvn /usr/bin/mvn
+RUN curl -sL https://nodejs.org/dist/v24.9.0/node-v24.9.0-linux-x64.tar.gz | tar xz -C /opt && \
+    ln -sf /opt/node-v24.9.0-linux-x64/bin/node /usr/bin/node && \
+    ln -sf /opt/node-v24.9.0-linux-x64/bin/npm /usr/bin/npm
+
+WORKDIR /build
+
+# Copy Maven wrapper, pom, and config (sonar-project.properties required by properties-maven-plugin)
+COPY .mvn .mvn
+COPY mvnw pom.xml sonar-project.properties ./
+
+# Copy patched hibernate-core (build script copies from ~/.m2 to docker-libs/ before build)
+COPY docker-libs/7.2.1.Patch/ /root/.m2/repository/org/hibernate/orm/hibernate-core/7.2.1.Patch/
+
+
+# Copy frontend build files (required for JHipster webapp)
+COPY package.json package-lock.json angular.json tsconfig.json tsconfig.app.json tsconfig.spec.json ./
+COPY build-plugins build-plugins/
+
+# Copy source and build
+COPY src src
+
+# Build native image (skip tests for faster build)
+# Requires Docker to have ~8GB memory (Settings → Resources → Memory)
+RUN ./mvnw -Pnative -Pprod package -DskipTests -B
+
+# -----------------------------------------------------------------------------
+# Stage 2: Minimal runtime image
+# -----------------------------------------------------------------------------
+FROM eclipse-temurin:21-jre-jammy
+WORKDIR /app
+
+COPY --from=builder /build/target/dcpass /app/application
+COPY src/main/docker/jib/entrypoint-native.sh /entrypoint-native.sh
+RUN chmod +x /entrypoint-native.sh
+
+EXPOSE 8080 443
+
+ENTRYPOINT ["/entrypoint-native.sh"]

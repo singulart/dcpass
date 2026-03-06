@@ -132,6 +132,13 @@ export class PassContract implements OnInit {
     this.handleNavigation(page, this.sortState(), this.filters.filterOptions);
   }
 
+  onSearch(): void {
+    if (this.dateRangeValidationError()) {
+      return;
+    }
+    this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
+  }
+
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const page = params.get(PAGE_HEADER);
     this.page.set(+(page ?? 1));
@@ -180,7 +187,7 @@ export class PassContract implements OnInit {
       size: this.itemsPerPage(),
       sort: this.sortService.buildSortParam(this.sortState()),
     };
-    if (this.searchInput?.trim()) {
+    if (this.searchInput.trim()) {
       queryObject[SEARCH_QUERY_PARAM] = this.searchInput.trim();
     }
     if (!this.dateRangeValidationError()) {
@@ -216,8 +223,8 @@ export class PassContract implements OnInit {
       sort: this.sortService.buildSortParam(sortState),
     };
 
-    const searchValue = searchOverride !== undefined ? searchOverride : this.searchInput;
-    if (searchValue?.trim()) {
+    const searchValue = searchOverride ?? this.searchInput;
+    if (searchValue.trim()) {
       queryParamsObj[SEARCH_QUERY_PARAM] = searchValue.trim();
     }
 
@@ -252,12 +259,5 @@ export class PassContract implements OnInit {
       relativeTo: this.activatedRoute,
       queryParams: queryParamsObj,
     });
-  }
-
-  onSearch(): void {
-    if (this.dateRangeValidationError()) {
-      return;
-    }
-    this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
   }
 }
