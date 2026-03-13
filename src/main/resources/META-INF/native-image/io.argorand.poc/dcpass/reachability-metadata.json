@@ -10,6 +10,15 @@
       ]
     },
     {
+      "type": "org.apache.coyote.AbstractProtocol",
+      "methods": [
+        {
+          "name": "getName",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "apple.security.AppleProvider",
       "methods": [
         {
@@ -855,6 +864,9 @@
       "type": "com.zaxxer.hikari.pool.HikariPool"
     },
     {
+      "type": "com.zaxxer.hikari.pool.HikariProxyPreparedStatement"
+    },
+    {
       "type": "com.zaxxer.hikari.pool.PoolBase"
     },
     {
@@ -1547,6 +1559,10 @@
       ],
       "methods": [
         {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
           "name": "getName",
           "parameterTypes": []
         },
@@ -1555,27 +1571,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.Authority$HibernateAccessOptimizer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.Authority$HibernateInstantiator",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.Authority$HibernateProxy"
     },
     {
       "type": "io.argorand.poc.dcpass.domain.Authority_",
@@ -1742,12 +1737,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.PassContract$HibernateInstantiator"
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.PassContract$HibernateProxy"
     },
     {
       "type": "io.argorand.poc.dcpass.domain.PassContract_",
@@ -1952,12 +1941,6 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.domain.User$HibernateInstantiator"
-    },
-    {
-      "type": "io.argorand.poc.dcpass.domain.User$HibernateProxy"
-    },
-    {
       "type": "io.argorand.poc.dcpass.domain.User_",
       "fields": [
         {
@@ -2034,6 +2017,14 @@
     {
       "type": "io.argorand.poc.dcpass.repository.UserRepository",
       "methods": [
+        {
+          "name": "findOneByEmailIgnoreCase",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findOneByLogin",
+          "parameterTypes": ["java.lang.String"]
+        },
         {
           "name": "findOneWithAuthoritiesByLogin",
           "parameterTypes": ["java.lang.String"]
@@ -2116,6 +2107,18 @@
             "io.argorand.poc.dcpass.repository.PassContractRepository",
             "io.argorand.poc.dcpass.service.mapper.PassContractMapper"
           ]
+        },
+        {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "findOne",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "update",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -2135,12 +2138,20 @@
           ]
         },
         {
+          "name": "deleteUser",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "getAllManagedUsers",
           "parameterTypes": ["org.springframework.data.domain.Pageable"]
         },
         {
           "name": "getUserWithAuthorities",
           "parameterTypes": []
+        },
+        {
+          "name": "updateUser",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"]
         }
       ]
     },
@@ -2153,6 +2164,30 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "getAwardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEndDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStartDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAwardDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "setEndDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "setStartDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
         }
       ]
     },
@@ -2167,7 +2202,31 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.AdminUserDTO",
+      "fields": [
+        {
+          "name": "email"
+        },
+        {
+          "name": "firstName"
+        },
+        {
+          "name": "imageUrl"
+        },
+        {
+          "name": "langKey"
+        },
+        {
+          "name": "lastName"
+        },
+        {
+          "name": "login"
+        }
+      ],
       "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
         {
           "name": "getAuthorities",
           "parameterTypes": []
@@ -2219,12 +2278,48 @@
         {
           "name": "isActivated",
           "parameterTypes": []
+        },
+        {
+          "name": "setActivated",
+          "parameterTypes": ["boolean"]
+        },
+        {
+          "name": "setAuthorities",
+          "parameterTypes": ["java.util.Set"]
+        },
+        {
+          "name": "setEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setFirstName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setImageUrl",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLangKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLastName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLogin",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
       "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
         {
           "name": "getAgency",
           "parameterTypes": []
@@ -2408,6 +2503,190 @@
         {
           "name": "getVendorZip",
           "parameterTypes": []
+        },
+        {
+          "name": "setAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAwardDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setContractDetailsLink",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractOfficerPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractTypeDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficer",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficerEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplst",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplstEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporateEmailAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporatePhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCurrentOptionPeriod",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCwInternalId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDocumentVersion",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setEndDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setLastModified",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setMarketType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setProcurementMethodDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPublishedVersionId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRecCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRecUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRowId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setSource",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStartDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTotalOptionPeriods",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setVendorAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorCity",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorState",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorZip",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2466,6 +2745,10 @@
         {
           "name": "getAccount",
           "parameterTypes": []
+        },
+        {
+          "name": "saveAccount",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
         }
       ]
     },
@@ -2521,6 +2804,10 @@
           "parameterTypes": ["io.argorand.poc.dcpass.repository.AuthorityRepository"]
         },
         {
+          "name": "deleteAuthority",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "getAllAuthorities",
           "parameterTypes": []
         },
@@ -2550,12 +2837,24 @@
           ]
         },
         {
+          "name": "deletePassContract",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
           "name": "getAllPassContracts",
           "parameterTypes": [
             "java.lang.String",
             "io.argorand.poc.dcpass.service.criteria.PassContractCriteria",
             "org.springframework.data.domain.Pageable"
           ]
+        },
+        {
+          "name": "getPassContract",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "updatePassContract",
+          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -2591,6 +2890,10 @@
           ]
         },
         {
+          "name": "deleteUser",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "getAllUsers",
           "parameterTypes": ["org.springframework.data.domain.Pageable"]
         }
@@ -2610,6 +2913,10 @@
         {
           "name": "<init>",
           "parameterTypes": ["org.springframework.core.env.Environment"]
+        },
+        {
+          "name": "handleAnyException",
+          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
         }
       ]
     },
@@ -3961,6 +4268,10 @@
       "type": "jakarta.persistence.EntityManager",
       "methods": [
         {
+          "name": "contains",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
           "name": "find",
           "parameterTypes": ["java.lang.Class", "java.lang.Object", "java.util.Map"]
         }
@@ -4235,6 +4546,15 @@
       "type": "jakarta.persistence.PrimaryKeyJoinColumns"
     },
     {
+      "type": "jakarta.persistence.Query",
+      "methods": [
+        {
+          "name": "getParameters",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "jakarta.persistence.QueryHint"
     },
     {
@@ -4313,6 +4633,9 @@
     },
     {
       "type": "jakarta.persistence.Version"
+    },
+    {
+      "type": "jakarta.persistence.criteria.Expression"
     },
     {
       "type": "jakarta.persistence.criteria.Predicate"
@@ -4439,7 +4762,21 @@
       "type": "jakarta.validation.constraints.Min"
     },
     {
-      "type": "jakarta.validation.constraints.NotBlank"
+      "type": "jakarta.validation.constraints.NotBlank",
+      "methods": [
+        {
+          "name": "groups",
+          "parameterTypes": []
+        },
+        {
+          "name": "message",
+          "parameterTypes": []
+        },
+        {
+          "name": "payload",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "jakarta.validation.constraints.NotNull",
@@ -4701,10 +5038,6 @@
       "type": "java.lang.Module",
       "methods": [
         {
-          "name": "isExported",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "isNamed",
           "parameterTypes": []
         }
@@ -4733,24 +5066,6 @@
     },
     {
       "type": "java.lang.Record"
-    },
-    {
-      "type": "java.lang.Runtime",
-      "methods": [
-        {
-          "name": "version",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "java.lang.Runtime$Version",
-      "methods": [
-        {
-          "name": "feature",
-          "parameterTypes": []
-        }
-      ]
     },
     {
       "type": "java.lang.RuntimeException"
@@ -4898,24 +5213,7 @@
       "type": "java.lang.invoke.LambdaMetafactory"
     },
     {
-      "type": "java.lang.invoke.MethodHandles"
-    },
-    {
-      "type": "java.lang.invoke.MethodHandles$Lookup",
-      "methods": [
-        {
-          "name": "defineClass",
-          "parameterTypes": ["byte[]"]
-        },
-        {
-          "name": "lookupClass",
-          "parameterTypes": []
-        },
-        {
-          "name": "lookupModes",
-          "parameterTypes": []
-        }
-      ]
+      "type": "java.lang.invoke.MethodHandles$Lookup"
     },
     {
       "type": "java.lang.invoke.SerializedLambda"
@@ -5072,33 +5370,7 @@
       "type": "java.lang.management.ThreadInfo[]"
     },
     {
-      "type": "java.lang.reflect.AnnotatedArrayType"
-    },
-    {
       "type": "java.lang.reflect.AnnotatedElement"
-    },
-    {
-      "type": "java.lang.reflect.AnnotatedParameterizedType"
-    },
-    {
-      "type": "java.lang.reflect.AnnotatedType"
-    },
-    {
-      "type": "java.lang.reflect.Executable",
-      "methods": [
-        {
-          "name": "getAnnotatedReceiverType",
-          "parameterTypes": []
-        },
-        {
-          "name": "getParameterCount",
-          "parameterTypes": []
-        },
-        {
-          "name": "getParameters",
-          "parameterTypes": []
-        }
-      ]
     },
     {
       "type": "java.lang.reflect.GenericArrayType",
@@ -5117,23 +5389,6 @@
     },
     {
       "type": "java.lang.reflect.Method"
-    },
-    {
-      "type": "java.lang.reflect.Parameter",
-      "methods": [
-        {
-          "name": "getModifiers",
-          "parameterTypes": []
-        },
-        {
-          "name": "getName",
-          "parameterTypes": []
-        },
-        {
-          "name": "isNamePresent",
-          "parameterTypes": []
-        }
-      ]
     },
     {
       "type": "java.lang.reflect.ParameterizedType",
@@ -5157,15 +5412,6 @@
     },
     {
       "type": "java.lang.reflect.RecordComponent"
-    },
-    {
-      "type": "java.lang.reflect.ReflectPermission",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.String"]
-        }
-      ]
     },
     {
       "type": "java.lang.reflect.Type"
@@ -5548,7 +5794,13 @@
       "type": "java.util.HashMap$Node[]"
     },
     {
-      "type": "java.util.HashSet"
+      "type": "java.util.HashSet",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.util.LinkedHashMap"
@@ -5561,6 +5813,9 @@
     },
     {
       "type": "java.util.Map"
+    },
+    {
+      "type": "java.util.Map$Entry[]"
     },
     {
       "type": "java.util.Objects"
@@ -5594,6 +5849,15 @@
     },
     {
       "type": "java.util.concurrent.Callable"
+    },
+    {
+      "type": "java.util.concurrent.ConcurrentHashMap",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.util.concurrent.Executor"
@@ -6182,6 +6446,10 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
@@ -6192,6 +6460,14 @@
         {
           "name": "setDefaultValueComputed",
           "parameterTypes": ["liquibase.statement.DatabaseFunction"]
+        },
+        {
+          "name": "setDefaultValueConstraintName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setTableName",
@@ -6281,7 +6557,15 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
+          "name": "setBaseTableCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setBaseTableName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setBaseTableSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -6289,12 +6573,48 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
+          "name": "setDeferrable",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setDeleteCascade",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setInitiallyDeferred",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setOnDelete",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setOnUpdate",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setReferencedColumnNames",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setReferencedTableCatalogName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setReferencedTableName",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setReferencedTableSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setReferencesUniqueColumn",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setValidate",
+          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6353,6 +6673,10 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
@@ -6361,8 +6685,24 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
+          "name": "setConstraintName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDefaultNullValue",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setTableName",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setValidate",
+          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6424,12 +6764,48 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setClustered",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
           "name": "setColumnNames",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setConstraintName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setForIndexCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setForIndexName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setForIndexSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setTableName",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTablespace",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setValidate",
+          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6527,8 +6903,40 @@
           "parameterTypes": []
         },
         {
+          "name": "setCacheSize",
+          "parameterTypes": ["java.math.BigInteger"]
+        },
+        {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCycle",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setDataType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setIncrementBy",
           "parameterTypes": ["java.math.BigInteger"]
+        },
+        {
+          "name": "setMaxValue",
+          "parameterTypes": ["java.math.BigInteger"]
+        },
+        {
+          "name": "setMinValue",
+          "parameterTypes": ["java.math.BigInteger"]
+        },
+        {
+          "name": "setOrdered",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setSequenceName",
@@ -6590,11 +6998,35 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setIfNotExists",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setRemarks",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setRowDependencies",
           "parameterTypes": ["java.lang.Boolean"]
         },
         {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTablespace",
           "parameterTypes": ["java.lang.String"]
         }
       ]
@@ -6669,11 +7101,19 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setColumnName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -6804,6 +7244,14 @@
           "parameterTypes": []
         },
         {
+          "name": "getFile",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTableName",
+          "parameterTypes": []
+        },
+        {
           "name": "setCommentLineStartsWith",
           "parameterTypes": ["java.lang.String"]
         },
@@ -6886,11 +7334,19 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setColumnName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setNewDataType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -7408,6 +7864,231 @@
     },
     {
       "type": "liquibase.database.jvm.JdbcConnectionPatterns"
+    },
+    {
+      "type": "liquibase.datatype.core.BigIntType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.BinaryTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.BlobType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.BooleanType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.CharType"
+    },
+    {
+      "type": "liquibase.datatype.core.ClobType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.ClobTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.CurrencyType"
+    },
+    {
+      "type": "liquibase.datatype.core.DatabaseFunctionType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DateTimeType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DateType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DateTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DecimalType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DoubleDataTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DoubleType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.FloatType"
+    },
+    {
+      "type": "liquibase.datatype.core.IntType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.MediumIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.NCharType"
+    },
+    {
+      "type": "liquibase.datatype.core.NVarcharType"
+    },
+    {
+      "type": "liquibase.datatype.core.NumberType"
+    },
+    {
+      "type": "liquibase.datatype.core.SmallIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.TextDataTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimeType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimeTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampNTZTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TinyIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.UUIDType"
+    },
+    {
+      "type": "liquibase.datatype.core.UnknownType"
+    },
+    {
+      "type": "liquibase.datatype.core.VarcharType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.XMLType"
     },
     {
       "type": "liquibase.diff.compare.core.CatalogComparator"
@@ -8112,319 +8793,6 @@
       "type": "long[]"
     },
     {
-      "type": "net.bytebuddy.asm.Advice$AllArguments"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Argument",
-      "methods": [
-        {
-          "name": "optional",
-          "parameterTypes": []
-        },
-        {
-          "name": "readOnly",
-          "parameterTypes": []
-        },
-        {
-          "name": "typing",
-          "parameterTypes": []
-        },
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$DynamicConstant"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Enter"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Exit"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$FieldGetterHandle"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$FieldSetterHandle"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$FieldValue",
-      "methods": [
-        {
-          "name": "declaringType",
-          "parameterTypes": []
-        },
-        {
-          "name": "readOnly",
-          "parameterTypes": []
-        },
-        {
-          "name": "typing",
-          "parameterTypes": []
-        },
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Handle"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Local"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$OnMethodEnter",
-      "methods": [
-        {
-          "name": "inline",
-          "parameterTypes": []
-        },
-        {
-          "name": "prependLineNumber",
-          "parameterTypes": []
-        },
-        {
-          "name": "skipOn",
-          "parameterTypes": []
-        },
-        {
-          "name": "skipOnIndex",
-          "parameterTypes": []
-        },
-        {
-          "name": "suppress",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$OnMethodExit",
-      "methods": [
-        {
-          "name": "backupArguments",
-          "parameterTypes": []
-        },
-        {
-          "name": "inline",
-          "parameterTypes": []
-        },
-        {
-          "name": "onThrowable",
-          "parameterTypes": []
-        },
-        {
-          "name": "repeatOn",
-          "parameterTypes": []
-        },
-        {
-          "name": "repeatOnIndex",
-          "parameterTypes": []
-        },
-        {
-          "name": "suppress",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Origin"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Return",
-      "methods": [
-        {
-          "name": "readOnly",
-          "parameterTypes": []
-        },
-        {
-          "name": "typing",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$SelfCallHandle"
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$This",
-      "methods": [
-        {
-          "name": "optional",
-          "parameterTypes": []
-        },
-        {
-          "name": "readOnly",
-          "parameterTypes": []
-        },
-        {
-          "name": "typing",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.asm.Advice$Thrown"
-    },
-    {
-      "type": "net.bytebuddy.description.method.MethodDescription$InDefinedShape$AbstractBase$Executable"
-    },
-    {
-      "type": "net.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$Parameter"
-    },
-    {
-      "type": "net.bytebuddy.description.method.ParameterList$ForLoadedExecutable$Executable"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDefinition$Sort$AnnotatedType"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$ForLoadedType$Dispatcher"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedExecutableExceptionType$Dispatcher"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedExecutableParameterType$Dispatcher"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedMethodReturnType$Dispatcher"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForComponentType$AnnotatedParameterizedType"
-    },
-    {
-      "type": "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForTypeArgument$AnnotatedParameterizedType"
-    },
-    {
-      "type": "net.bytebuddy.dynamic.loading.ClassInjector$UsingLookup$MethodHandles"
-    },
-    {
-      "type": "net.bytebuddy.dynamic.loading.ClassInjector$UsingLookup$MethodHandles$Lookup"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.AllArguments",
-      "methods": [
-        {
-          "name": "includeSelf",
-          "parameterTypes": []
-        },
-        {
-          "name": "nullIfEmpty",
-          "parameterTypes": []
-        },
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.Argument"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.BindingPriority"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.Default"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.DefaultCall"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.DefaultCallHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.DefaultMethod"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.DefaultMethodHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.DynamicConstant"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.FieldGetterHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.FieldSetterHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.FieldValue",
-      "methods": [
-        {
-          "name": "declaringType",
-          "parameterTypes": []
-        },
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.Handle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.Origin",
-      "methods": [
-        {
-          "name": "cache",
-          "parameterTypes": []
-        },
-        {
-          "name": "privileged",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.StubValue"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.Super"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.SuperCall"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.SuperCallHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.SuperMethod"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.SuperMethodHandle"
-    },
-    {
-      "type": "net.bytebuddy.implementation.bind.annotation.This",
-      "methods": [
-        {
-          "name": "optional",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "net.bytebuddy.jar.asmjdkbridge.JdkClassReader"
-    },
-    {
-      "type": "net.bytebuddy.utility.Invoker"
-    },
-    {
-      "type": "net.bytebuddy.utility.Invoker$Dispatcher",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "net.sf.jsqlparser.parser.JSqlParser"
     },
     {
@@ -8554,6 +8922,10 @@
       "methods": [
         {
           "name": "getAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "getName",
           "parameterTypes": []
         },
         {
@@ -9053,8 +9425,20 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
+          "name": "createQuery",
+          "parameterTypes": ["java.lang.String", "java.lang.Class"]
+        },
+        {
           "name": "getEntityGraph",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "merge",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "remove",
+          "parameterTypes": ["java.lang.Object"]
         }
       ]
     },
@@ -9080,6 +9464,10 @@
       "methods": [
         {
           "name": "close",
+          "parameterTypes": []
+        },
+        {
+          "name": "isOpen",
           "parameterTypes": []
         }
       ]
@@ -10887,52 +11275,10 @@
       ]
     },
     {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$AreFieldsDirty"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$AreFieldsDirtyWithoutCollections"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$ClearDirtyAttributes"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$ClearDirtyAttributesWithoutCollections"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$ClearOwner"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$GetCollectionTrackerWithoutCollections"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$GetDirtyAttributes"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$GetDirtyAttributesWithoutCollections"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$InitializeLazyAttributeLoadingInterceptor"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$SetOwner"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$SetPersistenceInfo"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$SuspendDirtyTracking"
-    },
-    {
-      "type": "org.hibernate.bytecode.enhance.internal.bytebuddy.CodeTemplates$TrackChange"
-    },
-    {
       "type": "org.hibernate.bytecode.internal.javassist.FieldHandler"
     },
     {
-      "type": "org.hibernate.bytecode.spi.ReflectionOptimizer$AccessOptimizer"
-    },
-    {
-      "type": "org.hibernate.bytecode.spi.ReflectionOptimizer$InstantiationOptimizer"
+      "type": "org.hibernate.bytecode.internal.none.BytecodeProviderImpl"
     },
     {
       "type": "org.hibernate.cache.internal.EnabledCaching"
@@ -11118,6 +11464,21 @@
       "type": "org.hibernate.engine.jdbc.mutation.internal.StandardMutationExecutorService"
     },
     {
+      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.jboss.logging.Logger"]
+        }
+      ]
+    },
+    {
+      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger_en"
+    },
+    {
+      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger_en_US"
+    },
+    {
       "type": "org.hibernate.engine.jdbc.spi.SqlStatementLogger"
     },
     {
@@ -11125,9 +11486,6 @@
     },
     {
       "type": "org.hibernate.engine.query.internal.NativeQueryInterpreterStandardImpl"
-    },
-    {
-      "type": "org.hibernate.engine.spi.PrimeAmongSecondarySupertypes"
     },
     {
       "type": "org.hibernate.engine.spi.SessionImplementor"
@@ -11627,10 +11985,7 @@
       "type": "org.hibernate.proxy.HibernateProxy"
     },
     {
-      "type": "org.hibernate.proxy.ProxyConfiguration"
-    },
-    {
-      "type": "org.hibernate.proxy.ProxyConfiguration$InterceptorDispatcher"
+      "type": "org.hibernate.query.CommonQueryContract"
     },
     {
       "type": "org.hibernate.query.QueryLogging_$logger",
@@ -11651,7 +12006,19 @@
       "type": "org.hibernate.query.QueryProducer"
     },
     {
+      "type": "org.hibernate.query.SelectionQuery",
+      "methods": [
+        {
+          "name": "getSingleResultOrNull",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.hibernate.query.TypedParameterValue"
+    },
+    {
+      "type": "org.hibernate.query.criteria.HibernateCriteriaBuilder"
     },
     {
       "type": "org.hibernate.query.hql.HqlLogging_$logger",
@@ -11669,7 +12036,16 @@
       "type": "org.hibernate.query.hql.HqlLogging_$logger_en_US"
     },
     {
+      "type": "org.hibernate.query.hql.spi.SqmQueryImplementor"
+    },
+    {
+      "type": "org.hibernate.query.spi.DomainQueryExecutionContext"
+    },
+    {
       "type": "org.hibernate.query.sqm.mutation.internal.SqmMultiTableMutationStrategyProviderStandard"
+    },
+    {
+      "type": "org.hibernate.query.sqm.spi.InterpretationsKeySource"
     },
     {
       "type": "org.hibernate.resource.beans.container.spi.BeanContainer"
@@ -12076,10 +12452,37 @@
       "type": "org.hibernate.validator.HibernateValidator"
     },
     {
-      "type": "org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator"
+      "type": "org.hibernate.validator.internal.constraintvalidators.AbstractEmailValidator"
+    },
+    {
+      "type": "org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.hibernate.validator.internal.constraintvalidators.bv.PatternValidator",
       "methods": [
         {
           "name": "<init>",
@@ -22230,6 +22633,9 @@
       "type": "org.springframework.core.annotation.AliasFor"
     },
     {
+      "type": "org.springframework.core.annotation.AnnotatedElementUtils"
+    },
+    {
       "type": "org.springframework.core.annotation.AnnotationAttributes[]"
     },
     {
@@ -22316,6 +22722,9 @@
       "type": "org.springframework.core.type.classreading.MetadataReaderFactory"
     },
     {
+      "type": "org.springframework.dao.ConcurrencyFailureException"
+    },
+    {
       "type": "org.springframework.dao.DataAccessException"
     },
     {
@@ -22397,6 +22806,9 @@
     },
     {
       "type": "org.springframework.data.domain.Page"
+    },
+    {
+      "type": "org.springframework.data.domain.PageRequest"
     },
     {
       "type": "org.springframework.data.domain.Pageable"
@@ -22609,6 +23021,18 @@
           "parameterTypes": ["org.springframework.data.jpa.repository.support.JpaEntityInformation", "jakarta.persistence.EntityManager"]
         },
         {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "deleteById",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "existsById",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
           "name": "findAll",
           "parameterTypes": []
         },
@@ -22622,6 +23046,10 @@
         },
         {
           "name": "findById",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "save",
           "parameterTypes": ["java.lang.Object"]
         }
       ]
@@ -22669,7 +23097,17 @@
       "type": "org.springframework.data.redis.connection.RedisConnectionFactory"
     },
     {
-      "type": "org.springframework.data.repository.CrudRepository"
+      "type": "org.springframework.data.repository.CrudRepository",
+      "methods": [
+        {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "save",
+          "parameterTypes": ["java.lang.Object"]
+        }
+      ]
     },
     {
       "type": "org.springframework.data.repository.ListCrudRepository"
@@ -22982,6 +23420,9 @@
       "type": "org.springframework.format.FormatterRegistry"
     },
     {
+      "type": "org.springframework.format.annotation.DateTimeFormat"
+    },
+    {
       "type": "org.springframework.format.datetime.standard.DateTimeFormatterRegistrar"
     },
     {
@@ -23018,7 +23459,33 @@
       "type": "org.springframework.http.MediaType"
     },
     {
-      "type": "org.springframework.http.ProblemDetail"
+      "type": "org.springframework.http.ProblemDetail",
+      "methods": [
+        {
+          "name": "getDetail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInstance",
+          "parameterTypes": []
+        },
+        {
+          "name": "getProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getType",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.http.ReactiveHttpInputMessage"
@@ -23028,6 +23495,9 @@
     },
     {
       "type": "org.springframework.http.ResponseEntity$BodyBuilder"
+    },
+    {
+      "type": "org.springframework.http.ResponseEntity$HeadersBuilder"
     },
     {
       "type": "org.springframework.http.converter.HttpMessageConverter"
@@ -23046,6 +23516,9 @@
     },
     {
       "type": "org.springframework.http.converter.json.JacksonJsonHttpMessageConverter"
+    },
+    {
+      "type": "org.springframework.http.converter.json.ProblemDetailJacksonMixin"
     },
     {
       "type": "org.springframework.http.server.ServerHttpRequest"
@@ -23362,6 +23835,9 @@
       "type": "org.springframework.scheduling.config.ScheduledTaskHolder"
     },
     {
+      "type": "org.springframework.security.access.AccessDeniedException"
+    },
+    {
       "type": "org.springframework.security.access.SecurityConfig"
     },
     {
@@ -23409,6 +23885,9 @@
     },
     {
       "type": "org.springframework.security.authentication.AuthenticationProvider"
+    },
+    {
+      "type": "org.springframework.security.authentication.BadCredentialsException"
     },
     {
       "type": "org.springframework.security.authentication.DefaultAuthenticationEventPublisher"
@@ -24393,6 +24872,9 @@
     },
     {
       "type": "org.springframework.validation.method.MethodValidationException"
+    },
+    {
+      "type": "org.springframework.web.ErrorResponse"
     },
     {
       "type": "org.springframework.web.ErrorResponseException"
@@ -26435,7 +26917,21 @@
       "type": "tech.jhipster.service.filter.IntegerFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.LocalDateFilter"
+      "type": "tech.jhipster.service.filter.LocalDateFilter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setGreaterThanOrEqual",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setLessThanOrEqual",
+          "parameterTypes": ["java.time.LocalDate"]
+        }
+      ]
     },
     {
       "type": "tech.jhipster.service.filter.LocalDateFilterBeanInfo"
@@ -26453,7 +26949,17 @@
       "type": "tech.jhipster.service.filter.LongFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.RangeFilter"
+      "type": "tech.jhipster.service.filter.RangeFilter",
+      "methods": [
+        {
+          "name": "getGreaterThanOrEqual",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLessThanOrEqual",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "tech.jhipster.service.filter.RangeFilterBeanInfo"
@@ -26471,7 +26977,19 @@
       "type": "tech.jhipster.service.filter.StringFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause"
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
+      "methods": [
+        {
+          "name": "getCause",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause$ProblemDetailWithCauseBuilder"
+    },
+    {
+      "type": "tech.jhipster.web.util.HeaderUtil"
     },
     {
       "type": "tech.jhipster.web.util.PaginationUtil"
@@ -26588,6 +27106,9 @@
       ]
     },
     {
+      "type": "void"
+    },
+    {
       "type": {
         "proxy": [
           "io.argorand.poc.dcpass.repository.AuthorityRepository",
@@ -26663,86 +27184,23 @@
     },
     {
       "type": {
-        "proxy": ["net.bytebuddy.description.method.MethodDescription$InDefinedShape$AbstractBase$Executable"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$Parameter"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.method.ParameterList$ForLoadedExecutable$Executable"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDefinition$Sort$AnnotatedType"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription$ForLoadedType$Dispatcher"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription$Generic"]
-      }
-    },
-    {
-      "type": {
-        "proxy": [
-          "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedExecutableExceptionType$Dispatcher"
-        ]
-      }
-    },
-    {
-      "type": {
-        "proxy": [
-          "net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedExecutableParameterType$Dispatcher"
-        ]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedMethodReturnType$Dispatcher"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForComponentType$AnnotatedParameterizedType"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForTypeArgument$AnnotatedParameterizedType"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.dynamic.loading.ClassInjector$UsingLookup$MethodHandles"]
-      }
-    },
-    {
-      "type": {
-        "proxy": ["net.bytebuddy.dynamic.loading.ClassInjector$UsingLookup$MethodHandles$Lookup"]
-      }
-    },
-    {
-      "type": {
         "proxy": ["org.hibernate.Session", "org.springframework.orm.jpa.EntityManagerProxy"]
       }
     },
     {
       "type": {
         "proxy": ["org.hibernate.SessionFactory", "org.springframework.orm.jpa.EntityManagerFactoryInfo"]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.hibernate.query.hql.spi.SqmQueryImplementor",
+          "org.hibernate.query.sqm.spi.InterpretationsKeySource",
+          "org.hibernate.query.spi.DomainQueryExecutionContext",
+          "org.hibernate.query.SelectionQuery",
+          "org.hibernate.query.CommonQueryContract"
+        ]
       }
     },
     {
@@ -27024,6 +27482,9 @@
       "glob": "META-INF/resources/authority-detail-V6TMTO6E.js"
     },
     {
+      "glob": "META-INF/resources/authority-update-AVTXHT4V.js"
+    },
+    {
       "glob": "META-INF/resources/authority.routes-S6TEQUZL.js"
     },
     {
@@ -27171,6 +27632,12 @@
       "glob": "META-INF/resources/pass-contract-YRSAPLHO.js"
     },
     {
+      "glob": "META-INF/resources/pass-contract-detail-MGFV6MU6.js"
+    },
+    {
+      "glob": "META-INF/resources/pass-contract-update-WFIYUSCT.js"
+    },
+    {
       "glob": "META-INF/resources/pass-contract.routes-I7IYGIIF.js"
     },
     {
@@ -27298,6 +27765,9 @@
     },
     {
       "glob": "META-INF/services/liquibase.database.jvm.ConnectionPatterns"
+    },
+    {
+      "glob": "META-INF/services/liquibase.datatype.LiquibaseDataType"
     },
     {
       "glob": "META-INF/services/liquibase.diff.compare.DatabaseObjectComparator"
@@ -27852,45 +28322,6 @@
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
     },
     {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$AreFieldsDirty.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$AreFieldsDirtyWithoutCollections.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$ClearDirtyAttributes.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$ClearDirtyAttributesWithoutCollections.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$ClearOwner.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$GetCollectionTrackerWithoutCollections.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$GetDirtyAttributes.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$GetDirtyAttributesWithoutCollections.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$InitializeLazyAttributeLoadingInterceptor.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$SetOwner.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$SetPersistenceInfo.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$SuspendDirtyTracking.class"
-    },
-    {
-      "glob": "org/hibernate/bytecode/enhance/internal/bytebuddy/CodeTemplates$TrackChange.class"
-    },
-    {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
     },
     {
@@ -27898,6 +28329,15 @@
     },
     {
       "glob": "org/postgresql/driverconfig.properties"
+    },
+    {
+      "glob": "org/postgresql/translation/messages.properties"
+    },
+    {
+      "glob": "org/postgresql/translation/messages_en.properties"
+    },
+    {
+      "glob": "org/postgresql/translation/messages_en_US.properties"
     },
     {
       "glob": "org/springdoc/core/conditions/CacheOrGroupedOpenApiCondition$OnCacheDisabled.class"
@@ -29649,6 +30089,9 @@
       "glob": "resources/authority-detail-V6TMTO6E.js"
     },
     {
+      "glob": "resources/authority-update-AVTXHT4V.js"
+    },
+    {
       "glob": "resources/authority.routes-S6TEQUZL.js"
     },
     {
@@ -29794,6 +30237,12 @@
     },
     {
       "glob": "resources/pass-contract-YRSAPLHO.js"
+    },
+    {
+      "glob": "resources/pass-contract-detail-MGFV6MU6.js"
+    },
+    {
+      "glob": "resources/pass-contract-update-WFIYUSCT.js"
     },
     {
       "glob": "resources/pass-contract.routes-I7IYGIIF.js"
@@ -30004,6 +30453,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.postgresql.translation.messages"
     },
     {
       "bundle": "org.springframework.security.messages"
