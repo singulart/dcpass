@@ -175,6 +175,9 @@
       "type": "com.couchbase.client.java.Cluster"
     },
     {
+      "type": "com.ethlo.time.ITU"
+    },
+    {
       "type": "com.fasterxml.jackson.annotation.JacksonAnnotation"
     },
     {
@@ -203,6 +206,9 @@
     },
     {
       "type": "com.fasterxml.jackson.core.JsonParser$Feature"
+    },
+    {
+      "type": "com.fasterxml.jackson.core.JsonProcessingException"
     },
     {
       "type": "com.fasterxml.jackson.core.ObjectCodec"
@@ -862,9 +868,6 @@
     },
     {
       "type": "com.zaxxer.hikari.pool.HikariPool"
-    },
-    {
-      "type": "com.zaxxer.hikari.pool.HikariProxyPreparedStatement"
     },
     {
       "type": "com.zaxxer.hikari.pool.PoolBase"
@@ -1528,6 +1531,24 @@
         {
           "name": "lastModifiedDate"
         }
+      ],
+      "methods": [
+        {
+          "name": "getCreatedBy",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCreatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLastModifiedBy",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLastModifiedDate",
+          "parameterTypes": []
+        }
       ]
     },
     {
@@ -1565,6 +1586,10 @@
         {
           "name": "getName",
           "parameterTypes": []
+        },
+        {
+          "name": "setName",
+          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "updateEntityState",
@@ -1937,6 +1962,46 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "getEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFirstName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getImageUrl",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLangKey",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLastName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLogin",
+          "parameterTypes": []
+        },
+        {
+          "name": "getResetDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getResetKey",
+          "parameterTypes": []
+        },
+        {
+          "name": "isActivated",
+          "parameterTypes": []
         }
       ]
     },
@@ -1988,7 +2053,13 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.domain.User__Accessor_jbilx3"
+      "type": "io.argorand.poc.dcpass.domain.User__Accessor_jbilx3",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.domain.package-info"
@@ -2004,6 +2075,28 @@
     },
     {
       "type": "io.argorand.poc.dcpass.management.package-info"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.mcp.PassContractMcpTools",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.PassContractQueryService", "com.fasterxml.jackson.databind.ObjectMapper"]
+        },
+        {
+          "name": "getAllPassContracts",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.Integer"
+          ]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.package-info"
@@ -2073,6 +2166,10 @@
             "org.springframework.context.MessageSource",
             "org.thymeleaf.spring6.SpringTemplateEngine"
           ]
+        },
+        {
+          "name": "sendCreationEmail",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
         }
       ]
     },
@@ -2117,6 +2214,10 @@
           "parameterTypes": ["java.lang.Long"]
         },
         {
+          "name": "save",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
           "name": "update",
           "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
@@ -2138,6 +2239,10 @@
           ]
         },
         {
+          "name": "createUser",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
           "name": "deleteUser",
           "parameterTypes": ["java.lang.String"]
         },
@@ -2148,6 +2253,14 @@
         {
           "name": "getUserWithAuthorities",
           "parameterTypes": []
+        },
+        {
+          "name": "getUserWithAuthoritiesByLogin",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "updateUser",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
         },
         {
           "name": "updateUser",
@@ -2294,6 +2407,10 @@
         {
           "name": "setFirstName",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
         },
         {
           "name": "setImageUrl",
@@ -2804,6 +2921,10 @@
           "parameterTypes": ["io.argorand.poc.dcpass.repository.AuthorityRepository"]
         },
         {
+          "name": "createAuthority",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.Authority"]
+        },
+        {
           "name": "deleteAuthority",
           "parameterTypes": ["java.lang.String"]
         },
@@ -2835,6 +2956,10 @@
             "io.argorand.poc.dcpass.repository.PassContractRepository",
             "io.argorand.poc.dcpass.service.PassContractQueryService"
           ]
+        },
+        {
+          "name": "createPassContract",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         },
         {
           "name": "deletePassContract",
@@ -2890,12 +3015,24 @@
           ]
         },
         {
+          "name": "createUser",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
           "name": "deleteUser",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "getAllUsers",
           "parameterTypes": ["org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "getUser",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "updateUser",
+          "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
         }
       ]
     },
@@ -2913,10 +3050,6 @@
         {
           "name": "<init>",
           "parameterTypes": ["org.springframework.core.env.Environment"]
-        },
-        {
-          "name": "handleAnyException",
-          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
         }
       ]
     },
@@ -2974,7 +3107,16 @@
       "type": "io.micrometer.common.annotation.ValueExpressionResolver"
     },
     {
+      "type": "io.micrometer.context.ContextRegistry"
+    },
+    {
       "type": "io.micrometer.context.ContextSnapshot"
+    },
+    {
+      "type": "io.micrometer.context.ContextSnapshotFactory"
+    },
+    {
+      "type": "io.micrometer.context.ThreadLocalAccessor"
     },
     {
       "type": "io.micrometer.core.annotation.Timed"
@@ -3133,6 +3275,9 @@
       "type": "io.micrometer.observation.SimpleObservationRegistry"
     },
     {
+      "type": "io.micrometer.observation.contextpropagation.ObservationThreadLocalAccessor"
+    },
+    {
       "type": "io.micrometer.prometheusmetrics.PrometheusMeterRegistry"
     },
     {
@@ -3143,6 +3288,410 @@
     },
     {
       "type": "io.micrometer.statsd.StatsdMeterRegistry"
+    },
+    {
+      "type": "io.modelcontextprotocol.json.jackson3.JacksonMcpJsonMapperSupplier"
+    },
+    {
+      "type": "io.modelcontextprotocol.json.schema.jackson3.JacksonJsonSchemaValidatorSupplier"
+    },
+    {
+      "type": "io.modelcontextprotocol.server.McpStatelessSyncServer",
+      "methods": [
+        {
+          "name": "close",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Annotated"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Annotations"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$CallToolRequest",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.util.Map", "java.util.Map"]
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$CallToolResult",
+      "methods": [
+        {
+          "name": "content",
+          "parameterTypes": []
+        },
+        {
+          "name": "isError",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "structuredContent",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.util.Map",
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities",
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling",
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Form"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Url"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Content"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Identifier"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Implementation",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "name",
+          "parameterTypes": []
+        },
+        {
+          "name": "title",
+          "parameterTypes": []
+        },
+        {
+          "name": "version",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$InitializeRequest",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities",
+            "io.modelcontextprotocol.spec.McpSchema$Implementation",
+            "java.util.Map"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$InitializeResult",
+      "methods": [
+        {
+          "name": "capabilities",
+          "parameterTypes": []
+        },
+        {
+          "name": "instructions",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "protocolVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "serverInfo",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCMessage"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCRequest",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.Object", "java.lang.Object"]
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCResponse",
+      "methods": [
+        {
+          "name": "error",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "jsonrpc",
+          "parameterTypes": []
+        },
+        {
+          "name": "result",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCResponse$JSONRPCError"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JsonSchema",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.util.Map", "java.util.List", "java.lang.Boolean", "java.util.Map", "java.util.Map"]
+        },
+        {
+          "name": "additionalProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "definitions",
+          "parameterTypes": []
+        },
+        {
+          "name": "defs",
+          "parameterTypes": []
+        },
+        {
+          "name": "properties",
+          "parameterTypes": []
+        },
+        {
+          "name": "required",
+          "parameterTypes": []
+        },
+        {
+          "name": "type",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ListToolsResult",
+      "methods": [
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "nextCursor",
+          "parameterTypes": []
+        },
+        {
+          "name": "tools",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Meta"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Request"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Result"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities",
+      "methods": [
+        {
+          "name": "completions",
+          "parameterTypes": []
+        },
+        {
+          "name": "experimental",
+          "parameterTypes": []
+        },
+        {
+          "name": "logging",
+          "parameterTypes": []
+        },
+        {
+          "name": "prompts",
+          "parameterTypes": []
+        },
+        {
+          "name": "resources",
+          "parameterTypes": []
+        },
+        {
+          "name": "tools",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$Builder"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$CompletionCapabilities"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$LoggingCapabilities"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$PromptCapabilities",
+      "methods": [
+        {
+          "name": "listChanged",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$ResourceCapabilities",
+      "methods": [
+        {
+          "name": "listChanged",
+          "parameterTypes": []
+        },
+        {
+          "name": "subscribe",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$ToolCapabilities",
+      "methods": [
+        {
+          "name": "listChanged",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$TextContent",
+      "methods": [
+        {
+          "name": "annotations",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "text",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Tool",
+      "methods": [
+        {
+          "name": "annotations",
+          "parameterTypes": []
+        },
+        {
+          "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "inputSchema",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "name",
+          "parameterTypes": []
+        },
+        {
+          "name": "outputSchema",
+          "parameterTypes": []
+        },
+        {
+          "name": "title",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ToolAnnotations",
+      "methods": [
+        {
+          "name": "destructiveHint",
+          "parameterTypes": []
+        },
+        {
+          "name": "idempotentHint",
+          "parameterTypes": []
+        },
+        {
+          "name": "openWorldHint",
+          "parameterTypes": []
+        },
+        {
+          "name": "readOnlyHint",
+          "parameterTypes": []
+        },
+        {
+          "name": "returnDirect",
+          "parameterTypes": []
+        },
+        {
+          "name": "title",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Tool[]"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpStatelessServerTransport",
+      "methods": [
+        {
+          "name": "close",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.r2dbc.spi.ConnectionFactory"
@@ -4160,6 +4709,9 @@
       "type": "jakarta.mail.MessagingException"
     },
     {
+      "type": "jakarta.mail.Provider"
+    },
+    {
       "type": "jakarta.mail.Session"
     },
     {
@@ -5163,6 +5715,9 @@
       "type": "java.lang.Throwable"
     },
     {
+      "type": "java.lang.UnsupportedOperationException"
+    },
+    {
       "type": "java.lang.Void",
       "fields": [
         {
@@ -5207,10 +5762,19 @@
       "type": "java.lang.constant.Constable[]"
     },
     {
+      "type": "java.lang.constant.ConstantDesc"
+    },
+    {
       "type": "java.lang.constant.ConstantDesc[]"
     },
     {
       "type": "java.lang.invoke.LambdaMetafactory"
+    },
+    {
+      "type": "java.lang.invoke.MethodHandle"
+    },
+    {
+      "type": "java.lang.invoke.MethodHandles"
     },
     {
       "type": "java.lang.invoke.MethodHandles$Lookup"
@@ -5371,6 +5935,9 @@
     },
     {
       "type": "java.lang.reflect.AnnotatedElement"
+    },
+    {
+      "type": "java.lang.reflect.Field"
     },
     {
       "type": "java.lang.reflect.GenericArrayType",
@@ -5794,13 +6361,19 @@
       "type": "java.util.HashMap$Node[]"
     },
     {
-      "type": "java.util.HashSet",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
+      "type": "java.util.HashSet"
+    },
+    {
+      "type": "java.util.ImmutableCollections"
+    },
+    {
+      "type": "java.util.ImmutableCollections$AbstractImmutableCollection"
+    },
+    {
+      "type": "java.util.ImmutableCollections$AbstractImmutableList"
+    },
+    {
+      "type": "java.util.ImmutableCollections$ListN"
     },
     {
       "type": "java.util.LinkedHashMap"
@@ -5809,7 +6382,13 @@
       "type": "java.util.List"
     },
     {
-      "type": "java.util.Locale"
+      "type": "java.util.Locale",
+      "methods": [
+        {
+          "name": "getLanguage",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.util.Map"
@@ -5849,15 +6428,6 @@
     },
     {
       "type": "java.util.concurrent.Callable"
-    },
-    {
-      "type": "java.util.concurrent.ConcurrentHashMap",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
     },
     {
       "type": "java.util.concurrent.Executor"
@@ -6446,10 +7016,6 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
@@ -6460,14 +7026,6 @@
         {
           "name": "setDefaultValueComputed",
           "parameterTypes": ["liquibase.statement.DatabaseFunction"]
-        },
-        {
-          "name": "setDefaultValueConstraintName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setSchemaName",
-          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setTableName",
@@ -6557,15 +7115,7 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
-          "name": "setBaseTableCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setBaseTableName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setBaseTableSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -6573,48 +7123,12 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
-          "name": "setDeferrable",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setDeleteCascade",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setInitiallyDeferred",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setOnDelete",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setOnUpdate",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setReferencedColumnNames",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setReferencedTableCatalogName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setReferencedTableName",
           "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setReferencedTableSchemaName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setReferencesUniqueColumn",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setValidate",
-          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6673,10 +7187,6 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
@@ -6685,24 +7195,8 @@
           "parameterTypes": ["java.lang.String"]
         },
         {
-          "name": "setConstraintName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setDefaultNullValue",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setSchemaName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setTableName",
           "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setValidate",
-          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6764,48 +7258,12 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setClustered",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
           "name": "setColumnNames",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setConstraintName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setForIndexCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setForIndexName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setForIndexSchemaName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setTableName",
           "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setTablespace",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setValidate",
-          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -6903,40 +7361,8 @@
           "parameterTypes": []
         },
         {
-          "name": "setCacheSize",
-          "parameterTypes": ["java.math.BigInteger"]
-        },
-        {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setCycle",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setDataType",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setIncrementBy",
           "parameterTypes": ["java.math.BigInteger"]
-        },
-        {
-          "name": "setMaxValue",
-          "parameterTypes": ["java.math.BigInteger"]
-        },
-        {
-          "name": "setMinValue",
-          "parameterTypes": ["java.math.BigInteger"]
-        },
-        {
-          "name": "setOrdered",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setSchemaName",
-          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setSequenceName",
@@ -6998,35 +7424,11 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setIfNotExists",
-          "parameterTypes": ["java.lang.Boolean"]
-        },
-        {
-          "name": "setRemarks",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setRowDependencies",
           "parameterTypes": ["java.lang.Boolean"]
         },
         {
-          "name": "setSchemaName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setTableName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setTableType",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setTablespace",
           "parameterTypes": ["java.lang.String"]
         }
       ]
@@ -7101,19 +7503,11 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setColumnDataType",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setColumnName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -7244,14 +7638,6 @@
           "parameterTypes": []
         },
         {
-          "name": "getFile",
-          "parameterTypes": []
-        },
-        {
-          "name": "getTableName",
-          "parameterTypes": []
-        },
-        {
           "name": "setCommentLineStartsWith",
           "parameterTypes": ["java.lang.String"]
         },
@@ -7334,19 +7720,11 @@
           "parameterTypes": []
         },
         {
-          "name": "setCatalogName",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
           "name": "setColumnName",
           "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "setNewDataType",
-          "parameterTypes": ["java.lang.String"]
-        },
-        {
-          "name": "setSchemaName",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -7864,231 +8242,6 @@
     },
     {
       "type": "liquibase.database.jvm.JdbcConnectionPatterns"
-    },
-    {
-      "type": "liquibase.datatype.core.BigIntType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.BinaryTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.BlobType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.BooleanType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.CharType"
-    },
-    {
-      "type": "liquibase.datatype.core.ClobType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.ClobTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.CurrencyType"
-    },
-    {
-      "type": "liquibase.datatype.core.DatabaseFunctionType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DateTimeType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DateType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DateTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DecimalType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DoubleDataTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.DoubleType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.FloatType"
-    },
-    {
-      "type": "liquibase.datatype.core.IntType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.MediumIntType"
-    },
-    {
-      "type": "liquibase.datatype.core.NCharType"
-    },
-    {
-      "type": "liquibase.datatype.core.NVarcharType"
-    },
-    {
-      "type": "liquibase.datatype.core.NumberType"
-    },
-    {
-      "type": "liquibase.datatype.core.SmallIntType"
-    },
-    {
-      "type": "liquibase.datatype.core.TextDataTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TimeType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TimeTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TimestampNTZTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TimestampType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TimestampTypeSnowflake",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.TinyIntType"
-    },
-    {
-      "type": "liquibase.datatype.core.UUIDType"
-    },
-    {
-      "type": "liquibase.datatype.core.UnknownType"
-    },
-    {
-      "type": "liquibase.datatype.core.VarcharType",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.datatype.core.XMLType"
     },
     {
       "type": "liquibase.diff.compare.core.CatalogComparator"
@@ -8925,10 +9078,6 @@
           "parameterTypes": []
         },
         {
-          "name": "getName",
-          "parameterTypes": []
-        },
-        {
           "name": "getLocalPort",
           "parameterTypes": []
         },
@@ -9098,6 +9247,36 @@
     },
     {
       "type": "org.eclipse.angus.activation.MimeTypeRegistryProviderImpl"
+    },
+    {
+      "type": "org.eclipse.angus.mail.imap.IMAPProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.imap.IMAPSSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.pop3.POP3Provider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.pop3.POP3SSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPSSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPTransport",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["jakarta.mail.Session", "jakarta.mail.URLName"]
+        }
+      ]
+    },
+    {
+      "type": "org.eclipse.angus.mail.util.MailStreamProvider"
     },
     {
       "type": "org.eclipse.collections.api.list.ImmutableList"
@@ -9385,6 +9564,9 @@
       ]
     },
     {
+      "type": "org.glassfish.hk2.osgiresourcelocator.ServiceLoader"
+    },
+    {
       "type": "org.glassfish.jersey.server.ResourceConfig"
     },
     {
@@ -9437,6 +9619,10 @@
           "parameterTypes": ["java.lang.Object"]
         },
         {
+          "name": "persist",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
           "name": "remove",
           "parameterTypes": ["java.lang.Object"]
         }
@@ -9471,6 +9657,21 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.hibernate.action.internal.ActionLogging_$logger",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.jboss.logging.Logger"]
+        }
+      ]
+    },
+    {
+      "type": "org.hibernate.action.internal.ActionLogging_$logger_en"
+    },
+    {
+      "type": "org.hibernate.action.internal.ActionLogging_$logger_en_US"
     },
     {
       "type": "org.hibernate.annotations.Any"
@@ -11464,21 +11665,6 @@
       "type": "org.hibernate.engine.jdbc.mutation.internal.StandardMutationExecutorService"
     },
     {
-      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["org.jboss.logging.Logger"]
-        }
-      ]
-    },
-    {
-      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger_en"
-    },
-    {
-      "type": "org.hibernate.engine.jdbc.spi.SQLExceptionLogging_$logger_en_US"
-    },
-    {
       "type": "org.hibernate.engine.jdbc.spi.SqlStatementLogger"
     },
     {
@@ -12860,6 +13046,19 @@
       ]
     },
     {
+      "type": "org.springdoc.core.configuration.SpringDocConfiguration$SpringDocWebFluxSupportConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "webFluxSupportConverter",
+          "parameterTypes": ["org.springdoc.core.providers.ObjectMapperProvider"]
+        }
+      ]
+    },
+    {
       "type": "org.springdoc.core.configuration.SpringDocConfiguration$WebConversionServiceConfiguration",
       "methods": [
         {
@@ -12978,6 +13177,9 @@
     },
     {
       "type": "org.springdoc.core.converters.SortOpenAPIConverter"
+    },
+    {
+      "type": "org.springdoc.core.converters.WebFluxSupportConverter"
     },
     {
       "type": "org.springdoc.core.converters.models.Pageable"
@@ -13590,6 +13792,397 @@
     },
     {
       "type": "org.springdoc.webmvc.core.service.RequestService"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.McpTool"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.McpTool$McpAnnotations"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.McpToolParam"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.context.DefaultMetaProvider",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AbstractAnnotatedMethodBeanFactoryInitializationAotProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AbstractAnnotatedMethodBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AbstractMcpAnnotatedBeans"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AnnotatedMethodDiscovery"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration$EnabledSseServerCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration$EnabledStreamableServerCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration$NonStatelessServerCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerJsonMapperAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "mcpServerJsonMapper",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerStatelessAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "capabilitiesBuilder",
+          "parameterTypes": []
+        },
+        {
+          "name": "mcpStatelessSyncServer",
+          "parameterTypes": [
+            "io.modelcontextprotocol.spec.McpStatelessServerTransport",
+            "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$Builder",
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.core.env.Environment"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerStatelessAutoConfiguration$EnabledStatelessServerCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerStdioDisabledCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.StatelessToolCallbackConverterAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "syncTools",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider",
+            "java.util.List",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.ToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "serverAnnotatedBeanFactoryInitializationAotProcessor",
+          "parameterTypes": []
+        },
+        {
+          "name": "serverAnnotatedBeanRegistry",
+          "parameterTypes": []
+        },
+        {
+          "name": "serverAnnotatedMethodBeanPostProcessor",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans",
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerProperties"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$AnnotationHints"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerAnnotatedBeanFactoryInitializationAotProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerAnnotatedMethodBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "isEnabled",
+          "parameterTypes": []
+        },
+        {
+          "name": "setEnabled",
+          "parameterTypes": ["boolean"]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.StatelessServerSpecificationFactoryAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.StatelessServerSpecificationFactoryAutoConfiguration$SyncStatelessServerSpecificationConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "completionSpecs",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+          ]
+        },
+        {
+          "name": "promptSpecs",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+          ]
+        },
+        {
+          "name": "resourceSpecs",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+          ]
+        },
+        {
+          "name": "resourceTemplateSpecs",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+          ]
+        },
+        {
+          "name": "toolSpecs",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCapabilities",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInstructions",
+          "parameterTypes": []
+        },
+        {
+          "name": "getName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getProtocol",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequestTimeout",
+          "parameterTypes": []
+        },
+        {
+          "name": "getToolResponseMimeType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "isEnabled",
+          "parameterTypes": []
+        },
+        {
+          "name": "isStdio",
+          "parameterTypes": []
+        },
+        {
+          "name": "setEnabled",
+          "parameterTypes": ["boolean"]
+        },
+        {
+          "name": "setName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setProtocol",
+          "parameterTypes": ["org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$ServerProtocol"]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$ApiType"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$Capabilities",
+      "methods": [
+        {
+          "name": "isCompletion",
+          "parameterTypes": []
+        },
+        {
+          "name": "isPrompt",
+          "parameterTypes": []
+        },
+        {
+          "name": "isResource",
+          "parameterTypes": []
+        },
+        {
+          "name": "isTool",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$ServerProtocol"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$ServerProtocolEditor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerStreamableHttpProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getKeepAliveInterval",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMcpEndpoint",
+          "parameterTypes": []
+        },
+        {
+          "name": "isDisallowDelete",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.webmvc.autoconfigure.McpServerStatelessWebMvcAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "webMvcStatelessServerRouterFunction",
+          "parameterTypes": ["org.springframework.ai.mcp.server.webmvc.transport.WebMvcStatelessServerTransport"]
+        },
+        {
+          "name": "webMvcStatelessServerTransport",
+          "parameterTypes": [
+            "tools.jackson.databind.json.JsonMapper",
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerStreamableHttpProperties"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.webmvc.transport.WebMvcSseServerTransportProvider"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.webmvc.transport.WebMvcStatelessServerTransport"
     },
     {
       "type": "org.springframework.aop.Advisor"
@@ -14731,6 +15324,10 @@
     {
       "type": "org.springframework.boot.actuate.logging.LoggersEndpoint",
       "methods": [
+        {
+          "name": "configureLogLevel",
+          "parameterTypes": ["java.lang.String", "org.springframework.boot.logging.LogLevel"]
+        },
         {
           "name": "loggers",
           "parameterTypes": []
@@ -17652,6 +18249,19 @@
       ]
     },
     {
+      "type": "org.springframework.boot.health.autoconfigure.registry.HealthContributorRegistryAutoConfiguration$ReactiveHealthContributorRegistryConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "reactiveHealthContributorRegistry",
+          "parameterTypes": ["java.util.Map", "org.springframework.beans.factory.ObjectProvider", "java.util.List"]
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.health.contributor.AbstractHealthIndicator"
     },
     {
@@ -17668,6 +18278,9 @@
     },
     {
       "type": "org.springframework.boot.health.contributor.PingHealthIndicator"
+    },
+    {
+      "type": "org.springframework.boot.health.contributor.ReactiveHealthContributors"
     },
     {
       "type": "org.springframework.boot.health.contributor.Status",
@@ -17689,10 +18302,16 @@
       "type": "org.springframework.boot.health.registry.DefaultHealthContributorRegistry"
     },
     {
+      "type": "org.springframework.boot.health.registry.DefaultReactiveHealthContributorRegistry"
+    },
+    {
       "type": "org.springframework.boot.health.registry.HealthContributorNameValidator"
     },
     {
       "type": "org.springframework.boot.health.registry.HealthContributorRegistry"
+    },
+    {
+      "type": "org.springframework.boot.health.registry.ReactiveHealthContributorRegistry"
     },
     {
       "type": "org.springframework.boot.hibernate.SpringImplicitNamingStrategy",
@@ -22633,9 +23252,6 @@
       "type": "org.springframework.core.annotation.AliasFor"
     },
     {
-      "type": "org.springframework.core.annotation.AnnotatedElementUtils"
-    },
-    {
       "type": "org.springframework.core.annotation.AnnotationAttributes[]"
     },
     {
@@ -22694,6 +23310,9 @@
       "type": "org.springframework.core.io.Resource"
     },
     {
+      "type": "org.springframework.core.io.ResourceLoader"
+    },
+    {
       "type": "org.springframework.core.io.Resource[]"
     },
     {
@@ -22720,9 +23339,6 @@
     },
     {
       "type": "org.springframework.core.type.classreading.MetadataReaderFactory"
-    },
-    {
-      "type": "org.springframework.dao.ConcurrencyFailureException"
     },
     {
       "type": "org.springframework.dao.DataAccessException"
@@ -22802,7 +23418,13 @@
       "type": "org.springframework.data.core.CustomCollections.VavrCollections"
     },
     {
-      "type": "org.springframework.data.domain.AuditorAware"
+      "type": "org.springframework.data.domain.AuditorAware",
+      "methods": [
+        {
+          "name": "getCurrentAuditor",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.data.domain.Page"
@@ -22818,6 +23440,9 @@
     },
     {
       "type": "org.springframework.data.domain.Sort"
+    },
+    {
+      "type": "org.springframework.data.domain.Sort$Direction"
     },
     {
       "type": "org.springframework.data.domain.Sort$Order"
@@ -22859,6 +23484,14 @@
         {
           "name": "setAuditingHandler",
           "parameterTypes": ["org.springframework.beans.factory.ObjectFactory"]
+        },
+        {
+          "name": "touchForCreate",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "touchForUpdate",
+          "parameterTypes": ["java.lang.Object"]
         }
       ]
     },
@@ -23073,6 +23706,9 @@
       ]
     },
     {
+      "type": "org.springframework.data.mapping.PersistentProperty"
+    },
+    {
       "type": "org.springframework.data.mapping.PersistentPropertyAccessor"
     },
     {
@@ -23101,6 +23737,10 @@
       "methods": [
         {
           "name": "delete",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "findById",
           "parameterTypes": ["java.lang.Object"]
         },
         {
@@ -23459,33 +24099,7 @@
       "type": "org.springframework.http.MediaType"
     },
     {
-      "type": "org.springframework.http.ProblemDetail",
-      "methods": [
-        {
-          "name": "getDetail",
-          "parameterTypes": []
-        },
-        {
-          "name": "getInstance",
-          "parameterTypes": []
-        },
-        {
-          "name": "getProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "getStatus",
-          "parameterTypes": []
-        },
-        {
-          "name": "getTitle",
-          "parameterTypes": []
-        },
-        {
-          "name": "getType",
-          "parameterTypes": []
-        }
-      ]
+      "type": "org.springframework.http.ProblemDetail"
     },
     {
       "type": "org.springframework.http.ReactiveHttpInputMessage"
@@ -23516,9 +24130,6 @@
     },
     {
       "type": "org.springframework.http.converter.json.JacksonJsonHttpMessageConverter"
-    },
-    {
-      "type": "org.springframework.http.converter.json.ProblemDetailJacksonMixin"
     },
     {
       "type": "org.springframework.http.server.ServerHttpRequest"
@@ -23582,6 +24193,9 @@
     },
     {
       "type": "org.springframework.mail.javamail.JavaMailSenderImpl"
+    },
+    {
+      "type": "org.springframework.mail.javamail.MimeMessageHelper"
     },
     {
       "type": "org.springframework.messaging.MessagingException"
@@ -23835,9 +24449,6 @@
       "type": "org.springframework.scheduling.config.ScheduledTaskHolder"
     },
     {
-      "type": "org.springframework.security.access.AccessDeniedException"
-    },
-    {
       "type": "org.springframework.security.access.SecurityConfig"
     },
     {
@@ -23885,9 +24496,6 @@
     },
     {
       "type": "org.springframework.security.authentication.AuthenticationProvider"
-    },
-    {
-      "type": "org.springframework.security.authentication.BadCredentialsException"
     },
     {
       "type": "org.springframework.security.authentication.DefaultAuthenticationEventPublisher"
@@ -24472,10 +25080,16 @@
       "type": "org.springframework.security.core.authority.SimpleGrantedAuthority"
     },
     {
+      "type": "org.springframework.security.core.context.ReactiveSecurityContextHolderThreadLocalAccessor"
+    },
+    {
       "type": "org.springframework.security.core.context.SecurityContext"
     },
     {
       "type": "org.springframework.security.core.context.SecurityContextHolder"
+    },
+    {
+      "type": "org.springframework.security.core.context.SecurityContextHolderThreadLocalAccessor"
     },
     {
       "type": "org.springframework.security.core.userdetails.User"
@@ -24668,6 +25282,9 @@
     },
     {
       "type": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter"
+    },
+    {
+      "type": "org.springframework.security.web.server.ServerWebExchangeThreadLocalAccessor"
     },
     {
       "type": "org.springframework.security.web.server.WebFilterChainProxy"
@@ -24872,9 +25489,6 @@
     },
     {
       "type": "org.springframework.validation.method.MethodValidationException"
-    },
-    {
-      "type": "org.springframework.web.ErrorResponse"
     },
     {
       "type": "org.springframework.web.ErrorResponseException"
@@ -25128,10 +25742,16 @@
       "type": "org.springframework.web.reactive.HandlerResult"
     },
     {
+      "type": "org.springframework.web.reactive.config.WebFluxConfigurer"
+    },
+    {
       "type": "org.springframework.web.reactive.function.client.ExchangeFilterFunction"
     },
     {
       "type": "org.springframework.web.reactive.function.client.WebClientException"
+    },
+    {
+      "type": "org.springframework.web.reactive.result.view.RequestContext"
     },
     {
       "type": "org.springframework.web.reactive.result.view.View"
@@ -25297,6 +25917,15 @@
       "type": "org.springframework.web.servlet.function.RouterFunction"
     },
     {
+      "type": "org.springframework.web.servlet.function.RouterFunctionBuilder"
+    },
+    {
+      "type": "org.springframework.web.servlet.function.RouterFunctionBuilder$BuiltRouterFunction"
+    },
+    {
+      "type": "org.springframework.web.servlet.function.RouterFunctions$AbstractRouterFunction"
+    },
+    {
       "type": "org.springframework.web.servlet.function.support.HandlerFunctionAdapter"
     },
     {
@@ -25369,6 +25998,9 @@
       "type": "org.springframework.web.servlet.support.AbstractFlashMapManager"
     },
     {
+      "type": "org.springframework.web.servlet.support.RequestContext"
+    },
+    {
       "type": "org.springframework.web.servlet.support.RequestDataValueProcessor"
     },
     {
@@ -25414,10 +26046,19 @@
       "type": "org.thymeleaf.TemplateEngine"
     },
     {
+      "type": "org.thymeleaf.context.Context"
+    },
+    {
       "type": "org.thymeleaf.context.IContext"
     },
     {
       "type": "org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect"
+    },
+    {
+      "type": "org.thymeleaf.spring5.context.IThymeleafRequestContext"
+    },
+    {
+      "type": "org.thymeleaf.spring5.expression.IThymeleafEvaluationContext"
     },
     {
       "type": "org.thymeleaf.spring6.ISpringTemplateEngine"
@@ -25426,10 +26067,74 @@
       "type": "org.thymeleaf.spring6.SpringTemplateEngine"
     },
     {
+      "type": "org.thymeleaf.spring6.context.IThymeleafRequestContext"
+    },
+    {
+      "type": "org.thymeleaf.spring6.expression.IThymeleafEvaluationContext"
+    },
+    {
+      "type": "org.thymeleaf.spring6.expression.Mvc$Spring41MvcUriComponentsBuilderDelegate",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver"
     },
     {
       "type": "org.thymeleaf.spring6.view.ThymeleafViewResolver"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AdditionExpression",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.thymeleaf.standard.expression.IStandardExpression",
+            "org.thymeleaf.standard.expression.IStandardExpression"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AdditionSubtractionExpression",
+      "methods": [
+        {
+          "name": "isLeftAllowed",
+          "parameterTypes": ["org.thymeleaf.standard.expression.IStandardExpression"]
+        },
+        {
+          "name": "isRightAllowed",
+          "parameterTypes": ["org.thymeleaf.standard.expression.IStandardExpression"]
+        }
+      ]
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AndExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.EqualsNotEqualsExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.GreaterLesserExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardConversionService"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardExpressionParser"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardVariableExpressionEvaluator"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.MultiplicationDivisionRemainderExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.OrExpression"
     },
     {
       "type": "org.thymeleaf.templatemode.TemplateMode"
@@ -25465,7 +26170,22 @@
       "type": "reactor.core.publisher.Flux"
     },
     {
+      "type": "reactor.core.publisher.LambdaMonoSubscriber"
+    },
+    {
       "type": "reactor.core.publisher.Mono"
+    },
+    {
+      "type": "reactor.core.publisher.MonoCallable$MonoCallableSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$MultiSubscriptionSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$ScalarSubscription"
+    },
+    {
+      "type": "reactor.util.context.ReactorContextAccessor"
     },
     {
       "type": "reactor.util.lang.NonNullApi"
@@ -26875,6 +27595,9 @@
       ]
     },
     {
+      "type": "tech.jhipster.security.RandomUtil"
+    },
+    {
       "type": "tech.jhipster.service.Criteria"
     },
     {
@@ -26977,16 +27700,7 @@
       "type": "tech.jhipster.service.filter.StringFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
-      "methods": [
-        {
-          "name": "getCause",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause$ProblemDetailWithCauseBuilder"
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause"
     },
     {
       "type": "tech.jhipster.web.util.HeaderUtil"
@@ -27104,9 +27818,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "void"
     },
     {
       "type": {
@@ -27452,10 +28163,25 @@
       "glob": "META-INF/MANIFEST.MF"
     },
     {
+      "glob": "META-INF/jakarta.address.map"
+    },
+    {
+      "glob": "META-INF/jakarta.charset.map"
+    },
+    {
+      "glob": "META-INF/jakarta.default.address.map"
+    },
+    {
+      "glob": "META-INF/jakarta.default.providers"
+    },
+    {
       "glob": "META-INF/jakarta.mime.types"
     },
     {
       "glob": "META-INF/jakarta.mimetypes.default"
+    },
+    {
+      "glob": "META-INF/jakarta.providers"
     },
     {
       "glob": "META-INF/jpa-named-queries.properties"
@@ -27668,6 +28394,12 @@
       "glob": "META-INF/resources/user-management-RXXI4EKF.js"
     },
     {
+      "glob": "META-INF/resources/user-management-detail-NVPES6SI.js"
+    },
+    {
+      "glob": "META-INF/resources/user-management-update-BYPDMJOS.js"
+    },
+    {
       "glob": "META-INF/resources/user-management.route-F4ET4GZF.js"
     },
     {
@@ -27677,6 +28409,18 @@
       "glob": "META-INF/services/com.fasterxml.jackson.databind.Module"
     },
     {
+      "glob": "META-INF/services/io.micrometer.context.ContextAccessor"
+    },
+    {
+      "glob": "META-INF/services/io.micrometer.context.ThreadLocalAccessor"
+    },
+    {
+      "glob": "META-INF/services/io.modelcontextprotocol.json.McpJsonMapperSupplier"
+    },
+    {
+      "glob": "META-INF/services/io.modelcontextprotocol.json.schema.JsonSchemaValidatorSupplier"
+    },
+    {
       "glob": "META-INF/services/io.swagger.v3.core.converter.ModelConverter"
     },
     {
@@ -27684,6 +28428,12 @@
     },
     {
       "glob": "META-INF/services/jakarta.el.ExpressionFactory"
+    },
+    {
+      "glob": "META-INF/services/jakarta.mail.Provider"
+    },
+    {
+      "glob": "META-INF/services/jakarta.mail.util.StreamProvider"
     },
     {
       "glob": "META-INF/services/jakarta.persistence.spi.PersistenceProvider"
@@ -27765,9 +28515,6 @@
     },
     {
       "glob": "META-INF/services/liquibase.database.jvm.ConnectionPatterns"
-    },
-    {
-      "glob": "META-INF/services/liquibase.datatype.LiquibaseDataType"
     },
     {
       "glob": "META-INF/services/liquibase.diff.compare.DatabaseObjectComparator"
@@ -28331,15 +29078,6 @@
       "glob": "org/postgresql/driverconfig.properties"
     },
     {
-      "glob": "org/postgresql/translation/messages.properties"
-    },
-    {
-      "glob": "org/postgresql/translation/messages_en.properties"
-    },
-    {
-      "glob": "org/postgresql/translation/messages_en_US.properties"
-    },
-    {
       "glob": "org/springdoc/core/conditions/CacheOrGroupedOpenApiCondition$OnCacheDisabled.class"
     },
     {
@@ -28488,6 +29226,147 @@
     },
     {
       "glob": "org/springdoc/webmvc/core/configuration/SpringDocWebMvcConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerSseWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerSseWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerStatelessWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerStatelessWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerStreamableHttpWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure$McpServerStreamableHttpWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerSseWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerSseWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerStatelessWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerStatelessWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerStreamableHttpWebFluxAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/autoconfigure/McpServerStreamableHttpWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledSseServerCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledSseServerCondition$SseEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledSseServerCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledStreamableServerCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledStreamableServerCondition$StreamableEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$EnabledStreamableServerCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$NonStatelessServerCondition$SseEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$NonStatelessServerCondition$StreamableEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration$NonStatelessServerCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerJsonMapperAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStatelessAutoConfiguration$EnabledStatelessServerCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStatelessAutoConfiguration$EnabledStatelessServerCondition$StatelessEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStatelessAutoConfiguration$EnabledStatelessServerCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStatelessAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStdioDisabledCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStdioDisabledCondition$StdioDisabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStdioDisabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$ToolCallbackConvertCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/ToolCallbackConverterAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration$AnnotationHints.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration$ServerAnnotatedBeanFactoryInitializationAotProcessor.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration$ServerAnnotatedMethodBeanPostProcessor.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerSpecificationFactoryAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration$AsyncStatelessServerSpecificationConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration$SyncStatelessServerSpecificationConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/webmvc/autoconfigure/McpServerSseWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/webmvc/autoconfigure/McpServerStatelessWebMvcAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/webmvc/autoconfigure/McpServerStreamableHttpWebMvcAutoConfiguration.class"
     },
     {
       "glob": "org/springframework/aop/aspectj/annotation/AnnotationAwareAspectJAutoProxyCreator.class"
@@ -30077,6 +30956,9 @@
       "glob": "org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.class"
     },
     {
+      "glob": "org/thymeleaf/thymeleaf.properties"
+    },
+    {
       "glob": "resources/account.route-LFZMOZG7.js"
     },
     {
@@ -30275,6 +31157,12 @@
       "glob": "resources/user-management-RXXI4EKF.js"
     },
     {
+      "glob": "resources/user-management-detail-NVPES6SI.js"
+    },
+    {
+      "glob": "resources/user-management-update-BYPDMJOS.js"
+    },
+    {
       "glob": "resources/user-management.route-F4ET4GZF.js"
     },
     {
@@ -30453,9 +31341,6 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
-    },
-    {
-      "bundle": "org.postgresql.translation.messages"
     },
     {
       "bundle": "org.springframework.security.messages"
