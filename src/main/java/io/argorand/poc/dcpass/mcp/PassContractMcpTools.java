@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.stringtemplate.v4.compiler.STParser.templateAndEOF_return;
 
 /**
  * MCP tools exposing pass contract operations to AI applications.
@@ -32,7 +33,14 @@ public class PassContractMcpTools {
 
     @McpTool(
         name = "searchContractsInPASS",
-        description = "Search District of Columbia Procurement Automated Support System (DCPASS) contracts dataset. Supports full-text search (q), date range filters (awardDate, startDate, endDate), and pagination (page)."
+        description = "Search District of Columbia Procurement Automated Support System (DCPASS) contracts dataset. Supports full-text search (q), date range filters (awardDate, startDate, endDate), and pagination (page).",
+        annotations = @McpTool.McpAnnotations(
+            readOnlyHint = true,
+            destructiveHint = false,
+            idempotentHint = true,
+            openWorldHint = false,
+            title = "Search PASS contracts"
+        )
     )
     public String getAllPassContracts(
         @McpToolParam(description = "Search phrase", required = false) String q,
