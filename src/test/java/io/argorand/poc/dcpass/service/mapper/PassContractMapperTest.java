@@ -12,7 +12,7 @@ class PassContractMapperTest {
 
     @BeforeEach
     void setUp() {
-        passContractMapper = new PassContractMapperImpl();
+        passContractMapper = getPassContractMapper();
     }
 
     @Test
@@ -20,5 +20,9 @@ class PassContractMapperTest {
         var expected = getPassContractSample1();
         var actual = passContractMapper.toEntity(passContractMapper.toDto(expected));
         assertPassContractAllPropertiesEquals(expected, actual);
+    }
+
+    private static PassContractMapper getPassContractMapper() {
+        return new PassContractMapperImpl();
     }
 }

@@ -91,6 +91,14 @@ management:
       application: ${spring.application.name}
 
 spring:
+  ai:
+    mcp:
+      server:
+        enabled: true
+        name: dcpass-mcp
+        protocol: STATELESS
+        annotation-scanner:
+          enabled: true
   application:
     name: dcpass
   docker:

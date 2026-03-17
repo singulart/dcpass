@@ -65,6 +65,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers("/api/account/reset-password/finish").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/pass-contracts", "/api/pass-contracts/**").permitAll()
+                    .requestMatchers("/sse", "/mcp/**").permitAll()
                     .requestMatchers("/api/**").authenticated()
                     .requestMatchers("/v3/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers("/management/health").permitAll()
