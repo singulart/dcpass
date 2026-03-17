@@ -1,0 +1,111 @@
+<div class="contracts-widget p-2">
+  @if (waiting() && contracts().length === 0 && !error()) {
+    <div class="text-muted small text-center py-3">Waiting for contract results from ChatGPT…</div>
+  }
+  @if (error()) {
+    <div class="alert alert-warning small mb-0">{{ error() }}</div>
+  }
+  @if (apiParams() && contracts().length === 0 && !waiting()) {
+    <div class="text-muted small text-center py-3">No contracts found.</div>
+  }
+  @if (contracts().length > 0) {
+    <div class="small">
+      <div class="table-responsive">
+        <table class="table table-sm table-hover table-striped mb-0">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 1.5rem"></th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (contract of contracts(); track trackId(contract)) {
+              <tr
+                (click)="toggleRow(contract.id)"
+                [class.table-active]="isExpanded(contract.id)"
+                style="cursor: pointer"
+                role="button"
+                tabindex="0"
+                (keydown.enter)="toggleRow(contract.id)"
+                (keydown.space)="toggleRow(contract.id); $event.preventDefault()"
+              >
+                <td class="align-middle">
+                  <fa-icon [icon]="isExpanded(contract.id) ? 'chevron-down' : 'chevron-right'" class="text-muted" />
+                </td>
+                <td class="align-middle">{{ contract.title | truncate: 50 }}</td>
+                <td class="align-middle">{{ contract.description | truncate: 60 }}</td>
+              </tr>
+              @if (isExpanded(contract.id)) {
+                <tr class="expandable-detail">
+                  <td colspan="3" class="p-0 border-0">
+                    <div class="bg-light p-2 small">
+                      <dl class="row mb-0">
+                        <dt class="col-sm-3">Title</dt>
+                        <dd class="col-sm-9">{{ contract.title }}</dd>
+                        <dt class="col-sm-3">Description</dt>
+                        <dd class="col-sm-9">{{ contract.description }}</dd>
+                        <dt class="col-sm-3">Contract Number</dt>
+                        <dd class="col-sm-9">{{ contract.contractNumber }}</dd>
+                        <dt class="col-sm-3">Agency</dt>
+                        <dd class="col-sm-9">{{ contract.agencyAcronym }} {{ contract.agencyName }}</dd>
+                        <dt class="col-sm-3">Contract Amount</dt>
+                        <dd class="col-sm-9">{{ contract.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</dd>
+                        <dt class="col-sm-3">Award Date</dt>
+                        <dd class="col-sm-9">{{ contract.awardDate | formatDate }}</dd>
+                        <dt class="col-sm-3">Start Date</dt>
+                        <dd class="col-sm-9">{{ contract.startDate | formatDate }}</dd>
+                        <dt class="col-sm-3">End Date</dt>
+                        <dd class="col-sm-9">{{ contract.endDate | formatDate }}</dd>
+                        <dt class="col-sm-3">Supplier</dt>
+                        <dd class="col-sm-9">{{ contract.supplier }}</dd>
+                        <dt class="col-sm-3">Contract Status</dt>
+                        <dd class="col-sm-9">{{ contract.contractStatus }}</dd>
+                        <dt class="col-sm-3">Contracting Officer</dt>
+                        <dd class="col-sm-9">{{ contract.contractingOfficer }}</dd>
+                        @if (contract.contractDetailsLink) {
+                          <dt class="col-sm-3">Details</dt>
+                          <dd class="col-sm-9">
+                            <a
+                              [href]="
+                                contract.contractDetailsLink!.startsWith('http')
+                                  ? contract.contractDetailsLink
+                                  : 'https://' + contract.contractDetailsLink
+                              "
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View contract details
+                            </a>
+                          </dd>
+                        }
+                      </dl>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (hasPagination()) {
+        <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap gap-1">
+          <span class="text-muted small"> Page {{ page() + 1 }} of {{ totalPages() }} ({{ totalItems() }} total) </span>
+          <nav>
+            <ngb-pagination
+              [collectionSize]="totalItems()"
+              [page]="page() + 1"
+              [pageSize]="size()"
+              [maxSize]="5"
+              [rotate]="true"
+              [ellipses]="false"
+              [boundaryLinks]="true"
+              (pageChange)="loadPage($event - 1)"
+              [disabled]="loadingPage()"
+            />
+          </nav>
+        </div>
+      }
+    </div>
+  }
+</div>

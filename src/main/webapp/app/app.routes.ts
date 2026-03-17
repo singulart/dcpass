@@ -34,6 +34,11 @@ const routes: Routes = [
     title: 'Sign in',
   },
   {
+    path: 'contracts-widget',
+    loadComponent: () => import('./entities/pass-contract/contracts-browser/contracts-widget.component'),
+    title: 'Contracts Widget',
+  },
+  {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },

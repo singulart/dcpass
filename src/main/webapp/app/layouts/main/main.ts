@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 import { AppPageTitleStrategy } from 'app/app-page-title-strategy';
@@ -17,8 +17,16 @@ export default class Main implements OnInit {
   private readonly appPageTitleStrategy = inject(AppPageTitleStrategy);
   private readonly accountService = inject(AccountService);
 
+  /** Minimal layout (no navbar/footer) for embedded widget route. */
+  isWidgetRoute = signal(false);
+
   ngOnInit(): void {
-    // try to log in automatically
+    this.updateWidgetRoute();
+    this.router.events.subscribe(() => this.updateWidgetRoute());
     this.accountService.identity().subscribe();
+  }
+
+  private updateWidgetRoute(): void {
+    this.isWidgetRoute.set(this.router.url.includes('/contracts-widget'));
   }
 }
