@@ -54,7 +54,7 @@ public class PassContractMcpTools {
     )
     public McpSchema.CallToolResult getAllPassContracts(
         @McpToolParam(description = "Search phrase", required = false) String q,
-        @McpToolParam(description = "Award date 'from' (ISO-8601, e.g. 2024-01-01)", required = false) String awardDateFrom,
+        @McpToolParam(description = "Award date 'from' (ISO-8601, e.g. 2026-01-01)", required = false) String awardDateFrom,
         @McpToolParam(description = "Award date 'to' (ISO-8601)", required = false) String awardDateTo,
         @McpToolParam(description = "Start date 'from' (ISO-8601)", required = false) String startDateFrom,
         @McpToolParam(description = "Start date 'to' (ISO-8601)", required = false) String startDateTo,
@@ -133,14 +133,14 @@ public class PassContractMcpTools {
             criteria.contractAmount().setLessThanOrEqual(parsedMaxAmount);
         }
 
-        Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "lastModified"));
+        Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id"));
 
         if (q != null && !q.isBlank()) {
             String escapedQuery = q.trim().replace("'", "''");
             Sort relevanceSort = org.springframework.data.jpa.domain.JpaSort.unsafe(
                 "pass_contract_fts_rank(searchVector, '" + escapedQuery + "') DESC"
             );
-            pageable = PageRequest.of(pageNumber, PAGE_SIZE, relevanceSort);
+            pageable = PageRequest.of(pageNumber, PAGE_SIZE, relevanceSort.and(Sort.by(Sort.Direction.ASC, "id")));
         }
 
         try {
@@ -183,7 +183,7 @@ public class PassContractMcpTools {
         try {
             return LocalDate.parse(value.trim());
         } catch (DateTimeException e) {
-            errors.add(paramName + " '" + value + "' is not a valid date. Use ISO-8601 format (YYYY-MM-DD), e.g. 2024-01-15.");
+            errors.add(paramName + " '" + value + "' is not a valid date. Use ISO-8601 format (YYYY-MM-DD), e.g. 2026-01-15.");
             return null;
         }
     }
@@ -205,7 +205,7 @@ public class PassContractMcpTools {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("page", page);
         params.put("size", size);
-        params.put("sort", "lastModified,desc");
+        params.put("sort", "id,asc");
         if (q != null && !q.isBlank()) {
             params.put("q", q.trim());
         }

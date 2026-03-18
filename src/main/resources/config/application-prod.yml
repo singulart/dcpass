@@ -49,6 +49,8 @@ spring:
     password:
   thymeleaf:
     cache: true
+  lifecycle:
+    timeout-per-shutdown-phase: 3s
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
@@ -120,5 +122,12 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
+
+# OpenAI domain verification for ChatGPT app submission
+# Set this to the challenge string provided by OpenAI when they ask you to verify
+# https://pass.argorand.io/.well-known/openai-apps-challenge
+# openai:
+#   apps:
+#     challenge: "your-challenge-string-from-openai"
 
 # application:

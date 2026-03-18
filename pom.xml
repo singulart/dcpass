@@ -5,9 +5,9 @@
 
     <groupId>io.argorand.poc.dcpass</groupId>
     <artifactId>dcpass</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
-    <name>Dcpass</name>
+    <name>DCPASS</name>
     <description>Description for Dcpass</description>
     <parent>
         <groupId>org.springframework.boot</groupId>

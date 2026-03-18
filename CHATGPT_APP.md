@@ -28,7 +28,7 @@ To have ChatGPT render the contract table in an iframe when the AI calls `search
 
 When creating or editing your GPT in ChatGPT:
 
-1. Add the MCP server (your dcpass backend URL, e.g. `http://localhost:8080/mcp` for dev).
+1. Add the MCP server (your dcpass backend URL; for SSE transport use the URL ending with `/sse` or `/sse/`, e.g. `http://localhost:8080/sse` for dev).
 2. If your GPT builder supports custom tool metadata, add:
    - `_meta.ui.resourceUri`: Your widget URL (e.g. `https://your-domain.com/contracts-widget`)
 
