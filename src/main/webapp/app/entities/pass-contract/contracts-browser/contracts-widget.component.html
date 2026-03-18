@@ -15,8 +15,9 @@
           <thead>
             <tr>
               <th scope="col" style="width: 1.5rem"></th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
+              <th scope="col">Contract</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Award Date</th>
             </tr>
           </thead>
           <tbody>
@@ -34,11 +35,12 @@
                   <fa-icon [icon]="isExpanded(contract.id) ? 'chevron-down' : 'chevron-right'" class="text-muted" />
                 </td>
                 <td class="align-middle">{{ contract.title | truncate: 50 }}</td>
-                <td class="align-middle">{{ contract.description | truncate: 60 }}</td>
+                <td class="align-middle">{{ contract.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+                <td class="align-middle">{{ contract.awardDate | formatDate }}</td>
               </tr>
               @if (isExpanded(contract.id)) {
                 <tr class="expandable-detail">
-                  <td colspan="3" class="p-0 border-0">
+                  <td colspan="4" class="p-0 border-0">
                     <div class="bg-light p-2 small">
                       <dl class="row mb-0">
                         <dt class="col-sm-3">Title</dt>
