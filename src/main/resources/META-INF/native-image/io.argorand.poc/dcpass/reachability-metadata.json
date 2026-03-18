@@ -19,6 +19,27 @@
       ]
     },
     {
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
+      "methods": [
+        {
+          "name": "getCause",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.OpenAiAppsChallengeController",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.OpenAiAppsChallengeController$$SpringCGLIB$$0"
+    },
+    {
       "type": "apple.security.AppleProvider",
       "methods": [
         {
@@ -2077,6 +2098,15 @@
       "type": "io.argorand.poc.dcpass.management.package-info"
     },
     {
+      "type": "io.argorand.poc.dcpass.mcp.PassContractMcpResources",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["com.fasterxml.jackson.databind.ObjectMapper"]
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.mcp.PassContractMcpTools",
       "methods": [
         {
@@ -2086,6 +2116,8 @@
         {
           "name": "getAllPassContracts",
           "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
             "java.lang.String",
             "java.lang.String",
             "java.lang.String",
@@ -2283,23 +2315,7 @@
           "parameterTypes": []
         },
         {
-          "name": "getEndDate",
-          "parameterTypes": []
-        },
-        {
-          "name": "getStartDate",
-          "parameterTypes": []
-        },
-        {
           "name": "setAwardDate",
-          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
-        },
-        {
-          "name": "setEndDate",
-          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
-        },
-        {
-          "name": "setStartDate",
           "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
         }
       ]
@@ -2942,6 +2958,18 @@
       "type": "io.argorand.poc.dcpass.web.rest.AuthorityResource$$SpringCGLIB$$0"
     },
     {
+      "type": "io.argorand.poc.dcpass.web.rest.McpSseController",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.McpSseController$$SpringCGLIB$$0"
+    },
+    {
       "type": "io.argorand.poc.dcpass.web.rest.PassContractResource",
       "fields": [
         {
@@ -3296,7 +3324,7 @@
       "type": "io.modelcontextprotocol.json.schema.jackson3.JacksonJsonSchemaValidatorSupplier"
     },
     {
-      "type": "io.modelcontextprotocol.server.McpStatelessSyncServer",
+      "type": "io.modelcontextprotocol.server.McpSyncServer",
       "methods": [
         {
           "name": "close",
@@ -3344,6 +3372,9 @@
       ]
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$CallToolResult$Builder"
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities",
       "methods": [
         {
@@ -3358,7 +3389,16 @@
       ]
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation"
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Form",
+            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Url"
+          ]
+        }
+      ]
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Form"
@@ -3367,10 +3407,22 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Url"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities"
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.Boolean"]
+        }
+      ]
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling"
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Content"
@@ -3442,6 +3494,15 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCMessage"
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCNotification",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.Object"]
+        }
+      ]
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCRequest",
       "methods": [
         {
@@ -3508,6 +3569,40 @@
       ]
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ListPromptsResult",
+      "methods": [
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "nextCursor",
+          "parameterTypes": []
+        },
+        {
+          "name": "prompts",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ListResourcesResult",
+      "methods": [
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "nextCursor",
+          "parameterTypes": []
+        },
+        {
+          "name": "resources",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$ListToolsResult",
       "methods": [
         {
@@ -3525,10 +3620,62 @@
       ]
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$LoggingLevel"
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$Meta"
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Prompt"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Prompt[]"
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$Request"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Resource",
+      "methods": [
+        {
+          "name": "annotations",
+          "parameterTypes": []
+        },
+        {
+          "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "mimeType",
+          "parameterTypes": []
+        },
+        {
+          "name": "name",
+          "parameterTypes": []
+        },
+        {
+          "name": "size",
+          "parameterTypes": []
+        },
+        {
+          "name": "title",
+          "parameterTypes": []
+        },
+        {
+          "name": "uri",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceContent"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Resource[]"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Result"
@@ -3599,6 +3746,15 @@
         {
           "name": "listChanged",
           "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$SetLevelRequest",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.modelcontextprotocol.spec.McpSchema$LoggingLevel"]
         }
       ]
     },
@@ -3685,7 +3841,10 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$Tool[]"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpStatelessServerTransport",
+      "type": "io.modelcontextprotocol.spec.McpServerTransportProvider"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpServerTransportProviderBase",
       "methods": [
         {
           "name": "close",
@@ -5599,6 +5758,9 @@
       "type": "java.lang.Number"
     },
     {
+      "type": "java.lang.NumberFormatException"
+    },
+    {
       "type": "java.lang.Object",
       "methods": [
         {
@@ -6240,6 +6402,9 @@
       "type": "java.text.ListFormat"
     },
     {
+      "type": "java.time.DateTimeException"
+    },
+    {
       "type": "java.time.Duration"
     },
     {
@@ -6274,6 +6439,9 @@
     },
     {
       "type": "java.time.chrono.ChronoZonedDateTime"
+    },
+    {
+      "type": "java.time.format.DateTimeFormatter"
     },
     {
       "type": "java.time.temporal.ChronoUnit"
@@ -6373,7 +6541,13 @@
       "type": "java.util.ImmutableCollections$AbstractImmutableList"
     },
     {
+      "type": "java.util.ImmutableCollections$AbstractImmutableMap"
+    },
+    {
       "type": "java.util.ImmutableCollections$ListN"
+    },
+    {
+      "type": "java.util.ImmutableCollections$MapN"
     },
     {
       "type": "java.util.LinkedHashMap"
@@ -13794,6 +13968,12 @@
       "type": "org.springdoc.webmvc.core.service.RequestService"
     },
     {
+      "type": "org.springframework.ai.mcp.annotation.McpResource"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.McpResource$McpAnnotations"
+    },
+    {
       "type": "org.springframework.ai.mcp.annotation.McpTool"
     },
     {
@@ -13822,6 +14002,42 @@
     },
     {
       "type": "org.springframework.ai.mcp.annotation.spring.scan.AnnotatedMethodDiscovery"
+    },
+    {
+      "type": "org.springframework.ai.mcp.customizer.McpSyncServerCustomizer"
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "capabilitiesBuilder",
+          "parameterTypes": []
+        },
+        {
+          "name": "mcpSyncServer",
+          "parameterTypes": [
+            "io.modelcontextprotocol.spec.McpServerTransportProviderBase",
+            "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$Builder",
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties",
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerChangeNotificationProperties",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "java.util.Optional"
+          ]
+        },
+        {
+          "name": "servletMcpSyncServerCustomizer",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration$EnabledSseServerCondition",
@@ -13864,33 +14080,6 @@
       ]
     },
     {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerStatelessAutoConfiguration",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        },
-        {
-          "name": "capabilitiesBuilder",
-          "parameterTypes": []
-        },
-        {
-          "name": "mcpStatelessSyncServer",
-          "parameterTypes": [
-            "io.modelcontextprotocol.spec.McpStatelessServerTransport",
-            "io.modelcontextprotocol.spec.McpSchema$ServerCapabilities$Builder",
-            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties",
-            "org.springframework.beans.factory.ObjectProvider",
-            "org.springframework.beans.factory.ObjectProvider",
-            "org.springframework.beans.factory.ObjectProvider",
-            "org.springframework.beans.factory.ObjectProvider",
-            "org.springframework.beans.factory.ObjectProvider",
-            "org.springframework.core.env.Environment"
-          ]
-        }
-      ]
-    },
-    {
       "type": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerStatelessAutoConfiguration$EnabledStatelessServerCondition",
       "methods": [
         {
@@ -13909,7 +14098,16 @@
       ]
     },
     {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.StatelessToolCallbackConverterAutoConfiguration",
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.ToolCallbackConverterAutoConfiguration",
       "methods": [
         {
           "name": "<init>",
@@ -13924,15 +14122,6 @@
             "org.springframework.beans.factory.ObjectProvider",
             "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties"
           ]
-        }
-      ]
-    },
-    {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
         }
       ]
     },
@@ -13999,7 +14188,7 @@
       ]
     },
     {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.StatelessServerSpecificationFactoryAutoConfiguration",
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerSpecificationFactoryAutoConfiguration",
       "methods": [
         {
           "name": "<init>",
@@ -14008,7 +14197,7 @@
       ]
     },
     {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.StatelessServerSpecificationFactoryAutoConfiguration$SyncStatelessServerSpecificationConfiguration",
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerSpecificationFactoryAutoConfiguration$SyncServerSpecificationConfiguration",
       "methods": [
         {
           "name": "<init>",
@@ -14043,6 +14232,27 @@
           "parameterTypes": [
             "org.springframework.ai.mcp.server.common.autoconfigure.annotations.McpServerAnnotationScannerAutoConfiguration$ServerMcpAnnotatedBeans"
           ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerChangeNotificationProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "isPromptChangeNotification",
+          "parameterTypes": []
+        },
+        {
+          "name": "isResourceChangeNotification",
+          "parameterTypes": []
+        },
+        {
+          "name": "isToolChangeNotification",
+          "parameterTypes": []
         }
       ]
     },
@@ -14138,10 +14348,14 @@
       "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerProperties$ServerProtocolEditor"
     },
     {
-      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerStreamableHttpProperties",
+      "type": "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerSseProperties",
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getBaseUrl",
           "parameterTypes": []
         },
         {
@@ -14149,40 +14363,37 @@
           "parameterTypes": []
         },
         {
-          "name": "getMcpEndpoint",
+          "name": "getSseEndpoint",
           "parameterTypes": []
         },
         {
-          "name": "isDisallowDelete",
+          "name": "getSseMessageEndpoint",
           "parameterTypes": []
         }
       ]
     },
     {
-      "type": "org.springframework.ai.mcp.server.webmvc.autoconfigure.McpServerStatelessWebMvcAutoConfiguration",
+      "type": "org.springframework.ai.mcp.server.webmvc.autoconfigure.McpServerSseWebMvcAutoConfiguration",
       "methods": [
         {
           "name": "<init>",
           "parameterTypes": []
         },
         {
-          "name": "webMvcStatelessServerRouterFunction",
-          "parameterTypes": ["org.springframework.ai.mcp.server.webmvc.transport.WebMvcStatelessServerTransport"]
+          "name": "webMvcSseServerRouterFunction",
+          "parameterTypes": ["org.springframework.ai.mcp.server.webmvc.transport.WebMvcSseServerTransportProvider"]
         },
         {
-          "name": "webMvcStatelessServerTransport",
+          "name": "webMvcSseServerTransportProvider",
           "parameterTypes": [
             "tools.jackson.databind.json.JsonMapper",
-            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerStreamableHttpProperties"
+            "org.springframework.ai.mcp.server.common.autoconfigure.properties.McpServerSseProperties"
           ]
         }
       ]
     },
     {
       "type": "org.springframework.ai.mcp.server.webmvc.transport.WebMvcSseServerTransportProvider"
-    },
-    {
-      "type": "org.springframework.ai.mcp.server.webmvc.transport.WebMvcStatelessServerTransport"
     },
     {
       "type": "org.springframework.aop.Advisor"
@@ -15324,10 +15535,6 @@
     {
       "type": "org.springframework.boot.actuate.logging.LoggersEndpoint",
       "methods": [
-        {
-          "name": "configureLogLevel",
-          "parameterTypes": ["java.lang.String", "org.springframework.boot.logging.LogLevel"]
-        },
         {
           "name": "loggers",
           "parameterTypes": []
@@ -21919,6 +22126,9 @@
       "type": "org.springframework.boot.web.server.Shutdown"
     },
     {
+      "type": "org.springframework.boot.web.server.ShutdownEditor"
+    },
+    {
       "type": "org.springframework.boot.web.server.WebServerFactory"
     },
     {
@@ -21983,6 +22193,10 @@
         {
           "name": "setPort",
           "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setShutdown",
+          "parameterTypes": ["org.springframework.boot.web.server.Shutdown"]
         }
       ]
     },
@@ -23252,6 +23466,9 @@
       "type": "org.springframework.core.annotation.AliasFor"
     },
     {
+      "type": "org.springframework.core.annotation.AnnotatedElementUtils"
+    },
+    {
       "type": "org.springframework.core.annotation.AnnotationAttributes[]"
     },
     {
@@ -23339,6 +23556,9 @@
     },
     {
       "type": "org.springframework.core.type.classreading.MetadataReaderFactory"
+    },
+    {
+      "type": "org.springframework.dao.ConcurrencyFailureException"
     },
     {
       "type": "org.springframework.dao.DataAccessException"
@@ -25491,6 +25711,9 @@
       "type": "org.springframework.validation.method.MethodValidationException"
     },
     {
+      "type": "org.springframework.web.ErrorResponse"
+    },
+    {
       "type": "org.springframework.web.ErrorResponseException"
     },
     {
@@ -25561,6 +25784,9 @@
     },
     {
       "type": "org.springframework.web.bind.annotation.RequestMapping"
+    },
+    {
+      "type": "org.springframework.web.bind.annotation.RequestMethod"
     },
     {
       "type": "org.springframework.web.bind.annotation.RequestMethod[]"
@@ -25986,7 +26212,13 @@
       "type": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
     },
     {
-      "type": "org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler"
+      "type": "org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler",
+      "methods": [
+        {
+          "name": "handleException",
+          "parameterTypes": ["java.lang.Exception", "org.springframework.web.context.request.WebRequest"]
+        }
+      ]
     },
     {
       "type": "org.springframework.web.servlet.resource.NoResourceFoundException"
@@ -26167,7 +26399,16 @@
       "type": "org.zeroturnaround.javarebel.ReloaderFactory"
     },
     {
+      "type": "reactor.core.publisher.FlatMapTracker"
+    },
+    {
       "type": "reactor.core.publisher.Flux"
+    },
+    {
+      "type": "reactor.core.publisher.FluxFlatMap$FlatMapMain"
+    },
+    {
+      "type": "reactor.core.publisher.FluxIterable$IterableSubscription"
     },
     {
       "type": "reactor.core.publisher.LambdaMonoSubscriber"
@@ -26176,13 +26417,22 @@
       "type": "reactor.core.publisher.Mono"
     },
     {
-      "type": "reactor.core.publisher.MonoCallable$MonoCallableSubscription"
+      "type": "reactor.core.publisher.MonoFlatMap$FlatMapMain"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$MonoInnerProducerBase"
     },
     {
       "type": "reactor.core.publisher.Operators$MultiSubscriptionSubscriber"
     },
     {
       "type": "reactor.core.publisher.Operators$ScalarSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.SinkEmptyMulticast"
+    },
+    {
+      "type": "reactor.core.publisher.SinksSpecs$AbstractSerializedSink"
     },
     {
       "type": "reactor.util.context.ReactorContextAccessor"
@@ -27703,6 +27953,9 @@
       "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause"
     },
     {
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause$ProblemDetailWithCauseBuilder"
+    },
+    {
       "type": "tech.jhipster.web.util.HeaderUtil"
     },
     {
@@ -28064,6 +28317,14 @@
     {
       "type": {
         "lambda": {
+          "declaringClass": "org.springframework.ai.mcp.server.common.autoconfigure.McpServerAutoConfiguration",
+          "interfaces": ["org.springframework.ai.mcp.customizer.McpSyncServerCustomizer"]
+        }
+      }
+    },
+    {
+      "type": {
+        "lambda": {
           "declaringClass": "org.springframework.boot.LazyInitializationExcludeFilter",
           "interfaces": ["org.springframework.boot.LazyInitializationExcludeFilter"]
         }
@@ -28199,10 +28460,10 @@
       "glob": "META-INF/resources/account.route-LFZMOZG7.js"
     },
     {
-      "glob": "META-INF/resources/admin.routes-AU364E6P.js"
+      "glob": "META-INF/resources/admin.routes-QX4RR36I.js"
     },
     {
-      "glob": "META-INF/resources/authority-3Z2XAHIX.js"
+      "glob": "META-INF/resources/authority-YS3YE7UU.js"
     },
     {
       "glob": "META-INF/resources/authority-detail-V6TMTO6E.js"
@@ -28211,16 +28472,19 @@
       "glob": "META-INF/resources/authority-update-AVTXHT4V.js"
     },
     {
-      "glob": "META-INF/resources/authority.routes-S6TEQUZL.js"
+      "glob": "META-INF/resources/authority.routes-5KW5KRQV.js"
     },
     {
-      "glob": "META-INF/resources/bootstrap-EJ3TUTOY.js"
+      "glob": "META-INF/resources/bootstrap-XMKF242G.js"
     },
     {
       "glob": "META-INF/resources/chunk-2SPWARMT.js"
     },
     {
       "glob": "META-INF/resources/chunk-466BFIUU.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-6CWC3MTR.js"
     },
     {
       "glob": "META-INF/resources/chunk-6GOH2SWC.js"
@@ -28253,13 +28517,7 @@
       "glob": "META-INF/resources/chunk-J2GIJ2YX.js"
     },
     {
-      "glob": "META-INF/resources/chunk-J62O3S5E.js"
-    },
-    {
       "glob": "META-INF/resources/chunk-JLBJ55ZS.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-LWGYZGAJ.js"
     },
     {
       "glob": "META-INF/resources/chunk-NHKKVY5O.js"
@@ -28268,7 +28526,10 @@
       "glob": "META-INF/resources/chunk-NTPYTY7H.js"
     },
     {
-      "glob": "META-INF/resources/chunk-PQUR4EGT.js"
+      "glob": "META-INF/resources/chunk-PYVHQ5DA.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-RZNLOJNG.js"
     },
     {
       "glob": "META-INF/resources/chunk-SHACKBLW.js"
@@ -28304,10 +28565,13 @@
       "glob": "META-INF/resources/chunk-YFFKNGKO.js"
     },
     {
+      "glob": "META-INF/resources/chunk-YK7Y5YEK.js"
+    },
+    {
       "glob": "META-INF/resources/common-44G7OM7L.js"
     },
     {
-      "glob": "META-INF/resources/configuration-JV5BD2FZ.js"
+      "glob": "META-INF/resources/configuration-OXIYP7EH.js"
     },
     {
       "glob": "META-INF/resources/content/css/loading.css"
@@ -28322,10 +28586,7 @@
       "glob": "META-INF/resources/docs-3CLAGOEG.js"
     },
     {
-      "glob": "META-INF/resources/entity.routes-CTX6RBD4.js"
-    },
-    {
-      "glob": "META-INF/resources/favicon.ico"
+      "glob": "META-INF/resources/entity.routes-LCS662F4.js"
     },
     {
       "glob": "META-INF/resources/health-55F4EE6Q.js"
@@ -28340,7 +28601,7 @@
       "glob": "META-INF/resources/login-HMYODHCQ.js"
     },
     {
-      "glob": "META-INF/resources/logs-6KJSKL7K.js"
+      "glob": "META-INF/resources/logs-CDBV64YT.js"
     },
     {
       "glob": "META-INF/resources/main.js"
@@ -28355,7 +28616,7 @@
       "glob": "META-INF/resources/navbar-DEJ57INV.js"
     },
     {
-      "glob": "META-INF/resources/pass-contract-YRSAPLHO.js"
+      "glob": "META-INF/resources/pass-contract-7WNA3NZG.js"
     },
     {
       "glob": "META-INF/resources/pass-contract-detail-MGFV6MU6.js"
@@ -28364,7 +28625,7 @@
       "glob": "META-INF/resources/pass-contract-update-WFIYUSCT.js"
     },
     {
-      "glob": "META-INF/resources/pass-contract.routes-I7IYGIIF.js"
+      "glob": "META-INF/resources/pass-contract.routes-LPCUIOO7.js"
     },
     {
       "glob": "META-INF/resources/polyfills.js"
@@ -28391,7 +28652,7 @@
       "glob": "META-INF/resources/swagger-ui/swagger-ui.css"
     },
     {
-      "glob": "META-INF/resources/user-management-RXXI4EKF.js"
+      "glob": "META-INF/resources/user-management-7YDCWWIW.js"
     },
     {
       "glob": "META-INF/resources/user-management-detail-NVPES6SI.js"
@@ -28400,7 +28661,7 @@
       "glob": "META-INF/resources/user-management-update-BYPDMJOS.js"
     },
     {
-      "glob": "META-INF/resources/user-management.route-F4ET4GZF.js"
+      "glob": "META-INF/resources/user-management.route-FL2ZON3K.js"
     },
     {
       "glob": "META-INF/services/ch.qos.logback.classic.spi.Configurator"
@@ -29318,16 +29579,16 @@
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/McpServerStdioDisabledCondition.class"
     },
     {
-      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$McpServerEnabledCondition.class"
-    },
-    {
-      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$ToolCallbackConvertCondition.class"
-    },
-    {
-      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition.class"
-    },
-    {
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/StatelessToolCallbackConverterAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/ToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$McpServerEnabledCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/ToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition$ToolCallbackConvertCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/ToolCallbackConverterAutoConfiguration$ToolCallbackConverterCondition.class"
     },
     {
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/ToolCallbackConverterAutoConfiguration.class"
@@ -29348,13 +29609,13 @@
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerAnnotationScannerAutoConfiguration.class"
     },
     {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerSpecificationFactoryAutoConfiguration$AsyncServerSpecificationConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerSpecificationFactoryAutoConfiguration$SyncServerSpecificationConfiguration.class"
+    },
+    {
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/McpServerSpecificationFactoryAutoConfiguration.class"
-    },
-    {
-      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration$AsyncStatelessServerSpecificationConfiguration.class"
-    },
-    {
-      "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration$SyncStatelessServerSpecificationConfiguration.class"
     },
     {
       "glob": "org/springframework/ai/mcp/server/common/autoconfigure/annotations/StatelessServerSpecificationFactoryAutoConfiguration.class"
@@ -30962,10 +31223,10 @@
       "glob": "resources/account.route-LFZMOZG7.js"
     },
     {
-      "glob": "resources/admin.routes-AU364E6P.js"
+      "glob": "resources/admin.routes-QX4RR36I.js"
     },
     {
-      "glob": "resources/authority-3Z2XAHIX.js"
+      "glob": "resources/authority-YS3YE7UU.js"
     },
     {
       "glob": "resources/authority-detail-V6TMTO6E.js"
@@ -30974,16 +31235,19 @@
       "glob": "resources/authority-update-AVTXHT4V.js"
     },
     {
-      "glob": "resources/authority.routes-S6TEQUZL.js"
+      "glob": "resources/authority.routes-5KW5KRQV.js"
     },
     {
-      "glob": "resources/bootstrap-EJ3TUTOY.js"
+      "glob": "resources/bootstrap-XMKF242G.js"
     },
     {
       "glob": "resources/chunk-2SPWARMT.js"
     },
     {
       "glob": "resources/chunk-466BFIUU.js"
+    },
+    {
+      "glob": "resources/chunk-6CWC3MTR.js"
     },
     {
       "glob": "resources/chunk-6GOH2SWC.js"
@@ -31016,13 +31280,7 @@
       "glob": "resources/chunk-J2GIJ2YX.js"
     },
     {
-      "glob": "resources/chunk-J62O3S5E.js"
-    },
-    {
       "glob": "resources/chunk-JLBJ55ZS.js"
-    },
-    {
-      "glob": "resources/chunk-LWGYZGAJ.js"
     },
     {
       "glob": "resources/chunk-NHKKVY5O.js"
@@ -31031,7 +31289,10 @@
       "glob": "resources/chunk-NTPYTY7H.js"
     },
     {
-      "glob": "resources/chunk-PQUR4EGT.js"
+      "glob": "resources/chunk-PYVHQ5DA.js"
+    },
+    {
+      "glob": "resources/chunk-RZNLOJNG.js"
     },
     {
       "glob": "resources/chunk-SHACKBLW.js"
@@ -31067,10 +31328,13 @@
       "glob": "resources/chunk-YFFKNGKO.js"
     },
     {
+      "glob": "resources/chunk-YK7Y5YEK.js"
+    },
+    {
       "glob": "resources/common-44G7OM7L.js"
     },
     {
-      "glob": "resources/configuration-JV5BD2FZ.js"
+      "glob": "resources/configuration-OXIYP7EH.js"
     },
     {
       "glob": "resources/content/css/loading.css"
@@ -31085,10 +31349,7 @@
       "glob": "resources/docs-3CLAGOEG.js"
     },
     {
-      "glob": "resources/entity.routes-CTX6RBD4.js"
-    },
-    {
-      "glob": "resources/favicon.ico"
+      "glob": "resources/entity.routes-LCS662F4.js"
     },
     {
       "glob": "resources/health-55F4EE6Q.js"
@@ -31103,7 +31364,7 @@
       "glob": "resources/login-HMYODHCQ.js"
     },
     {
-      "glob": "resources/logs-6KJSKL7K.js"
+      "glob": "resources/logs-CDBV64YT.js"
     },
     {
       "glob": "resources/main.js"
@@ -31118,7 +31379,7 @@
       "glob": "resources/navbar-DEJ57INV.js"
     },
     {
-      "glob": "resources/pass-contract-YRSAPLHO.js"
+      "glob": "resources/pass-contract-7WNA3NZG.js"
     },
     {
       "glob": "resources/pass-contract-detail-MGFV6MU6.js"
@@ -31127,7 +31388,7 @@
       "glob": "resources/pass-contract-update-WFIYUSCT.js"
     },
     {
-      "glob": "resources/pass-contract.routes-I7IYGIIF.js"
+      "glob": "resources/pass-contract.routes-LPCUIOO7.js"
     },
     {
       "glob": "resources/polyfills.js"
@@ -31154,7 +31415,7 @@
       "glob": "resources/swagger-ui/swagger-ui.css"
     },
     {
-      "glob": "resources/user-management-RXXI4EKF.js"
+      "glob": "resources/user-management-7YDCWWIW.js"
     },
     {
       "glob": "resources/user-management-detail-NVPES6SI.js"
@@ -31163,7 +31424,7 @@
       "glob": "resources/user-management-update-BYPDMJOS.js"
     },
     {
-      "glob": "resources/user-management.route-F4ET4GZF.js"
+      "glob": "resources/user-management.route-FL2ZON3K.js"
     },
     {
       "glob": "schema-all.sql"
