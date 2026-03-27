@@ -44,6 +44,7 @@ public class PassContractMcpTools {
     @McpTool(
         name = "searchContractsInPASS",
         description = "Search District of Columbia Procurement Automated Support System (DCPASS) contracts dataset. Supports full-text search (q), min/max contract amounts and date ranges",
+        metaProvider = ContractsWidgetToolMetaProvider.class,
         annotations = @McpTool.McpAnnotations(
             readOnlyHint = true,
             destructiveHint = false,
