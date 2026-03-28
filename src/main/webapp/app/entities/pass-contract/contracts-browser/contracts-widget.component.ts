@@ -64,13 +64,20 @@ export default class ContractsWidgetComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     window.addEventListener('message', this.messageHandler, { passive: true });
-    // If we have initial data from window.openai (ChatGPT compatibility)
-    this.checkOpenAiGlobals();
+    window.addEventListener('openai:set_globals', this.openAiSetGlobalsHandler, { passive: true });
+    this.applyHostToolOutput((window as unknown as { openai?: { toolOutput?: unknown } }).openai?.toolOutput);
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('message', this.messageHandler);
+    window.removeEventListener('openai:set_globals', this.openAiSetGlobalsHandler);
   }
+
+  private readonly openAiSetGlobalsHandler = (event: Event): void => {
+    const detail = (event as CustomEvent<{ globals?: { toolOutput?: unknown } }>).detail;
+    const out = detail?.globals?.toolOutput ?? (window as unknown as { openai?: { toolOutput?: unknown } }).openai?.toolOutput;
+    this.applyHostToolOutput(out);
+  };
 
   private handleMessage(event: MessageEvent): void {
     if (event.source !== window.parent) return;
@@ -81,78 +88,76 @@ export default class ContractsWidgetComponent implements OnInit, OnDestroy {
     const params = msg.params;
     if (!params) return;
 
-    // Prefer structuredContent, fall back to parsing content[0].text
-    let data: ContractData[] | null = null;
-    let pagination: { page: number; totalItems: number; size: number; apiParams: ApiParams } | null = null;
+    this.applyToolResultPayload(params);
+  }
 
-    if (params.structuredContent && Array.isArray(params.structuredContent)) {
-      data = params.structuredContent;
-    } else if (params.content?.[0]?.text) {
+  /** ChatGPT / MCP Apps: tool result as notification params or as window.openai.toolOutput. */
+  private applyToolResultPayload(params: { structuredContent?: unknown; content?: Array<{ type?: string; text?: string }> }): void {
+    const applied = this.tryApplyStructuredContent(params.structuredContent);
+    if (applied) {
+      this.error.set(null);
+      this.waiting.set(false);
+      return;
+    }
+
+    const text = params.content?.[0]?.text;
+    if (text) {
       try {
-        const parsed = JSON.parse(params.content[0].text);
-        if (Array.isArray(parsed)) {
-          data = parsed;
-        } else if (parsed && Array.isArray(parsed.contracts)) {
-          data = parsed.contracts;
-          pagination = {
-            page: Number(parsed.page ?? 0),
-            totalItems: Number(parsed.totalItems ?? 0),
-            size: Number(parsed.size ?? 20),
-            apiParams: (parsed.apiParams as ApiParams) ?? {},
-          };
-        } else {
-          data = [parsed];
-        }
+        this.applyParsedResult(JSON.parse(text));
+        this.error.set(null);
       } catch {
         this.error.set('Failed to parse contract data.');
-        this.waiting.set(false);
-        return;
       }
+      this.waiting.set(false);
+      return;
     }
 
-    if (data && data.length >= 0) {
-      this.contracts.set(data);
-      this.error.set(null);
-      if (pagination) {
-        this.page.set(pagination.page);
-        this.totalItems.set(pagination.totalItems);
-        this.size.set(pagination.size);
-        this.apiParams.set(pagination.apiParams);
-      } else {
-        this.apiParams.set(null);
-      }
-    }
     this.waiting.set(false);
   }
 
-  private checkOpenAiGlobals(): void {
-    const openai = (window as unknown as { openai?: { toolOutput?: unknown } }).openai;
-    if (openai?.toolOutput) {
-      const output = openai.toolOutput as { content?: Array<{ text?: string }> };
-      if (output?.content?.[0]?.text) {
-        try {
-          this.applyParsedResult(JSON.parse(output.content[0].text));
-          this.error.set(null);
-        } catch {
-          this.error.set('Failed to parse contract data.');
-        }
-      }
-      this.waiting.set(false);
+  private applyHostToolOutput(toolOutput: unknown): void {
+    if (toolOutput == null) return;
+    const out = toolOutput as { structuredContent?: unknown; content?: Array<{ text?: string }> };
+    this.applyToolResultPayload(out);
+  }
+
+  /** @returns true if structuredContent was recognized and applied */
+  private tryApplyStructuredContent(structured: unknown): boolean {
+    if (structured == null) return false;
+
+    if (Array.isArray(structured)) {
+      this.contracts.set(structured as ContractData[]);
+      this.apiParams.set(null);
+      return true;
     }
+
+    if (typeof structured === 'object' && Array.isArray((structured as { contracts?: unknown }).contracts)) {
+      const parsed = structured as {
+        contracts: ContractData[];
+        page?: number;
+        totalItems?: number;
+        size?: number;
+        apiParams?: ApiParams;
+      };
+      this.contracts.set(parsed.contracts);
+      this.page.set(Number(parsed.page ?? 0));
+      this.totalItems.set(Number(parsed.totalItems ?? 0));
+      this.size.set(Number(parsed.size ?? 20));
+      this.apiParams.set(parsed.apiParams ?? {});
+      return true;
+    }
+
+    return false;
   }
 
   private applyParsedResult(parsed: unknown): void {
-    if (Array.isArray(parsed)) {
-      this.contracts.set(parsed);
+    if (this.tryApplyStructuredContent(parsed)) {
+      return;
+    }
+    if (parsed && typeof parsed === 'object') {
+      this.contracts.set([parsed as ContractData]);
       this.apiParams.set(null);
-    } else if (parsed && typeof parsed === 'object' && Array.isArray((parsed as { contracts?: unknown }).contracts)) {
-      const p = parsed as { contracts: ContractData[]; page?: number; totalItems?: number; size?: number; apiParams?: ApiParams };
-      this.contracts.set(p.contracts);
-      this.page.set(Number(p.page ?? 0));
-      this.totalItems.set(Number(p.totalItems ?? 0));
-      this.size.set(Number(p.size ?? 20));
-      this.apiParams.set((p.apiParams as ApiParams) ?? {});
-    } else {
+    } else if (parsed !== null && parsed !== undefined) {
       this.contracts.set([parsed as ContractData]);
       this.apiParams.set(null);
     }

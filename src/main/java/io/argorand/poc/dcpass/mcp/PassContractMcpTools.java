@@ -1,7 +1,5 @@
 package io.argorand.poc.dcpass.mcp;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.argorand.poc.dcpass.service.PassContractQueryService;
 import io.argorand.poc.dcpass.service.criteria.PassContractCriteria;
 import io.argorand.poc.dcpass.service.dto.PassContractDTO;
@@ -38,11 +36,9 @@ public class PassContractMcpTools {
     private static final int MAX_SEARCH_LENGTH = 500;
 
     private final PassContractQueryService passContractQueryService;
-    private final ObjectMapper objectMapper;
 
-    public PassContractMcpTools(PassContractQueryService passContractQueryService, ObjectMapper objectMapper) {
+    public PassContractMcpTools(PassContractQueryService passContractQueryService) {
         this.passContractQueryService = passContractQueryService;
-        this.objectMapper = objectMapper;
     }
 
     @McpTool(
@@ -151,49 +147,74 @@ public class PassContractMcpTools {
         long t0 = System.nanoTime();
         log.info("MCP searchContractsInPASS start q={} page={}", q, pageNumber);
 
-        try {
-            long tQuery = System.nanoTime();
-            var pageResult = passContractQueryService.findByCriteria(criteria, pageable);
-            long queryMs = (System.nanoTime() - tQuery) / 1_000_000L;
-            List<PassContractDTO> contracts = pageResult.getContent();
-            long totalItems = pageResult.getTotalElements();
-            Map<String, Object> apiParams = buildApiParams(
-                q,
-                parsedAwardFrom,
-                parsedAwardTo,
-                parsedStartFrom,
-                parsedStartTo,
-                parsedEndFrom,
-                parsedEndTo,
-                parsedMinAmount,
-                parsedMaxAmount,
-                pageNumber,
-                PAGE_SIZE
-            );
-            Map<String, Object> result = new LinkedHashMap<>();
-            result.put("contracts", contracts);
-            result.put("page", pageNumber);
-            result.put("totalItems", totalItems);
-            result.put("size", PAGE_SIZE);
-            result.put("apiParams", apiParams);
-            String json = objectMapper.writeValueAsString(result);
-            long totalMs = (System.nanoTime() - t0) / 1_000_000L;
-            log.info(
-                "MCP searchContractsInPASS ok queryMs={} totalMs={} rows={} totalItems={}",
-                queryMs,
-                totalMs,
-                contracts.size(),
-                totalItems
-            );
-            return McpSchema.CallToolResult.builder().addTextContent(json).build();
-        } catch (JsonProcessingException e) {
-            long totalMs = (System.nanoTime() - t0) / 1_000_000L;
-            log.warn("MCP searchContractsInPASS serialize failed after {}ms", totalMs, e);
-            return McpSchema.CallToolResult.builder()
-                .isError(true)
-                .addTextContent("An internal error occurred while serializing results. Please try again.")
-                .build();
+        long tQuery = System.nanoTime();
+        var pageResult = passContractQueryService.findByCriteria(criteria, pageable);
+        long queryMs = (System.nanoTime() - tQuery) / 1_000_000L;
+        List<PassContractDTO> contracts = pageResult.getContent();
+        long totalItems = pageResult.getTotalElements();
+        Map<String, Object> apiParams = buildApiParams(
+            q,
+            parsedAwardFrom,
+            parsedAwardTo,
+            parsedStartFrom,
+            parsedStartTo,
+            parsedEndFrom,
+            parsedEndTo,
+            parsedMinAmount,
+            parsedMaxAmount,
+            pageNumber,
+            PAGE_SIZE
+        );
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("contracts", contracts);
+        result.put("page", pageNumber);
+        result.put("totalItems", totalItems);
+        result.put("size", PAGE_SIZE);
+        result.put("apiParams", apiParams);
+        long totalMs = (System.nanoTime() - t0) / 1_000_000L;
+        log.info(
+            "MCP searchContractsInPASS ok queryMs={} totalMs={} rows={} totalItems={}",
+            queryMs,
+            totalMs,
+            contracts.size(),
+            totalItems
+        );
+        String modelText = buildModelFacingSummary(contracts.size(), totalItems, pageNumber, PAGE_SIZE);
+        Map<String, Object> resultMeta = buildResultMeta(contracts);
+        return McpSchema.CallToolResult.builder().structuredContent(result).addTextContent(modelText).meta(resultMeta).build();
+    }
+
+    /**
+     * Concise natural-language summary for the model. Full rows live in {@code structuredContent} (and optional
+     * {@code _meta.contractsById}) per MCP Apps patterns; it is not duplicated as JSON in {@code content}.
+     */
+    private static String buildModelFacingSummary(int rowCount, long totalItems, int pageIndex, int pageSize) {
+        if (totalItems == 0) {
+            return "No PASS contracts matched these filters.";
         }
+        long totalPages = pageSize <= 0 ? 1 : (totalItems + pageSize - 1) / pageSize;
+        int humanPage = pageIndex + 1;
+        return String.format(
+            "Found %d matching contract(s) in PASS (%d on this page; page %d of %d, %d per page). Use structured output or the embedded widget for full rows.",
+            totalItems,
+            rowCount,
+            humanPage,
+            totalPages,
+            pageSize
+        );
+    }
+
+    /** Supplementary keyed view for embedded UIs, analogous to MCP Apps examples (e.g. {@code allAnimalsById}). */
+    private static Map<String, Object> buildResultMeta(List<PassContractDTO> contracts) {
+        Map<String, Object> byId = new LinkedHashMap<>();
+        for (PassContractDTO c : contracts) {
+            if (c.getId() != null) {
+                byId.put(String.valueOf(c.getId()), c);
+            }
+        }
+        Map<String, Object> meta = new LinkedHashMap<>();
+        meta.put("contractsById", byId);
+        return meta;
     }
 
     private static LocalDate parseDate(String paramName, String value, List<String> errors) {

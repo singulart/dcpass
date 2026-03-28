@@ -2130,7 +2130,7 @@
       "methods": [
         {
           "name": "<init>",
-          "parameterTypes": ["io.argorand.poc.dcpass.service.PassContractQueryService", "com.fasterxml.jackson.databind.ObjectMapper"]
+          "parameterTypes": ["io.argorand.poc.dcpass.service.PassContractQueryService"]
         },
         {
           "name": "getAllPassContracts",
