@@ -2,7 +2,8 @@ package io.argorand.poc.dcpass.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import io.argorand.poc.dcpass.security.*;
+import io.argorand.poc.dcpass.security.AuthoritiesConstants;
+import io.argorand.poc.dcpass.security.ContractsWidgetEmbedRequestMatcher;
 import io.argorand.poc.dcpass.web.filter.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,11 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.header.writers.DelegatingRequestMatcherHeaderWriter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter.XFrameOptionsMode;
+import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import tech.jhipster.config.JHipsterProperties;
 
 @Configuration
@@ -44,7 +49,13 @@ public class SecurityConfiguration {
             .headers(headers ->
                 headers
                     .contentSecurityPolicy(csp -> csp.policyDirectives(jHipsterProperties.getSecurity().getContentSecurityPolicy()))
-                    .frameOptions(FrameOptionsConfig::sameOrigin)
+                    .frameOptions(FrameOptionsConfig::disable)
+                    .addHeaderWriter(
+                        new DelegatingRequestMatcherHeaderWriter(
+                            new NegatedRequestMatcher(new ContractsWidgetEmbedRequestMatcher()),
+                            new XFrameOptionsHeaderWriter(XFrameOptionsMode.SAMEORIGIN)
+                        )
+                    )
                     .referrerPolicy(referrer -> referrer.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
                     .permissionsPolicyHeader(permissions ->
                         permissions.policy(

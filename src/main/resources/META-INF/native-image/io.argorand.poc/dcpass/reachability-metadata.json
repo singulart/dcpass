@@ -2086,6 +2086,28 @@
       "type": "io.argorand.poc.dcpass.management.package-info"
     },
     {
+      "type": "io.argorand.poc.dcpass.mcp.ContractsWidgetMcpConfig",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setWidgetPublicBaseUrl",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.mcp.ContractsWidgetResourceMetaProvider",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.mcp.ContractsWidgetToolMetaProvider",
       "methods": [
         {
@@ -2233,6 +2255,22 @@
             "io.argorand.poc.dcpass.repository.PassContractRepository",
             "io.argorand.poc.dcpass.service.mapper.PassContractMapper"
           ]
+        },
+        {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "findOne",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "save",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
+          "name": "update",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -2274,6 +2312,10 @@
         {
           "name": "updateUser",
           "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
+          "name": "updateUser",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"]
         }
       ]
     },
@@ -2422,6 +2464,14 @@
           "parameterTypes": ["java.lang.Long"]
         },
         {
+          "name": "setImageUrl",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLangKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setLastName",
           "parameterTypes": ["java.lang.String"]
         },
@@ -2434,6 +2484,10 @@
     {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
       "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
         {
           "name": "getAgency",
           "parameterTypes": []
@@ -2617,6 +2671,190 @@
         {
           "name": "getVendorZip",
           "parameterTypes": []
+        },
+        {
+          "name": "setAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAwardDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setContractDetailsLink",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractOfficerPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractTypeDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficer",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficerEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplst",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplstEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporateEmailAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporatePhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCurrentOptionPeriod",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCwInternalId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDocumentVersion",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setEndDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setLastModified",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setMarketType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setProcurementMethodDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPublishedVersionId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRecCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRecUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRowId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setSource",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStartDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTotalOptionPeriods",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setVendorAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorCity",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorState",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorZip",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2675,6 +2913,10 @@
         {
           "name": "getAccount",
           "parameterTypes": []
+        },
+        {
+          "name": "saveAccount",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
         }
       ]
     },
@@ -2796,12 +3038,28 @@
           ]
         },
         {
+          "name": "createPassContract",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
+          "name": "deletePassContract",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
           "name": "getAllPassContracts",
           "parameterTypes": [
             "java.lang.String",
             "io.argorand.poc.dcpass.service.criteria.PassContractCriteria",
             "org.springframework.data.domain.Pageable"
           ]
+        },
+        {
+          "name": "getPassContract",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "updatePassContract",
+          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -2872,10 +3130,6 @@
         {
           "name": "<init>",
           "parameterTypes": ["org.springframework.core.env.Environment"]
-        },
-        {
-          "name": "handleAnyException",
-          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
         }
       ]
     },
@@ -3367,6 +3621,23 @@
       ]
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ListResourceTemplatesResult",
+      "methods": [
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "nextCursor",
+          "parameterTypes": []
+        },
+        {
+          "name": "resourceTemplates",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$ListResourcesResult",
       "methods": [
         {
@@ -3448,6 +3719,12 @@
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$ResourceContent"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceTemplate"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceTemplate[]"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Resource[]"
@@ -6314,6 +6591,9 @@
     },
     {
       "type": "java.util.ImmutableCollections$AbstractImmutableMap"
+    },
+    {
+      "type": "java.util.ImmutableCollections$List12"
     },
     {
       "type": "java.util.ImmutableCollections$ListN"
@@ -15274,6 +15554,10 @@
     {
       "type": "org.springframework.boot.actuate.logging.LoggersEndpoint",
       "methods": [
+        {
+          "name": "configureLogLevel",
+          "parameterTypes": ["java.lang.String", "org.springframework.boot.logging.LogLevel"]
+        },
         {
           "name": "loggers",
           "parameterTypes": []
@@ -24434,9 +24718,6 @@
       "type": "org.springframework.scheduling.config.ScheduledTaskHolder"
     },
     {
-      "type": "org.springframework.security.access.AccessDeniedException"
-    },
-    {
       "type": "org.springframework.security.access.SecurityConfig"
     },
     {
@@ -24484,9 +24765,6 @@
     },
     {
       "type": "org.springframework.security.authentication.AuthenticationProvider"
-    },
-    {
-      "type": "org.springframework.security.authentication.BadCredentialsException"
     },
     {
       "type": "org.springframework.security.authentication.DefaultAuthenticationEventPublisher"
@@ -25266,10 +25544,22 @@
       "type": "org.springframework.security.web.context.SecurityContextHolderFilter"
     },
     {
+      "type": "org.springframework.security.web.header.HeaderWriter"
+    },
+    {
       "type": "org.springframework.security.web.header.HeaderWriterFilter"
     },
     {
+      "type": "org.springframework.security.web.header.writers.DelegatingRequestMatcherHeaderWriter"
+    },
+    {
       "type": "org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter$ReferrerPolicy"
+    },
+    {
+      "type": "org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter"
+    },
+    {
+      "type": "org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter$XFrameOptionsMode"
     },
     {
       "type": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter"
@@ -25300,6 +25590,9 @@
     },
     {
       "type": "org.springframework.security.web.util.ThrowableAnalyzer"
+    },
+    {
+      "type": "org.springframework.security.web.util.matcher.NegatedRequestMatcher"
     },
     {
       "type": "org.springframework.security.web.util.matcher.RequestMatcher"
@@ -28134,6 +28427,15 @@
       "glob": "META-INF/persistence.xml"
     },
     {
+      "glob": "META-INF/resources/.well-known/appspecific/com.chrome.devtools.json"
+    },
+    {
+      "glob": "META-INF/resources/.well-known/oauth-protected-resource"
+    },
+    {
+      "glob": "META-INF/resources/account.route-LFZMOZG7.js"
+    },
+    {
       "glob": "META-INF/resources/admin.routes-QX4RR36I.js"
     },
     {
@@ -28152,28 +28454,55 @@
       "glob": "META-INF/resources/bootstrap-PWMQP6FB.js"
     },
     {
+      "glob": "META-INF/resources/bootstrap-PWMQP6FB.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-2SPWARMT.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-2SPWARMT.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-466BFIUU.js"
     },
     {
+      "glob": "META-INF/resources/chunk-466BFIUU.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-6CWC3MTR.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-6CWC3MTR.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-6GOH2SWC.js"
     },
     {
+      "glob": "META-INF/resources/chunk-6GOH2SWC.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-APCQMNBZ.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-APCQMNBZ.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-AWFLWHK3.js"
     },
     {
+      "glob": "META-INF/resources/chunk-AWFLWHK3.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-BLQ6QJX5.js"
     },
     {
+      "glob": "META-INF/resources/chunk-BLQ6QJX5.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-C4REFZAO.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-C4REFZAO.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-ECEYH62N.js"
@@ -28182,19 +28511,37 @@
       "glob": "META-INF/resources/chunk-GANT6NIE.js"
     },
     {
+      "glob": "META-INF/resources/chunk-GANT6NIE.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-GFGV3VN6.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-GFGV3VN6.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-IC72ZXWO.js"
     },
     {
+      "glob": "META-INF/resources/chunk-IC72ZXWO.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-J2GIJ2YX.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-J2GIJ2YX.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-JLBJ55ZS.js"
     },
     {
+      "glob": "META-INF/resources/chunk-JLBJ55ZS.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-NHKKVY5O.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-NHKKVY5O.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-NTPYTY7H.js"
@@ -28203,43 +28550,85 @@
       "glob": "META-INF/resources/chunk-PYVHQ5DA.js"
     },
     {
+      "glob": "META-INF/resources/chunk-PYVHQ5DA.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-RZNLOJNG.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-RZNLOJNG.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-SHACKBLW.js"
     },
     {
+      "glob": "META-INF/resources/chunk-SHACKBLW.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-SRX33RD6.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-SRX33RD6.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-TFBUI7WV.js"
     },
     {
+      "glob": "META-INF/resources/chunk-TFBUI7WV.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-TQ6A2ECJ.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-TQ6A2ECJ.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-UZA3OBE5.js"
     },
     {
+      "glob": "META-INF/resources/chunk-UZA3OBE5.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-VSUG2ZMU.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-VSUG2ZMU.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-VUJOFXKG.js"
     },
     {
+      "glob": "META-INF/resources/chunk-VUJOFXKG.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-W5FONMCO.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-W5FONMCO.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-WMKRKMUD.js"
     },
     {
+      "glob": "META-INF/resources/chunk-WMKRKMUD.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-WSTS45BJ.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-WSTS45BJ.js.map"
     },
     {
       "glob": "META-INF/resources/chunk-YFFKNGKO.js"
     },
     {
+      "glob": "META-INF/resources/chunk-YFFKNGKO.js.map"
+    },
+    {
       "glob": "META-INF/resources/chunk-YK7Y5YEK.js"
+    },
+    {
+      "glob": "META-INF/resources/chunk-YK7Y5YEK.js.map"
     },
     {
       "glob": "META-INF/resources/common-44G7OM7L.js"
@@ -28263,10 +28652,22 @@
       "glob": "META-INF/resources/entity.routes-LCS662F4.js"
     },
     {
+      "glob": "META-INF/resources/entity.routes-LCS662F4.js.map"
+    },
+    {
+      "glob": "META-INF/resources/error-53IDCO6S.js"
+    },
+    {
+      "glob": "META-INF/resources/favicon.ico"
+    },
+    {
       "glob": "META-INF/resources/health-55F4EE6Q.js"
     },
     {
       "glob": "META-INF/resources/home-OXR3WHOT.js"
+    },
+    {
+      "glob": "META-INF/resources/home-OXR3WHOT.js.map"
     },
     {
       "glob": "META-INF/resources/index.html"
@@ -28281,6 +28682,9 @@
       "glob": "META-INF/resources/main.js"
     },
     {
+      "glob": "META-INF/resources/main.js.map"
+    },
+    {
       "glob": "META-INF/resources/manifest.webapp"
     },
     {
@@ -28290,19 +28694,46 @@
       "glob": "META-INF/resources/navbar-DEJ57INV.js"
     },
     {
+      "glob": "META-INF/resources/navbar-DEJ57INV.js.map"
+    },
+    {
+      "glob": "META-INF/resources/navbar.css.map"
+    },
+    {
+      "glob": "META-INF/resources/page-ribbon.css.map"
+    },
+    {
       "glob": "META-INF/resources/pass-contract-7WNA3NZG.js"
+    },
+    {
+      "glob": "META-INF/resources/pass-contract-7WNA3NZG.js.map"
+    },
+    {
+      "glob": "META-INF/resources/pass-contract-detail-MGFV6MU6.js"
+    },
+    {
+      "glob": "META-INF/resources/pass-contract-update-WFIYUSCT.js"
     },
     {
       "glob": "META-INF/resources/pass-contract.routes-LPCUIOO7.js"
     },
     {
+      "glob": "META-INF/resources/pass-contract.routes-LPCUIOO7.js.map"
+    },
+    {
       "glob": "META-INF/resources/polyfills.js"
+    },
+    {
+      "glob": "META-INF/resources/polyfills.js.map"
     },
     {
       "glob": "META-INF/resources/resources/jhipster_family_member_0.svg"
     },
     {
       "glob": "META-INF/resources/styles.css"
+    },
+    {
+      "glob": "META-INF/resources/styles.css.map"
     },
     {
       "glob": "META-INF/resources/swagger-ui/axios.min.js"
@@ -30876,6 +31307,21 @@
       "glob": "org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.class"
     },
     {
+      "glob": "public/.well-known/appspecific/com.chrome.devtools.json"
+    },
+    {
+      "glob": "public/.well-known/oauth-protected-resource"
+    },
+    {
+      "glob": "resources/.well-known/appspecific/com.chrome.devtools.json"
+    },
+    {
+      "glob": "resources/.well-known/oauth-protected-resource"
+    },
+    {
+      "glob": "resources/account.route-LFZMOZG7.js"
+    },
+    {
       "glob": "resources/admin.routes-QX4RR36I.js"
     },
     {
@@ -30894,28 +31340,55 @@
       "glob": "resources/bootstrap-PWMQP6FB.js"
     },
     {
+      "glob": "resources/bootstrap-PWMQP6FB.js.map"
+    },
+    {
       "glob": "resources/chunk-2SPWARMT.js"
+    },
+    {
+      "glob": "resources/chunk-2SPWARMT.js.map"
     },
     {
       "glob": "resources/chunk-466BFIUU.js"
     },
     {
+      "glob": "resources/chunk-466BFIUU.js.map"
+    },
+    {
       "glob": "resources/chunk-6CWC3MTR.js"
+    },
+    {
+      "glob": "resources/chunk-6CWC3MTR.js.map"
     },
     {
       "glob": "resources/chunk-6GOH2SWC.js"
     },
     {
+      "glob": "resources/chunk-6GOH2SWC.js.map"
+    },
+    {
       "glob": "resources/chunk-APCQMNBZ.js"
+    },
+    {
+      "glob": "resources/chunk-APCQMNBZ.js.map"
     },
     {
       "glob": "resources/chunk-AWFLWHK3.js"
     },
     {
+      "glob": "resources/chunk-AWFLWHK3.js.map"
+    },
+    {
       "glob": "resources/chunk-BLQ6QJX5.js"
     },
     {
+      "glob": "resources/chunk-BLQ6QJX5.js.map"
+    },
+    {
       "glob": "resources/chunk-C4REFZAO.js"
+    },
+    {
+      "glob": "resources/chunk-C4REFZAO.js.map"
     },
     {
       "glob": "resources/chunk-ECEYH62N.js"
@@ -30924,19 +31397,37 @@
       "glob": "resources/chunk-GANT6NIE.js"
     },
     {
+      "glob": "resources/chunk-GANT6NIE.js.map"
+    },
+    {
       "glob": "resources/chunk-GFGV3VN6.js"
+    },
+    {
+      "glob": "resources/chunk-GFGV3VN6.js.map"
     },
     {
       "glob": "resources/chunk-IC72ZXWO.js"
     },
     {
+      "glob": "resources/chunk-IC72ZXWO.js.map"
+    },
+    {
       "glob": "resources/chunk-J2GIJ2YX.js"
+    },
+    {
+      "glob": "resources/chunk-J2GIJ2YX.js.map"
     },
     {
       "glob": "resources/chunk-JLBJ55ZS.js"
     },
     {
+      "glob": "resources/chunk-JLBJ55ZS.js.map"
+    },
+    {
       "glob": "resources/chunk-NHKKVY5O.js"
+    },
+    {
+      "glob": "resources/chunk-NHKKVY5O.js.map"
     },
     {
       "glob": "resources/chunk-NTPYTY7H.js"
@@ -30945,43 +31436,85 @@
       "glob": "resources/chunk-PYVHQ5DA.js"
     },
     {
+      "glob": "resources/chunk-PYVHQ5DA.js.map"
+    },
+    {
       "glob": "resources/chunk-RZNLOJNG.js"
+    },
+    {
+      "glob": "resources/chunk-RZNLOJNG.js.map"
     },
     {
       "glob": "resources/chunk-SHACKBLW.js"
     },
     {
+      "glob": "resources/chunk-SHACKBLW.js.map"
+    },
+    {
       "glob": "resources/chunk-SRX33RD6.js"
+    },
+    {
+      "glob": "resources/chunk-SRX33RD6.js.map"
     },
     {
       "glob": "resources/chunk-TFBUI7WV.js"
     },
     {
+      "glob": "resources/chunk-TFBUI7WV.js.map"
+    },
+    {
       "glob": "resources/chunk-TQ6A2ECJ.js"
+    },
+    {
+      "glob": "resources/chunk-TQ6A2ECJ.js.map"
     },
     {
       "glob": "resources/chunk-UZA3OBE5.js"
     },
     {
+      "glob": "resources/chunk-UZA3OBE5.js.map"
+    },
+    {
       "glob": "resources/chunk-VSUG2ZMU.js"
+    },
+    {
+      "glob": "resources/chunk-VSUG2ZMU.js.map"
     },
     {
       "glob": "resources/chunk-VUJOFXKG.js"
     },
     {
+      "glob": "resources/chunk-VUJOFXKG.js.map"
+    },
+    {
       "glob": "resources/chunk-W5FONMCO.js"
+    },
+    {
+      "glob": "resources/chunk-W5FONMCO.js.map"
     },
     {
       "glob": "resources/chunk-WMKRKMUD.js"
     },
     {
+      "glob": "resources/chunk-WMKRKMUD.js.map"
+    },
+    {
       "glob": "resources/chunk-WSTS45BJ.js"
+    },
+    {
+      "glob": "resources/chunk-WSTS45BJ.js.map"
     },
     {
       "glob": "resources/chunk-YFFKNGKO.js"
     },
     {
+      "glob": "resources/chunk-YFFKNGKO.js.map"
+    },
+    {
       "glob": "resources/chunk-YK7Y5YEK.js"
+    },
+    {
+      "glob": "resources/chunk-YK7Y5YEK.js.map"
     },
     {
       "glob": "resources/common-44G7OM7L.js"
@@ -31005,10 +31538,22 @@
       "glob": "resources/entity.routes-LCS662F4.js"
     },
     {
+      "glob": "resources/entity.routes-LCS662F4.js.map"
+    },
+    {
+      "glob": "resources/error-53IDCO6S.js"
+    },
+    {
+      "glob": "resources/favicon.ico"
+    },
+    {
       "glob": "resources/health-55F4EE6Q.js"
     },
     {
       "glob": "resources/home-OXR3WHOT.js"
+    },
+    {
+      "glob": "resources/home-OXR3WHOT.js.map"
     },
     {
       "glob": "resources/index.html"
@@ -31023,6 +31568,9 @@
       "glob": "resources/main.js"
     },
     {
+      "glob": "resources/main.js.map"
+    },
+    {
       "glob": "resources/manifest.webapp"
     },
     {
@@ -31032,19 +31580,46 @@
       "glob": "resources/navbar-DEJ57INV.js"
     },
     {
+      "glob": "resources/navbar-DEJ57INV.js.map"
+    },
+    {
+      "glob": "resources/navbar.css.map"
+    },
+    {
+      "glob": "resources/page-ribbon.css.map"
+    },
+    {
       "glob": "resources/pass-contract-7WNA3NZG.js"
+    },
+    {
+      "glob": "resources/pass-contract-7WNA3NZG.js.map"
+    },
+    {
+      "glob": "resources/pass-contract-detail-MGFV6MU6.js"
+    },
+    {
+      "glob": "resources/pass-contract-update-WFIYUSCT.js"
     },
     {
       "glob": "resources/pass-contract.routes-LPCUIOO7.js"
     },
     {
+      "glob": "resources/pass-contract.routes-LPCUIOO7.js.map"
+    },
+    {
       "glob": "resources/polyfills.js"
+    },
+    {
+      "glob": "resources/polyfills.js.map"
     },
     {
       "glob": "resources/resources/jhipster_family_member_0.svg"
     },
     {
       "glob": "resources/styles.css"
+    },
+    {
+      "glob": "resources/styles.css.map"
     },
     {
       "glob": "resources/swagger-ui/axios.min.js"
@@ -31078,6 +31653,12 @@
     },
     {
       "glob": "spring.properties"
+    },
+    {
+      "glob": "static/.well-known/appspecific/com.chrome.devtools.json"
+    },
+    {
+      "glob": "static/.well-known/oauth-protected-resource"
     },
     {
       "glob": "tech/jhipster/config/JHipsterConfiguration.class"
