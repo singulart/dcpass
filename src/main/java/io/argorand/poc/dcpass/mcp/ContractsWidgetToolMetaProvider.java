@@ -16,7 +16,8 @@ public class ContractsWidgetToolMetaProvider implements MetaProvider {
     /** Environment variable that overrides the widget {@code resourceUri} when set and non-blank. */
     public static final String ENV_WIDGET_RESOURCE_URI = "DCPASS_MCP_WIDGET_RESOURCE_URI";
 
-    private static final String DEFAULT_WIDGET_RESOURCE_URI = "ui://pass.argorand.io/contracts-widget";
+    /** Default MCP template URI; must match {@code @McpResource} for the widget HTML on this server. */
+    public static final String WIDGET_RESOURCE_URI_DEFAULT = "ui://pass.argorand.io/contracts-widget";
 
     private static final String WIDGET_RESOURCE_URI = resolveWidgetResourceUri();
 
@@ -25,7 +26,7 @@ public class ContractsWidgetToolMetaProvider implements MetaProvider {
         if (fromEnv != null && !fromEnv.isBlank()) {
             return fromEnv.trim();
         }
-        return DEFAULT_WIDGET_RESOURCE_URI;
+        return WIDGET_RESOURCE_URI_DEFAULT;
     }
 
     @Override

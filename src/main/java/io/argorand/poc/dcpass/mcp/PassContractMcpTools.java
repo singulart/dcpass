@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.mcp.annotation.McpTool;
 import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PassContractMcpTools {
+
+    private static final Logger log = LoggerFactory.getLogger(PassContractMcpTools.class);
 
     private static final int PAGE_SIZE = 20;
     private static final int MAX_PAGE = 99;
@@ -144,8 +148,13 @@ public class PassContractMcpTools {
             pageable = PageRequest.of(pageNumber, PAGE_SIZE, relevanceSort.and(Sort.by(Sort.Direction.ASC, "id")));
         }
 
+        long t0 = System.nanoTime();
+        log.info("MCP searchContractsInPASS start q={} page={}", q, pageNumber);
+
         try {
+            long tQuery = System.nanoTime();
             var pageResult = passContractQueryService.findByCriteria(criteria, pageable);
+            long queryMs = (System.nanoTime() - tQuery) / 1_000_000L;
             List<PassContractDTO> contracts = pageResult.getContent();
             long totalItems = pageResult.getTotalElements();
             Map<String, Object> apiParams = buildApiParams(
@@ -168,8 +177,18 @@ public class PassContractMcpTools {
             result.put("size", PAGE_SIZE);
             result.put("apiParams", apiParams);
             String json = objectMapper.writeValueAsString(result);
+            long totalMs = (System.nanoTime() - t0) / 1_000_000L;
+            log.info(
+                "MCP searchContractsInPASS ok queryMs={} totalMs={} rows={} totalItems={}",
+                queryMs,
+                totalMs,
+                contracts.size(),
+                totalItems
+            );
             return McpSchema.CallToolResult.builder().addTextContent(json).build();
         } catch (JsonProcessingException e) {
+            long totalMs = (System.nanoTime() - t0) / 1_000_000L;
+            log.warn("MCP searchContractsInPASS serialize failed after {}ms", totalMs, e);
             return McpSchema.CallToolResult.builder()
                 .isError(true)
                 .addTextContent("An internal error occurred while serializing results. Please try again.")

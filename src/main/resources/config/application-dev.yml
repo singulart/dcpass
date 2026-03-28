@@ -13,12 +13,18 @@
 # https://docs.spring.io/spring-boot/appendix/application-properties/index.html
 # ===================================================================
 
+dcpass:
+  mcp:
+    widget-public-base-url: http://localhost:8080
+
 logging:
   level:
     ROOT: DEBUG
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
     io.argorand.poc.dcpass: DEBUG
+    io.modelcontextprotocol: DEBUG
+    org.springframework.ai: DEBUG
 
 spring:
   devtools:

@@ -25,6 +25,13 @@ COPY mvnw pom.xml sonar-project.properties ./
 # Copy patched hibernate-core (build script copies from ~/.m2 to docker-libs/ before build)
 COPY docker-libs/7.2.1.Patch/ /root/.m2/repository/org/hibernate/orm/hibernate-core/7.2.1.Patch/
 
+# Copy patched mcp-core (build script copies from ~/.m2 to docker-libs/ before build)
+COPY docker-libs/mcp-core-2.0.0-SNAPSHOT.Patch/ /root/.m2/repository/io/modelcontextprotocol/sdk/mcp-core/2.0.0-SNAPSHOT/
+
+# Copy patched mcp (build script copies from ~/.m2 to docker-libs/ before build)
+COPY docker-libs/mcp-2.0.0-SNAPSHOT.Patch/ /root/.m2/repository/io/modelcontextprotocol/sdk/mcp/2.0.0-SNAPSHOT/
+
+COPY docker-libs/mcp-json-jackson3-2.0.0-SNAPSHOT.Patch/ /root/.m2/repository/io/modelcontextprotocol/sdk/mcp-json-jackson3/2.0.0-SNAPSHOT/
 
 # Copy frontend build files (required for JHipster webapp)
 COPY package.json package-lock.json angular.json tsconfig.json tsconfig.app.json tsconfig.spec.json ./

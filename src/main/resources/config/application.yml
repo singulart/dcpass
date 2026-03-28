@@ -229,6 +229,11 @@ openai:
   apps:
     challenge: ''
 
+# ChatGPT MCP Apps widget: iframe target for /contracts-widget (must match CSP frameDomains on the MCP template resource)
+dcpass:
+  mcp:
+    widget-public-base-url: https://pass.argorand.io
+
 
 # jhipster-needle-add-application-yaml-document
 ---
