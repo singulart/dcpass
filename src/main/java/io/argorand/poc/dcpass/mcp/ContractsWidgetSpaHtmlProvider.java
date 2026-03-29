@@ -17,8 +17,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Builds the ChatGPT / MCP Apps widget HTML from the same JHipster {@code index.html} the SPA uses,
- * without an iframe: absolute {@code <base href>} so scripts and styles load from the public origin
- * when the document runs inside the host sandbox.
+ * without an iframe. Host sandboxes often enforce {@code base-uri 'self'}: a {@code <base href="https://your-api/">}
+ * is not "self" and is blocked or ignored, so root-relative URLs would resolve against the wrong origin.
+ * This transformer therefore removes {@code <base>} and rewrites {@code src}/{@code href} values
+ * to absolute URLs on the configured public origin.
  */
 @Component
 public class ContractsWidgetSpaHtmlProvider {
@@ -27,6 +29,31 @@ public class ContractsWidgetSpaHtmlProvider {
 
     private static final Pattern BASE_TAG = Pattern.compile(
         "<base\\s+href\\s*=\\s*(['\"])([^'\"]*)\\1\\s*/?>",
+        Pattern.CASE_INSENSITIVE | Pattern.DOTALL
+    );
+
+    /** Root-relative {@code src="/..."} / {@code href="/..."} (not {@code //}). */
+    private static final Pattern SRC_HREF_ROOT_RELATIVE = Pattern.compile(
+        "(src|href)(\\s*=\\s*)(['\"])/(?!/)([^'\"]*)\\3",
+        Pattern.CASE_INSENSITIVE
+    );
+
+    /**
+     * Path-relative asset URLs in {@code src}/{@code href} (JHipster: {@code content/...}, {@code favicon.ico}, etc.).
+     * Skips values that already look like absolute URLs or fragments.
+     */
+    private static final Pattern SRC_HREF_PATH_RELATIVE = Pattern.compile(
+        "(src|href)(\\s*=\\s*)(['\"])([^'\"\\s>]+)\\3",
+        Pattern.CASE_INSENSITIVE
+    );
+
+    /**
+     * PWA manifest link: path-relative {@code href} is rewritten to the public API origin. In ChatGPT / MCP host
+     * sandboxes, CSP {@code default-src 'self'} is the <em>host</em> origin, so loading {@code https://pass…/manifest.webapp}
+     * is cross-origin and blocked. The embed is not installable as a PWA; dropping the tag avoids the console error.
+     */
+    private static final Pattern MANIFEST_LINK = Pattern.compile(
+        "<link\\s[^>]*\\brel\\s*=\\s*(?:\"manifest\"|'manifest')[^>]*/?>",
         Pattern.CASE_INSENSITIVE | Pattern.DOTALL
     );
 
@@ -82,15 +109,32 @@ public class ContractsWidgetSpaHtmlProvider {
 
     static String transform(String html, String publicBaseNoTrailingSlash) {
         String baseWithSlash = publicBaseNoTrailingSlash + "/";
-        String safeBase = escapeHtmlAttribute(baseWithSlash);
-        String withBase;
-        Matcher m = BASE_TAG.matcher(html);
-        if (m.find()) {
-            withBase = m.replaceFirst(Matcher.quoteReplacement("<base href=\"" + safeBase + "\" />"));
-        } else {
-            withBase = html.replaceFirst("(?i)(<head[^>]*>)", "$1\n<base href=\"" + safeBase + "\" />\n");
+        String withoutBase = BASE_TAG.matcher(html).replaceAll("");
+        String afterRoot = rewriteRootRelativeSrcHref(withoutBase, baseWithSlash);
+        String afterPath = rewritePathRelativeSrcHref(afterRoot, baseWithSlash);
+        String withoutManifest = MANIFEST_LINK.matcher(afterPath).replaceAll("");
+        return withoutManifest.replaceFirst("(?i)(<head[^>]*>)", "$1\n" + EMBED_FLAG_SCRIPT);
+    }
+
+    private static String rewriteRootRelativeSrcHref(String html, String baseWithSlash) {
+        Matcher m = SRC_HREF_ROOT_RELATIVE.matcher(html);
+        StringBuilder sb = new StringBuilder();
+        while (m.find()) {
+            String repl = m.group(1) + m.group(2) + m.group(3) + baseWithSlash + m.group(4) + m.group(3);
+            m.appendReplacement(sb, Matcher.quoteReplacement(repl));
         }
-        return withBase.replaceFirst("(?i)(<head[^>]*>)", "$1\n" + EMBED_FLAG_SCRIPT);
+        m.appendTail(sb);
+        return sb.toString();
+    }
+
+    private static String rewritePathRelativeSrcHref(String html, String baseWithSlash) {
+        return SRC_HREF_PATH_RELATIVE.matcher(html).replaceAll(mr -> {
+            String path = mr.group(4);
+            if (path.startsWith("/") || path.indexOf(':') >= 0 || path.startsWith("#")) {
+                return mr.group(0);
+            }
+            return mr.group(1) + mr.group(2) + mr.group(3) + baseWithSlash + path + mr.group(3);
+        });
     }
 
     private static String escapeHtmlAttribute(String raw) {

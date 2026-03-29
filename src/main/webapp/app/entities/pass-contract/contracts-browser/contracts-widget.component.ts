@@ -88,12 +88,16 @@ export default class ContractsWidgetComponent implements OnInit, OnDestroy {
     const params = msg.params;
     if (!params) return;
 
+    this.logHostToolOutput('postMessage (ui/notifications/tool-result)', params);
     this.applyToolResultPayload(params);
   }
 
   /** ChatGPT / MCP Apps: tool result as notification params or as window.openai.toolOutput. */
-  private applyToolResultPayload(params: { structuredContent?: unknown; content?: Array<{ type?: string; text?: string }> }): void {
-    const applied = this.tryApplyStructuredContent(params.structuredContent);
+  private applyToolResultPayload(params: { structuredContent?: unknown; content?: { type?: string; text?: string }[] }): void {
+    let applied = this.tryApplyStructuredContent(params.structuredContent);
+    if (!applied && this.isContractsPageToolPayload(params)) {
+      applied = this.tryApplyStructuredContent(params);
+    }
     if (applied) {
       this.error.set(null);
       this.waiting.set(false);
@@ -117,8 +121,20 @@ export default class ContractsWidgetComponent implements OnInit, OnDestroy {
 
   private applyHostToolOutput(toolOutput: unknown): void {
     if (toolOutput == null) return;
-    const out = toolOutput as { structuredContent?: unknown; content?: Array<{ text?: string }> };
+    this.logHostToolOutput('window.openai.toolOutput / openai:set_globals', toolOutput);
+    const out = toolOutput as { structuredContent?: unknown; content?: { text?: string }[] };
     this.applyToolResultPayload(out);
+  }
+
+  /** Logs whenever the host delivers MCP / ChatGPT tool result data to the widget. */
+  private logHostToolOutput(source: string, payload: unknown): void {
+    // eslint-disable-next-line no-console -- intentional widget debugging
+    console.log(`[jhi-contracts-widget] host tool output (${source}):`, payload);
+  }
+
+  /** Host may send {@code structuredContent}, or the same object at the top level (no wrapper). */
+  private isContractsPageToolPayload(v: unknown): boolean {
+    return typeof v === 'object' && v !== null && Array.isArray((v as { contracts?: unknown }).contracts);
   }
 
   /** @returns true if structuredContent was recognized and applied */
