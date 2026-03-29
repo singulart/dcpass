@@ -59,6 +59,10 @@ Spring AI MCP may require a custom configuration to add this. Check the [Spring 
 4. ChatGPT loads your widget URL in an iframe and sends the result via `ui/notifications/tool-result` (postMessage)
 5. The widget parses the JSON and renders the expandable table
 
+### Caveat
+
+Contrary to what documentation says: "`ui/notifications/tool-result` -> Latest tool result (includes `structuredContent`, `content`, `_meta`), I saw that my widget only receives the contents of `structuredContent`.
+
 ## Iframe Embedding
 
 For the widget to load in ChatGPT's iframe, your server must allow being framed. Ensure you do not set restrictive `X-Frame-Options` or `Content-Security-Policy` headers that block embedding by `*.openai.com` or `*.chatgpt.com`.
