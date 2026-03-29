@@ -199,9 +199,10 @@ info:
 jhipster:
   clientApp:
     name: 'dcpassApp'
-  # By default CORS is disabled. Uncomment to enable.
+  # By default CORS is disabled. Uncomment to enable (dev profile already sets cors in application-dev.yml).
+  # For any origin (API + static assets: *.js, *.css, /content/**, index.html, etc.), use patterns (not literal * with credentials on origins list):
   # cors:
-  #   allowed-origins: "http://localhost:8100,http://localhost:9000"
+  #   allowed-origin-patterns: "*"
   #   allowed-methods: "*"
   #   allowed-headers: "*"
   #   exposed-headers: "Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params"
@@ -229,7 +230,7 @@ openai:
   apps:
     challenge: ''
 
-# ChatGPT MCP Apps widget: iframe target for /contracts-widget (must match CSP frameDomains on the MCP template resource)
+# ChatGPT MCP Apps widget: public origin for SPA assets and /contracts-widget (must match CSP on the MCP template resource)
 dcpass:
   mcp:
     widget-public-base-url: https://pass.argorand.io

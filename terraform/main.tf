@@ -28,6 +28,13 @@ variable "keystore_password" {
   default     = "CHANGE_ME"
 }
 
+variable "jwt_secret" {
+  description = "JWT secret. Set via TF_VAR_keystore_password or terraform.tfvars"
+  type        = string
+  sensitive   = true
+  default     = "DontUseInProduction2026"
+}
+
 provider "aws" {
 
   region = var.aws_region
@@ -93,6 +100,17 @@ resource "aws_ssm_parameter" "keystore_password" {
   description = "TLS keystore password for dcpass application"
   type        = "SecureString"
   value       = var.keystore_password
+
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "jwt_secret" {
+  name        = "/dcpass/jwt-secret"
+  description = "JWT secred for token generation"
+  type        = "SecureString"
+  value       = var.jwt_secret
 
   lifecycle {
     ignore_changes = [value]

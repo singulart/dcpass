@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * Public origin of the SPA used inside the ChatGPT widget iframe ({@code /contracts-widget}).
- * Exposed as a static holder so {@link ContractsWidgetResourceMetaProvider} (not a Spring bean)
- * can build matching {@code _meta.ui.csp} entries.
+ * Public origin of the SPA (same host that serves {@code /contracts-widget} and static assets).
+ * Used for absolute {@code <base href>} in the MCP widget template and for {@code _meta.ui.csp} on the resource.
  */
 @Component
 public class ContractsWidgetMcpConfig {

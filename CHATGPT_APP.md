@@ -4,20 +4,23 @@ This document describes how to use the DCPASS MCP server with ChatGPT and render
 
 ## Overview
 
-- **Embedded widget**: When you connect a GPT to this MCP server and ask for contracts, the results are rendered in an iframe at `/contracts-widget` with pagination support.
+- **Embedded widget**: When you connect a GPT to this MCP server and ask for contracts, the results are rendered in a widget with pagination support.
 
-## Widget URL
+## MCP tool invocation
 
-The widget that displays contract results in ChatGPT's iframe is served at:
+ChatGPT UI decides that it needs to call my MCP tool. The tool is supposed to include the resource id for the widget in the `_meta -> openai/outputTemplate`
 
-```
-https://<your-domain>/contracts-widget
-```
+## Widget code loading
 
-For local development:
+ChatGPT UI loads the widget that displays contract results via `resources/read` call:
 
-```
-http://localhost:8080/contracts-widget
+```json
+{
+  "method": "resources/read",
+  "params": {
+    "uri": "ui://widgets/pass-contracts.html"
+  }
+}
 ```
 
 ## Configuring Your GPT for Embedded Widget

@@ -28,6 +28,30 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     private static final Logger LOG = LoggerFactory.getLogger(WebConfigurer.class);
 
+    /**
+     * Paths that serve built SPA / JHipster static files; same CORS policy as {@code jhipster.cors} so cross-origin
+     * clients (e.g. ChatGPT widget sandbox) can use {@code fetch} / module workers against scripts and styles if needed.
+     */
+    private static final String[] STATIC_ASSET_CORS_PATHS = {
+        "/*.js",
+        "/**/*.js",
+        "/*.css",
+        "/**/*.css",
+        "/*.map",
+        "/**/*.map",
+        "/*.json",
+        "/*.ico",
+        "/*.png",
+        "/*.svg",
+        "/*.webapp",
+        "/*.txt",
+        "/index.html",
+        "/content/**",
+        "/resources/**",
+        "/contracts-widget",
+        "/contracts-widget/**",
+    };
+
     private final Environment env;
 
     private final JHipsterProperties jHipsterProperties;
@@ -92,6 +116,9 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
             source.registerCorsConfiguration("/swagger-ui/**", config);
             source.registerCorsConfiguration("/mcp/**", config);
             source.registerCorsConfiguration("/sse", config);
+            for (String pattern : STATIC_ASSET_CORS_PATHS) {
+                source.registerCorsConfiguration(pattern, config);
+            }
         }
         return new CorsFilter(source);
     }

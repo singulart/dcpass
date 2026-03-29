@@ -110,4 +110,24 @@ class WebConfigurerTest {
             .andExpect(status().isOk())
             .andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN));
     }
+
+    @Test
+    void shouldCorsFilterOnStaticJsPreflight() throws Exception {
+        props.getCors().setAllowedOriginPatterns(Collections.singletonList("*"));
+        props.getCors().setAllowedMethods(Collections.singletonList("*"));
+        props.getCors().setAllowedHeaders(Collections.singletonList("*"));
+        props.getCors().setMaxAge(1800L);
+        props.getCors().setAllowCredentials(true);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new WebConfigurerTestController()).addFilters(webConfigurer.corsFilter()).build();
+
+        mockMvc
+            .perform(
+                options("/main.abc123.js")
+                    .header(HttpHeaders.ORIGIN, "https://chatgpt.com")
+                    .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
+            )
+            .andExpect(status().isOk())
+            .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://chatgpt.com"));
+    }
 }

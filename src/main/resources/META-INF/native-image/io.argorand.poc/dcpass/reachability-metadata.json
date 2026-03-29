@@ -1,6 +1,9 @@
 {
   "reflection": [
     {
+      "type": "Configurable"
+    },
+    {
       "type": "org.hibernate.bytecode.internal.none.BytecodeProviderImpl",
       "methods": [
         {
@@ -251,6 +254,9 @@
     },
     {
       "type": "com.fasterxml.jackson.databind.ObjectMapper"
+    },
+    {
+      "type": "com.fasterxml.jackson.databind.ObjectWriter"
     },
     {
       "type": "com.fasterxml.jackson.databind.SerializationFeature"
@@ -928,10 +934,6 @@
     {
       "type": "io.argorand.poc.dcpass.aop.logging.LoggingAspect",
       "methods": [
-        {
-          "name": "logAfterThrowing",
-          "parameterTypes": ["org.aspectj.lang.JoinPoint", "java.lang.Throwable"]
-        },
         {
           "name": "logAround",
           "parameterTypes": ["org.aspectj.lang.ProceedingJoinPoint"]
@@ -2108,6 +2110,15 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.mcp.ContractsWidgetSpaHtmlProvider",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.mcp.ContractsWidgetToolMetaProvider",
       "methods": [
         {
@@ -2121,7 +2132,15 @@
       "methods": [
         {
           "name": "<init>",
-          "parameterTypes": ["com.fasterxml.jackson.databind.ObjectMapper"]
+          "parameterTypes": ["com.fasterxml.jackson.databind.ObjectMapper", "io.argorand.poc.dcpass.mcp.ContractsWidgetSpaHtmlProvider"]
+        },
+        {
+          "name": "getAbout",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractsWidgetMcpTemplate",
+          "parameterTypes": []
         }
       ]
     },
@@ -3678,6 +3697,28 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$Meta"
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ReadResourceRequest",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.util.Map"]
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ReadResourceResult",
+      "methods": [
+        {
+          "name": "contents",
+          "parameterTypes": []
+        },
+        {
+          "name": "meta",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$Request"
     },
     {
@@ -3719,6 +3760,9 @@
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$ResourceContent"
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceContents"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$ResourceTemplate"
@@ -3823,6 +3867,27 @@
         },
         {
           "name": "text",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.modelcontextprotocol.spec.McpSchema$TextResourceContents",
+      "methods": [
+        {
+          "name": "meta",
+          "parameterTypes": []
+        },
+        {
+          "name": "mimeType",
+          "parameterTypes": []
+        },
+        {
+          "name": "text",
+          "parameterTypes": []
+        },
+        {
+          "name": "uri",
           "parameterTypes": []
         }
       ]
@@ -5651,6 +5716,12 @@
       "type": "java.io.File"
     },
     {
+      "type": "java.io.IOException"
+    },
+    {
+      "type": "java.io.InputStream"
+    },
+    {
       "type": "java.io.Serializable"
     },
     {
@@ -5731,6 +5802,9 @@
     },
     {
       "type": "java.lang.Comparable[]"
+    },
+    {
+      "type": "java.lang.Configurable"
     },
     {
       "type": "java.lang.Deprecated"
@@ -6696,6 +6770,12 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "java.util.regex.Matcher"
+    },
+    {
+      "type": "java.util.regex.Pattern"
     },
     {
       "type": "java.util.stream.Collectors"
@@ -14664,6 +14744,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -23532,9 +23615,6 @@
       "type": "org.springframework.core.env.EnvironmentCapable"
     },
     {
-      "type": "org.springframework.core.env.Profiles"
-    },
-    {
       "type": "org.springframework.core.io.AbstractFileResolvingResource"
     },
     {
@@ -24342,33 +24422,7 @@
       "type": "org.springframework.http.MediaType"
     },
     {
-      "type": "org.springframework.http.ProblemDetail",
-      "methods": [
-        {
-          "name": "getDetail",
-          "parameterTypes": []
-        },
-        {
-          "name": "getInstance",
-          "parameterTypes": []
-        },
-        {
-          "name": "getProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "getStatus",
-          "parameterTypes": []
-        },
-        {
-          "name": "getTitle",
-          "parameterTypes": []
-        },
-        {
-          "name": "getType",
-          "parameterTypes": []
-        }
-      ]
+      "type": "org.springframework.http.ProblemDetail"
     },
     {
       "type": "org.springframework.http.ReactiveHttpInputMessage"
@@ -24399,9 +24453,6 @@
     },
     {
       "type": "org.springframework.http.converter.json.JacksonJsonHttpMessageConverter"
-    },
-    {
-      "type": "org.springframework.http.converter.json.ProblemDetailJacksonMixin"
     },
     {
       "type": "org.springframework.http.server.ServerHttpRequest"
@@ -27929,13 +27980,7 @@
       "type": "tech.jhipster.service.filter.StringFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
-      "methods": [
-        {
-          "name": "getCause",
-          "parameterTypes": []
-        }
-      ]
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause"
     },
     {
       "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause$ProblemDetailWithCauseBuilder"
@@ -28427,214 +28472,121 @@
       "glob": "META-INF/persistence.xml"
     },
     {
-      "glob": "META-INF/resources/.well-known/appspecific/com.chrome.devtools.json"
+      "glob": "META-INF/resources/account.route-A3BFXH5E.js"
     },
     {
-      "glob": "META-INF/resources/.well-known/oauth-protected-resource"
+      "glob": "META-INF/resources/admin.routes-HB4KYORJ.js"
     },
     {
-      "glob": "META-INF/resources/account.route-LFZMOZG7.js"
+      "glob": "META-INF/resources/authority-CVIX5B6A.js"
     },
     {
-      "glob": "META-INF/resources/admin.routes-QX4RR36I.js"
+      "glob": "META-INF/resources/authority-detail-AWL37BQB.js"
     },
     {
-      "glob": "META-INF/resources/authority-YS3YE7UU.js"
+      "glob": "META-INF/resources/authority-update-5DNBCAPA.js"
     },
     {
-      "glob": "META-INF/resources/authority-detail-V6TMTO6E.js"
+      "glob": "META-INF/resources/authority.routes-RULQ3FCM.js"
     },
     {
-      "glob": "META-INF/resources/authority-update-AVTXHT4V.js"
-    },
-    {
-      "glob": "META-INF/resources/authority.routes-5KW5KRQV.js"
-    },
-    {
-      "glob": "META-INF/resources/bootstrap-PWMQP6FB.js"
-    },
-    {
-      "glob": "META-INF/resources/bootstrap-PWMQP6FB.js.map"
+      "glob": "META-INF/resources/bootstrap-T3VGT2MG.js"
     },
     {
       "glob": "META-INF/resources/chunk-2SPWARMT.js"
     },
     {
-      "glob": "META-INF/resources/chunk-2SPWARMT.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-466BFIUU.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-466BFIUU.js.map"
+      "glob": "META-INF/resources/chunk-35QCZHZV.js"
     },
     {
       "glob": "META-INF/resources/chunk-6CWC3MTR.js"
     },
     {
-      "glob": "META-INF/resources/chunk-6CWC3MTR.js.map"
+      "glob": "META-INF/resources/chunk-7HOAEMQB.js"
     },
     {
-      "glob": "META-INF/resources/chunk-6GOH2SWC.js"
+      "glob": "META-INF/resources/chunk-AEJ3M6R7.js"
     },
     {
-      "glob": "META-INF/resources/chunk-6GOH2SWC.js.map"
+      "glob": "META-INF/resources/chunk-AHL4XUJT.js"
     },
     {
-      "glob": "META-INF/resources/chunk-APCQMNBZ.js"
+      "glob": "META-INF/resources/chunk-DTZ2FBGE.js"
     },
     {
-      "glob": "META-INF/resources/chunk-APCQMNBZ.js.map"
+      "glob": "META-INF/resources/chunk-EEPHF5FR.js"
     },
     {
-      "glob": "META-INF/resources/chunk-AWFLWHK3.js"
+      "glob": "META-INF/resources/chunk-EVMXBAX4.js"
     },
     {
-      "glob": "META-INF/resources/chunk-AWFLWHK3.js.map"
+      "glob": "META-INF/resources/chunk-GKXAOWYZ.js"
     },
     {
-      "glob": "META-INF/resources/chunk-BLQ6QJX5.js"
+      "glob": "META-INF/resources/chunk-GMKGPZL3.js"
     },
     {
-      "glob": "META-INF/resources/chunk-BLQ6QJX5.js.map"
+      "glob": "META-INF/resources/chunk-GWOBMBCZ.js"
     },
     {
-      "glob": "META-INF/resources/chunk-C4REFZAO.js"
+      "glob": "META-INF/resources/chunk-HNOIUKXC.js"
     },
     {
-      "glob": "META-INF/resources/chunk-C4REFZAO.js.map"
+      "glob": "META-INF/resources/chunk-J36Z7M6E.js"
     },
     {
-      "glob": "META-INF/resources/chunk-ECEYH62N.js"
+      "glob": "META-INF/resources/chunk-JEIBIMZX.js"
     },
     {
-      "glob": "META-INF/resources/chunk-GANT6NIE.js"
+      "glob": "META-INF/resources/chunk-JGPJYKLH.js"
     },
     {
-      "glob": "META-INF/resources/chunk-GANT6NIE.js.map"
+      "glob": "META-INF/resources/chunk-KTZYI6EY.js"
     },
     {
-      "glob": "META-INF/resources/chunk-GFGV3VN6.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-GFGV3VN6.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-IC72ZXWO.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-IC72ZXWO.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-J2GIJ2YX.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-J2GIJ2YX.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-JLBJ55ZS.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-JLBJ55ZS.js.map"
+      "glob": "META-INF/resources/chunk-KZVEU7K6.js"
     },
     {
       "glob": "META-INF/resources/chunk-NHKKVY5O.js"
     },
     {
-      "glob": "META-INF/resources/chunk-NHKKVY5O.js.map"
+      "glob": "META-INF/resources/chunk-NLF3KLCQ.js"
     },
     {
-      "glob": "META-INF/resources/chunk-NTPYTY7H.js"
+      "glob": "META-INF/resources/chunk-NSURGC7F.js"
     },
     {
-      "glob": "META-INF/resources/chunk-PYVHQ5DA.js"
+      "glob": "META-INF/resources/chunk-PRSFLHQX.js"
     },
     {
-      "glob": "META-INF/resources/chunk-PYVHQ5DA.js.map"
+      "glob": "META-INF/resources/chunk-QXIAET5B.js"
     },
     {
-      "glob": "META-INF/resources/chunk-RZNLOJNG.js"
+      "glob": "META-INF/resources/chunk-RE35UVLA.js"
     },
     {
-      "glob": "META-INF/resources/chunk-RZNLOJNG.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-SHACKBLW.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-SHACKBLW.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-SRX33RD6.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-SRX33RD6.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-TFBUI7WV.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-TFBUI7WV.js.map"
+      "glob": "META-INF/resources/chunk-TE6RAMJQ.js"
     },
     {
       "glob": "META-INF/resources/chunk-TQ6A2ECJ.js"
     },
     {
-      "glob": "META-INF/resources/chunk-TQ6A2ECJ.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-UZA3OBE5.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-UZA3OBE5.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-VSUG2ZMU.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-VSUG2ZMU.js.map"
+      "glob": "META-INF/resources/chunk-VSBZVIDX.js"
     },
     {
       "glob": "META-INF/resources/chunk-VUJOFXKG.js"
     },
     {
-      "glob": "META-INF/resources/chunk-VUJOFXKG.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-W5FONMCO.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-W5FONMCO.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-WMKRKMUD.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-WMKRKMUD.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-WSTS45BJ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-WSTS45BJ.js.map"
-    },
-    {
-      "glob": "META-INF/resources/chunk-YFFKNGKO.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-YFFKNGKO.js.map"
+      "glob": "META-INF/resources/chunk-WSQFZ2QV.js"
     },
     {
       "glob": "META-INF/resources/chunk-YK7Y5YEK.js"
     },
     {
-      "glob": "META-INF/resources/chunk-YK7Y5YEK.js.map"
+      "glob": "META-INF/resources/common-MXFHNATK.js"
     },
     {
-      "glob": "META-INF/resources/common-44G7OM7L.js"
-    },
-    {
-      "glob": "META-INF/resources/configuration-OXIYP7EH.js"
+      "glob": "META-INF/resources/configuration-IQE43N6M.js"
     },
     {
       "glob": "META-INF/resources/content/css/loading.css"
@@ -28646,94 +28598,58 @@
       "glob": "META-INF/resources/content/images/logo-jhipster.png"
     },
     {
-      "glob": "META-INF/resources/docs-3CLAGOEG.js"
+      "glob": "META-INF/resources/docs-NCBMONA7.js"
     },
     {
-      "glob": "META-INF/resources/entity.routes-LCS662F4.js"
+      "glob": "META-INF/resources/entity.routes-LE4WYJRN.js"
     },
     {
-      "glob": "META-INF/resources/entity.routes-LCS662F4.js.map"
+      "glob": "META-INF/resources/health-S2NYRE7U.js"
     },
     {
-      "glob": "META-INF/resources/error-53IDCO6S.js"
-    },
-    {
-      "glob": "META-INF/resources/favicon.ico"
-    },
-    {
-      "glob": "META-INF/resources/health-55F4EE6Q.js"
-    },
-    {
-      "glob": "META-INF/resources/home-OXR3WHOT.js"
-    },
-    {
-      "glob": "META-INF/resources/home-OXR3WHOT.js.map"
+      "glob": "META-INF/resources/home-YEPOYINM.js"
     },
     {
       "glob": "META-INF/resources/index.html"
     },
     {
-      "glob": "META-INF/resources/login-HMYODHCQ.js"
+      "glob": "META-INF/resources/login-X76AGYRR.js"
     },
     {
-      "glob": "META-INF/resources/logs-CDBV64YT.js"
+      "glob": "META-INF/resources/logs-SQNNAQAA.js"
     },
     {
       "glob": "META-INF/resources/main.js"
     },
     {
-      "glob": "META-INF/resources/main.js.map"
-    },
-    {
       "glob": "META-INF/resources/manifest.webapp"
     },
     {
-      "glob": "META-INF/resources/metrics-NSQXS4VX.js"
+      "glob": "META-INF/resources/metrics-FZLG4VV6.js"
     },
     {
-      "glob": "META-INF/resources/navbar-DEJ57INV.js"
+      "glob": "META-INF/resources/navbar-7QUY4I22.js"
     },
     {
-      "glob": "META-INF/resources/navbar-DEJ57INV.js.map"
+      "glob": "META-INF/resources/pass-contract-VFBGXHBF.js"
     },
     {
-      "glob": "META-INF/resources/navbar.css.map"
+      "glob": "META-INF/resources/pass-contract-detail-OP3SZQVH.js"
     },
     {
-      "glob": "META-INF/resources/page-ribbon.css.map"
+      "glob": "META-INF/resources/pass-contract-update-QZIIWAQQ.js"
     },
     {
-      "glob": "META-INF/resources/pass-contract-7WNA3NZG.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-7WNA3NZG.js.map"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-detail-MGFV6MU6.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-update-WFIYUSCT.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract.routes-LPCUIOO7.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract.routes-LPCUIOO7.js.map"
+      "glob": "META-INF/resources/pass-contract.routes-555Q2W7A.js"
     },
     {
       "glob": "META-INF/resources/polyfills.js"
-    },
-    {
-      "glob": "META-INF/resources/polyfills.js.map"
     },
     {
       "glob": "META-INF/resources/resources/jhipster_family_member_0.svg"
     },
     {
       "glob": "META-INF/resources/styles.css"
-    },
-    {
-      "glob": "META-INF/resources/styles.css.map"
     },
     {
       "glob": "META-INF/resources/swagger-ui/axios.min.js"
@@ -28751,13 +28667,13 @@
       "glob": "META-INF/resources/swagger-ui/swagger-ui.css"
     },
     {
-      "glob": "META-INF/resources/user-management-7YDCWWIW.js"
+      "glob": "META-INF/resources/user-management-LNIYBVBC.js"
     },
     {
-      "glob": "META-INF/resources/user-management-update-BYPDMJOS.js"
+      "glob": "META-INF/resources/user-management-update-ZSPZTEAF.js"
     },
     {
-      "glob": "META-INF/resources/user-management.route-FL2ZON3K.js"
+      "glob": "META-INF/resources/user-management.route-PSQFAEOL.js"
     },
     {
       "glob": "META-INF/services/ch.qos.logback.classic.spi.Configurator"
@@ -29418,6 +29334,15 @@
     },
     {
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
     },
     {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
@@ -31307,220 +31232,121 @@
       "glob": "org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.class"
     },
     {
-      "glob": "public/.well-known/appspecific/com.chrome.devtools.json"
+      "glob": "resources/account.route-A3BFXH5E.js"
     },
     {
-      "glob": "public/.well-known/oauth-protected-resource"
+      "glob": "resources/admin.routes-HB4KYORJ.js"
     },
     {
-      "glob": "resources/.well-known/appspecific/com.chrome.devtools.json"
+      "glob": "resources/authority-CVIX5B6A.js"
     },
     {
-      "glob": "resources/.well-known/oauth-protected-resource"
+      "glob": "resources/authority-detail-AWL37BQB.js"
     },
     {
-      "glob": "resources/account.route-LFZMOZG7.js"
+      "glob": "resources/authority-update-5DNBCAPA.js"
     },
     {
-      "glob": "resources/admin.routes-QX4RR36I.js"
+      "glob": "resources/authority.routes-RULQ3FCM.js"
     },
     {
-      "glob": "resources/authority-YS3YE7UU.js"
-    },
-    {
-      "glob": "resources/authority-detail-V6TMTO6E.js"
-    },
-    {
-      "glob": "resources/authority-update-AVTXHT4V.js"
-    },
-    {
-      "glob": "resources/authority.routes-5KW5KRQV.js"
-    },
-    {
-      "glob": "resources/bootstrap-PWMQP6FB.js"
-    },
-    {
-      "glob": "resources/bootstrap-PWMQP6FB.js.map"
+      "glob": "resources/bootstrap-T3VGT2MG.js"
     },
     {
       "glob": "resources/chunk-2SPWARMT.js"
     },
     {
-      "glob": "resources/chunk-2SPWARMT.js.map"
-    },
-    {
-      "glob": "resources/chunk-466BFIUU.js"
-    },
-    {
-      "glob": "resources/chunk-466BFIUU.js.map"
+      "glob": "resources/chunk-35QCZHZV.js"
     },
     {
       "glob": "resources/chunk-6CWC3MTR.js"
     },
     {
-      "glob": "resources/chunk-6CWC3MTR.js.map"
+      "glob": "resources/chunk-7HOAEMQB.js"
     },
     {
-      "glob": "resources/chunk-6GOH2SWC.js"
+      "glob": "resources/chunk-AEJ3M6R7.js"
     },
     {
-      "glob": "resources/chunk-6GOH2SWC.js.map"
+      "glob": "resources/chunk-AHL4XUJT.js"
     },
     {
-      "glob": "resources/chunk-APCQMNBZ.js"
+      "glob": "resources/chunk-DTZ2FBGE.js"
     },
     {
-      "glob": "resources/chunk-APCQMNBZ.js.map"
+      "glob": "resources/chunk-EEPHF5FR.js"
     },
     {
-      "glob": "resources/chunk-AWFLWHK3.js"
+      "glob": "resources/chunk-EVMXBAX4.js"
     },
     {
-      "glob": "resources/chunk-AWFLWHK3.js.map"
+      "glob": "resources/chunk-GKXAOWYZ.js"
     },
     {
-      "glob": "resources/chunk-BLQ6QJX5.js"
+      "glob": "resources/chunk-GMKGPZL3.js"
     },
     {
-      "glob": "resources/chunk-BLQ6QJX5.js.map"
+      "glob": "resources/chunk-GWOBMBCZ.js"
     },
     {
-      "glob": "resources/chunk-C4REFZAO.js"
+      "glob": "resources/chunk-HNOIUKXC.js"
     },
     {
-      "glob": "resources/chunk-C4REFZAO.js.map"
+      "glob": "resources/chunk-J36Z7M6E.js"
     },
     {
-      "glob": "resources/chunk-ECEYH62N.js"
+      "glob": "resources/chunk-JEIBIMZX.js"
     },
     {
-      "glob": "resources/chunk-GANT6NIE.js"
+      "glob": "resources/chunk-JGPJYKLH.js"
     },
     {
-      "glob": "resources/chunk-GANT6NIE.js.map"
+      "glob": "resources/chunk-KTZYI6EY.js"
     },
     {
-      "glob": "resources/chunk-GFGV3VN6.js"
-    },
-    {
-      "glob": "resources/chunk-GFGV3VN6.js.map"
-    },
-    {
-      "glob": "resources/chunk-IC72ZXWO.js"
-    },
-    {
-      "glob": "resources/chunk-IC72ZXWO.js.map"
-    },
-    {
-      "glob": "resources/chunk-J2GIJ2YX.js"
-    },
-    {
-      "glob": "resources/chunk-J2GIJ2YX.js.map"
-    },
-    {
-      "glob": "resources/chunk-JLBJ55ZS.js"
-    },
-    {
-      "glob": "resources/chunk-JLBJ55ZS.js.map"
+      "glob": "resources/chunk-KZVEU7K6.js"
     },
     {
       "glob": "resources/chunk-NHKKVY5O.js"
     },
     {
-      "glob": "resources/chunk-NHKKVY5O.js.map"
+      "glob": "resources/chunk-NLF3KLCQ.js"
     },
     {
-      "glob": "resources/chunk-NTPYTY7H.js"
+      "glob": "resources/chunk-NSURGC7F.js"
     },
     {
-      "glob": "resources/chunk-PYVHQ5DA.js"
+      "glob": "resources/chunk-PRSFLHQX.js"
     },
     {
-      "glob": "resources/chunk-PYVHQ5DA.js.map"
+      "glob": "resources/chunk-QXIAET5B.js"
     },
     {
-      "glob": "resources/chunk-RZNLOJNG.js"
+      "glob": "resources/chunk-RE35UVLA.js"
     },
     {
-      "glob": "resources/chunk-RZNLOJNG.js.map"
-    },
-    {
-      "glob": "resources/chunk-SHACKBLW.js"
-    },
-    {
-      "glob": "resources/chunk-SHACKBLW.js.map"
-    },
-    {
-      "glob": "resources/chunk-SRX33RD6.js"
-    },
-    {
-      "glob": "resources/chunk-SRX33RD6.js.map"
-    },
-    {
-      "glob": "resources/chunk-TFBUI7WV.js"
-    },
-    {
-      "glob": "resources/chunk-TFBUI7WV.js.map"
+      "glob": "resources/chunk-TE6RAMJQ.js"
     },
     {
       "glob": "resources/chunk-TQ6A2ECJ.js"
     },
     {
-      "glob": "resources/chunk-TQ6A2ECJ.js.map"
-    },
-    {
-      "glob": "resources/chunk-UZA3OBE5.js"
-    },
-    {
-      "glob": "resources/chunk-UZA3OBE5.js.map"
-    },
-    {
-      "glob": "resources/chunk-VSUG2ZMU.js"
-    },
-    {
-      "glob": "resources/chunk-VSUG2ZMU.js.map"
+      "glob": "resources/chunk-VSBZVIDX.js"
     },
     {
       "glob": "resources/chunk-VUJOFXKG.js"
     },
     {
-      "glob": "resources/chunk-VUJOFXKG.js.map"
-    },
-    {
-      "glob": "resources/chunk-W5FONMCO.js"
-    },
-    {
-      "glob": "resources/chunk-W5FONMCO.js.map"
-    },
-    {
-      "glob": "resources/chunk-WMKRKMUD.js"
-    },
-    {
-      "glob": "resources/chunk-WMKRKMUD.js.map"
-    },
-    {
-      "glob": "resources/chunk-WSTS45BJ.js"
-    },
-    {
-      "glob": "resources/chunk-WSTS45BJ.js.map"
-    },
-    {
-      "glob": "resources/chunk-YFFKNGKO.js"
-    },
-    {
-      "glob": "resources/chunk-YFFKNGKO.js.map"
+      "glob": "resources/chunk-WSQFZ2QV.js"
     },
     {
       "glob": "resources/chunk-YK7Y5YEK.js"
     },
     {
-      "glob": "resources/chunk-YK7Y5YEK.js.map"
+      "glob": "resources/common-MXFHNATK.js"
     },
     {
-      "glob": "resources/common-44G7OM7L.js"
-    },
-    {
-      "glob": "resources/configuration-OXIYP7EH.js"
+      "glob": "resources/configuration-IQE43N6M.js"
     },
     {
       "glob": "resources/content/css/loading.css"
@@ -31532,94 +31358,58 @@
       "glob": "resources/content/images/logo-jhipster.png"
     },
     {
-      "glob": "resources/docs-3CLAGOEG.js"
+      "glob": "resources/docs-NCBMONA7.js"
     },
     {
-      "glob": "resources/entity.routes-LCS662F4.js"
+      "glob": "resources/entity.routes-LE4WYJRN.js"
     },
     {
-      "glob": "resources/entity.routes-LCS662F4.js.map"
+      "glob": "resources/health-S2NYRE7U.js"
     },
     {
-      "glob": "resources/error-53IDCO6S.js"
-    },
-    {
-      "glob": "resources/favicon.ico"
-    },
-    {
-      "glob": "resources/health-55F4EE6Q.js"
-    },
-    {
-      "glob": "resources/home-OXR3WHOT.js"
-    },
-    {
-      "glob": "resources/home-OXR3WHOT.js.map"
+      "glob": "resources/home-YEPOYINM.js"
     },
     {
       "glob": "resources/index.html"
     },
     {
-      "glob": "resources/login-HMYODHCQ.js"
+      "glob": "resources/login-X76AGYRR.js"
     },
     {
-      "glob": "resources/logs-CDBV64YT.js"
+      "glob": "resources/logs-SQNNAQAA.js"
     },
     {
       "glob": "resources/main.js"
     },
     {
-      "glob": "resources/main.js.map"
-    },
-    {
       "glob": "resources/manifest.webapp"
     },
     {
-      "glob": "resources/metrics-NSQXS4VX.js"
+      "glob": "resources/metrics-FZLG4VV6.js"
     },
     {
-      "glob": "resources/navbar-DEJ57INV.js"
+      "glob": "resources/navbar-7QUY4I22.js"
     },
     {
-      "glob": "resources/navbar-DEJ57INV.js.map"
+      "glob": "resources/pass-contract-VFBGXHBF.js"
     },
     {
-      "glob": "resources/navbar.css.map"
+      "glob": "resources/pass-contract-detail-OP3SZQVH.js"
     },
     {
-      "glob": "resources/page-ribbon.css.map"
+      "glob": "resources/pass-contract-update-QZIIWAQQ.js"
     },
     {
-      "glob": "resources/pass-contract-7WNA3NZG.js"
-    },
-    {
-      "glob": "resources/pass-contract-7WNA3NZG.js.map"
-    },
-    {
-      "glob": "resources/pass-contract-detail-MGFV6MU6.js"
-    },
-    {
-      "glob": "resources/pass-contract-update-WFIYUSCT.js"
-    },
-    {
-      "glob": "resources/pass-contract.routes-LPCUIOO7.js"
-    },
-    {
-      "glob": "resources/pass-contract.routes-LPCUIOO7.js.map"
+      "glob": "resources/pass-contract.routes-555Q2W7A.js"
     },
     {
       "glob": "resources/polyfills.js"
-    },
-    {
-      "glob": "resources/polyfills.js.map"
     },
     {
       "glob": "resources/resources/jhipster_family_member_0.svg"
     },
     {
       "glob": "resources/styles.css"
-    },
-    {
-      "glob": "resources/styles.css.map"
     },
     {
       "glob": "resources/swagger-ui/axios.min.js"
@@ -31637,13 +31427,13 @@
       "glob": "resources/swagger-ui/swagger-ui.css"
     },
     {
-      "glob": "resources/user-management-7YDCWWIW.js"
+      "glob": "resources/user-management-LNIYBVBC.js"
     },
     {
-      "glob": "resources/user-management-update-BYPDMJOS.js"
+      "glob": "resources/user-management-update-ZSPZTEAF.js"
     },
     {
-      "glob": "resources/user-management.route-FL2ZON3K.js"
+      "glob": "resources/user-management.route-PSQFAEOL.js"
     },
     {
       "glob": "schema-all.sql"
@@ -31653,12 +31443,6 @@
     },
     {
       "glob": "spring.properties"
-    },
-    {
-      "glob": "static/.well-known/appspecific/com.chrome.devtools.json"
-    },
-    {
-      "glob": "static/.well-known/oauth-protected-resource"
     },
     {
       "glob": "tech/jhipster/config/JHipsterConfiguration.class"
@@ -31827,6 +31611,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

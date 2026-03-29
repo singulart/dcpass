@@ -180,8 +180,7 @@ public class PassContractMcpTools {
             totalItems
         );
         String modelText = buildModelFacingSummary(contracts.size(), totalItems, pageNumber, PAGE_SIZE);
-        Map<String, Object> resultMeta = buildResultMeta(contracts);
-        return McpSchema.CallToolResult.builder().structuredContent(result).addTextContent(modelText).meta(resultMeta).build();
+        return McpSchema.CallToolResult.builder().structuredContent(result).addTextContent(modelText).meta(buildResultMeta()).build();
     }
 
     /**
@@ -204,16 +203,12 @@ public class PassContractMcpTools {
         );
     }
 
-    /** Supplementary keyed view for embedded UIs, analogous to MCP Apps examples (e.g. {@code allAnimalsById}). */
-    private static Map<String, Object> buildResultMeta(List<PassContractDTO> contracts) {
-        Map<String, Object> byId = new LinkedHashMap<>();
-        for (PassContractDTO c : contracts) {
-            if (c.getId() != null) {
-                byId.put(String.valueOf(c.getId()), c);
-            }
-        }
+    private static Map<String, Object> buildResultMeta() {
         Map<String, Object> meta = new LinkedHashMap<>();
-        meta.put("contractsById", byId);
+        meta.put("openai/outputTemplate", ContractsWidgetToolMetaProvider.WIDGET_RESOURCE_URI);
+        meta.put("openai/toolInvocation/invoking", "Searching PASS contracts...");
+        meta.put("openai/toolInvocation/invoked", "Search done");
+        meta.put("openai/widgetAccessible", true);
         return meta;
     }
 
