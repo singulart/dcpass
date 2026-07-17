@@ -29015,6 +29015,12 @@
       "glob": "config/liquibase/changelog/20250304130000_add_full_text_search.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260717150000_normalize_commodity_code_search.xml"
+    },
+    {
+      "glob": "config/liquibase/changelog/20260717170000_normalize_cw_contract_number_search.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
