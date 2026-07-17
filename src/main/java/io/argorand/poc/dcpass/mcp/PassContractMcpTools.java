@@ -63,7 +63,10 @@ public class PassContractMcpTools {
         @McpToolParam(description = "End date 'to' (ISO-8601)", required = false) String endDateTo,
         @McpToolParam(description = "Minimum contract amount", required = false) String minimumContractAmount,
         @McpToolParam(description = "Maximum contract amount", required = false) String maximumContractAmount,
-        @McpToolParam(description = "Page index", required = false) Integer page
+        @McpToolParam(
+            description = "Page number: 1 = first page (preferred; matches human numbering). 0 also means first page (0-based). Omit for first page.",
+            required = false
+        ) Integer page
     ) {
         List<String> errors = new ArrayList<>();
 
@@ -83,14 +86,22 @@ public class PassContractMcpTools {
             );
         }
 
+        // Spring Data uses 0-based pages; models often pass 1 for the first page — normalize so 1 and 0 both mean first page.
         int pageNumber = 0;
         if (page != null) {
             if (page < 0) {
-                errors.add("page must be >= 0. Use 0 for the first page.");
-            } else if (page > MAX_PAGE) {
-                errors.add("page must be <= " + MAX_PAGE + " to avoid excessive result sets. Use pagination to browse further.");
+                errors.add("page must be >= 0. Use 1 for the first page, or 0 for first page (0-based).");
             } else {
-                pageNumber = page;
+                pageNumber = page == 0 ? 0 : page - 1;
+                if (pageNumber > MAX_PAGE) {
+                    errors.add(
+                        "page is too large (max " +
+                            (MAX_PAGE + 1) +
+                            " when using 1-based numbering, or " +
+                            MAX_PAGE +
+                            " when using 0-based). Use pagination to browse further."
+                    );
+                }
             }
         }
 

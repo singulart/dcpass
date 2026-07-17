@@ -161,6 +161,57 @@ Unit tests are run by Vitest. They're located near components and can be run wit
 ./npmw test
 ```
 
+### End-to-end tests (Playwright)
+
+Live-app E2E tests live under `e2e/`. They expect the frontend and backend to already be running locally:
+
+```bash
+./npmw run backend:start:coverage
+./npmw run start
+```
+
+In another terminal:
+
+```bash
+./npmw run e2e
+```
+
+Optional: `./npmw run e2e:ui` (Playwright UI) or `./npmw run e2e:headed`. Override URLs with `E2E_BASE_URL` (default `http://localhost:4200`) and `E2E_BACKEND_URL` (default `http://localhost:8080`).
+
+Coverage includes authentication, account settings/password, PASS contract search/CRUD, admin screens (users, metrics, health, configuration, logs, API docs, authorities), the contracts widget, and MCP SSE tools/resources.
+
+#### E2E code coverage
+
+Collect **frontend (Angular)** and **backend (Java)** coverage while the suite runs.
+
+1. Start the backend **with the JaCoCo agent** (not plain `backend:start`):
+
+```bash
+./npmw run backend:start:coverage
+./npmw run start
+```
+
+2. Run the suite (Playwright + dump/report JaCoCo):
+
+```bash
+./npmw run e2e:coverage
+```
+
+3. Review reports later:
+
+```bash
+./npmw run e2e:coverage:open            # Angular (V8) HTML
+./npmw run e2e:coverage:open:summary    # Playwright + frontend summary
+./npmw run e2e:coverage:open:backend    # Java (JaCoCo) HTML
+```
+
+| Report   | Location                                                                 |
+| -------- | ------------------------------------------------------------------------ |
+| Frontend | `coverage-e2e/index.html`, `lcov.info`                                   |
+| Backend  | `target/site/jacoco-e2e/index.html` (scoped to `io.argorand.poc.dcpass`) |
+
+`e2e:coverage` fails fast if the backend was not started with `backend:start:coverage` (JaCoCo TCP port 6300). Plain `./npmw run e2e` skips all coverage collection.
+
 ## Others
 
 ### Code quality using Sonar

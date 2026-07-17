@@ -65,7 +65,7 @@ public class PassContractMcpResources {
                     )
                 ),
                 "usage",
-                "Use the searchContractsInPASS tool to query PASS contracts. Supports parameters: q (search phrase), awardDateFrom/To, startDateFrom/To, endDateFrom/To, page."
+                "Use the searchContractsInPASS tool to query PASS contracts. Supports parameters: q (search phrase), awardDateFrom/To, startDateFrom/To, endDateFrom/To, page (1 = first page)."
             );
             return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(info);
         } catch (JsonProcessingException e) {
