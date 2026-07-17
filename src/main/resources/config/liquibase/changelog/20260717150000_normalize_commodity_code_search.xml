@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Rebuild search_vector so COMMODITYCODE is findable across common input styles.
+        For each value we index:
+          - the original text (dashed or undashed)
+          - digits-only form (so 2083700 matches rows stored as 208-37-00)
+          - NIGP parts when there are exactly 7 digits: class, item, detail, and class+item
+            (so 208, 37, 00, and 20837 all match rows stored as 2083700)
+        CONTRACTNUMBER is left unchanged: values are already hyphen-separated, so FTS
+        tokenizes them into searchable parts without extra normalization.
+    -->
+    <changeSet id="20260717150000-1" author="jhipster" dbms="postgresql">
+        <sql>
+            DROP INDEX IF EXISTS idx_pass_contract_search_vector_gin;
+            ALTER TABLE pass_contract DROP COLUMN IF EXISTS search_vector;
+            ALTER TABLE pass_contract ADD COLUMN search_vector tsvector
+            GENERATED ALWAYS AS (
+                setweight(to_tsvector('english', coalesce(TITLE, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(DESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_NAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_ACRONYM, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(SUPPLIER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(
+                    coalesce(COMMODITYCODE, '') || ' ' ||
+                    regexp_replace(coalesce(COMMODITYCODE, ''), '[^0-9]', '', 'g') || ' ' ||
+                    regexp_replace(
+                        regexp_replace(coalesce(COMMODITYCODE, ''), '[^0-9]', '', 'g'),
+                        '^([0-9]{3})([0-9]{2})([0-9]{2})$',
+                        '\1 \2 \3 \1\2'
+                    ),
+                    ''
+                )), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYDESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTNUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTTYPEDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(PROCUREMENTMETHODDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTINGOFFICER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATORNAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATOREMAIL, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CORPORATEEMAILADDRESS, '')), 'B')
+            ) STORED;
+            CREATE INDEX idx_pass_contract_search_vector_gin ON pass_contract USING GIN (search_vector);
+        </sql>
+        <rollback>
+            DROP INDEX IF EXISTS idx_pass_contract_search_vector_gin;
+            ALTER TABLE pass_contract DROP COLUMN IF EXISTS search_vector;
+            ALTER TABLE pass_contract ADD COLUMN search_vector tsvector
+            GENERATED ALWAYS AS (
+                setweight(to_tsvector('english', coalesce(TITLE, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(DESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_NAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_ACRONYM, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(SUPPLIER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYCODE, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(COMMODITYDESCRIPTION, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTNUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTTYPEDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(PROCUREMENTMETHODDESCRIPTION, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTINGOFFICER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATORNAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(CONTRACTADMINISTRATOREMAIL, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(CORPORATEEMAILADDRESS, '')), 'B')
+            ) STORED;
+            CREATE INDEX idx_pass_contract_search_vector_gin ON pass_contract USING GIN (search_vector);
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
