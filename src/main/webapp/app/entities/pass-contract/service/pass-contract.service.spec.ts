@@ -69,18 +69,6 @@ describe('PassContract Service', () => {
       expect(expectedResult).toMatchObject(expected);
     });
 
-    it('should partial update a PassContract', () => {
-      const patchObject = { ...sampleWithPartialData };
-      const returnedFromService = { ...requireRestSample };
-      const expected = { ...sampleWithRequiredData };
-
-      service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
-
-      const req = httpMock.expectOne({ method: 'PATCH' });
-      req.flush(returnedFromService);
-      expect(expectedResult).toMatchObject(expected);
-    });
-
     it('should return a list of PassContract', () => {
       const returnedFromService = { ...requireRestSample };
 

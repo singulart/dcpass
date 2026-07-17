@@ -110,42 +110,6 @@ public class PassContractResource {
     }
 
     /**
-     * {@code PATCH  /pass-contracts/:id} : Partial updates given fields of an existing passContract, field will ignore if it is null
-     *
-     * @param id the id of the passContractDTO to save.
-     * @param passContractDTO the passContractDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated passContractDTO,
-     * or with status {@code 400 (Bad Request)} if the passContractDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the passContractDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the passContractDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<PassContractDTO> partialUpdatePassContract(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody PassContractDTO passContractDTO
-    ) throws URISyntaxException {
-        LOG.debug("REST request to partial update PassContract partially : {}, {}", id, passContractDTO);
-        if (passContractDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, passContractDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!passContractRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<PassContractDTO> result = passContractService.partialUpdate(passContractDTO);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, passContractDTO.getId().toString())
-        );
-    }
-
-    /**
      * {@code GET  /pass-contracts} : get all the passContracts.
      *
      * @param q optional full-text search query (searches title, description, agency, supplier, etc.)
@@ -176,18 +140,6 @@ public class PassContractResource {
         Page<PassContractDTO> page = passContractQueryService.findByCriteria(criteria, pageableToUse);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-     * {@code GET  /pass-contracts/count} : count all the passContracts.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countPassContracts(PassContractCriteria criteria) {
-        LOG.debug("REST request to count PassContracts by criteria: {}", criteria);
-        return ResponseEntity.ok().body(passContractQueryService.countByCriteria(criteria));
     }
 
     /**

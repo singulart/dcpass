@@ -4,6 +4,17 @@ import { McpSseClient } from './helpers/mcp-client';
 
 const backendURL = process.env.E2E_BACKEND_URL ?? 'http://localhost:8080';
 
+type ToolCallResult = {
+  isError?: boolean;
+  content?: Array<{ type: string; text?: string }>;
+  structuredContent?: {
+    contracts: Array<{ contractNumber?: string; title?: string; contractAmount?: number }>;
+    totalItems: number;
+    page?: number;
+    apiParams?: Record<string, unknown>;
+  };
+};
+
 test.describe('MCP server', () => {
   let seeded: SeedContract[] = [];
   let client: McpSseClient;
@@ -26,57 +37,96 @@ test.describe('MCP server', () => {
     const names = tools.map(t => t.name);
     expect(names).toContain('searchContractsInPASS');
     expect(tools).toHaveLength(names.length);
-    // Every declared tool should be invocable — currently one tool.
     for (const tool of tools) {
       expect(tool.name).toBeTruthy();
       expect(tool.description ?? '').toMatch(/PASS|contract/i);
     }
   });
 
-  test('invokes searchContractsInPASS for every listed tool with filters', async () => {
-    const tools = await client.listTools();
-    expect(tools.length).toBeGreaterThan(0);
+  test('searchContractsInPASS accepts every parameter together', async () => {
+    const marker = seeded[0];
+    const response = await client.callTool('searchContractsInPASS', {
+      q: marker.contractNumber,
+      awardDateFrom: '2025-06-01',
+      awardDateTo: '2025-06-30',
+      startDateFrom: '2025-06-15',
+      startDateTo: '2025-07-15',
+      endDateFrom: '2026-06-01',
+      endDateTo: '2026-12-31',
+      minimumContractAmount: String(marker.contractAmount - 1),
+      maximumContractAmount: String(marker.contractAmount + 1),
+      page: 1,
+    });
 
-    for (const tool of tools) {
-      if (tool.name === 'searchContractsInPASS') {
-        const response = await client.callTool(tool.name, {
-          q: seeded[0].contractNumber,
-          page: 1,
-        });
-        expect(response.error).toBeUndefined();
-        const result = response.result as {
-          isError?: boolean;
-          content?: Array<{ type: string; text?: string }>;
-          structuredContent?: {
-            contracts: Array<{ contractNumber?: string; title?: string }>;
-            totalItems: number;
-          };
-        };
-        expect(result.isError).not.toBe(true);
-        const structured = result.structuredContent;
-        expect(structured).toBeTruthy();
-        expect(structured!.totalItems).toBeGreaterThan(0);
-        expect(structured!.contracts.some(c => c.contractNumber === seeded[0].contractNumber)).toBeTruthy();
+    expect(response.error).toBeUndefined();
+    const result = response.result as ToolCallResult;
+    expect(result.isError).not.toBe(true);
+    expect(result.structuredContent).toBeTruthy();
+    expect(result.structuredContent!.totalItems).toBeGreaterThan(0);
+    expect(result.structuredContent!.contracts.some(c => c.contractNumber === marker.contractNumber)).toBeTruthy();
 
-        const amountResponse = await client.callTool(tool.name, {
-          minimumContractAmount: String(seeded[0].contractAmount - 1),
-          maximumContractAmount: String(seeded[0].contractAmount + 1),
-          q: seeded[0].title.split(' ').slice(-1)[0],
-        });
-        expect(amountResponse.error).toBeUndefined();
+    const apiParams = result.structuredContent!.apiParams ?? {};
+    expect(apiParams.q).toBe(marker.contractNumber);
+    expect(apiParams['awardDate.greaterThanOrEqual']).toBe('2025-06-01');
+    expect(apiParams['awardDate.lessThanOrEqual']).toBe('2025-06-30');
+    expect(apiParams['startDate.greaterThanOrEqual']).toBe('2025-06-15');
+    expect(apiParams['startDate.lessThanOrEqual']).toBe('2025-07-15');
+    expect(apiParams['endDate.greaterThanOrEqual']).toBe('2026-06-01');
+    expect(apiParams['endDate.lessThanOrEqual']).toBe('2026-12-31');
+    expect(apiParams['contractAmount.greaterThanOrEqual']).toBe(String(marker.contractAmount - 1));
+    expect(apiParams['contractAmount.lessThanOrEqual']).toBe(String(marker.contractAmount + 1));
+    expect(apiParams.page).toBe(0); // normalized from 1-based page=1
+  });
 
-        const invalid = await client.callTool(tool.name, {
-          awardDateFrom: 'not-a-date',
-        });
-        const invalidResult = invalid.result as { isError?: boolean; content?: Array<{ text?: string }> };
-        expect(invalidResult.isError).toBe(true);
-        expect(invalidResult.content?.[0]?.text ?? '').toMatch(/Invalid input|date/i);
-      } else {
-        // Future tools: call with empty args and assert no transport-level error.
-        const response = await client.callTool(tool.name, {});
-        expect(response.error).toBeUndefined();
-      }
-    }
+  test('searchContractsInPASS treats page 0 as first page', async () => {
+    const response = await client.callTool('searchContractsInPASS', {
+      q: seeded[0].contractNumber,
+      page: 0,
+    });
+    expect(response.error).toBeUndefined();
+    const result = response.result as ToolCallResult;
+    expect(result.isError).not.toBe(true);
+    expect(result.structuredContent?.page).toBe(0);
+    expect(result.structuredContent?.contracts.some(c => c.contractNumber === seeded[0].contractNumber)).toBeTruthy();
+  });
+
+  test('searchContractsInPASS returns tool-level errors for invalid inputs', async () => {
+    const invalidDate = await client.callTool('searchContractsInPASS', {
+      awardDateFrom: 'not-a-date',
+      startDateTo: 'also-bad',
+      endDateFrom: '2025-13-40',
+    });
+    const invalidDateResult = invalidDate.result as ToolCallResult;
+    expect(invalidDateResult.isError).toBe(true);
+    expect(invalidDateResult.content?.[0]?.text ?? '').toMatch(/Invalid input|date/i);
+
+    const invalidAmount = await client.callTool('searchContractsInPASS', {
+      minimumContractAmount: 'not-a-number',
+      maximumContractAmount: '-100',
+    });
+    const invalidAmountResult = invalidAmount.result as ToolCallResult;
+    expect(invalidAmountResult.isError).toBe(true);
+    expect(invalidAmountResult.content?.[0]?.text ?? '').toMatch(/Invalid input|number|negative/i);
+
+    const invertedAmounts = await client.callTool('searchContractsInPASS', {
+      minimumContractAmount: '500000',
+      maximumContractAmount: '1000',
+    });
+    const invertedResult = invertedAmounts.result as ToolCallResult;
+    expect(invertedResult.isError).toBe(true);
+    expect(invertedResult.content?.[0]?.text ?? '').toMatch(/minimumContractAmount|greater than/i);
+
+    const badPage = await client.callTool('searchContractsInPASS', { page: -1 });
+    const badPageResult = badPage.result as ToolCallResult;
+    expect(badPageResult.isError).toBe(true);
+    expect(badPageResult.content?.[0]?.text ?? '').toMatch(/page/i);
+
+    const longQuery = await client.callTool('searchContractsInPASS', {
+      q: 'x'.repeat(501),
+    });
+    const longQueryResult = longQuery.result as ToolCallResult;
+    expect(longQueryResult.isError).toBe(true);
+    expect(longQueryResult.content?.[0]?.text ?? '').toMatch(/at most 500|Search phrase/i);
   });
 
   test('lists and reads MCP resources', async () => {

@@ -10,6 +10,9 @@ export type SeedContract = {
   supplier: string;
   description: string;
   contractAmount: number;
+  awardDate: string;
+  startDate: string;
+  endDate: string;
 };
 
 const runId = Date.now();
@@ -55,6 +58,9 @@ export async function createContractsViaApi(
       supplier: payload.supplier,
       description: payload.description,
       contractAmount: payload.contractAmount,
+      awardDate: payload.awardDate,
+      startDate: payload.startDate,
+      endDate: payload.endDate,
     });
   }
 

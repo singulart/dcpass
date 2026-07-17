@@ -10,8 +10,6 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { IPassContract, NewPassContract } from '../pass-contract.model';
 
-export type PartialUpdatePassContract = Partial<IPassContract> & Pick<IPassContract, 'id'>;
-
 type RestOf<T extends IPassContract | NewPassContract> = Omit<
   T,
   'awardDate' | 'endDate' | 'startDate' | 'lastModified' | 'recCreatedDate' | 'recUpdatedDate' | 'dcsLastModDttm'
@@ -28,8 +26,6 @@ type RestOf<T extends IPassContract | NewPassContract> = Omit<
 export type RestPassContract = RestOf<IPassContract>;
 
 export type NewRestPassContract = RestOf<NewPassContract>;
-
-export type PartialUpdateRestPassContract = RestOf<PartialUpdatePassContract>;
 
 export type EntityResponseType = HttpResponse<IPassContract>;
 export type EntityArrayResponseType = HttpResponse<IPassContract[]>;
@@ -52,15 +48,6 @@ export class PassContractService {
     const copy = this.convertDateFromClient(passContract);
     return this.http
       .put<RestPassContract>(`${this.resourceUrl}/${encodeURIComponent(this.getPassContractIdentifier(passContract))}`, copy, {
-        observe: 'response',
-      })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
-
-  partialUpdate(passContract: PartialUpdatePassContract): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(passContract);
-    return this.http
-      .patch<RestPassContract>(`${this.resourceUrl}/${encodeURIComponent(this.getPassContractIdentifier(passContract))}`, copy, {
         observe: 'response',
       })
       .pipe(map(res => this.convertResponseFromServer(res)));
@@ -113,7 +100,7 @@ export class PassContractService {
     return passContractCollection;
   }
 
-  protected convertDateFromClient<T extends IPassContract | NewPassContract | PartialUpdatePassContract>(passContract: T): RestOf<T> {
+  protected convertDateFromClient<T extends IPassContract | NewPassContract>(passContract: T): RestOf<T> {
     return {
       ...passContract,
       awardDate: passContract.awardDate?.format(DATE_FORMAT) ?? null,

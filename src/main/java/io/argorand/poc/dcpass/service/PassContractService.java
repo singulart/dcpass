@@ -55,26 +55,6 @@ public class PassContractService {
     }
 
     /**
-     * Partially update a passContract.
-     *
-     * @param passContractDTO the entity to update partially.
-     * @return the persisted entity.
-     */
-    public Optional<PassContractDTO> partialUpdate(PassContractDTO passContractDTO) {
-        LOG.debug("Request to partially update PassContract : {}", passContractDTO);
-
-        return passContractRepository
-            .findById(passContractDTO.getId())
-            .map(existingPassContract -> {
-                passContractMapper.partialUpdate(existingPassContract, passContractDTO);
-
-                return existingPassContract;
-            })
-            .map(passContractRepository::save)
-            .map(passContractMapper::toDto);
-    }
-
-    /**
      * Get one passContract by id.
      *
      * @param id the id of the entity.

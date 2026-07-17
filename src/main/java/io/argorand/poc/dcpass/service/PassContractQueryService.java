@@ -50,18 +50,6 @@ public class PassContractQueryService extends QueryService<PassContract> {
     }
 
     /**
-     * Return the number of matching entities in the database.
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the number of matching entities.
-     */
-    @Transactional(readOnly = true)
-    public long countByCriteria(PassContractCriteria criteria) {
-        LOG.debug("count by criteria : {}", criteria);
-        final Specification<PassContract> specification = createSpecification(criteria);
-        return passContractRepository.count(specification);
-    }
-
-    /**
      * Function to convert {@link PassContractCriteria} to a {@link Specification}
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.

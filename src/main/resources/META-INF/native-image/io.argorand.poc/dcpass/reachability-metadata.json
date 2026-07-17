@@ -1,9 +1,6 @@
 {
   "reflection": [
     {
-      "type": "Configurable"
-    },
-    {
       "type": "org.hibernate.bytecode.internal.none.BytecodeProviderImpl",
       "methods": [
         {
@@ -29,6 +26,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "Configurable"
     },
     {
       "type": "apple.security.AppleProvider",
