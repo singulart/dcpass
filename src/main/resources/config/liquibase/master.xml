@@ -16,6 +16,7 @@
     <include file="config/liquibase/changelog/20250304130000_add_full_text_search.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260717150000_normalize_commodity_code_search.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260717170000_normalize_cw_contract_number_search.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260718120000_add_commodity_code_index.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

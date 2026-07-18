@@ -72,6 +72,17 @@ export class PassContract implements OnInit {
 
   trackId = (item: IPassContract): number => this.passContractService.getPassContractIdentifier(item);
 
+  /**
+   * Table display: NIGP numeric code only (7 digits), no description text.
+   */
+  formatCommodityCode(code: string | null | undefined): string {
+    if (!code) {
+      return '';
+    }
+    const digits = code.replace(/\D/g, '');
+    return digits.length > 7 ? digits.slice(0, 7) : digits;
+  }
+
   awardDateRangeValidationError(): boolean {
     if (this.awardDateFrom && this.awardDateTo) {
       return this.awardDateTo.isBefore(this.awardDateFrom) || this.awardDateTo.isSame(this.awardDateFrom);

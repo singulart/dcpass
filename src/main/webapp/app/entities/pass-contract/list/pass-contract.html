@@ -412,11 +412,11 @@
                 @if (passContract.commodities?.length) {
                   <ul class="list-unstyled mb-0">
                     @for (commodity of passContract.commodities; track commodity.commodityCode + '-' + commodity.commodityDescription) {
-                      <li>{{ commodity.commodityCode }} {{ commodity.commodityDescription }}</li>
+                      <li>{{ formatCommodityCode(commodity.commodityCode) }}</li>
                     }
                   </ul>
                 } @else {
-                  {{ passContract.commodityCode }} {{ passContract.commodityDescription }}
+                  {{ formatCommodityCode(passContract.commodityCode) }}
                 }
               </td>
               <td>{{ passContract.contractTypeDescription }}</td>
