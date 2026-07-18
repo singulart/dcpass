@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -126,18 +123,8 @@ public class PassContractResource {
         LOG.debug("REST request to get PassContracts by criteria: {}", criteria);
 
         criteria.setSearch(q);
-        Pageable pageableToUse = pageable;
-        if (q != null && !q.isBlank()) {
-            String escapedQuery = q.trim().replace("'", "''");
-            Sort relevanceSort = JpaSort.unsafe("pass_contract_fts_rank(searchVector, '" + escapedQuery + "') DESC");
-            pageableToUse = PageRequest.of(
-                pageable.getPageNumber(),
-                pageable.getPageSize(),
-                pageable.getSort().isSorted() ? relevanceSort.and(pageable.getSort()) : relevanceSort
-            );
-        }
-
-        Page<PassContractDTO> page = passContractQueryService.findByCriteria(criteria, pageableToUse);
+        // FTS relevance ordering (when q is set) is applied while grouping by contract number.
+        Page<PassContractDTO> page = passContractQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

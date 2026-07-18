@@ -147,14 +147,6 @@ public class PassContractMcpTools {
 
         Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id"));
 
-        if (q != null && !q.isBlank()) {
-            String escapedQuery = q.trim().replace("'", "''");
-            Sort relevanceSort = org.springframework.data.jpa.domain.JpaSort.unsafe(
-                "pass_contract_fts_rank(searchVector, '" + escapedQuery + "') DESC"
-            );
-            pageable = PageRequest.of(pageNumber, PAGE_SIZE, relevanceSort.and(Sort.by(Sort.Direction.ASC, "id")));
-        }
-
         long t0 = System.nanoTime();
         log.info("MCP searchContractsInPASS start q={} page={}", q, pageNumber);
 

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -103,6 +105,8 @@ public class PassContractDTO implements Serializable {
     private Instant dcsLastModDttm;
 
     private Long objectId;
+
+    private List<CommodityDTO> commodities = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -472,6 +476,14 @@ public class PassContractDTO implements Serializable {
         this.objectId = objectId;
     }
 
+    public List<CommodityDTO> getCommodities() {
+        return commodities;
+    }
+
+    public void setCommodities(List<CommodityDTO> commodities) {
+        this.commodities = commodities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -543,6 +555,7 @@ public class PassContractDTO implements Serializable {
             ", recUpdatedDate='" + getRecUpdatedDate() + "'" +
             ", dcsLastModDttm='" + getDcsLastModDttm() + "'" +
             ", objectId=" + getObjectId() +
+            ", commodities=" + getCommodities() +
             "}";
     }
 }

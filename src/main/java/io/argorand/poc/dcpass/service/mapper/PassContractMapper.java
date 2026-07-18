@@ -8,4 +8,8 @@ import org.mapstruct.*;
  * Mapper for the entity {@link PassContract} and its DTO {@link PassContractDTO}.
  */
 @Mapper(componentModel = "spring")
-public interface PassContractMapper extends EntityMapper<PassContractDTO, PassContract> {}
+public interface PassContractMapper extends EntityMapper<PassContractDTO, PassContract> {
+    @Override
+    @Mapping(target = "commodities", ignore = true)
+    PassContractDTO toDto(PassContract entity);
+}

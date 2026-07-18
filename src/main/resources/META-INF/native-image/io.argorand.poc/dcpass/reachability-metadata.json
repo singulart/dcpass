@@ -1,33 +1,6 @@
 {
   "reflection": [
     {
-      "type": "org.hibernate.bytecode.internal.none.BytecodeProviderImpl",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "org.apache.coyote.AbstractProtocol",
-      "methods": [
-        {
-          "name": "getName",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
-      "methods": [
-        {
-          "name": "getCause",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "Configurable"
     },
     {
@@ -458,42 +431,6 @@
     },
     {
       "type": "com.sun.crypto.provider.GaloisCounterMode$AESGCM",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HKDFKeyDerivation$HKDFSHA256",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["javax.crypto.KDFParameters"]
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HKDFKeyDerivation$HKDFSHA384",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["javax.crypto.KDFParameters"]
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HmacCore$HmacSHA256",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HmacCore$HmacSHA384",
       "methods": [
         {
           "name": "<init>",
@@ -934,6 +871,10 @@
     {
       "type": "io.argorand.poc.dcpass.aop.logging.LoggingAspect",
       "methods": [
+        {
+          "name": "logAfterThrowing",
+          "parameterTypes": ["org.aspectj.lang.JoinPoint", "java.lang.Throwable"]
+        },
         {
           "name": "logAround",
           "parameterTypes": ["org.aspectj.lang.ProceedingJoinPoint"]
@@ -2011,6 +1952,10 @@
           "parameterTypes": []
         },
         {
+          "name": "getResetKey",
+          "parameterTypes": []
+        },
+        {
           "name": "isActivated",
           "parameterTypes": []
         }
@@ -2178,6 +2123,31 @@
       "type": "io.argorand.poc.dcpass.repository.PassContractRepository"
     },
     {
+      "type": "io.argorand.poc.dcpass.repository.PassContractRepositoryCustom"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.repository.PassContractRepositoryImpl",
+      "fields": [
+        {
+          "name": "entityManager"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "findDistinctRepresentativeIds",
+          "parameterTypes": [
+            "org.springframework.data.jpa.domain.Specification",
+            "org.springframework.data.domain.Pageable",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.repository.UserRepository",
       "methods": [
         {
@@ -2259,6 +2229,10 @@
         {
           "name": "findByCriteria",
           "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassContractCriteria", "org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "toDtoWithCommodities",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract"]
         }
       ]
     },
@@ -2272,7 +2246,8 @@
           "name": "<init>",
           "parameterTypes": [
             "io.argorand.poc.dcpass.repository.PassContractRepository",
-            "io.argorand.poc.dcpass.service.mapper.PassContractMapper"
+            "io.argorand.poc.dcpass.service.mapper.PassContractMapper",
+            "io.argorand.poc.dcpass.service.PassContractQueryService"
           ]
         },
         {
@@ -2285,10 +2260,6 @@
         },
         {
           "name": "save",
-          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
-        },
-        {
-          "name": "update",
           "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
@@ -2307,6 +2278,10 @@
             "io.argorand.poc.dcpass.repository.AuthorityRepository",
             "org.springframework.cache.CacheManager"
           ]
+        },
+        {
+          "name": "changePassword",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
         },
         {
           "name": "createUser",
@@ -2347,30 +2322,6 @@
         {
           "name": "<init>",
           "parameterTypes": []
-        },
-        {
-          "name": "getAwardDate",
-          "parameterTypes": []
-        },
-        {
-          "name": "getEndDate",
-          "parameterTypes": []
-        },
-        {
-          "name": "getStartDate",
-          "parameterTypes": []
-        },
-        {
-          "name": "setAwardDate",
-          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
-        },
-        {
-          "name": "setEndDate",
-          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
-        },
-        {
-          "name": "setStartDate",
-          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
         }
       ]
     },
@@ -2501,6 +2452,22 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.service.dto.CommodityDTO",
+      "methods": [
+        {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityDescription",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.dto.CommodityDTO[]"
+    },
+    {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
       "methods": [
         {
@@ -2521,6 +2488,10 @@
         },
         {
           "name": "getAwardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodities",
           "parameterTypes": []
         },
         {
@@ -2878,7 +2849,13 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.PasswordChangeDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.PasswordChangeDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.UserDTO"
@@ -2928,6 +2905,10 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.repository.UserRepository", "io.argorand.poc.dcpass.service.UserService"]
+        },
+        {
+          "name": "changePassword",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PasswordChangeDTO"]
         },
         {
           "name": "getAccount",
@@ -3017,6 +2998,10 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "sseHead",
+          "parameterTypes": []
         }
       ]
     },
@@ -3075,10 +3060,6 @@
         {
           "name": "getPassContract",
           "parameterTypes": ["java.lang.Long"]
-        },
-        {
-          "name": "updatePassContract",
-          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -3149,6 +3130,10 @@
         {
           "name": "<init>",
           "parameterTypes": ["org.springframework.core.env.Environment"]
+        },
+        {
+          "name": "handleAnyException",
+          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
         }
       ]
     },
@@ -3460,16 +3445,7 @@
       ]
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Form",
-            "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Url"
-          ]
-        }
-      ]
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Form"
@@ -3478,22 +3454,10 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Elicitation$Url"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean"]
-        }
-      ]
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$RootCapabilities"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
+      "type": "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities$Sampling"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Content"
@@ -3640,23 +3604,6 @@
       ]
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ListResourceTemplatesResult",
-      "methods": [
-        {
-          "name": "meta",
-          "parameterTypes": []
-        },
-        {
-          "name": "nextCursor",
-          "parameterTypes": []
-        },
-        {
-          "name": "resourceTemplates",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "io.modelcontextprotocol.spec.McpSchema$ListResourcesResult",
       "methods": [
         {
@@ -3689,9 +3636,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "io.modelcontextprotocol.spec.McpSchema$LoggingLevel"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Meta"
@@ -3765,12 +3709,6 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$ResourceContents"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceTemplate"
-    },
-    {
-      "type": "io.modelcontextprotocol.spec.McpSchema$ResourceTemplate[]"
-    },
-    {
       "type": "io.modelcontextprotocol.spec.McpSchema$Resource[]"
     },
     {
@@ -3842,15 +3780,6 @@
         {
           "name": "listChanged",
           "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "io.modelcontextprotocol.spec.McpSchema$SetLevelRequest",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["io.modelcontextprotocol.spec.McpSchema$LoggingLevel"]
         }
       ]
     },
@@ -4741,6 +4670,10 @@
           "parameterTypes": []
         },
         {
+          "name": "set$ref",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setFormat",
           "parameterTypes": ["java.lang.String"]
         },
@@ -4983,6 +4916,9 @@
     },
     {
       "type": "jakarta.mail.MessagingException"
+    },
+    {
+      "type": "jakarta.mail.Provider"
     },
     {
       "type": "jakarta.mail.Session"
@@ -5460,13 +5396,28 @@
       "type": "jakarta.persistence.Version"
     },
     {
+      "type": "jakarta.persistence.criteria.CriteriaBuilder"
+    },
+    {
+      "type": "jakarta.persistence.criteria.CriteriaBuilder$Case"
+    },
+    {
+      "type": "jakarta.persistence.criteria.CriteriaQuery"
+    },
+    {
       "type": "jakarta.persistence.criteria.Expression"
+    },
+    {
+      "type": "jakarta.persistence.criteria.Path"
     },
     {
       "type": "jakarta.persistence.criteria.Predicate"
     },
     {
       "type": "jakarta.persistence.criteria.Root"
+    },
+    {
+      "type": "jakarta.persistence.criteria.Selection"
     },
     {
       "type": "jakarta.persistence.metamodel.SetAttribute"
@@ -5719,29 +5670,22 @@
       "type": "java.io.IOException"
     },
     {
-      "type": "java.io.InputStream"
-    },
-    {
       "type": "java.io.Serializable"
     },
     {
       "type": "java.io.Serializable[]"
     },
     {
+      "type": "java.lang.$JaCoCo"
+    },
+    {
       "type": "java.lang.AutoCloseable"
     },
     {
       "type": "java.lang.Boolean",
-      "jniAccessible": true,
       "fields": [
         {
           "name": "TYPE"
-        }
-      ],
-      "methods": [
-        {
-          "name": "getBoolean",
-          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -5966,6 +5910,9 @@
     },
     {
       "type": "java.lang.String"
+    },
+    {
+      "type": "java.lang.StringBuilder"
     },
     {
       "type": "java.lang.String[]"
@@ -6318,6 +6265,24 @@
       "type": "java.net.URLDecoder"
     },
     {
+      "type": "java.net.http.HttpClient"
+    },
+    {
+      "type": "java.net.http.HttpClient$Builder"
+    },
+    {
+      "type": "java.net.http.HttpRequest"
+    },
+    {
+      "type": "java.net.http.HttpRequest$Builder"
+    },
+    {
+      "type": "java.net.http.HttpResponse"
+    },
+    {
+      "type": "java.net.http.HttpResponse$BodyHandlers"
+    },
+    {
       "type": "java.nio.charset.Charset"
     },
     {
@@ -6346,12 +6311,6 @@
     },
     {
       "type": "java.security.SecureClassLoader"
-    },
-    {
-      "type": "java.security.interfaces.RSAPrivateKey"
-    },
-    {
-      "type": "java.security.interfaces.RSAPublicKey"
     },
     {
       "type": "java.sql.Blob"
@@ -6667,9 +6626,6 @@
       "type": "java.util.ImmutableCollections$AbstractImmutableMap"
     },
     {
-      "type": "java.util.ImmutableCollections$List12"
-    },
-    {
       "type": "java.util.ImmutableCollections$ListN"
     },
     {
@@ -6679,13 +6635,22 @@
       "type": "java.util.ImmutableCollections$MapN"
     },
     {
+      "type": "java.util.Iterator"
+    },
+    {
       "type": "java.util.LinkedHashMap"
     },
     {
       "type": "java.util.List"
     },
     {
-      "type": "java.util.Locale"
+      "type": "java.util.Locale",
+      "methods": [
+        {
+          "name": "getLanguage",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.util.Map"
@@ -6770,6 +6735,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "java.util.regex.MatchResult"
     },
     {
       "type": "java.util.regex.Matcher"
@@ -6987,18 +6955,6 @@
     },
     {
       "type": "liquibase.analytics.configuration.AnalyticsArgs"
-    },
-    {
-      "type": "liquibase.analytics.configuration.AnalyticsConfigurationFactory",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "liquibase.analytics.configuration.LiquibaseRemoteAnalyticsConfiguration"
     },
     {
       "type": "liquibase.change.AbstractChange"
@@ -8604,19 +8560,7 @@
       "type": "liquibase.integration.spring.SpringLiquibase"
     },
     {
-      "type": "liquibase.license.LicenseServiceFactory",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "liquibase.license.LicenseTrackingArgs"
-    },
-    {
-      "type": "liquibase.license.OSSLicenseService"
     },
     {
       "type": "liquibase.lockservice.LockServiceImpl"
@@ -9552,6 +9496,36 @@
       "type": "org.eclipse.angus.activation.MimeTypeRegistryProviderImpl"
     },
     {
+      "type": "org.eclipse.angus.mail.imap.IMAPProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.imap.IMAPSSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.pop3.POP3Provider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.pop3.POP3SSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPSSLProvider"
+    },
+    {
+      "type": "org.eclipse.angus.mail.smtp.SMTPTransport",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["jakarta.mail.Session", "jakarta.mail.URLName"]
+        }
+      ]
+    },
+    {
+      "type": "org.eclipse.angus.mail.util.MailStreamProvider"
+    },
+    {
       "type": "org.eclipse.collections.api.list.ImmutableList"
     },
     {
@@ -9835,6 +9809,9 @@
           "name": "type"
         }
       ]
+    },
+    {
+      "type": "org.glassfish.hk2.osgiresourcelocator.ServiceLoader"
     },
     {
       "type": "org.glassfish.jersey.server.ResourceConfig"
@@ -12474,9 +12451,6 @@
       "type": "org.hibernate.query.TypedParameterValue"
     },
     {
-      "type": "org.hibernate.query.criteria.HibernateCriteriaBuilder"
-    },
-    {
       "type": "org.hibernate.query.hql.HqlLogging_$logger",
       "methods": [
         {
@@ -13034,6 +13008,9 @@
     },
     {
       "type": "org.junit.jupiter.api.Test"
+    },
+    {
+      "type": "org.mapstruct.Mapper"
     },
     {
       "type": "org.osgi.framework.FrameworkUtil"
@@ -23615,6 +23592,9 @@
       "type": "org.springframework.core.env.EnvironmentCapable"
     },
     {
+      "type": "org.springframework.core.env.Profiles"
+    },
+    {
       "type": "org.springframework.core.io.AbstractFileResolvingResource"
     },
     {
@@ -23631,6 +23611,9 @@
     },
     {
       "type": "org.springframework.core.io.Resource"
+    },
+    {
+      "type": "org.springframework.core.io.ResourceLoader"
     },
     {
       "type": "org.springframework.core.io.Resource[]"
@@ -23753,6 +23736,9 @@
       "type": "org.springframework.data.domain.Page"
     },
     {
+      "type": "org.springframework.data.domain.PageImpl"
+    },
+    {
       "type": "org.springframework.data.domain.PageRequest"
     },
     {
@@ -23781,9 +23767,6 @@
     },
     {
       "type": "org.springframework.data.geo.GeoModule"
-    },
-    {
-      "type": "org.springframework.data.jpa.domain.JpaSort"
     },
     {
       "type": "org.springframework.data.jpa.domain.Specification"
@@ -23911,10 +23894,6 @@
         {
           "name": "getQueryHints",
           "parameterTypes": []
-        },
-        {
-          "name": "getQueryHintsForCount",
-          "parameterTypes": []
         }
       ]
     },
@@ -23997,8 +23976,8 @@
           "parameterTypes": ["org.springframework.data.domain.Pageable"]
         },
         {
-          "name": "findAll",
-          "parameterTypes": ["org.springframework.data.jpa.domain.Specification", "org.springframework.data.domain.Pageable"]
+          "name": "findAllById",
+          "parameterTypes": ["java.lang.Iterable"]
         },
         {
           "name": "findById",
@@ -24132,6 +24111,10 @@
     {
       "type": "org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport",
       "methods": [
+        {
+          "name": "setCustomImplementation",
+          "parameterTypes": ["java.lang.Object"]
+        },
         {
           "name": "setLazyInit",
           "parameterTypes": ["boolean"]
@@ -24383,9 +24366,6 @@
       "type": "org.springframework.format.FormatterRegistry"
     },
     {
-      "type": "org.springframework.format.annotation.DateTimeFormat"
-    },
-    {
       "type": "org.springframework.format.datetime.standard.DateTimeFormatterRegistrar"
     },
     {
@@ -24422,7 +24402,33 @@
       "type": "org.springframework.http.MediaType"
     },
     {
-      "type": "org.springframework.http.ProblemDetail"
+      "type": "org.springframework.http.ProblemDetail",
+      "methods": [
+        {
+          "name": "getDetail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInstance",
+          "parameterTypes": []
+        },
+        {
+          "name": "getProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getType",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.http.ReactiveHttpInputMessage"
@@ -24453,6 +24459,9 @@
     },
     {
       "type": "org.springframework.http.converter.json.JacksonJsonHttpMessageConverter"
+    },
+    {
+      "type": "org.springframework.http.converter.json.ProblemDetailJacksonMixin"
     },
     {
       "type": "org.springframework.http.server.ServerHttpRequest"
@@ -24516,6 +24525,9 @@
     },
     {
       "type": "org.springframework.mail.javamail.JavaMailSenderImpl"
+    },
+    {
+      "type": "org.springframework.mail.javamail.MimeMessageHelper"
     },
     {
       "type": "org.springframework.messaging.MessagingException"
@@ -24769,6 +24781,9 @@
       "type": "org.springframework.scheduling.config.ScheduledTaskHolder"
     },
     {
+      "type": "org.springframework.security.access.AccessDeniedException"
+    },
+    {
       "type": "org.springframework.security.access.SecurityConfig"
     },
     {
@@ -24818,6 +24833,9 @@
       "type": "org.springframework.security.authentication.AuthenticationProvider"
     },
     {
+      "type": "org.springframework.security.authentication.BadCredentialsException"
+    },
+    {
       "type": "org.springframework.security.authentication.DefaultAuthenticationEventPublisher"
     },
     {
@@ -24830,7 +24848,16 @@
       "type": "org.springframework.security.authentication.UsernamePasswordAuthenticationToken"
     },
     {
-      "type": "org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent"
+      "type": "org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.security.core.Authentication",
+            "org.springframework.security.core.AuthenticationException"
+          ]
+        }
+      ]
     },
     {
       "type": "org.springframework.security.authentication.event.AuthenticationFailureCredentialsExpiredEvent"
@@ -25883,9 +25910,6 @@
       "type": "org.springframework.web.bind.annotation.Mapping"
     },
     {
-      "type": "org.springframework.web.bind.annotation.PatchMapping"
-    },
-    {
       "type": "org.springframework.web.bind.annotation.PathVariable"
     },
     {
@@ -26090,6 +26114,9 @@
     },
     {
       "type": "org.springframework.web.reactive.function.client.WebClientException"
+    },
+    {
+      "type": "org.springframework.web.reactive.result.view.RequestContext"
     },
     {
       "type": "org.springframework.web.reactive.result.view.View"
@@ -26342,6 +26369,9 @@
       "type": "org.springframework.web.servlet.support.AbstractFlashMapManager"
     },
     {
+      "type": "org.springframework.web.servlet.support.RequestContext"
+    },
+    {
       "type": "org.springframework.web.servlet.support.RequestDataValueProcessor"
     },
     {
@@ -26387,10 +26417,19 @@
       "type": "org.thymeleaf.TemplateEngine"
     },
     {
+      "type": "org.thymeleaf.context.Context"
+    },
+    {
       "type": "org.thymeleaf.context.IContext"
     },
     {
       "type": "org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect"
+    },
+    {
+      "type": "org.thymeleaf.spring5.context.IThymeleafRequestContext"
+    },
+    {
+      "type": "org.thymeleaf.spring5.expression.IThymeleafEvaluationContext"
     },
     {
       "type": "org.thymeleaf.spring6.ISpringTemplateEngine"
@@ -26399,10 +26438,74 @@
       "type": "org.thymeleaf.spring6.SpringTemplateEngine"
     },
     {
+      "type": "org.thymeleaf.spring6.context.IThymeleafRequestContext"
+    },
+    {
+      "type": "org.thymeleaf.spring6.expression.IThymeleafEvaluationContext"
+    },
+    {
+      "type": "org.thymeleaf.spring6.expression.Mvc$Spring41MvcUriComponentsBuilderDelegate",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver"
     },
     {
       "type": "org.thymeleaf.spring6.view.ThymeleafViewResolver"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AdditionExpression",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.thymeleaf.standard.expression.IStandardExpression",
+            "org.thymeleaf.standard.expression.IStandardExpression"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AdditionSubtractionExpression",
+      "methods": [
+        {
+          "name": "isLeftAllowed",
+          "parameterTypes": ["org.thymeleaf.standard.expression.IStandardExpression"]
+        },
+        {
+          "name": "isRightAllowed",
+          "parameterTypes": ["org.thymeleaf.standard.expression.IStandardExpression"]
+        }
+      ]
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.AndExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.EqualsNotEqualsExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.GreaterLesserExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardConversionService"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardExpressionParser"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.IStandardVariableExpressionEvaluator"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.MultiplicationDivisionRemainderExpression"
+    },
+    {
+      "type": "org.thymeleaf.standard.expression.OrExpression"
     },
     {
       "type": "org.thymeleaf.templatemode.TemplateMode"
@@ -26597,24 +26700,6 @@
       ]
     },
     {
-      "type": "sun.security.provider.JavaKeyStore$DualFormatJKS",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.JavaKeyStore$JKS",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.provider.MD5",
       "methods": [
         {
@@ -26687,15 +26772,6 @@
       ]
     },
     {
-      "type": "sun.security.provider.certpath.PKIXCertPathValidator",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.rsa.PSSParameters",
       "methods": [
         {
@@ -26724,15 +26800,6 @@
     },
     {
       "type": "sun.security.rsa.RSASignature$SHA224withRSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSASignature$SHA256withRSA",
       "methods": [
         {
           "name": "<init>",
@@ -26841,15 +26908,6 @@
     },
     {
       "type": "sun.security.x509.PrivateKeyUsageExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.SubjectAlternativeNameExtension",
       "methods": [
         {
           "name": "<init>",
@@ -27920,21 +27978,7 @@
       "type": "tech.jhipster.service.filter.IntegerFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.LocalDateFilter",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        },
-        {
-          "name": "setGreaterThanOrEqual",
-          "parameterTypes": ["java.time.LocalDate"]
-        },
-        {
-          "name": "setLessThanOrEqual",
-          "parameterTypes": ["java.time.LocalDate"]
-        }
-      ]
+      "type": "tech.jhipster.service.filter.LocalDateFilter"
     },
     {
       "type": "tech.jhipster.service.filter.LocalDateFilterBeanInfo"
@@ -27952,17 +27996,7 @@
       "type": "tech.jhipster.service.filter.LongFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.RangeFilter",
-      "methods": [
-        {
-          "name": "getGreaterThanOrEqual",
-          "parameterTypes": []
-        },
-        {
-          "name": "getLessThanOrEqual",
-          "parameterTypes": []
-        }
-      ]
+      "type": "tech.jhipster.service.filter.RangeFilter"
     },
     {
       "type": "tech.jhipster.service.filter.RangeFilterBeanInfo"
@@ -27980,7 +28014,13 @@
       "type": "tech.jhipster.service.filter.StringFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause"
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
+      "methods": [
+        {
+          "name": "getCause",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause$ProblemDetailWithCauseBuilder"
@@ -28454,10 +28494,25 @@
       "glob": "META-INF/MANIFEST.MF"
     },
     {
+      "glob": "META-INF/jakarta.address.map"
+    },
+    {
+      "glob": "META-INF/jakarta.charset.map"
+    },
+    {
+      "glob": "META-INF/jakarta.default.address.map"
+    },
+    {
+      "glob": "META-INF/jakarta.default.providers"
+    },
+    {
       "glob": "META-INF/jakarta.mime.types"
     },
     {
       "glob": "META-INF/jakarta.mimetypes.default"
+    },
+    {
+      "glob": "META-INF/jakarta.providers"
     },
     {
       "glob": "META-INF/jpa-named-queries.properties"
@@ -28472,208 +28527,7 @@
       "glob": "META-INF/persistence.xml"
     },
     {
-      "glob": "META-INF/resources/account.route-A3BFXH5E.js"
-    },
-    {
-      "glob": "META-INF/resources/admin.routes-HB4KYORJ.js"
-    },
-    {
-      "glob": "META-INF/resources/authority-CVIX5B6A.js"
-    },
-    {
-      "glob": "META-INF/resources/authority-detail-AWL37BQB.js"
-    },
-    {
-      "glob": "META-INF/resources/authority-update-5DNBCAPA.js"
-    },
-    {
-      "glob": "META-INF/resources/authority.routes-RULQ3FCM.js"
-    },
-    {
-      "glob": "META-INF/resources/bootstrap-T3VGT2MG.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-2SPWARMT.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-35QCZHZV.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-6CWC3MTR.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-7HOAEMQB.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-AEJ3M6R7.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-AHL4XUJT.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-DTZ2FBGE.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-EEPHF5FR.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-EVMXBAX4.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-GKXAOWYZ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-GMKGPZL3.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-GWOBMBCZ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-HNOIUKXC.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-J36Z7M6E.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-JEIBIMZX.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-JGPJYKLH.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-KTZYI6EY.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-KZVEU7K6.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-NHKKVY5O.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-NLF3KLCQ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-NSURGC7F.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-PRSFLHQX.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-QXIAET5B.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-RE35UVLA.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-TE6RAMJQ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-TQ6A2ECJ.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-VSBZVIDX.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-VUJOFXKG.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-WSQFZ2QV.js"
-    },
-    {
-      "glob": "META-INF/resources/chunk-YK7Y5YEK.js"
-    },
-    {
-      "glob": "META-INF/resources/common-MXFHNATK.js"
-    },
-    {
-      "glob": "META-INF/resources/configuration-IQE43N6M.js"
-    },
-    {
-      "glob": "META-INF/resources/content/css/loading.css"
-    },
-    {
-      "glob": "META-INF/resources/content/images/jhipster_family_member_0_head-192.png"
-    },
-    {
-      "glob": "META-INF/resources/content/images/logo-jhipster.png"
-    },
-    {
-      "glob": "META-INF/resources/docs-NCBMONA7.js"
-    },
-    {
-      "glob": "META-INF/resources/entity.routes-LE4WYJRN.js"
-    },
-    {
-      "glob": "META-INF/resources/health-S2NYRE7U.js"
-    },
-    {
-      "glob": "META-INF/resources/home-YEPOYINM.js"
-    },
-    {
       "glob": "META-INF/resources/index.html"
-    },
-    {
-      "glob": "META-INF/resources/login-X76AGYRR.js"
-    },
-    {
-      "glob": "META-INF/resources/logs-SQNNAQAA.js"
-    },
-    {
-      "glob": "META-INF/resources/main.js"
-    },
-    {
-      "glob": "META-INF/resources/manifest.webapp"
-    },
-    {
-      "glob": "META-INF/resources/metrics-FZLG4VV6.js"
-    },
-    {
-      "glob": "META-INF/resources/navbar-7QUY4I22.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-VFBGXHBF.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-detail-OP3SZQVH.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract-update-QZIIWAQQ.js"
-    },
-    {
-      "glob": "META-INF/resources/pass-contract.routes-555Q2W7A.js"
-    },
-    {
-      "glob": "META-INF/resources/polyfills.js"
-    },
-    {
-      "glob": "META-INF/resources/resources/jhipster_family_member_0.svg"
-    },
-    {
-      "glob": "META-INF/resources/styles.css"
-    },
-    {
-      "glob": "META-INF/resources/swagger-ui/axios.min.js"
-    },
-    {
-      "glob": "META-INF/resources/swagger-ui/index.html"
-    },
-    {
-      "glob": "META-INF/resources/swagger-ui/swagger-ui-bundle.js"
-    },
-    {
-      "glob": "META-INF/resources/swagger-ui/swagger-ui-standalone-preset.js"
-    },
-    {
-      "glob": "META-INF/resources/swagger-ui/swagger-ui.css"
-    },
-    {
-      "glob": "META-INF/resources/user-management-LNIYBVBC.js"
-    },
-    {
-      "glob": "META-INF/resources/user-management-update-ZSPZTEAF.js"
-    },
-    {
-      "glob": "META-INF/resources/user-management.route-PSQFAEOL.js"
     },
     {
       "glob": "META-INF/services/ch.qos.logback.classic.spi.Configurator"
@@ -28703,6 +28557,12 @@
       "glob": "META-INF/services/jakarta.el.ExpressionFactory"
     },
     {
+      "glob": "META-INF/services/jakarta.mail.Provider"
+    },
+    {
+      "glob": "META-INF/services/jakarta.mail.util.StreamProvider"
+    },
+    {
       "glob": "META-INF/services/jakarta.persistence.spi.PersistenceProvider"
     },
     {
@@ -28713,9 +28573,6 @@
     },
     {
       "glob": "META-INF/services/jakarta.validation.valueextraction.ValueExtractor"
-    },
-    {
-      "glob": "META-INF/services/java.net.spi.InetAddressResolverProvider"
     },
     {
       "glob": "META-INF/services/java.net.spi.URLStreamHandlerProvider"
@@ -28746,9 +28603,6 @@
     },
     {
       "glob": "META-INF/services/liquibase.analytics.AnalyticsListener"
-    },
-    {
-      "glob": "META-INF/services/liquibase.analytics.configuration.AnalyticsConfiguration"
     },
     {
       "glob": "META-INF/services/liquibase.change.Change"
@@ -28788,9 +28642,6 @@
     },
     {
       "glob": "META-INF/services/liquibase.executor.Executor"
-    },
-    {
-      "glob": "META-INF/services/liquibase.license.LicenseService"
     },
     {
       "glob": "META-INF/services/liquibase.lockservice.LockService"
@@ -30773,9 +30624,6 @@
       "glob": "org/springframework/boot/web/server/autoconfigure/servlet/ServletWebServerConfiguration.class"
     },
     {
-      "glob": "org/springframework/boot/web/server/mime-mappings.properties"
-    },
-    {
       "glob": "org/springframework/boot/web/servlet/ServletContextInitializer.class"
     },
     {
@@ -31034,9 +30882,6 @@
       "glob": "org/springframework/data/web/config/SpringDataWebConfiguration.class"
     },
     {
-      "glob": "org/springframework/http/mime.types"
-    },
-    {
       "glob": "org/springframework/mail/javamail/mime.types"
     },
     {
@@ -31238,208 +31083,13 @@
       "glob": "org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.class"
     },
     {
-      "glob": "resources/account.route-A3BFXH5E.js"
+      "glob": "org/thymeleaf/thymeleaf.properties"
     },
     {
-      "glob": "resources/admin.routes-HB4KYORJ.js"
-    },
-    {
-      "glob": "resources/authority-CVIX5B6A.js"
-    },
-    {
-      "glob": "resources/authority-detail-AWL37BQB.js"
-    },
-    {
-      "glob": "resources/authority-update-5DNBCAPA.js"
-    },
-    {
-      "glob": "resources/authority.routes-RULQ3FCM.js"
-    },
-    {
-      "glob": "resources/bootstrap-T3VGT2MG.js"
-    },
-    {
-      "glob": "resources/chunk-2SPWARMT.js"
-    },
-    {
-      "glob": "resources/chunk-35QCZHZV.js"
-    },
-    {
-      "glob": "resources/chunk-6CWC3MTR.js"
-    },
-    {
-      "glob": "resources/chunk-7HOAEMQB.js"
-    },
-    {
-      "glob": "resources/chunk-AEJ3M6R7.js"
-    },
-    {
-      "glob": "resources/chunk-AHL4XUJT.js"
-    },
-    {
-      "glob": "resources/chunk-DTZ2FBGE.js"
-    },
-    {
-      "glob": "resources/chunk-EEPHF5FR.js"
-    },
-    {
-      "glob": "resources/chunk-EVMXBAX4.js"
-    },
-    {
-      "glob": "resources/chunk-GKXAOWYZ.js"
-    },
-    {
-      "glob": "resources/chunk-GMKGPZL3.js"
-    },
-    {
-      "glob": "resources/chunk-GWOBMBCZ.js"
-    },
-    {
-      "glob": "resources/chunk-HNOIUKXC.js"
-    },
-    {
-      "glob": "resources/chunk-J36Z7M6E.js"
-    },
-    {
-      "glob": "resources/chunk-JEIBIMZX.js"
-    },
-    {
-      "glob": "resources/chunk-JGPJYKLH.js"
-    },
-    {
-      "glob": "resources/chunk-KTZYI6EY.js"
-    },
-    {
-      "glob": "resources/chunk-KZVEU7K6.js"
-    },
-    {
-      "glob": "resources/chunk-NHKKVY5O.js"
-    },
-    {
-      "glob": "resources/chunk-NLF3KLCQ.js"
-    },
-    {
-      "glob": "resources/chunk-NSURGC7F.js"
-    },
-    {
-      "glob": "resources/chunk-PRSFLHQX.js"
-    },
-    {
-      "glob": "resources/chunk-QXIAET5B.js"
-    },
-    {
-      "glob": "resources/chunk-RE35UVLA.js"
-    },
-    {
-      "glob": "resources/chunk-TE6RAMJQ.js"
-    },
-    {
-      "glob": "resources/chunk-TQ6A2ECJ.js"
-    },
-    {
-      "glob": "resources/chunk-VSBZVIDX.js"
-    },
-    {
-      "glob": "resources/chunk-VUJOFXKG.js"
-    },
-    {
-      "glob": "resources/chunk-WSQFZ2QV.js"
-    },
-    {
-      "glob": "resources/chunk-YK7Y5YEK.js"
-    },
-    {
-      "glob": "resources/common-MXFHNATK.js"
-    },
-    {
-      "glob": "resources/configuration-IQE43N6M.js"
-    },
-    {
-      "glob": "resources/content/css/loading.css"
-    },
-    {
-      "glob": "resources/content/images/jhipster_family_member_0_head-192.png"
-    },
-    {
-      "glob": "resources/content/images/logo-jhipster.png"
-    },
-    {
-      "glob": "resources/docs-NCBMONA7.js"
-    },
-    {
-      "glob": "resources/entity.routes-LE4WYJRN.js"
-    },
-    {
-      "glob": "resources/health-S2NYRE7U.js"
-    },
-    {
-      "glob": "resources/home-YEPOYINM.js"
+      "glob": "public/index.html"
     },
     {
       "glob": "resources/index.html"
-    },
-    {
-      "glob": "resources/login-X76AGYRR.js"
-    },
-    {
-      "glob": "resources/logs-SQNNAQAA.js"
-    },
-    {
-      "glob": "resources/main.js"
-    },
-    {
-      "glob": "resources/manifest.webapp"
-    },
-    {
-      "glob": "resources/metrics-FZLG4VV6.js"
-    },
-    {
-      "glob": "resources/navbar-7QUY4I22.js"
-    },
-    {
-      "glob": "resources/pass-contract-VFBGXHBF.js"
-    },
-    {
-      "glob": "resources/pass-contract-detail-OP3SZQVH.js"
-    },
-    {
-      "glob": "resources/pass-contract-update-QZIIWAQQ.js"
-    },
-    {
-      "glob": "resources/pass-contract.routes-555Q2W7A.js"
-    },
-    {
-      "glob": "resources/polyfills.js"
-    },
-    {
-      "glob": "resources/resources/jhipster_family_member_0.svg"
-    },
-    {
-      "glob": "resources/styles.css"
-    },
-    {
-      "glob": "resources/swagger-ui/axios.min.js"
-    },
-    {
-      "glob": "resources/swagger-ui/index.html"
-    },
-    {
-      "glob": "resources/swagger-ui/swagger-ui-bundle.js"
-    },
-    {
-      "glob": "resources/swagger-ui/swagger-ui-standalone-preset.js"
-    },
-    {
-      "glob": "resources/swagger-ui/swagger-ui.css"
-    },
-    {
-      "glob": "resources/user-management-LNIYBVBC.js"
-    },
-    {
-      "glob": "resources/user-management-update-ZSPZTEAF.js"
-    },
-    {
-      "glob": "resources/user-management.route-PSQFAEOL.js"
     },
     {
       "glob": "schema-all.sql"
@@ -31449,6 +31099,9 @@
     },
     {
       "glob": "spring.properties"
+    },
+    {
+      "glob": "static/index.html"
     },
     {
       "glob": "tech/jhipster/config/JHipsterConfiguration.class"
@@ -31480,10 +31133,6 @@
     {
       "module": "java.base",
       "glob": "jdk/internal/icu/impl/data/icudt76b/nfc.nrm"
-    },
-    {
-      "module": "java.base",
-      "glob": "jdk/internal/icu/impl/data/icudt76b/nfkc.nrm"
     },
     {
       "module": "java.base",

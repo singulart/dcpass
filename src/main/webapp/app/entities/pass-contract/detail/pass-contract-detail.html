@@ -75,13 +75,25 @@
           <dd>
             <span>{{ passContractRef.marketType }}</span>
           </dd>
-          <dt><span>Commodity Code</span></dt>
+          <dt><span>Commodities</span></dt>
           <dd>
-            <span>{{ passContractRef.commodityCode }}</span>
-          </dd>
-          <dt><span>Commodity Description</span></dt>
-          <dd>
-            <span>{{ passContractRef.commodityDescription }}</span>
+            @if (passContractRef.commodities?.length) {
+              <ul class="list-unstyled mb-0">
+                @for (commodity of passContractRef.commodities; track commodity.commodityCode + '-' + commodity.commodityDescription) {
+                  <li>
+                    <span>{{ commodity.commodityCode }}</span>
+                    @if (commodity.commodityDescription) {
+                      <span> — {{ commodity.commodityDescription }}</span>
+                    }
+                  </li>
+                }
+              </ul>
+            } @else {
+              <span>{{ passContractRef.commodityCode }}</span>
+              @if (passContractRef.commodityDescription) {
+                <span> — {{ passContractRef.commodityDescription }}</span>
+              }
+            }
           </dd>
           <dt><span>Current Option Period</span></dt>
           <dd>

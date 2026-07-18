@@ -5,6 +5,8 @@ import static io.argorand.poc.dcpass.web.rest.TestUtil.createUpdateProxyForBean;
 import static io.argorand.poc.dcpass.web.rest.TestUtil.sameNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -402,6 +404,7 @@ class PassContractResourceIT {
             .andExpect(jsonPath("$.[*].marketType").value(hasItem(DEFAULT_MARKET_TYPE)))
             .andExpect(jsonPath("$.[*].commodityCode").value(hasItem(DEFAULT_COMMODITY_CODE)))
             .andExpect(jsonPath("$.[*].commodityDescription").value(hasItem(DEFAULT_COMMODITY_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].commodities[*].commodityCode").value(hasItem(DEFAULT_COMMODITY_CODE)))
             .andExpect(jsonPath("$.[*].currentOptionPeriod").value(hasItem(DEFAULT_CURRENT_OPTION_PERIOD)))
             .andExpect(jsonPath("$.[*].totalOptionPeriods").value(hasItem(DEFAULT_TOTAL_OPTION_PERIODS)))
             .andExpect(jsonPath("$.[*].supplier").value(hasItem(DEFAULT_SUPPLIER)))
@@ -434,6 +437,58 @@ class PassContractResourceIT {
 
     @Test
     @Transactional
+    void getAllPassContractsGroupsByContractNumberWithCommodities() throws Exception {
+        passContract.setContractNumber("CW-SHARED-001");
+        passContract.setCommodityCode("CODE-A");
+        passContract.setCommodityDescription("Commodity A");
+        insertedPassContract = passContractRepository.saveAndFlush(passContract);
+
+        PassContract sibling = createEntity();
+        sibling.setContractNumber("CW-SHARED-001");
+        sibling.setCommodityCode("CODE-B");
+        sibling.setCommodityDescription("Commodity B");
+        sibling.setRowId(DEFAULT_ROW_ID + 100);
+        sibling.setObjectId(DEFAULT_OBJECT_ID + 100);
+        passContractRepository.saveAndFlush(sibling);
+
+        restPassContractMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&contractNumber.equals=CW-SHARED-001"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$.[0].contractNumber").value("CW-SHARED-001"))
+            .andExpect(jsonPath("$.[0].commodities", hasSize(2)))
+            .andExpect(jsonPath("$.[0].commodities[*].commodityCode").value(hasItems("CODE-A", "CODE-B")));
+    }
+
+    @Test
+    @Transactional
+    void getAllPassContractsByCommodityCodeReturnsSingleContractWithAllCommodities() throws Exception {
+        passContract.setContractNumber("CW-SHARED-002");
+        passContract.setCommodityCode("CODE-A");
+        passContract.setCommodityDescription("Commodity A");
+        insertedPassContract = passContractRepository.saveAndFlush(passContract);
+
+        PassContract sibling = createEntity();
+        sibling.setContractNumber("CW-SHARED-002");
+        sibling.setCommodityCode("CODE-B");
+        sibling.setCommodityDescription("Commodity B");
+        sibling.setRowId(DEFAULT_ROW_ID + 101);
+        sibling.setObjectId(DEFAULT_OBJECT_ID + 101);
+        passContractRepository.saveAndFlush(sibling);
+
+        restPassContractMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&commodityCode.equals=CODE-B"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$.[0].contractNumber").value("CW-SHARED-002"))
+            .andExpect(jsonPath("$.[0].commodities", hasSize(2)))
+            .andExpect(jsonPath("$.[0].commodities[*].commodityCode").value(hasItems("CODE-A", "CODE-B")));
+    }
+
+    @Test
+    @Transactional
     void getPassContract() throws Exception {
         // Initialize the database
         insertedPassContract = passContractRepository.saveAndFlush(passContract);
@@ -461,6 +516,8 @@ class PassContractResourceIT {
             .andExpect(jsonPath("$.marketType").value(DEFAULT_MARKET_TYPE))
             .andExpect(jsonPath("$.commodityCode").value(DEFAULT_COMMODITY_CODE))
             .andExpect(jsonPath("$.commodityDescription").value(DEFAULT_COMMODITY_DESCRIPTION))
+            .andExpect(jsonPath("$.commodities", hasSize(1)))
+            .andExpect(jsonPath("$.commodities[0].commodityCode").value(DEFAULT_COMMODITY_CODE))
             .andExpect(jsonPath("$.currentOptionPeriod").value(DEFAULT_CURRENT_OPTION_PERIOD))
             .andExpect(jsonPath("$.totalOptionPeriods").value(DEFAULT_TOTAL_OPTION_PERIODS))
             .andExpect(jsonPath("$.supplier").value(DEFAULT_SUPPLIER))

@@ -1,5 +1,10 @@
 import dayjs from 'dayjs/esm';
 
+export interface ICommodity {
+  commodityCode?: string | null;
+  commodityDescription?: string | null;
+}
+
 export interface IPassContract {
   id: number;
   procurementMethodDescription?: string | null;
@@ -19,6 +24,7 @@ export interface IPassContract {
   marketType?: string | null;
   commodityCode?: string | null;
   commodityDescription?: string | null;
+  commodities?: ICommodity[] | null;
   currentOptionPeriod?: string | null;
   totalOptionPeriods?: number | null;
   supplier?: string | null;

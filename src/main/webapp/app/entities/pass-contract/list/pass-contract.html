@@ -280,7 +280,7 @@
             </th>
             <th scope="col" jhiSortBy="commodityCode">
               <div class="d-flex">
-                <span>Commodity Code</span>
+                <span>Commodities</span>
 
                 <fa-icon class="p-1" icon="sort" />
               </div>
@@ -408,7 +408,17 @@
               <td>{{ passContract.startDate | formatMediumDate }}</td>
               <td>{{ passContract.endDate | formatMediumDate }}</td>
               <td>{{ passContract.fiscalYear }}</td>
-              <td>{{ passContract.commodityCode }} {{ passContract.commodityDescription }}</td>
+              <td>
+                @if (passContract.commodities?.length) {
+                  <ul class="list-unstyled mb-0">
+                    @for (commodity of passContract.commodities; track commodity.commodityCode + '-' + commodity.commodityDescription) {
+                      <li>{{ commodity.commodityCode }} {{ commodity.commodityDescription }}</li>
+                    }
+                  </ul>
+                } @else {
+                  {{ passContract.commodityCode }} {{ passContract.commodityDescription }}
+                }
+              </td>
               <td>{{ passContract.contractTypeDescription }}</td>
               <td>
                 @if (passContract.corporateEmailAddress?.trim()) {

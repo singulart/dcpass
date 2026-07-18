@@ -4,11 +4,22 @@ import io.argorand.poc.dcpass.domain.*; // for static metamodels
 import io.argorand.poc.dcpass.domain.PassContract;
 import io.argorand.poc.dcpass.repository.PassContractRepository;
 import io.argorand.poc.dcpass.service.criteria.PassContractCriteria;
+import io.argorand.poc.dcpass.service.dto.CommodityDTO;
 import io.argorand.poc.dcpass.service.dto.PassContractDTO;
 import io.argorand.poc.dcpass.service.mapper.PassContractMapper;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,7 +30,9 @@ import tech.jhipster.service.QueryService;
  * Service for executing complex queries for {@link PassContract} entities in the database.
  * The main input is a {@link PassContractCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link Page} of {@link PassContractDTO} which fulfills the criteria.
+ * <p>
+ * List results are unique by {@code contractNumber}: matching rows are grouped, then sibling
+ * commodity lines are loaded with a follow-up {@code IN} query.
  */
 @Service
 @Transactional(readOnly = true)
@@ -38,6 +51,8 @@ public class PassContractQueryService extends QueryService<PassContract> {
 
     /**
      * Return a {@link Page} of {@link PassContractDTO} which matches the criteria from the database.
+     * One DTO per distinct contract number; each DTO includes all commodity codes for that number.
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
@@ -46,7 +61,73 @@ public class PassContractQueryService extends QueryService<PassContract> {
     public Page<PassContractDTO> findByCriteria(PassContractCriteria criteria, Pageable page) {
         LOG.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<PassContract> specification = createSpecification(criteria);
-        return passContractRepository.findAll(specification, page).map(passContractMapper::toDto);
+        String ftsQuery = criteria != null ? criteria.getSearch() : null;
+
+        Page<Long> representativeIds = passContractRepository.findDistinctRepresentativeIds(specification, page, ftsQuery);
+        if (representativeIds.isEmpty()) {
+            return new PageImpl<>(List.of(), page, representativeIds.getTotalElements());
+        }
+
+        List<PassContract> representatives = passContractRepository.findAllById(representativeIds.getContent());
+        Map<Long, PassContract> representativesById = representatives
+            .stream()
+            .collect(Collectors.toMap(PassContract::getId, Function.identity()));
+
+        Set<String> contractNumbers = representatives
+            .stream()
+            .map(PassContract::getContractNumber)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
+
+        Map<String, List<PassContract>> siblingsByContractNumber = contractNumbers.isEmpty()
+            ? Map.of()
+            : passContractRepository
+                  .findByContractNumberIn(contractNumbers)
+                  .stream()
+                  .collect(Collectors.groupingBy(PassContract::getContractNumber, LinkedHashMap::new, Collectors.toList()));
+
+        List<PassContractDTO> content = new ArrayList<>(representativeIds.getContent().size());
+        for (Long id : representativeIds.getContent()) {
+            PassContract representative = representativesById.get(id);
+            if (representative == null) {
+                continue;
+            }
+            List<PassContract> lines =
+                representative.getContractNumber() != null
+                    ? siblingsByContractNumber.getOrDefault(representative.getContractNumber(), List.of(representative))
+                    : List.of(representative);
+            content.add(toDtoWithCommodities(representative, lines));
+        }
+
+        return new PageImpl<>(content, page, representativeIds.getTotalElements());
+    }
+
+    /**
+     * Attach all commodity lines for the same contract number to a DTO.
+     */
+    public PassContractDTO toDtoWithCommodities(PassContract representative) {
+        List<PassContract> lines;
+        if (representative.getContractNumber() != null) {
+            lines = passContractRepository.findByContractNumber(representative.getContractNumber());
+        } else {
+            lines = List.of(representative);
+        }
+        return toDtoWithCommodities(representative, lines);
+    }
+
+    private PassContractDTO toDtoWithCommodities(PassContract representative, List<PassContract> lines) {
+        PassContractDTO dto = passContractMapper.toDto(representative);
+        dto.setCommodities(toCommodityDtos(lines));
+        return dto;
+    }
+
+    private List<CommodityDTO> toCommodityDtos(List<PassContract> lines) {
+        return lines
+            .stream()
+            .map(line -> new CommodityDTO(line.getCommodityCode(), line.getCommodityDescription()))
+            .distinct()
+            .sorted(Comparator.comparing(CommodityDTO::getCommodityCode, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)))
+            .toList();
     }
 
     /**

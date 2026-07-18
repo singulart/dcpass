@@ -23,9 +23,16 @@ public class PassContractService {
 
     private final PassContractMapper passContractMapper;
 
-    public PassContractService(PassContractRepository passContractRepository, PassContractMapper passContractMapper) {
+    private final PassContractQueryService passContractQueryService;
+
+    public PassContractService(
+        PassContractRepository passContractRepository,
+        PassContractMapper passContractMapper,
+        PassContractQueryService passContractQueryService
+    ) {
         this.passContractRepository = passContractRepository;
         this.passContractMapper = passContractMapper;
+        this.passContractQueryService = passContractQueryService;
     }
 
     /**
@@ -55,7 +62,7 @@ public class PassContractService {
     }
 
     /**
-     * Get one passContract by id.
+     * Get one passContract by id, including all commodity codes for the same contract number.
      *
      * @param id the id of the entity.
      * @return the entity.
@@ -63,7 +70,7 @@ public class PassContractService {
     @Transactional(readOnly = true)
     public Optional<PassContractDTO> findOne(Long id) {
         LOG.debug("Request to get PassContract : {}", id);
-        return passContractRepository.findById(id).map(passContractMapper::toDto);
+        return passContractRepository.findById(id).map(passContractQueryService::toDtoWithCommodities);
     }
 
     /**
