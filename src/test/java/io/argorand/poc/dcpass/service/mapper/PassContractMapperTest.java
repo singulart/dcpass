@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 class PassContractMapperTest {
 
-    private PassContractMapper passContractMapper;
+    private PassContractMapperImpl passContractMapper;
 
     @BeforeEach
     void setUp() {
-        passContractMapper = getPassContractMapper();
+        passContractMapper = new PassContractMapperImpl();
     }
 
     @Test
@@ -20,9 +20,5 @@ class PassContractMapperTest {
         var expected = getPassContractSample1();
         var actual = passContractMapper.toEntity(passContractMapper.toDto(expected));
         assertPassContractAllPropertiesEquals(expected, actual);
-    }
-
-    private static PassContractMapper getPassContractMapper() {
-        return new PassContractMapperImpl();
     }
 }

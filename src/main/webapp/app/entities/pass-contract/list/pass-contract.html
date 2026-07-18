@@ -236,13 +236,6 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="contractStatus">
-              <div class="d-flex">
-                <span>Contract Status</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
             <th scope="col" jhiSortBy="title">
               <div class="d-flex">
                 <span>Title</span>
@@ -401,7 +394,6 @@
               </td>
               <td>{{ passContract.agencyAcronym }} {{ passContract.agencyName }} {{ passContract.agency }}</td>
               <td>{{ passContract.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
-              <td>{{ passContract.contractStatus }}</td>
               <td>{{ passContract.title }}</td>
               <td class="description-cell">
                 <span [class.description-tooltip]="!!passContract.description" [attr.data-tooltip]="passContract.description ?? ''">
