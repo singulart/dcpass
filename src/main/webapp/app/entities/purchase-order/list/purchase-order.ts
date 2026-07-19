@@ -7,7 +7,7 @@ import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/rou
 import dayjs from 'dayjs/esm';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subscription, combineLatest, filter, finalize, tap } from 'rxjs';
+import { Observable, Subscription, combineLatest, filter, finalize, switchMap, tap } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
@@ -85,12 +85,14 @@ export class PurchaseOrder implements OnInit {
   }
 
   ngOnInit(): void {
+    // switchMap cancels an in-flight list request when route params change (e.g. search).
+    // Without this, a slow unfiltered load can finish after a search and overwrite results.
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
         tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
-        tap(() => this.load()),
+        switchMap(() => this.queryBackend()),
       )
-      .subscribe();
+      .subscribe(res => this.onResponseSuccess(res));
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.sortState(), filterOptions));
   }
