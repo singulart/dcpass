@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (purchaseOrder(); as purchaseOrderRef) {
+      <div>
+        <h2 data-cy="purchaseOrderDetailsHeading"><span>Purchase Order</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.id }}</span>
+          </dd>
+          <dt><span>PO Number</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.poNumber }}</span>
+          </dd>
+          <dt><span>Agency Code</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.agencyCode }}</span>
+          </dd>
+          <dt><span>Status</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.status }}</span>
+          </dd>
+          <dt><span>Requester</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.requester }}</span>
+          </dd>
+          <dt><span>Requisition Number</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.requisitionNumber }}</span>
+          </dd>
+          <dt><span>Commodity Code</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.commodityCode }}</span>
+          </dd>
+          <dt><span>Commodity Name</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.commodityName }}</span>
+          </dd>
+          <dt><span>Contract Number</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.contractNumber }}</span>
+          </dd>
+          <dt><span>Supplier</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.supplier }}</span>
+          </dd>
+          <dt><span>Ordered Date</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.orderedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Create Date</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.createDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>PO Total</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.poTotal }}</span>
+          </dd>
+          <dt><span>Fiscal Year</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.fiscalYear }}</span>
+          </dd>
+          <dt><span>PO Title</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.poTitle }}</span>
+          </dd>
+          <dt><span>Agency Acronym</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.agencyAcronym }}</span>
+          </dd>
+          <dt><span>Agency Name</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.agencyName }}</span>
+          </dd>
+          <dt><span>DCS Last Modified</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.dcsLastModDttm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>DCS Record Created</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.dcsRecCrtDttm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Object Id</span></dt>
+          <dd>
+            <span>{{ purchaseOrderRef.objectId }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span>Back</span>
+        </button>
+
+        @if (accountService.isAuthenticated()) {
+          <button type="button" [routerLink]="['/purchase-order', purchaseOrderRef.id, 'edit']" class="btn btn-primary">
+            <fa-icon icon="pencil-alt" />&nbsp;<span>Edit</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
