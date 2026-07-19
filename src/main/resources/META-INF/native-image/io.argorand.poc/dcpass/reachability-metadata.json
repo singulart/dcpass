@@ -403,79 +403,7 @@
       "type": "com.rometools.rome.feed.WireFeed"
     },
     {
-      "type": "com.sun.crypto.provider.AESCipher$General",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.ARCFOURCipher",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.ChaCha20Cipher$ChaCha20Poly1305",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.DESCipher",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.DESedeCipher",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.DHParameters",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.GaloisCounterMode$AESGCM",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "com.sun.crypto.provider.HmacCore$HmacSHA512",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.TlsMasterSecretGenerator",
       "methods": [
         {
           "name": "<init>",
@@ -1899,6 +1827,154 @@
       "type": "io.argorand.poc.dcpass.domain.PassContract__Accessor_f0114x"
     },
     {
+      "type": "io.argorand.poc.dcpass.domain.PurchaseOrder",
+      "fields": [
+        {
+          "name": "agencyAcronym"
+        },
+        {
+          "name": "agencyCode"
+        },
+        {
+          "name": "agencyName"
+        },
+        {
+          "name": "commodityCode"
+        },
+        {
+          "name": "commodityName"
+        },
+        {
+          "name": "contractNumber"
+        },
+        {
+          "name": "createDate"
+        },
+        {
+          "name": "dcsLastModDttm"
+        },
+        {
+          "name": "dcsRecCrtDttm"
+        },
+        {
+          "name": "fiscalYear"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "objectId"
+        },
+        {
+          "name": "orderedDate"
+        },
+        {
+          "name": "poNumber"
+        },
+        {
+          "name": "poTitle"
+        },
+        {
+          "name": "poTotal"
+        },
+        {
+          "name": "requester"
+        },
+        {
+          "name": "requisitionNumber"
+        },
+        {
+          "name": "searchVector"
+        },
+        {
+          "name": "status"
+        },
+        {
+          "name": "supplier"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.PurchaseOrder_",
+      "fields": [
+        {
+          "name": "agencyAcronym"
+        },
+        {
+          "name": "agencyCode"
+        },
+        {
+          "name": "agencyName"
+        },
+        {
+          "name": "class_"
+        },
+        {
+          "name": "commodityCode"
+        },
+        {
+          "name": "commodityName"
+        },
+        {
+          "name": "contractNumber"
+        },
+        {
+          "name": "createDate"
+        },
+        {
+          "name": "dcsLastModDttm"
+        },
+        {
+          "name": "dcsRecCrtDttm"
+        },
+        {
+          "name": "fiscalYear"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "objectId"
+        },
+        {
+          "name": "orderedDate"
+        },
+        {
+          "name": "poNumber"
+        },
+        {
+          "name": "poTitle"
+        },
+        {
+          "name": "poTotal"
+        },
+        {
+          "name": "requester"
+        },
+        {
+          "name": "requisitionNumber"
+        },
+        {
+          "name": "searchVector"
+        },
+        {
+          "name": "status"
+        },
+        {
+          "name": "supplier"
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.PurchaseOrder__Accessor_1ydgz5"
+    },
+    {
       "type": "io.argorand.poc.dcpass.domain.User",
       "fields": [
         {
@@ -2175,6 +2251,9 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.repository.PurchaseOrderRepository"
+    },
+    {
       "type": "io.argorand.poc.dcpass.repository.UserRepository",
       "methods": [
         {
@@ -2295,6 +2374,56 @@
       "type": "io.argorand.poc.dcpass.service.PassContractService$$SpringCGLIB$$0"
     },
     {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderQueryService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.repository.PurchaseOrderRepository",
+            "io.argorand.poc.dcpass.service.mapper.PurchaseOrderMapper"
+          ]
+        },
+        {
+          "name": "findByCriteria",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria", "org.springframework.data.domain.Pageable"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderQueryService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.repository.PurchaseOrderRepository",
+            "io.argorand.poc.dcpass.service.mapper.PurchaseOrderMapper"
+          ]
+        },
+        {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "findOne",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "save",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        },
+        {
+          "name": "update",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderService$$SpringCGLIB$$0"
+    },
+    {
       "type": "io.argorand.poc.dcpass.service.UserService",
       "methods": [
         {
@@ -2357,6 +2486,21 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.criteria.PassContractCriteriaCustomizer"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteriaBeanInfo"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteriaCustomizer"
     },
     {
       "type": "io.argorand.poc.dcpass.service.criteria.package-info"
@@ -2885,6 +3029,175 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCreateDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getOrderedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTotal",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequester",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequisitionNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCreateDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setOrderedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoTotal",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setRequester",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRequisitionNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.service.dto.UserDTO"
     },
     {
@@ -2898,6 +3211,18 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.mapper.PassContractMapperImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.mapper.PurchaseOrderMapper"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.mapper.PurchaseOrderMapperImpl",
       "methods": [
         {
           "name": "<init>",
@@ -3104,6 +3429,51 @@
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.PublicUserResource$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.PurchaseOrderResource",
+      "fields": [
+        {
+          "name": "applicationName"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.service.PurchaseOrderService",
+            "io.argorand.poc.dcpass.repository.PurchaseOrderRepository",
+            "io.argorand.poc.dcpass.service.PurchaseOrderQueryService"
+          ]
+        },
+        {
+          "name": "createPurchaseOrder",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        },
+        {
+          "name": "deletePurchaseOrder",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "getAllPurchaseOrders",
+          "parameterTypes": [
+            "java.lang.String",
+            "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria",
+            "org.springframework.data.domain.Pageable"
+          ]
+        },
+        {
+          "name": "getPurchaseOrder",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "updatePurchaseOrder",
+          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.PurchaseOrderResource$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.UserResource",
@@ -5435,6 +5805,9 @@
       "type": "jakarta.persistence.criteria.Expression"
     },
     {
+      "type": "jakarta.persistence.criteria.Order"
+    },
+    {
       "type": "jakarta.persistence.criteria.Path"
     },
     {
@@ -5469,9 +5842,6 @@
     },
     {
       "type": "jakarta.servlet.MultipartConfigElement"
-    },
-    {
-      "type": "jakarta.servlet.RequestDispatcher"
     },
     {
       "type": "jakarta.servlet.Servlet"
@@ -5695,6 +6065,9 @@
     },
     {
       "type": "java.io.IOException"
+    },
+    {
+      "type": "java.io.InputStream"
     },
     {
       "type": "java.io.Serializable"
@@ -6292,24 +6665,6 @@
       "type": "java.net.URLDecoder"
     },
     {
-      "type": "java.net.http.HttpClient"
-    },
-    {
-      "type": "java.net.http.HttpClient$Builder"
-    },
-    {
-      "type": "java.net.http.HttpRequest"
-    },
-    {
-      "type": "java.net.http.HttpRequest$Builder"
-    },
-    {
-      "type": "java.net.http.HttpResponse"
-    },
-    {
-      "type": "java.net.http.HttpResponse$BodyHandlers"
-    },
-    {
       "type": "java.nio.charset.Charset"
     },
     {
@@ -6326,12 +6681,6 @@
           "parameterTypes": ["java.security.PrivilegedExceptionAction"]
         }
       ]
-    },
-    {
-      "type": "java.security.AlgorithmParametersSpi"
-    },
-    {
-      "type": "java.security.KeyStoreSpi"
     },
     {
       "type": "java.security.Principal"
@@ -7027,6 +7376,26 @@
       "type": "liquibase.change.AbstractTableChangeCustomizer"
     },
     {
+      "type": "liquibase.change.AddColumnConfig",
+      "fields": [
+        {
+          "name": "afterColumn"
+        },
+        {
+          "name": "beforeColumn"
+        },
+        {
+          "name": "position"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "liquibase.change.Change"
     },
     {
@@ -7578,7 +7947,61 @@
       "type": "liquibase.change.core.AlterSequenceChangeCustomizer"
     },
     {
-      "type": "liquibase.change.core.CreateIndexChange"
+      "type": "liquibase.change.core.CreateIndexChange",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAssociatedWith",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCatalogName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getClustered",
+          "parameterTypes": []
+        },
+        {
+          "name": "getColumns",
+          "parameterTypes": []
+        },
+        {
+          "name": "getIndexName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSchemaName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTableName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTablespace",
+          "parameterTypes": []
+        },
+        {
+          "name": "getUsing",
+          "parameterTypes": []
+        },
+        {
+          "name": "isUnique",
+          "parameterTypes": []
+        },
+        {
+          "name": "setIndexName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "liquibase.change.core.CreateIndexChangeBeanInfo"
@@ -23921,6 +24344,10 @@
         {
           "name": "getQueryHints",
           "parameterTypes": []
+        },
+        {
+          "name": "getQueryHintsForCount",
+          "parameterTypes": []
         }
       ]
     },
@@ -24001,6 +24428,10 @@
         {
           "name": "findAll",
           "parameterTypes": ["org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "findAll",
+          "parameterTypes": ["org.springframework.data.jpa.domain.Specification", "org.springframework.data.domain.Pageable"]
         },
         {
           "name": "findAllById",
@@ -26691,42 +27122,6 @@
       ]
     },
     {
-      "type": "sun.security.pkcs12.PKCS12KeyStore",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.pkcs12.PKCS12KeyStore$DualFormatPKCS12",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.DSA$SHA224withDSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.DSA$SHA256withDSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.provider.MD5",
       "methods": [
         {
@@ -26754,33 +27149,6 @@
       ]
     },
     {
-      "type": "sun.security.provider.SHA2$SHA224",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.SHA2$SHA256",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.SHA5$SHA384",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.provider.SHA5$SHA512",
       "methods": [
         {
@@ -26799,155 +27167,11 @@
       ]
     },
     {
-      "type": "sun.security.rsa.PSSParameters",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.rsa.RSAKeyFactory$Legacy",
       "methods": [
         {
           "name": "<init>",
           "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSAPSSSignature",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSASignature$SHA224withRSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.ssl.KeyManagerFactoryImpl$SunX509",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.ssl.SSLContextImpl$DefaultSSLContext",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.ssl.TrustManagerFactoryImpl$PKIXFactory",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.AuthorityInfoAccessExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.AuthorityKeyIdentifierExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.BasicConstraintsExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.CRLDistributionPointsExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.CertificatePoliciesExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.ExtendedKeyUsageExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.KeyUsageExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.NetscapeCertTypeExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.PrivateKeyUsageExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.SubjectKeyIdentifierExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.Boolean", "java.lang.Object"]
         }
       ]
     },
@@ -28194,6 +28418,17 @@
     {
       "type": {
         "proxy": [
+          "io.argorand.poc.dcpass.repository.PurchaseOrderRepository",
+          "org.springframework.data.repository.Repository",
+          "org.springframework.transaction.interceptor.TransactionalProxy",
+          "org.springframework.aop.framework.Advised",
+          "org.springframework.core.DecoratingProxy"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
           "io.argorand.poc.dcpass.repository.UserRepository",
           "org.springframework.data.repository.Repository",
           "org.springframework.transaction.interceptor.TransactionalProxy",
@@ -28902,6 +29137,12 @@
       "glob": "config/liquibase/changelog/20260718120000_add_commodity_code_index.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260719120000_added_entity_PurchaseOrder.xml"
+    },
+    {
+      "glob": "config/liquibase/changelog/20260719130000_add_purchase_order_full_text_search.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
@@ -28963,6 +29204,9 @@
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/PassContract.class"
+    },
+    {
+      "glob": "io/argorand/poc/dcpass/domain/PurchaseOrder.class"
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/User.class"
@@ -31116,9 +31360,6 @@
       "glob": "org/thymeleaf/thymeleaf.properties"
     },
     {
-      "glob": "public/index.html"
-    },
-    {
       "glob": "resources/index.html"
     },
     {
@@ -31129,9 +31370,6 @@
     },
     {
       "glob": "spring.properties"
-    },
-    {
-      "glob": "static/index.html"
     },
     {
       "glob": "tech/jhipster/config/JHipsterConfiguration.class"
