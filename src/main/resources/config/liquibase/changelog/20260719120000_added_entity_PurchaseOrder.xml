@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20260719120000-seq-0" author="jhipster">
+        <createSequence sequenceName="purchase_order_seq" startValue="1050" incrementBy="50"/>
+    </changeSet>
+
+    <!--
+        Added the entity PurchaseOrder.
+        Source columns from PASS_Purchase_Orders.csv.
+    -->
+    <changeSet id="20260719120000-1" author="jhipster">
+        <createTable tableName="purchase_order">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PONUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCYCODE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="STATUS" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="REQUESTER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="REQUISTIONNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="COMMODITYCODE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="COMMODITYNAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="SUPPLIER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ORDEREDDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="CREATEDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="POTOTAL" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="FISCALYEAR" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="POTITLE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_ACRONYM" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_NAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="DCS_LAST_MOD_DTTM" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="DCS_REC_CRT_DTTM" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="OBJECT_ID" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="purchase_order" columnName="ORDEREDDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="purchase_order" columnName="CREATEDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="purchase_order" columnName="DCS_LAST_MOD_DTTM" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="purchase_order" columnName="DCS_REC_CRT_DTTM" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20260719120000-2-add-id-default" author="jhipster">
+        <addDefaultValue tableName="purchase_order" columnName="id" defaultValueComputed="nextval('purchase_order_seq')" columnDataType="bigint"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>
