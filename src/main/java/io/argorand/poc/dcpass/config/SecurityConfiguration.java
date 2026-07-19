@@ -76,6 +76,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers("/api/account/reset-password/finish").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/pass-contracts", "/api/pass-contracts/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/purchase-orders", "/api/purchase-orders/**").permitAll()
                     .requestMatchers("/sse", "/sse/", "/mcp/**").permitAll()
                     .requestMatchers("/.well-known/**").permitAll()
                     .requestMatchers("/api/**").authenticated()
