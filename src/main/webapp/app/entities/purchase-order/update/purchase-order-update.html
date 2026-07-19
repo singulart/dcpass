@@ -1,0 +1,195 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-purchase-order-heading" data-cy="PurchaseOrderCreateUpdateHeading">Create or edit a Purchase Order</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_poNumber">PO Number</label>
+          <input type="text" class="form-control" name="poNumber" id="field_poNumber" data-cy="poNumber" formControlName="poNumber" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyCode">Agency Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyCode"
+            id="field_agencyCode"
+            data-cy="agencyCode"
+            formControlName="agencyCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requester">Requester</label>
+          <input type="text" class="form-control" name="requester" id="field_requester" data-cy="requester" formControlName="requester" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requisitionNumber">Requisition Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="requisitionNumber"
+            id="field_requisitionNumber"
+            data-cy="requisitionNumber"
+            formControlName="requisitionNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commodityCode">Commodity Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commodityCode"
+            id="field_commodityCode"
+            data-cy="commodityCode"
+            formControlName="commodityCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commodityName">Commodity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commodityName"
+            id="field_commodityName"
+            data-cy="commodityName"
+            formControlName="commodityName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractNumber">Contract Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractNumber"
+            id="field_contractNumber"
+            data-cy="contractNumber"
+            formControlName="contractNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_supplier">Supplier</label>
+          <input type="text" class="form-control" name="supplier" id="field_supplier" data-cy="supplier" formControlName="supplier" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_orderedDate">Ordered Date</label>
+          <div class="d-flex">
+            <input
+              id="field_orderedDate"
+              data-cy="orderedDate"
+              type="datetime-local"
+              class="form-control"
+              name="orderedDate"
+              formControlName="orderedDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createDate">Create Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createDate"
+              data-cy="createDate"
+              type="datetime-local"
+              class="form-control"
+              name="createDate"
+              formControlName="createDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_poTotal">PO Total</label>
+          <input type="number" class="form-control" name="poTotal" id="field_poTotal" data-cy="poTotal" formControlName="poTotal" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalYear">Fiscal Year</label>
+          <input
+            type="number"
+            class="form-control"
+            name="fiscalYear"
+            id="field_fiscalYear"
+            data-cy="fiscalYear"
+            formControlName="fiscalYear"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_poTitle">PO Title</label>
+          <input type="text" class="form-control" name="poTitle" id="field_poTitle" data-cy="poTitle" formControlName="poTitle" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyAcronym">Agency Acronym</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyAcronym"
+            id="field_agencyAcronym"
+            data-cy="agencyAcronym"
+            formControlName="agencyAcronym"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyName">Agency Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyName"
+            id="field_agencyName"
+            data-cy="agencyName"
+            formControlName="agencyName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_objectId">Object Id</label>
+          <input type="number" class="form-control" name="objectId" id="field_objectId" data-cy="objectId" formControlName="objectId" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

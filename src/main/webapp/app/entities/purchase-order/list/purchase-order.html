@@ -1,0 +1,283 @@
+<div>
+  <h2 id="page-heading" data-cy="PurchaseOrderHeading">
+    <span>Purchase Orders</span>
+
+    <div class="d-flex justify-content-end">
+      @if (accountService.isAuthenticated()) {
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-purchase-order"
+          [routerLink]="['/purchase-order/new']"
+        >
+          <fa-icon icon="plus" />
+          <span>Add new</span>
+        </button>
+      }
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <label for="search" class="form-label mb-0">Search</label>
+    <input
+      id="search"
+      type="text"
+      class="form-control"
+      style="max-width: 20rem"
+      placeholder="Enter keyword(s)"
+      [(ngModel)]="searchInput"
+      (keydown.enter)="onSearch()"
+      data-cy="searchInput"
+    />
+    <button type="button" class="btn btn-secondary" (click)="onSearch()" data-cy="searchButton">
+      <fa-icon icon="search" />
+      <span class="ms-1">Search</span>
+    </button>
+  </div>
+
+  <div class="mb-3">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="advancedSearchCollapsed = !advancedSearchCollapsed"
+      [attr.aria-expanded]="!advancedSearchCollapsed"
+      aria-controls="advancedSearchPanel"
+      data-cy="advancedSearchToggle"
+    >
+      <fa-icon [icon]="advancedSearchCollapsed ? 'chevron-down' : 'chevron-up'" class="me-1" />
+      <span>Advanced Search</span>
+    </button>
+    <div [ngbCollapse]="advancedSearchCollapsed" id="advancedSearchPanel" class="mt-2">
+      <div class="card card-body bg-light">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="orderedDateFrom">Ordered Date From</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="orderedDateFrom"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="orderedDateFrom"
+                ngbDatepicker
+                #orderedDateFromDp="ngbDatepicker"
+                [class.is-invalid]="orderedDateRangeValidationError()"
+                data-cy="orderedDateFrom"
+              />
+              <button type="button" class="input-group-text" (click)="orderedDateFromDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="orderedDateTo">Ordered Date To</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="orderedDateTo"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="orderedDateTo"
+                ngbDatepicker
+                #orderedDateToDp="ngbDatepicker"
+                [class.is-invalid]="orderedDateRangeValidationError()"
+                data-cy="orderedDateTo"
+              />
+              <button type="button" class="input-group-text" (click)="orderedDateToDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+        </div>
+        @if (orderedDateRangeValidationError()) {
+          <div class="text-danger small mt-1" data-cy="orderedDateRangeValidationError">
+            Ordered Date To must be after Ordered Date From.
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (purchaseOrders().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Purchase Orders found</span>
+    </div>
+  } @else {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="poNumber">
+              <div class="d-flex">
+                <span>PO Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="agencyAcronym">
+              <div class="d-flex">
+                <span>Agency</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="poTitle">
+              <div class="d-flex">
+                <span>Title</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="poTotal">
+              <div class="d-flex">
+                <span>Amount</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="orderedDate">
+              <div class="d-flex">
+                <span>Ordered Date</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fiscalYear">
+              <div class="d-flex">
+                <span>Fiscal Year</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="commodityCode">
+              <div class="d-flex">
+                <span>Commodity</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="supplier">
+              <div class="d-flex">
+                <span>Supplier</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requester">
+              <div class="d-flex">
+                <span>Requester</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractNumber">
+              <div class="d-flex">
+                <span>Contract Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requisitionNumber">
+              <div class="d-flex">
+                <span>Requisition Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="objectId">
+              <div class="d-flex">
+                <span>Object Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (purchaseOrder of purchaseOrders(); track trackId(purchaseOrder)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/purchase-order', purchaseOrder.id, 'view']">{{ purchaseOrder.poNumber }}</a>
+              </td>
+              <td>{{ purchaseOrder.agencyAcronym }} {{ purchaseOrder.agencyName }} {{ purchaseOrder.agencyCode }}</td>
+              <td class="description-cell">
+                <span [class.description-tooltip]="!!purchaseOrder.poTitle" [attr.data-tooltip]="purchaseOrder.poTitle ?? ''">
+                  {{
+                    (purchaseOrder.poTitle?.length ?? 0) > 100
+                      ? purchaseOrder.poTitle?.slice(0, 100) + '...'
+                      : (purchaseOrder.poTitle ?? '')
+                  }}
+                </span>
+              </td>
+              <td>{{ purchaseOrder.poTotal | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+              <td>{{ purchaseOrder.orderedDate | formatMediumDatetime }}</td>
+              <td>{{ purchaseOrder.fiscalYear }}</td>
+              <td>{{ formatCommodityCode(purchaseOrder.commodityCode) }}</td>
+              <td>{{ purchaseOrder.supplier }}</td>
+              <td>{{ purchaseOrder.requester }}</td>
+              <td>{{ purchaseOrder.contractNumber }}</td>
+              <td>{{ purchaseOrder.requisitionNumber }}</td>
+              <td>{{ purchaseOrder.objectId }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/purchase-order', purchaseOrder.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  @if (accountService.isAuthenticated()) {
+                    <a
+                      [routerLink]="['/purchase-order', purchaseOrder.id, 'edit']"
+                      class="btn btn-primary btn-sm"
+                      data-cy="entityEditButton"
+                    >
+                      <fa-icon icon="pencil-alt" />
+                      <span class="d-none d-md-inline">Edit</span>
+                    </a>
+
+                    <button type="submit" (click)="delete(purchaseOrder)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                      <fa-icon icon="times" />
+                      <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (purchaseOrders().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>
