@@ -2367,6 +2367,10 @@
         {
           "name": "save",
           "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
+          "name": "update",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -3412,6 +3416,10 @@
         {
           "name": "getPassContract",
           "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "updatePassContract",
+          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
       ]
     },
@@ -5805,9 +5813,6 @@
       "type": "jakarta.persistence.criteria.Expression"
     },
     {
-      "type": "jakarta.persistence.criteria.Order"
-    },
-    {
       "type": "jakarta.persistence.criteria.Path"
     },
     {
@@ -6146,9 +6151,6 @@
     },
     {
       "type": "java.lang.Comparable[]"
-    },
-    {
-      "type": "java.lang.Configurable"
     },
     {
       "type": "java.lang.Deprecated"
@@ -15171,9 +15173,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -29467,15 +29466,6 @@
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
     },
     {
-      "glob": "org/aspectj/weaver/weaver-messages.properties"
-    },
-    {
-      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
-    },
-    {
-      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
-    },
-    {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
     },
     {
@@ -31534,9 +31524,6 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
-    },
-    {
-      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

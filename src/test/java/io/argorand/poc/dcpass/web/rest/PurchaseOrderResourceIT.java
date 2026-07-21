@@ -4,6 +4,7 @@ import static io.argorand.poc.dcpass.domain.PurchaseOrderAsserts.*;
 import static io.argorand.poc.dcpass.web.rest.TestUtil.sameNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -294,6 +295,50 @@ class PurchaseOrderResourceIT {
         defaultPurchaseOrderFiltering("id.equals=" + id, "id.notEquals=" + id);
         defaultPurchaseOrderFiltering("id.greaterThanOrEqual=" + id, "id.greaterThan=" + id);
         defaultPurchaseOrderFiltering("id.lessThanOrEqual=" + id, "id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllPurchaseOrdersByPoNumberIsSorted() throws Exception {
+        PurchaseOrder first = createEntity().poNumber("AAA-SORT-TEST");
+        PurchaseOrder second = createEntity().poNumber("ZZZ-SORT-TEST");
+        purchaseOrderRepository.saveAndFlush(first);
+        purchaseOrderRepository.saveAndFlush(second);
+
+        restPurchaseOrderMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=poNumber,asc&poNumber.contains=SORT-TEST"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].poNumber").value("AAA-SORT-TEST"))
+            .andExpect(jsonPath("$[1].poNumber").value("ZZZ-SORT-TEST"));
+
+        restPurchaseOrderMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=poNumber,desc&poNumber.contains=SORT-TEST"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].poNumber").value("ZZZ-SORT-TEST"))
+            .andExpect(jsonPath("$[1].poNumber").value("AAA-SORT-TEST"));
+    }
+
+    @Test
+    @Transactional
+    void getAllPurchaseOrdersByPoNumberSortsNullsAndEmptyLast() throws Exception {
+        PurchaseOrder withValue = createEntity().poNumber("MMM-NULL-SORT").poTitle("NULL-SORT-MARKER");
+        PurchaseOrder withEmpty = createEntity().poNumber("").poTitle("NULL-SORT-MARKER");
+        PurchaseOrder withNull = createEntity().poNumber(null).poTitle("NULL-SORT-MARKER");
+        purchaseOrderRepository.saveAndFlush(withValue);
+        purchaseOrderRepository.saveAndFlush(withEmpty);
+        purchaseOrderRepository.saveAndFlush(withNull);
+
+        restPurchaseOrderMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=poNumber,asc&poTitle.equals=NULL-SORT-MARKER"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(3)))
+            .andExpect(jsonPath("$[0].poNumber").value("MMM-NULL-SORT"));
+
+        restPurchaseOrderMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=poNumber,desc&poTitle.equals=NULL-SORT-MARKER"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(3)))
+            .andExpect(jsonPath("$[0].poNumber").value("MMM-NULL-SORT"));
     }
 
     @Test

@@ -437,6 +437,29 @@ class PassContractResourceIT {
 
     @Test
     @Transactional
+    void getAllPassContractsBySupplierSortsNullsAndEmptyLast() throws Exception {
+        PassContract withValue = createEntity().contractNumber("CN-NULL-SORT-1").supplier("MMM Supplier");
+        PassContract withEmpty = createEntity().contractNumber("CN-NULL-SORT-2").supplier("");
+        PassContract withNull = createEntity().contractNumber("CN-NULL-SORT-3").supplier(null);
+        passContractRepository.saveAndFlush(withValue);
+        passContractRepository.saveAndFlush(withEmpty);
+        passContractRepository.saveAndFlush(withNull);
+
+        restPassContractMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=supplier,asc&contractNumber.contains=NULL-SORT"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(3)))
+            .andExpect(jsonPath("$[0].supplier").value("MMM Supplier"));
+
+        restPassContractMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=supplier,desc&contractNumber.contains=NULL-SORT"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(3)))
+            .andExpect(jsonPath("$[0].supplier").value("MMM Supplier"));
+    }
+
+    @Test
+    @Transactional
     void getAllPassContractsGroupsByContractNumberWithCommodities() throws Exception {
         passContract.setContractNumber("CW-SHARED-001");
         passContract.setCommodityCode("CODE-A");

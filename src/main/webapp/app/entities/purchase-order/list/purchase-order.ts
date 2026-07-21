@@ -7,7 +7,7 @@ import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/rou
 import dayjs from 'dayjs/esm';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subscription, combineLatest, filter, finalize, switchMap, tap } from 'rxjs';
+import { Observable, Subscription, combineLatest, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
@@ -85,12 +85,22 @@ export class PurchaseOrder implements OnInit {
   }
 
   ngOnInit(): void {
-    // switchMap cancels an in-flight list request when route params change (e.g. search).
-    // Without this, a slow unfiltered load can finish after a search and overwrite results.
+    // switchMap cancels an in-flight list request when route params change (sort, search, page).
+    // Query params are read from the route snapshot inside switchMap so each response matches its URL.
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
-        tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
-        switchMap(() => this.queryBackend()),
+        map(([params, data]) => ({
+          params,
+          data,
+          requestKey: params.keys
+            .slice()
+            .sort()
+            .map(key => `${key}=${params.getAll(key).join(',')}`)
+            .join('&'),
+        })),
+        distinctUntilChanged((previous, current) => previous.requestKey === current.requestKey),
+        tap(({ params, data }) => this.fillComponentAttributeFromRoute(params, data)),
+        switchMap(({ params, data }) => this.queryBackend(params, data)),
       )
       .subscribe(res => this.onResponseSuccess(res));
 
@@ -109,7 +119,9 @@ export class PurchaseOrder implements OnInit {
   }
 
   load(): void {
-    this.queryBackend().subscribe((res: EntityArrayResponseType) => this.onResponseSuccess(res));
+    this.queryBackend(this.activatedRoute.snapshot.queryParamMap, this.activatedRoute.snapshot.data).subscribe(
+      (res: EntityArrayResponseType) => this.onResponseSuccess(res),
+    );
   }
 
   navigateToWithComponentValues(event: SortState): void {
@@ -157,23 +169,32 @@ export class PurchaseOrder implements OnInit {
     this.totalItems.set(Number(headers.get(TOTAL_COUNT_RESPONSE_HEADER)));
   }
 
-  protected queryBackend(): Observable<EntityArrayResponseType> {
+  protected queryBackend(params: ParamMap, data: Data): Observable<EntityArrayResponseType> {
     this.isLoading.set(true);
-    const pageToLoad: number = this.page();
+    const pageToLoad = +(params.get(PAGE_HEADER) ?? 1);
+    const sortState = this.sortService.parseSortParam(params.get(SORT) ?? data[DEFAULT_SORT_DATA]);
+    const searchInput = params.get(SEARCH_QUERY_PARAM) ?? '';
+    const orderedDateFromParam = params.get('orderedDate.greaterThanOrEqual');
+    const orderedDateToParam = params.get('orderedDate.lessThanOrEqual');
+    const orderedDateFrom = orderedDateFromParam && dayjs(orderedDateFromParam).isValid() ? dayjs(orderedDateFromParam) : null;
+    const orderedDateTo = orderedDateToParam && dayjs(orderedDateToParam).isValid() ? dayjs(orderedDateToParam) : null;
+    const orderedDateRangeInvalid =
+      !!orderedDateFrom && !!orderedDateTo && (orderedDateTo.isBefore(orderedDateFrom) || orderedDateTo.isSame(orderedDateFrom));
+
     const queryObject: any = {
       page: pageToLoad - 1,
       size: this.itemsPerPage(),
-      sort: this.sortService.buildSortParam(this.sortState()),
+      sort: this.sortService.buildSortParam(sortState),
     };
-    if (this.searchInput.trim()) {
-      queryObject[SEARCH_QUERY_PARAM] = this.searchInput.trim();
+    if (searchInput.trim()) {
+      queryObject[SEARCH_QUERY_PARAM] = searchInput.trim();
     }
-    if (!this.orderedDateRangeValidationError()) {
-      if (this.orderedDateFrom?.isValid()) {
-        queryObject['orderedDate.greaterThanOrEqual'] = this.orderedDateFrom.startOf('day').toJSON();
+    if (!orderedDateRangeInvalid) {
+      if (orderedDateFrom?.isValid()) {
+        queryObject['orderedDate.greaterThanOrEqual'] = orderedDateFrom.startOf('day').toJSON();
       }
-      if (this.orderedDateTo?.isValid()) {
-        queryObject['orderedDate.lessThanOrEqual'] = this.orderedDateTo.endOf('day').toJSON();
+      if (orderedDateTo?.isValid()) {
+        queryObject['orderedDate.lessThanOrEqual'] = orderedDateTo.endOf('day').toJSON();
       }
     }
     for (const filterOption of this.filters.filterOptions) {

@@ -6,11 +6,16 @@ import io.argorand.poc.dcpass.repository.PurchaseOrderRepository;
 import io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria;
 import io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO;
 import io.argorand.poc.dcpass.service.mapper.PurchaseOrderMapper;
+import io.argorand.poc.dcpass.service.sort.SortCriteriaHelper;
+import jakarta.persistence.criteria.Order;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,16 +52,28 @@ public class PurchaseOrderQueryService extends QueryService<PurchaseOrder> {
         LOG.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<PurchaseOrder> specification = createSpecification(criteria);
         String ftsQuery = criteria != null ? criteria.getSearch() : null;
-        Pageable pageForQuery = page;
+        Sort userSort = page.getSort();
+        boolean hasFts = ftsQuery != null && !ftsQuery.isBlank();
+        boolean hasUserSort = userSort.isSorted();
+
+        Pageable pageForQuery = hasFts || hasUserSort ? PageRequest.of(page.getPageNumber(), page.getPageSize()) : page;
         Specification<PurchaseOrder> querySpec = specification;
-        if (ftsQuery != null && !ftsQuery.isBlank()) {
-            String trimmed = ftsQuery.trim();
-            pageForQuery = PageRequest.of(page.getPageNumber(), page.getPageSize());
+        if (hasFts || hasUserSort) {
+            String trimmedFts = hasFts ? ftsQuery.trim() : null;
             querySpec = specification.and((root, query, cb) -> {
                 if (query.getResultType() != Long.class && query.getResultType() != long.class) {
-                    query.orderBy(
-                        cb.desc(cb.function("purchase_order_fts_rank", Float.class, root.get("searchVector"), cb.literal(trimmed)))
-                    );
+                    List<Order> orders = new ArrayList<>();
+                    if (hasFts) {
+                        orders.add(
+                            cb.desc(cb.function("purchase_order_fts_rank", Float.class, root.get("searchVector"), cb.literal(trimmedFts)))
+                        );
+                    }
+                    if (hasUserSort) {
+                        orders.addAll(SortCriteriaHelper.toOrders(cb, root, userSort));
+                    }
+                    if (!orders.isEmpty()) {
+                        query.orderBy(orders);
+                    }
                 }
                 return cb.conjunction();
             });

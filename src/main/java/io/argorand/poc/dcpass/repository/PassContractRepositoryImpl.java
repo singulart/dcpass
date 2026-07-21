@@ -2,6 +2,7 @@ package io.argorand.poc.dcpass.repository;
 
 import io.argorand.poc.dcpass.domain.PassContract;
 import io.argorand.poc.dcpass.domain.PassContract_;
+import io.argorand.poc.dcpass.service.sort.SortCriteriaHelper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -105,7 +106,7 @@ public class PassContractRepositoryImpl implements PassContractRepositoryCustom 
                 }
                 Path<?> path = root.get(sortOrder.getProperty());
                 Expression<?> aggregated = aggregateSortPath(cb, path, sortOrder.isAscending());
-                orders.add(sortOrder.isAscending() ? cb.asc(aggregated) : cb.desc(aggregated));
+                orders.addAll(SortCriteriaHelper.toOrders(cb, aggregated, path.getJavaType(), sortOrder.isAscending()));
             }
         }
 
