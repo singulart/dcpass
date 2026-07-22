@@ -109,7 +109,8 @@ public class PassContractResource {
     /**
      * {@code GET  /pass-contracts} : get all the passContracts.
      *
-     * @param q optional full-text search query (searches title, description, agency, supplier, etc.)
+     * @param q optional full-text search query (searches title, description, agency, supplier, etc.).
+     *          Spaces and OR match any term; AND or quotes require all terms; mixed AND+OR flattens to OR.
      * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of passContracts in body.

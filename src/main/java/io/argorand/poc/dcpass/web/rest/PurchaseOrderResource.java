@@ -110,7 +110,8 @@ public class PurchaseOrderResource {
     /**
      * {@code GET  /purchase-orders} : get all the purchaseOrders.
      *
-     * @param q optional full-text search query (searches title, agency, supplier, etc.)
+     * @param q optional full-text search query (searches title, agency, supplier, etc.).
+     *          Spaces and OR match any term; AND or quotes require all terms; mixed AND+OR flattens to OR.
      * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of purchaseOrders in body.

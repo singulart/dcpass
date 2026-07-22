@@ -196,6 +196,7 @@ public class PassContractQueryService extends QueryService<PassContract> {
     /**
      * Builds a Specification for PostgreSQL full-text search when search query is present.
      * Uses pass_contract_fts_match(tsvector, text) helper function.
+     * Query semantics (via dcpass_fts_query): spaces/OR → OR; AND or quotes → AND; mixed AND+OR → OR.
      */
     private Specification<PassContract> buildFullTextSearchSpecification(String searchQuery) {
         if (searchQuery == null || searchQuery.isBlank()) {

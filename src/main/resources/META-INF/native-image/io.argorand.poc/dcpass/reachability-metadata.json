@@ -29142,6 +29142,9 @@
       "glob": "config/liquibase/changelog/20260719130000_add_purchase_order_full_text_search.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260722150000_fts_query_or_semantics.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

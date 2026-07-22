@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Flexible FTS query semantics (no UI toggles):
+        - space-separated terms with no operators → OR
+        - explicit OR → OR
+        - explicit AND → AND
+        - quoted terms ("A B" or unclosed "A B) → AND
+        - mixed AND + OR → flatten to OR of all terms
+        Operator tokens and quote characters are stripped before matching.
+    -->
+    <changeSet id="20260722150000-1" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION dcpass_fts_query(query text)
+            RETURNS tsquery
+            LANGUAGE plpgsql
+            IMMUTABLE
+            STRICT
+            AS $fn$
+            DECLARE
+                raw text := btrim(query);
+                working text;
+                has_quotes boolean;
+                has_and boolean;
+                has_or boolean;
+                use_and boolean;
+                tokens text[];
+                tok text;
+                op_tok text;
+                lexeme text;
+                parts text[] := ARRAY[]::text[];
+                joiner text;
+            BEGIN
+                IF raw = '' THEN
+                    RETURN NULL;
+                END IF;
+
+                has_quotes := position('"' IN raw) > 0;
+                working := btrim(replace(raw, '"', ' '));
+
+                IF working = '' THEN
+                    RETURN NULL;
+                END IF;
+
+                has_and := working ~* '(^|[^[:alnum:]])AND([^[:alnum:]]|$)';
+                has_or := working ~* '(^|[^[:alnum:]])OR([^[:alnum:]]|$)';
+
+                -- Quotes force AND. Homogeneous AND forces AND. Everything else is OR
+                -- (no operators, only OR, or mixed AND+OR flattened to OR).
+                use_and := has_quotes OR (has_and AND NOT has_or);
+
+                tokens := regexp_split_to_array(working, '\s+');
+
+                FOREACH tok IN ARRAY tokens LOOP
+                    IF tok IS NULL OR tok = '' THEN
+                        CONTINUE;
+                    END IF;
+
+                    op_tok := upper(regexp_replace(tok, '^[^[:alnum:]]+|[^[:alnum:]]+$', '', 'g'));
+                    IF op_tok IN ('AND', 'OR') THEN
+                        CONTINUE;
+                    END IF;
+
+                    lexeme := plainto_tsquery('english', tok)::text;
+                    IF lexeme IS NULL OR lexeme = '' THEN
+                        CONTINUE;
+                    END IF;
+
+                    parts := array_append(parts, '(' || lexeme || ')');
+                END LOOP;
+
+                IF coalesce(array_length(parts, 1), 0) = 0 THEN
+                    RETURN NULL;
+                END IF;
+
+                joiner := CASE WHEN use_and THEN ' &amp; ' ELSE ' | ' END;
+                RETURN array_to_string(parts, joiner)::tsquery;
+            END;
+            $fn$;
+        </sql>
+        <rollback>DROP FUNCTION IF EXISTS dcpass_fts_query(text);</rollback>
+    </changeSet>
+
+    <changeSet id="20260722150000-2" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
+            RETURNS boolean AS $$
+                SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
+                RETURNS boolean AS $$
+                    SELECT search_vector @@ plainto_tsquery('english', query);
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260722150000-3" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_contract_fts_rank(search_vector tsvector, query text)
+            RETURNS real AS $$
+                SELECT coalesce(ts_rank(search_vector, dcpass_fts_query(query)), 0);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION pass_contract_fts_rank(search_vector tsvector, query text)
+                RETURNS real AS $$
+                    SELECT ts_rank(search_vector, plainto_tsquery('english', query));
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260722150000-4" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION purchase_order_fts_match(search_vector tsvector, query text)
+            RETURNS boolean AS $$
+                SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION purchase_order_fts_match(search_vector tsvector, query text)
+                RETURNS boolean AS $$
+                    SELECT search_vector @@ plainto_tsquery('english', query);
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260722150000-5" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION purchase_order_fts_rank(search_vector tsvector, query text)
+            RETURNS real AS $$
+                SELECT coalesce(ts_rank(search_vector, dcpass_fts_query(query)), 0);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION purchase_order_fts_rank(search_vector tsvector, query text)
+                RETURNS real AS $$
+                    SELECT ts_rank(search_vector, plainto_tsquery('english', query));
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

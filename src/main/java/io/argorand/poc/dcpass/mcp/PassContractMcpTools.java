@@ -54,7 +54,10 @@ public class PassContractMcpTools {
         )
     )
     public McpSchema.CallToolResult getAllPassContracts(
-        @McpToolParam(description = "Search phrase", required = false) String q,
+        @McpToolParam(
+            description = "Search phrase. Spaces/OR match any term; AND or quotes require all terms; mixed AND+OR flattens to OR.",
+            required = false
+        ) String q,
         @McpToolParam(description = "Award date 'from' (ISO-8601, e.g. 2026-01-01)", required = false) String awardDateFrom,
         @McpToolParam(description = "Award date 'to' (ISO-8601)", required = false) String awardDateTo,
         @McpToolParam(description = "Start date 'from' (ISO-8601)", required = false) String startDateFrom,
