@@ -1,0 +1,271 @@
+<div>
+  <h2 id="page-heading" data-cy="PassPaymentHeading">
+    <span>PASS Payments</span>
+
+    <div class="d-flex justify-content-end">
+      @if (accountService.isAuthenticated()) {
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-pass-payment"
+          [routerLink]="['/pass-payment/new']"
+        >
+          <fa-icon icon="plus" />
+          <span>Add new</span>
+        </button>
+      }
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <label for="search" class="form-label mb-0">Search</label>
+    <input
+      id="search"
+      type="text"
+      class="form-control"
+      style="max-width: 20rem"
+      placeholder="Enter keyword(s)"
+      [(ngModel)]="searchInput"
+      (keydown.enter)="onSearch()"
+      data-cy="searchInput"
+    />
+    <button type="button" class="btn btn-secondary" (click)="onSearch()" data-cy="searchButton">
+      <fa-icon icon="search" />
+      <span class="ms-1">Search</span>
+    </button>
+  </div>
+
+  <div class="mb-3">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="advancedSearchCollapsed = !advancedSearchCollapsed"
+      [attr.aria-expanded]="!advancedSearchCollapsed"
+      aria-controls="advancedSearchPanel"
+      data-cy="advancedSearchToggle"
+    >
+      <fa-icon [icon]="advancedSearchCollapsed ? 'chevron-down' : 'chevron-up'" class="me-1" />
+      <span>Advanced Search</span>
+    </button>
+    <div [ngbCollapse]="advancedSearchCollapsed" id="advancedSearchPanel" class="mt-2">
+      <div class="card card-body bg-light">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="paymentDateFrom">Payment Date From</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="paymentDateFrom"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="paymentDateFrom"
+                ngbDatepicker
+                #paymentDateFromDp="ngbDatepicker"
+                [class.is-invalid]="paymentDateRangeValidationError()"
+                data-cy="paymentDateFrom"
+              />
+              <button type="button" class="input-group-text" (click)="paymentDateFromDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small mb-0" for="paymentDateTo">Payment Date To</label>
+            <div class="input-group input-group-sm">
+              <input
+                id="paymentDateTo"
+                type="text"
+                class="form-control"
+                placeholder="YYYY-MM-DD"
+                [(ngModel)]="paymentDateTo"
+                ngbDatepicker
+                #paymentDateToDp="ngbDatepicker"
+                [class.is-invalid]="paymentDateRangeValidationError()"
+                data-cy="paymentDateTo"
+              />
+              <button type="button" class="input-group-text" (click)="paymentDateToDp.toggle()">
+                <fa-icon icon="calendar-alt" />
+              </button>
+            </div>
+          </div>
+        </div>
+        @if (paymentDateRangeValidationError()) {
+          <div class="text-danger small mt-1" data-cy="paymentDateRangeValidationError">
+            Payment Date To must be after Payment Date From.
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (passPayments().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No PASS Payments found</span>
+    </div>
+  } @else {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="paymentNumber">
+              <div class="d-flex">
+                <span>Payment Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="agencyAcronym">
+              <div class="d-flex">
+                <span>Agency</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="supplierName">
+              <div class="d-flex">
+                <span>Supplier</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="paymentAmount">
+              <div class="d-flex">
+                <span>Amount</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="paymentDate">
+              <div class="d-flex">
+                <span>Payment Date</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fiscalYear">
+              <div class="d-flex">
+                <span>Fiscal Year</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="poNumber">
+              <div class="d-flex">
+                <span>PO Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="invoiceNumber">
+              <div class="d-flex">
+                <span>Invoice Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="voucherNumber">
+              <div class="d-flex">
+                <span>Voucher Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contractNumber">
+              <div class="d-flex">
+                <span>Contract Number</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="paymentType">
+              <div class="d-flex">
+                <span>Payment Type</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="objectId">
+              <div class="d-flex">
+                <span>Object Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (passPayment of passPayments(); track trackId(passPayment)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/pass-payment', passPayment.id, 'view']">{{ passPayment.paymentNumber }}</a>
+              </td>
+              <td>{{ passPayment.agencyAcronym }} {{ passPayment.agencyName }} {{ passPayment.agencyCode }}</td>
+              <td>{{ passPayment.supplierName }}</td>
+              <td>{{ passPayment.paymentAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+              <td>{{ passPayment.paymentDate | formatMediumDatetime }}</td>
+              <td>{{ passPayment.fiscalYear }}</td>
+              <td>{{ passPayment.poNumber }}</td>
+              <td>{{ passPayment.invoiceNumber }}</td>
+              <td>{{ passPayment.voucherNumber }}</td>
+              <td>{{ passPayment.contractNumber }}</td>
+              <td>{{ passPayment.paymentType }}</td>
+              <td>{{ passPayment.objectId }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/pass-payment', passPayment.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  @if (accountService.isAuthenticated()) {
+                    <a [routerLink]="['/pass-payment', passPayment.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                      <fa-icon icon="pencil-alt" />
+                      <span class="d-none d-md-inline">Edit</span>
+                    </a>
+
+                    <button type="submit" (click)="delete(passPayment)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                      <fa-icon icon="times" />
+                      <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (passPayments().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

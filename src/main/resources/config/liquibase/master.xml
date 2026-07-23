@@ -20,6 +20,8 @@
     <include file="config/liquibase/changelog/20260719120000_added_entity_PurchaseOrder.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260719130000_add_purchase_order_full_text_search.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260722150000_fts_query_or_semantics.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260722160000_added_entity_PassPayment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260722170000_add_pass_payment_full_text_search.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

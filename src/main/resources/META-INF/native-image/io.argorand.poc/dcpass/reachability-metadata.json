@@ -29145,6 +29145,12 @@
       "glob": "config/liquibase/changelog/20260722150000_fts_query_or_semantics.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260722160000_added_entity_PassPayment.xml"
+    },
+    {
+      "glob": "config/liquibase/changelog/20260722170000_add_pass_payment_full_text_search.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
@@ -29209,6 +29215,9 @@
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/PurchaseOrder.class"
+    },
+    {
+      "glob": "io/argorand/poc/dcpass/domain/PassPayment.class"
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/User.class"

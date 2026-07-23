@@ -1,0 +1,116 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (passPayment(); as passPaymentRef) {
+      <div>
+        <h2 data-cy="passPaymentDetailsHeading"><span>PASS Payment</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.id }}</span>
+          </dd>
+          <dt><span>Agency Code</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.agencyCode }}</span>
+          </dd>
+          <dt><span>Agency Acronym</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.agencyAcronym }}</span>
+          </dd>
+          <dt><span>Agency Name</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.agencyName }}</span>
+          </dd>
+          <dt><span>Contract Number</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.contractNumber }}</span>
+          </dd>
+          <dt><span>Supplier Name</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.supplierName }}</span>
+          </dd>
+          <dt><span>Invoice Number</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.invoiceNumber }}</span>
+          </dd>
+          <dt><span>PO Number</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.poNumber }}</span>
+          </dd>
+          <dt><span>Voucher Number</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.voucherNumber }}</span>
+          </dd>
+          <dt><span>Payment Date</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.paymentDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Payment Amount</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.paymentAmount }}</span>
+          </dd>
+          <dt><span>Fiscal Year</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.fiscalYear }}</span>
+          </dd>
+          <dt><span>Transaction Code</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.transactionCode }}</span>
+          </dd>
+          <dt><span>Payment Type</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.paymentType }}</span>
+          </dd>
+          <dt><span>Invoice Date</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.invoiceDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Est. Payment Date</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.estPaymentDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Payment Number</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.paymentNumber }}</span>
+          </dd>
+          <dt><span>Record Updated Date</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.recordUpdatedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Record Created</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.recordCreated | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>DCS Record Created</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.dcsRecCrtDttm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>DCS Last Modified</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.dcsLastModDttm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Object Id</span></dt>
+          <dd>
+            <span>{{ passPaymentRef.objectId }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span>Back</span>
+        </button>
+
+        @if (accountService.isAuthenticated()) {
+          <button type="button" [routerLink]="['/pass-payment', passPaymentRef.id, 'edit']" class="btn btn-primary">
+            <fa-icon icon="pencil-alt" />&nbsp;<span>Edit</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
