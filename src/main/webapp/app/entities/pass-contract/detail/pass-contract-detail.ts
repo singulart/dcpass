@@ -65,4 +65,18 @@ export class PassContractDetail {
   previousState(): void {
     globalThis.history.back();
   }
+
+  hasPhone(phone: string | null | undefined): boolean {
+    return !!phone?.trim();
+  }
+
+  vendorAddressLine(contract: IPassContract): string | null {
+    const street = contract.vendorAddress?.trim();
+    const city = contract.vendorCity?.trim();
+    const state = contract.vendorState?.trim();
+    const zip = contract.vendorZip?.trim();
+    const locality = [city, [state, zip].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+    const line = [street, locality].filter(Boolean).join(', ');
+    return line || null;
+  }
 }

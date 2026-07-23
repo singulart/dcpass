@@ -1,8 +1,13 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-12 col-xl-10">
     @if (passContract(); as passContractRef) {
       <div>
-        <h2 data-cy="passContractDetailsHeading"><span>PASS Contracts</span></h2>
+        <h2 data-cy="passContractDetailsHeading">
+          <span>{{ passContractRef.contractNumber + ' - ' + passContractRef.title || 'PASS Contract' }}</span>
+        </h2>
+        @if (passContractRef.description) {
+          <p class="contract-detail-description" data-cy="contractDescription">{{ passContractRef.description }}</p>
+        }
 
         <hr />
 
@@ -10,32 +15,145 @@
 
         <jhi-alert />
 
-        @if (passContractRef.contractNumber) {
-          <div class="contract-paid-total mb-4" data-cy="contractPaidTotal">
-            <div class="contract-paid-total__label">Total paid on purchase orders</div>
-            @if (paymentSummaryLoading()) {
-              <div class="contract-paid-total__value text-muted">Loading…</div>
-            } @else if (paymentSummary(); as summary) {
-              <div class="contract-paid-total__value">{{ summary.totalPaid | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
-              <div class="contract-paid-total__meta">
-                {{ summary.paymentCount ?? 0 }} payment{{ (summary.paymentCount ?? 0) === 1 ? '' : 's' }} across
-                {{ summary.purchaseOrderCount ?? 0 }} purchase order{{ (summary.purchaseOrderCount ?? 0) === 1 ? '' : 's' }}
-              </div>
-            } @else {
-              <div class="contract-paid-total__value text-muted">Unavailable</div>
-            }
+        <div class="contract-value-summary mb-4" data-cy="contractValueSummary">
+          <div class="contract-value-summary__item" data-cy="contractAmountSummary">
+            <div class="contract-value-summary__label">Contract Amount</div>
+            <div class="contract-value-summary__value">
+              {{ passContractRef.contractAmount | currency: 'USD' : 'symbol' : '1.0-0' }}
+            </div>
           </div>
-        }
+          @if (passContractRef.contractNumber) {
+            <div class="contract-value-summary__item" data-cy="contractPaidTotal">
+              <div class="contract-value-summary__label">Total lifetime paid to vendor</div>
+              @if (paymentSummaryLoading()) {
+                <div class="contract-value-summary__value text-muted">Loading…</div>
+              } @else if (paymentSummary(); as summary) {
+                <div class="contract-value-summary__value">{{ summary.totalPaid | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
+                <div class="contract-value-summary__meta">
+                  <a
+                    class="contract-value-summary__link"
+                    [routerLink]="['/pass-payment']"
+                    [queryParams]="{ q: passContractRef.contractNumber }"
+                    target="_blank"
+                    rel="noopener"
+                    data-cy="contractPaymentsLink"
+                    >{{ summary.paymentCount ?? 0 }}</a
+                  >
+                  payment{{ (summary.paymentCount ?? 0) === 1 ? '' : 's' }} across
+                  <a
+                    class="contract-value-summary__link"
+                    [routerLink]="['/purchase-order']"
+                    [queryParams]="{ q: passContractRef.contractNumber }"
+                    target="_blank"
+                    rel="noopener"
+                    data-cy="contractPurchaseOrdersLink"
+                    >{{ summary.purchaseOrderCount ?? 0 }}</a
+                  >
+                  purchase order{{ (summary.purchaseOrderCount ?? 0) === 1 ? '' : 's' }}
+                </div>
+              } @else {
+                <div class="contract-value-summary__value text-muted">Unavailable</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="contract-detail-sections mb-4">
+          <section class="contract-detail-section" data-cy="contractVendorSection">
+            <h3 class="contract-detail-section__heading">Vendor</h3>
+            <div class="contract-vendor-body">
+              <div class="contract-vendor-name">
+                @if (passContractRef.corporateEmailAddress?.trim()) {
+                  <a [href]="'mailto:' + passContractRef.corporateEmailAddress!.trim()">{{
+                    passContractRef.supplier || passContractRef.corporateEmailAddress
+                  }}</a>
+                } @else {
+                  <span>{{ passContractRef.supplier }}</span>
+                }
+              </div>
+              @if (hasPhone(passContractRef.corporatePhone)) {
+                <a
+                  class="contract-contact__phone"
+                  [href]="'tel:' + passContractRef.corporatePhone!.trim()"
+                  [attr.title]="passContractRef.corporatePhone"
+                  [attr.aria-label]="'Call ' + passContractRef.corporatePhone"
+                >
+                  <fa-icon icon="phone" />
+                  <span>{{ passContractRef.corporatePhone }}</span>
+                </a>
+              }
+              @if (vendorAddressLine(passContractRef); as addressLine) {
+                <div class="contract-vendor-address">{{ addressLine }}</div>
+              }
+            </div>
+          </section>
+
+          <section class="contract-detail-section" data-cy="contractContractingContactsSection">
+            <h3 class="contract-detail-section__heading">Contracting Team</h3>
+            <dl class="row-md jh-entity-details mb-0">
+              <dt><span>Contracting Officer</span></dt>
+              <dd>
+                <span class="contract-contact">
+                  @if (passContractRef.contractingOfficerEmail) {
+                    <a [href]="'mailto:' + passContractRef.contractingOfficerEmail">{{
+                      passContractRef.contractingOfficer || passContractRef.contractingOfficerEmail
+                    }}</a>
+                  } @else {
+                    <span>{{ passContractRef.contractingOfficer }}</span>
+                  }
+                  @if (hasPhone(passContractRef.contractOfficerPhone)) {
+                    <a
+                      class="contract-contact__phone"
+                      [href]="'tel:' + passContractRef.contractOfficerPhone!.trim()"
+                      [attr.title]="passContractRef.contractOfficerPhone"
+                      [attr.aria-label]="'Call ' + passContractRef.contractOfficerPhone"
+                    >
+                      <fa-icon icon="phone" />
+                      <span>{{ passContractRef.contractOfficerPhone }}</span>
+                    </a>
+                  }
+                </span>
+              </dd>
+              <dt><span>Contracting Specialist</span></dt>
+              <dd>
+                <span class="contract-contact">
+                  @if (passContractRef.contractingSplstEmail) {
+                    <a [href]="'mailto:' + passContractRef.contractingSplstEmail">{{
+                      passContractRef.contractingSplst || passContractRef.contractingSplstEmail
+                    }}</a>
+                  } @else {
+                    <span>{{ passContractRef.contractingSplst }}</span>
+                  }
+                </span>
+              </dd>
+              <dt><span>Contract Administrator</span></dt>
+              <dd>
+                <span class="contract-contact">
+                  @if (passContractRef.contractAdministratorEmail) {
+                    <a [href]="'mailto:' + passContractRef.contractAdministratorEmail">{{
+                      passContractRef.contractAdministratorName || passContractRef.contractAdministratorEmail
+                    }}</a>
+                  } @else {
+                    <span>{{ passContractRef.contractAdministratorName }}</span>
+                  }
+                  @if (hasPhone(passContractRef.contractAdministratorPhone)) {
+                    <a
+                      class="contract-contact__phone"
+                      [href]="'tel:' + passContractRef.contractAdministratorPhone!.trim()"
+                      [attr.title]="passContractRef.contractAdministratorPhone"
+                      [attr.aria-label]="'Call ' + passContractRef.contractAdministratorPhone"
+                    >
+                      <fa-icon icon="phone" />
+                      <span>{{ passContractRef.contractAdministratorPhone }}</span>
+                    </a>
+                  }
+                </span>
+              </dd>
+            </dl>
+          </section>
+        </div>
 
         <dl class="row-md jh-entity-details">
-          <dt><span>Id</span></dt>
-          <dd>
-            <span>{{ passContractRef.id }}</span>
-          </dd>
-          <dt><span>Procurement Method</span></dt>
-          <dd>
-            <span>{{ passContractRef.procurementMethodDescription }}</span>
-          </dd>
           <dt><span>Agency Acronym</span></dt>
           <dd>
             <span>{{ passContractRef.agencyAcronym }}</span>
@@ -43,10 +161,6 @@
           <dt><span>Agency Name</span></dt>
           <dd>
             <span>{{ passContractRef.agencyName }}</span>
-          </dd>
-          <dt><span>Row Id</span></dt>
-          <dd>
-            <span>{{ passContractRef.rowId }}</span>
           </dd>
           <dt><span>Agency</span></dt>
           <dd>
@@ -56,33 +170,21 @@
           <dd>
             <span>{{ passContractRef.awardDate | formatMediumDate }}</span>
           </dd>
-          <dt><span>Contract Amount</span></dt>
+          <dt><span>Start Date</span></dt>
           <dd>
-            <span>{{ passContractRef.contractAmount }}</span>
+            <span>{{ passContractRef.startDate | formatMediumDate }}</span>
           </dd>
           <dt><span>End Date</span></dt>
           <dd>
             <span>{{ passContractRef.endDate | formatMediumDate }}</span>
           </dd>
-          <dt><span>Contract Number</span></dt>
+          <dt><span>Total Option Years</span></dt>
           <dd>
-            <span>{{ passContractRef.contractNumber }}</span>
-          </dd>
-          <dt><span>Start Date</span></dt>
-          <dd>
-            <span>{{ passContractRef.startDate | formatMediumDate }}</span>
+            <span>{{ passContractRef.totalOptionPeriods }}</span>
           </dd>
           <dt><span>Contract Status</span></dt>
           <dd>
             <span>{{ passContractRef.contractStatus }}</span>
-          </dd>
-          <dt><span>Title</span></dt>
-          <dd>
-            <span>{{ passContractRef.title }}</span>
-          </dd>
-          <dt><span>Contracting Officer</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractingOfficer }}</span>
           </dd>
           <dt><span>Fiscal Year</span></dt>
           <dd>
@@ -112,69 +214,9 @@
               }
             }
           </dd>
-          <dt><span>Current Option Period</span></dt>
-          <dd>
-            <span>{{ passContractRef.currentOptionPeriod }}</span>
-          </dd>
-          <dt><span>Total Option Periods</span></dt>
-          <dd>
-            <span>{{ passContractRef.totalOptionPeriods }}</span>
-          </dd>
-          <dt><span>Supplier</span></dt>
-          <dd>
-            <span>{{ passContractRef.supplier }}</span>
-          </dd>
-          <dt><span>Description</span></dt>
-          <dd>
-            <span>{{ passContractRef.description }}</span>
-          </dd>
           <dt><span>Contract Type</span></dt>
           <dd>
             <span>{{ passContractRef.contractTypeDescription }}</span>
-          </dd>
-          <dt><span>Contracting Officer Email</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractingOfficerEmail }}</span>
-          </dd>
-          <dt><span>Vendor Address</span></dt>
-          <dd>
-            <span>{{ passContractRef.vendorAddress }}</span>
-          </dd>
-          <dt><span>Vendor City</span></dt>
-          <dd>
-            <span>{{ passContractRef.vendorCity }}</span>
-          </dd>
-          <dt><span>Vendor State</span></dt>
-          <dd>
-            <span>{{ passContractRef.vendorState }}</span>
-          </dd>
-          <dt><span>Vendor Zip</span></dt>
-          <dd>
-            <span>{{ passContractRef.vendorZip }}</span>
-          </dd>
-          <dt><span>Published Version Id</span></dt>
-          <dd>
-            <span>{{ passContractRef.publishedVersionId }}</span>
-          </dd>
-          <dt><span>Document Version</span></dt>
-          <dd>
-            <span>{{ passContractRef.documentVersion }}</span>
-          </dd>
-          <dt><span>Last Modified</span></dt>
-          <dd>
-            <span>{{ passContractRef.lastModified | formatMediumDatetime }}</span>
-          </dd>
-          <dt><span>Contracting Specialist</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractingSplst }}</span>
-          </dd>
-          <dt><span>Contracting Specialist Email</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractingSplstEmail }}</span>
-          </dd>
-          <dt><span>Source</span></dt>
-          <dd>
-            <span>{{ passContractRef.source }}</span>
           </dd>
           <dt><span>Contract Details Link</span></dt>
           <dd>
@@ -191,38 +233,6 @@
                 {{ passContractRef.contractDetailsLink }}
               </a>
             }
-          </dd>
-          <dt><span>Contract Administrator Name</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractAdministratorName }}</span>
-          </dd>
-          <dt><span>Contract Administrator Email</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractAdministratorEmail }}</span>
-          </dd>
-          <dt><span>Contract Administrator Phone</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractAdministratorPhone }}</span>
-          </dd>
-          <dt><span>Contract Officer Phone</span></dt>
-          <dd>
-            <span>{{ passContractRef.contractOfficerPhone }}</span>
-          </dd>
-          <dt><span>Internal Id</span></dt>
-          <dd>
-            <span>{{ passContractRef.cwInternalId }}</span>
-          </dd>
-          <dt><span>Corporate Phone</span></dt>
-          <dd>
-            <span>{{ passContractRef.corporatePhone }}</span>
-          </dd>
-          <dt><span>Corporate Email Address</span></dt>
-          <dd>
-            <span>{{ passContractRef.corporateEmailAddress }}</span>
-          </dd>
-          <dt><span>Object Id</span></dt>
-          <dd>
-            <span>{{ passContractRef.objectId }}</span>
           </dd>
         </dl>
 

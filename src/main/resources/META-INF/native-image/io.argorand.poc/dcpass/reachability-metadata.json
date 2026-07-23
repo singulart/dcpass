@@ -1827,6 +1827,100 @@
       "type": "io.argorand.poc.dcpass.domain.PassContract__Accessor_f0114x"
     },
     {
+      "type": "io.argorand.poc.dcpass.domain.PassPayment",
+      "fields": [
+        {
+          "name": "id"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.PassPayment_",
+      "fields": [
+        {
+          "name": "agencyAcronym"
+        },
+        {
+          "name": "agencyCode"
+        },
+        {
+          "name": "agencyName"
+        },
+        {
+          "name": "class_"
+        },
+        {
+          "name": "contractNumber"
+        },
+        {
+          "name": "dcsLastModDttm"
+        },
+        {
+          "name": "dcsRecCrtDttm"
+        },
+        {
+          "name": "estPaymentDate"
+        },
+        {
+          "name": "fiscalYear"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "invoiceDate"
+        },
+        {
+          "name": "invoiceNumber"
+        },
+        {
+          "name": "objectId"
+        },
+        {
+          "name": "paymentAmount"
+        },
+        {
+          "name": "paymentDate"
+        },
+        {
+          "name": "paymentNumber"
+        },
+        {
+          "name": "paymentType"
+        },
+        {
+          "name": "poNumber"
+        },
+        {
+          "name": "recordCreated"
+        },
+        {
+          "name": "recordUpdatedDate"
+        },
+        {
+          "name": "searchVector"
+        },
+        {
+          "name": "supplierName"
+        },
+        {
+          "name": "transactionCode"
+        },
+        {
+          "name": "voucherNumber"
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.PassPayment__Accessor_qq85rr"
+    },
+    {
       "type": "io.argorand.poc.dcpass.domain.PurchaseOrder",
       "fields": [
         {
@@ -2251,6 +2345,19 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.repository.PassPaymentRepository",
+      "methods": [
+        {
+          "name": "findPaidSummaryByContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findPaidSummaryByPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.repository.PurchaseOrderRepository"
     },
     {
@@ -2300,6 +2407,22 @@
     },
     {
       "type": "io.argorand.poc.dcpass.security.package-info"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.ContractPaymentSummaryService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.repository.PassPaymentRepository"]
+        },
+        {
+          "name": "getSummaryByContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.ContractPaymentSummaryService$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.service.MailService",
@@ -2376,6 +2499,52 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.PassContractService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PassPaymentQueryService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.repository.PassPaymentRepository",
+            "io.argorand.poc.dcpass.service.mapper.PassPaymentMapper"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PassPaymentQueryService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PassPaymentService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.repository.PassPaymentRepository",
+            "io.argorand.poc.dcpass.service.mapper.PassPaymentMapper"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PassPaymentService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderPaymentSummaryService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.repository.PassPaymentRepository"]
+        },
+        {
+          "name": "getSummaryByPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.PurchaseOrderPaymentSummaryService$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.service.PurchaseOrderQueryService",
@@ -2482,6 +2651,14 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         }
       ]
     },
@@ -2490,6 +2667,15 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.criteria.PassContractCriteriaCustomizer"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteriaBeanInfo"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteriaCustomizer"
     },
     {
       "type": "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria",
@@ -2641,6 +2827,27 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.CommodityDTO[]"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.dto.ContractPaymentSummaryDTO",
+      "methods": [
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPurchaseOrderCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTotalPaid",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
@@ -3024,6 +3231,9 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.service.dto.PassPaymentDTO"
+    },
+    {
       "type": "io.argorand.poc.dcpass.service.dto.PasswordChangeDTO",
       "methods": [
         {
@@ -3202,6 +3412,23 @@
       ]
     },
     {
+      "type": "io.argorand.poc.dcpass.service.dto.PurchaseOrderPaymentSummaryDTO",
+      "methods": [
+        {
+          "name": "getPaymentCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTotalPaid",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "io.argorand.poc.dcpass.service.dto.UserDTO"
     },
     {
@@ -3215,6 +3442,18 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.mapper.PassContractMapperImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.mapper.PassPaymentMapper"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.mapper.PassPaymentMapperImpl",
       "methods": [
         {
           "name": "<init>",
@@ -3394,7 +3633,8 @@
           "parameterTypes": [
             "io.argorand.poc.dcpass.service.PassContractService",
             "io.argorand.poc.dcpass.repository.PassContractRepository",
-            "io.argorand.poc.dcpass.service.PassContractQueryService"
+            "io.argorand.poc.dcpass.service.PassContractQueryService",
+            "io.argorand.poc.dcpass.service.ContractPaymentSummaryService"
           ]
         },
         {
@@ -3418,6 +3658,10 @@
           "parameterTypes": ["java.lang.Long"]
         },
         {
+          "name": "getPaymentSummary",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "updatePassContract",
           "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
         }
@@ -3425,6 +3669,27 @@
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.PassContractResource$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.PassPaymentResource",
+      "fields": [
+        {
+          "name": "applicationName"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.argorand.poc.dcpass.service.PassPaymentService",
+            "io.argorand.poc.dcpass.repository.PassPaymentRepository",
+            "io.argorand.poc.dcpass.service.PassPaymentQueryService"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.PassPaymentResource$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.PublicUserResource",
@@ -3451,7 +3716,8 @@
           "parameterTypes": [
             "io.argorand.poc.dcpass.service.PurchaseOrderService",
             "io.argorand.poc.dcpass.repository.PurchaseOrderRepository",
-            "io.argorand.poc.dcpass.service.PurchaseOrderQueryService"
+            "io.argorand.poc.dcpass.service.PurchaseOrderQueryService",
+            "io.argorand.poc.dcpass.service.PurchaseOrderPaymentSummaryService"
           ]
         },
         {
@@ -3469,6 +3735,10 @@
             "io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria",
             "org.springframework.data.domain.Pageable"
           ]
+        },
+        {
+          "name": "getPaymentSummary",
+          "parameterTypes": ["java.lang.String"]
         },
         {
           "name": "getPurchaseOrder",
@@ -3806,7 +4076,7 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$CallToolRequest",
       "methods": [
         {
-          "name": "<init>",
+          "name": "fromJson",
           "parameterTypes": ["java.lang.String", "java.util.Map", "java.util.Map"]
         }
       ]
@@ -3868,14 +4138,32 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$Content"
     },
     {
+      "type": "io.modelcontextprotocol.spec.McpSchema$Icon"
+    },
+    {
       "type": "io.modelcontextprotocol.spec.McpSchema$Identifier"
     },
     {
       "type": "io.modelcontextprotocol.spec.McpSchema$Implementation",
       "methods": [
         {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String"]
+          "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "fromJson",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.util.List",
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "icons",
+          "parameterTypes": []
         },
         {
           "name": "name",
@@ -3888,6 +4176,10 @@
         {
           "name": "version",
           "parameterTypes": []
+        },
+        {
+          "name": "websiteUrl",
+          "parameterTypes": []
         }
       ]
     },
@@ -3895,7 +4187,7 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$InitializeRequest",
       "methods": [
         {
-          "name": "<init>",
+          "name": "fromJson",
           "parameterTypes": [
             "java.lang.String",
             "io.modelcontextprotocol.spec.McpSchema$ClientCapabilities",
@@ -3976,39 +4268,6 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$JSONRPCResponse$JSONRPCError"
     },
     {
-      "type": "io.modelcontextprotocol.spec.McpSchema$JsonSchema",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": ["java.lang.String", "java.util.Map", "java.util.List", "java.lang.Boolean", "java.util.Map", "java.util.Map"]
-        },
-        {
-          "name": "additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "definitions",
-          "parameterTypes": []
-        },
-        {
-          "name": "defs",
-          "parameterTypes": []
-        },
-        {
-          "name": "properties",
-          "parameterTypes": []
-        },
-        {
-          "name": "required",
-          "parameterTypes": []
-        },
-        {
-          "name": "type",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "io.modelcontextprotocol.spec.McpSchema$ListResourcesResult",
       "methods": [
         {
@@ -4049,7 +4308,7 @@
       "type": "io.modelcontextprotocol.spec.McpSchema$ReadResourceRequest",
       "methods": [
         {
-          "name": "<init>",
+          "name": "fromJson",
           "parameterTypes": ["java.lang.String", "java.util.Map"]
         }
       ]
@@ -4079,6 +4338,10 @@
         },
         {
           "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "icons",
           "parameterTypes": []
         },
         {
@@ -4235,6 +4498,10 @@
         },
         {
           "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "icons",
           "parameterTypes": []
         },
         {
@@ -5457,6 +5724,10 @@
         {
           "name": "getPersistenceUnitUtil",
           "parameterTypes": []
+        },
+        {
+          "name": "unwrap",
+          "parameterTypes": ["java.lang.Class"]
         }
       ]
     },
@@ -6151,6 +6422,9 @@
     },
     {
       "type": "java.lang.Comparable[]"
+    },
+    {
+      "type": "java.lang.Configurable"
     },
     {
       "type": "java.lang.Deprecated"
@@ -10295,6 +10569,10 @@
         },
         {
           "name": "createNamedQuery",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createNativeQuery",
           "parameterTypes": ["java.lang.String"]
         },
         {
@@ -15173,6 +15451,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -24679,6 +24960,9 @@
       "type": "org.springframework.data.web.SortArgumentResolver"
     },
     {
+      "type": "org.springframework.data.web.SortDefault$SortDefaults"
+    },
+    {
       "type": "org.springframework.data.web.SortHandlerMethodArgumentResolver"
     },
     {
@@ -27013,16 +27297,22 @@
       "type": "reactor.core.publisher.Mono"
     },
     {
-      "type": "reactor.core.publisher.MonoCallable$MonoCallableSubscription"
+      "type": "reactor.core.publisher.MonoFlatMap$FlatMapMain"
     },
     {
-      "type": "reactor.core.publisher.MonoFlatMap$FlatMapMain"
+      "type": "reactor.core.publisher.Operators$MonoInnerProducerBase"
     },
     {
       "type": "reactor.core.publisher.Operators$MultiSubscriptionSubscriber"
     },
     {
       "type": "reactor.core.publisher.Operators$ScalarSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.SinkEmptyMulticast"
+    },
+    {
+      "type": "reactor.core.publisher.SinksSpecs$AbstractSerializedSink"
     },
     {
       "type": "reactor.util.context.ReactorContextAccessor"
@@ -28201,7 +28491,17 @@
       "type": "tech.jhipster.service.filter.BigDecimalFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.Filter"
+      "type": "tech.jhipster.service.filter.Filter",
+      "methods": [
+        {
+          "name": "getEquals",
+          "parameterTypes": []
+        },
+        {
+          "name": "setEquals",
+          "parameterTypes": ["java.lang.Object"]
+        }
+      ]
     },
     {
       "type": "tech.jhipster.service.filter.FilterBeanInfo"
@@ -28255,7 +28555,13 @@
       "type": "tech.jhipster.service.filter.RangeFilterCustomizer"
     },
     {
-      "type": "tech.jhipster.service.filter.StringFilter"
+      "type": "tech.jhipster.service.filter.StringFilter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "tech.jhipster.service.filter.StringFilterBeanInfo"
@@ -28407,6 +28713,17 @@
       "type": {
         "proxy": [
           "io.argorand.poc.dcpass.repository.PassContractRepository",
+          "org.springframework.data.repository.Repository",
+          "org.springframework.transaction.interceptor.TransactionalProxy",
+          "org.springframework.aop.framework.Advised",
+          "org.springframework.core.DecoratingProxy"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "io.argorand.poc.dcpass.repository.PassPaymentRepository",
           "org.springframework.data.repository.Repository",
           "org.springframework.transaction.interceptor.TransactionalProxy",
           "org.springframework.aop.framework.Advised",
@@ -29172,6 +29489,30 @@
       "glob": "data.sql"
     },
     {
+      "glob": "draft/2020-12/meta/applicator"
+    },
+    {
+      "glob": "draft/2020-12/meta/content"
+    },
+    {
+      "glob": "draft/2020-12/meta/core"
+    },
+    {
+      "glob": "draft/2020-12/meta/format-annotation"
+    },
+    {
+      "glob": "draft/2020-12/meta/meta-data"
+    },
+    {
+      "glob": "draft/2020-12/meta/unevaluated"
+    },
+    {
+      "glob": "draft/2020-12/meta/validation"
+    },
+    {
+      "glob": "draft/2020-12/schema"
+    },
+    {
       "glob": "git.properties"
     },
     {
@@ -29217,10 +29558,10 @@
       "glob": "io/argorand/poc/dcpass/domain/PassContract.class"
     },
     {
-      "glob": "io/argorand/poc/dcpass/domain/PurchaseOrder.class"
+      "glob": "io/argorand/poc/dcpass/domain/PassPayment.class"
     },
     {
-      "glob": "io/argorand/poc/dcpass/domain/PassPayment.class"
+      "glob": "io/argorand/poc/dcpass/domain/PurchaseOrder.class"
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/User.class"
@@ -29479,6 +29820,15 @@
     },
     {
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
     },
     {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
@@ -31539,6 +31889,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

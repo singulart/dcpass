@@ -1,10 +1,12 @@
 package io.argorand.poc.dcpass.web.rest;
 
 import io.argorand.poc.dcpass.repository.PurchaseOrderRepository;
+import io.argorand.poc.dcpass.service.PurchaseOrderPaymentSummaryService;
 import io.argorand.poc.dcpass.service.PurchaseOrderQueryService;
 import io.argorand.poc.dcpass.service.PurchaseOrderService;
 import io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria;
 import io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO;
+import io.argorand.poc.dcpass.service.dto.PurchaseOrderPaymentSummaryDTO;
 import io.argorand.poc.dcpass.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -44,14 +46,18 @@ public class PurchaseOrderResource {
 
     private final PurchaseOrderQueryService purchaseOrderQueryService;
 
+    private final PurchaseOrderPaymentSummaryService purchaseOrderPaymentSummaryService;
+
     public PurchaseOrderResource(
         PurchaseOrderService purchaseOrderService,
         PurchaseOrderRepository purchaseOrderRepository,
-        PurchaseOrderQueryService purchaseOrderQueryService
+        PurchaseOrderQueryService purchaseOrderQueryService,
+        PurchaseOrderPaymentSummaryService purchaseOrderPaymentSummaryService
     ) {
         this.purchaseOrderService = purchaseOrderService;
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.purchaseOrderQueryService = purchaseOrderQueryService;
+        this.purchaseOrderPaymentSummaryService = purchaseOrderPaymentSummaryService;
     }
 
     /**
@@ -128,6 +134,20 @@ public class PurchaseOrderResource {
         Page<PurchaseOrderDTO> page = purchaseOrderQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /purchase-orders/payment-summary/:poNumber} : total dollars paid for a purchase order.
+     * <p>
+     * Sums {@code paymentamount} on {@code pass_payment} rows whose {@code ponumber} matches.
+     *
+     * @param poNumber the purchase order number (e.g. {@code PO123456}).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the payment summary in body.
+     */
+    @GetMapping("/payment-summary/{poNumber}")
+    public ResponseEntity<PurchaseOrderPaymentSummaryDTO> getPaymentSummary(@PathVariable("poNumber") String poNumber) {
+        LOG.debug("REST request to get payment summary for PO number : {}", poNumber);
+        return ResponseEntity.ok(purchaseOrderPaymentSummaryService.getSummaryByPoNumber(poNumber));
     }
 
     /**

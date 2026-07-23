@@ -192,7 +192,6 @@ entity detail page css
       padding: 0.5em 0;
     }
     dd {
-      border-bottom: 1px solid #eee;
       padding: 0.5em 0;
       margin-left: 0;
     }
@@ -221,34 +220,136 @@ ui bootstrap tweaks
 }
 
 /* ==========================================================================
-Contract payment summary (detail)
+Contract value summary (detail)
 ========================================================================== */
-.contract-paid-total {
+.contract-value-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.25rem 2rem;
   padding: 1.25rem 1.5rem;
   border-left: 4px solid $primary;
   background: rgba($primary, 0.08);
 }
 
-.contract-paid-total__label {
+.contract-value-summary__label {
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: $secondary;
+  color: rgba($body-color, 0.65);
   margin-bottom: 0.35rem;
 }
 
-.contract-paid-total__value {
+.contract-value-summary__value {
   font-size: 2.25rem;
   font-weight: 600;
   line-height: 1.1;
   color: $body-color;
 }
 
-.contract-paid-total__meta {
+.contract-value-summary__meta {
   margin-top: 0.4rem;
   font-size: 0.9rem;
-  color: $secondary;
+  color: rgba($body-color, 0.65);
+}
+
+.contract-value-summary__link {
+  font-weight: 600;
+  color: $primary;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: shade-color($primary, 15%);
+  }
+}
+
+.contract-detail-description {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: rgba($body-color, 0.8);
+  white-space: pre-wrap;
+}
+
+.contract-detail-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contract-detail-section {
+  min-width: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba($body-color, 0.12);
+  border-radius: 0.25rem;
+  background: rgba($body-color, 0.02);
+}
+
+.contract-detail-section__heading {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba($body-color, 0.7);
+}
+
+/* Side-by-side sections: size labels to content, never truncate with ellipsis */
+.contract-detail-section .row-md.jh-entity-details {
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.75rem;
+}
+
+@media screen and (min-width: 768px) {
+  .contract-detail-section .row-md.jh-entity-details > dt {
+    float: none;
+    clear: none;
+    width: auto;
+    overflow: visible;
+    text-align: left;
+    text-overflow: unset;
+    white-space: normal;
+  }
+
+  .contract-detail-section .row-md.jh-entity-details > dd {
+    width: auto;
+    margin-left: 0;
+  }
+}
+
+.contract-contact {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+}
+
+.contract-contact__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.contract-vendor-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.contract-vendor-address {
+  color: rgba($body-color, 0.75);
+  line-height: 1.4;
 }
 
 /* ==========================================================================
