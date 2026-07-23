@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Bare "search_vector @@ tsquery" can use the GIN index.
+        COALESCE((sv @@ q), false) forces a sequential scan (planner cannot match the opclass).
+        In WHERE, NULL from @@ is already treated as not matching, so COALESCE is unnecessary.
+    -->
+    <changeSet id="20260723220000-1" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
+            RETURNS boolean
+            LANGUAGE sql
+            IMMUTABLE
+            PARALLEL SAFE
+            AS $$
+                SELECT search_vector @@ dcpass_fts_query(query);
+            $$;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION pass_contract_fts_match(search_vector tsvector, query text)
+                RETURNS boolean AS $$
+                    SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260723220000-2" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION purchase_order_fts_match(search_vector tsvector, query text)
+            RETURNS boolean
+            LANGUAGE sql
+            IMMUTABLE
+            PARALLEL SAFE
+            AS $$
+                SELECT search_vector @@ dcpass_fts_query(query);
+            $$;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION purchase_order_fts_match(search_vector tsvector, query text)
+                RETURNS boolean AS $$
+                    SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260723220000-3" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_payment_fts_match(search_vector tsvector, query text)
+            RETURNS boolean
+            LANGUAGE sql
+            IMMUTABLE
+            PARALLEL SAFE
+            AS $$
+                SELECT search_vector @@ dcpass_fts_query(query);
+            $$;
+        </sql>
+        <rollback>
+            <sql splitStatements="false">
+                CREATE OR REPLACE FUNCTION pass_payment_fts_match(search_vector tsvector, query text)
+                RETURNS boolean AS $$
+                    SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+                $$ LANGUAGE sql IMMUTABLE;
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

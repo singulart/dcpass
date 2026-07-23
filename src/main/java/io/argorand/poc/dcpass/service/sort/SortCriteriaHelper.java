@@ -2,6 +2,7 @@ package io.argorand.poc.dcpass.service.sort;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Nulls;
 import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
@@ -10,8 +11,12 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 
 /**
- * Builds JPA Criteria {@link Order} clauses that keep SQL {@code NULL} and blank strings at the tail
+ * Builds JPA Criteria {@link Order} clauses that keep SQL {@code NULL} (and blank strings) at the tail
  * regardless of ascending or descending sort direction.
+ * <p>
+ * Non-string columns use {@code NULLS LAST} so PostgreSQL can still use btree indexes (e.g. {@code ORDER BY id}).
+ * A {@code CASE WHEN col IS NULL} sort key forces a full sort and must be avoided for those columns.
+ * Strings still use a rank expression so empty {@code ''} sorts with nulls at the end.
  */
 public final class SortCriteriaHelper {
 
@@ -33,16 +38,16 @@ public final class SortCriteriaHelper {
     }
 
     public static List<Order> toOrders(CriteriaBuilder cb, Expression<?> value, Class<?> javaType, boolean ascending) {
-        List<Order> orders = new ArrayList<>(2);
-        orders.add(cb.asc(emptyOrNullRank(cb, value, javaType)));
-        orders.add(ascending ? cb.asc(value) : cb.desc(value));
-        return orders;
+        if (String.class.equals(javaType)) {
+            List<Order> orders = new ArrayList<>(2);
+            orders.add(cb.asc(emptyOrBlankRank(cb, value)));
+            orders.add(ascending ? cb.asc(value) : cb.desc(value));
+            return orders;
+        }
+        return List.of(ascending ? cb.asc(value, Nulls.LAST) : cb.desc(value, Nulls.LAST));
     }
 
-    private static Expression<Integer> emptyOrNullRank(CriteriaBuilder cb, Expression<?> value, Class<?> javaType) {
-        if (String.class.equals(javaType)) {
-            return cb.<Integer>selectCase().when(cb.or(cb.isNull(value), cb.equal(value, "")), 1).otherwise(0);
-        }
-        return cb.<Integer>selectCase().when(cb.isNull(value), 1).otherwise(0);
+    private static Expression<Integer> emptyOrBlankRank(CriteriaBuilder cb, Expression<?> value) {
+        return cb.<Integer>selectCase().when(cb.or(cb.isNull(value), cb.equal(value, "")), 1).otherwise(0);
     }
 }

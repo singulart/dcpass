@@ -23,6 +23,7 @@
     <include file="config/liquibase/changelog/20260722160000_added_entity_PassPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260722170000_add_pass_payment_full_text_search.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260723120000_add_contract_payment_aggregation_indexes.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260723220000_fts_match_gin_sargable.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

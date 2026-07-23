@@ -29763,6 +29763,9 @@
       "glob": "config/liquibase/changelog/20260723120000_add_contract_payment_aggregation_indexes.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260723220000_fts_match_gin_sargable.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
@@ -29770,6 +29773,9 @@
     },
     {
       "glob": "config/liquibase/data/user_authority.csv"
+    },
+    {
+      "glob": "config/liquibase/fake-data/pass_contract.csv"
     },
     {
       "glob": "config/liquibase/master.xml"

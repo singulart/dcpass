@@ -215,6 +215,7 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col"></th>
             <th scope="col" jhiSortBy="contractNumber">
               <div class="d-flex">
                 <span>Contract Number</span>
@@ -369,12 +370,31 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           @for (passContract of passContracts(); track trackId(passContract)) {
             <tr data-cy="entityTable">
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/pass-contract', passContract.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  @if (accountService.isAuthenticated()) {
+                    <a [routerLink]="['/pass-contract', passContract.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                      <fa-icon icon="pencil-alt" />
+                      <span class="d-none d-md-inline">Edit</span>
+                    </a>
+
+                    <button type="submit" (click)="delete(passContract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                      <fa-icon icon="times" />
+                      <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                  }
+                </div>
+              </td>
               <td>
                 @if (passContract.contractDetailsLink) {
                   <a
@@ -457,26 +477,6 @@
               <td>{{ passContract.procurementMethodDescription }}</td>
               <td>{{ passContract.marketType }}</td>
               <td>{{ passContract.objectId }}</td>
-              <td class="text-end">
-                <div class="btn-group">
-                  <a [routerLink]="['/pass-contract', passContract.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                    <fa-icon icon="eye" />
-                    <span class="d-none d-md-inline">View</span>
-                  </a>
-
-                  @if (accountService.isAuthenticated()) {
-                    <a [routerLink]="['/pass-contract', passContract.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                      <fa-icon icon="pencil-alt" />
-                      <span class="d-none d-md-inline">Edit</span>
-                    </a>
-
-                    <button type="submit" (click)="delete(passContract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                      <fa-icon icon="times" />
-                      <span class="d-none d-md-inline">Delete</span>
-                    </button>
-                  }
-                </div>
-              </td>
             </tr>
           }
         </tbody>

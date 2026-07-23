@@ -9,6 +9,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withDebugTracing,
+  withInMemoryScrolling,
   withNavigationErrorHandler,
 } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -29,6 +30,7 @@ import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 
 const routerFeatures: RouterFeatures[] = [
   withComponentInputBinding(),
+  withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
   withNavigationErrorHandler((e: NavigationError) => {
     const router = inject(Router);
     if (e.error.status === 403) {
