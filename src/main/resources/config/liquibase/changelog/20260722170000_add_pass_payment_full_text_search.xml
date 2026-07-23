@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Add full-text search support for pass_payment.
+        Creates a generated tsvector column combining searchable text fields and a GIN index for fast lookups.
+        CONTRACTNUMBER uses the same CW normalization as pass_contract / purchase_order.
+    -->
+    <changeSet id="20260722170000-1" author="jhipster" dbms="postgresql">
+        <sql>
+            ALTER TABLE pass_payment ADD COLUMN search_vector tsvector
+            GENERATED ALWAYS AS (
+                setweight(to_tsvector('english', coalesce(SUPPLIERNAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(INVOICENUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(PONUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(VOUCHERNUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(PAYMENTNUMBER, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_NAME, '')), 'A') ||
+                setweight(to_tsvector('english', coalesce(AGENCYCODE, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(AGENCY_ACRONYM, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(PAYMENTTYPE, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(TRANSACTION_CODE, '')), 'B') ||
+                setweight(to_tsvector('english', coalesce(
+                    coalesce(CONTRACTNUMBER, '') || ' ' ||
+                    CASE
+                        WHEN coalesce(CONTRACTNUMBER, '') ~* '^CW[0-9]{4,6}$' THEN
+                            substring(CONTRACTNUMBER from '[0-9]+$')
+                        ELSE ''
+                    END,
+                    ''
+                )), 'A')
+            ) STORED;
+        </sql>
+        <rollback>
+            ALTER TABLE pass_payment DROP COLUMN IF EXISTS search_vector;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260722170000-2" author="jhipster" dbms="postgresql">
+        <sql>CREATE INDEX idx_pass_payment_search_vector_gin ON pass_payment USING GIN (search_vector);</sql>
+        <rollback>DROP INDEX IF EXISTS idx_pass_payment_search_vector_gin;</rollback>
+    </changeSet>
+
+    <!-- Helper functions for JPA Criteria API; use shared dcpass_fts_query semantics -->
+    <changeSet id="20260722170000-3" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_payment_fts_match(search_vector tsvector, query text)
+            RETURNS boolean AS $$
+                SELECT coalesce(search_vector @@ dcpass_fts_query(query), false);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>DROP FUNCTION IF EXISTS pass_payment_fts_match(tsvector, text);</rollback>
+    </changeSet>
+
+    <changeSet id="20260722170000-4" author="jhipster" dbms="postgresql">
+        <sql splitStatements="false">
+            CREATE OR REPLACE FUNCTION pass_payment_fts_rank(search_vector tsvector, query text)
+            RETURNS real AS $$
+                SELECT coalesce(ts_rank(search_vector, dcpass_fts_query(query)), 0);
+            $$ LANGUAGE sql IMMUTABLE;
+        </sql>
+        <rollback>DROP FUNCTION IF EXISTS pass_payment_fts_rank(tsvector, text);</rollback>
+    </changeSet>
+</databaseChangeLog>

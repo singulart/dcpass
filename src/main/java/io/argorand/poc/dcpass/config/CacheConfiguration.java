@@ -46,6 +46,7 @@ public class CacheConfiguration {
             createCache(cm, io.argorand.poc.dcpass.domain.User.class.getName() + ".authorities");
             createCache(cm, io.argorand.poc.dcpass.domain.PassContract.class.getName());
             createCache(cm, io.argorand.poc.dcpass.domain.PurchaseOrder.class.getName());
+            createCache(cm, io.argorand.poc.dcpass.domain.PassPayment.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

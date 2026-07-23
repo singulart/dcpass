@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20260722160000-seq-0" author="jhipster">
+        <createSequence sequenceName="pass_payment_seq" startValue="1050" incrementBy="50"/>
+    </changeSet>
+
+    <!--
+        Added the entity PassPayment.
+        Source columns from PASS_Payments.csv.
+    -->
+    <changeSet id="20260722160000-1" author="jhipster">
+        <createTable tableName="pass_payment">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="AGENCYCODE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_ACRONYM" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="AGENCY_NAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="CONTRACTNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="SUPPLIERNAME" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="INVOICENUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="PONUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="VOUCHERNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="PAYMENTDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="PAYMENTAMOUNT" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="FISCALYEAR" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="TRANSACTION_CODE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="PAYMENTTYPE" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="INVOICEDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="ESTPAYMENTDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="PAYMENTNUMBER" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="RECORDUPDATEDDATE" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="RECORDCREATED" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="DCS_REC_CRT_DTTM" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="DCS_LAST_MOD_DTTM" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="OBJECTID" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="pass_payment" columnName="PAYMENTDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="INVOICEDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="ESTPAYMENTDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="RECORDUPDATEDDATE" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="RECORDCREATED" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="DCS_REC_CRT_DTTM" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="pass_payment" columnName="DCS_LAST_MOD_DTTM" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20260722160000-2-add-id-default" author="jhipster">
+        <addDefaultValue tableName="pass_payment" columnName="id" defaultValueComputed="nextval('pass_payment_seq')" columnDataType="bigint"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>

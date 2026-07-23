@@ -1,8 +1,14 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-12 col-xl-10">
     @if (purchaseOrder(); as purchaseOrderRef) {
       <div>
-        <h2 data-cy="purchaseOrderDetailsHeading"><span>Purchase Order</span></h2>
+        <h2 data-cy="purchaseOrderDetailsHeading">
+          <span>{{
+            purchaseOrderRef.poNumber && purchaseOrderRef.poTitle
+              ? purchaseOrderRef.poNumber + ' - ' + purchaseOrderRef.poTitle
+              : purchaseOrderRef.poTitle || purchaseOrderRef.poNumber || 'Purchase Order'
+          }}</span>
+        </h2>
 
         <hr />
 
@@ -10,22 +16,47 @@
 
         <jhi-alert />
 
+        <div class="contract-value-summary mb-4" data-cy="purchaseOrderValueSummary">
+          <div class="contract-value-summary__item" data-cy="purchaseOrderAmountSummary">
+            <div class="contract-value-summary__label">PO Amount</div>
+            <div class="contract-value-summary__value">
+              {{ purchaseOrderRef.poTotal | currency: 'USD' : 'symbol' : '1.0-0' }}
+            </div>
+          </div>
+          @if (purchaseOrderRef.poNumber) {
+            <div class="contract-value-summary__item" data-cy="purchaseOrderPaidTotal">
+              <div class="contract-value-summary__label">Total paid</div>
+              @if (paymentSummaryLoading()) {
+                <div class="contract-value-summary__value text-muted">Loading…</div>
+              } @else if (paymentSummary(); as summary) {
+                <div class="contract-value-summary__value">{{ summary.totalPaid | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
+                <div class="contract-value-summary__meta">
+                  <a
+                    class="contract-value-summary__link"
+                    [routerLink]="['/pass-payment']"
+                    [queryParams]="{ q: purchaseOrderRef.poNumber }"
+                    target="_blank"
+                    rel="noopener"
+                    data-cy="purchaseOrderPaymentsLink"
+                    >{{ summary.paymentCount ?? 0 }}</a
+                  >
+                  payment{{ (summary.paymentCount ?? 0) === 1 ? '' : 's' }}
+                </div>
+              } @else {
+                <div class="contract-value-summary__value text-muted">Unavailable</div>
+              }
+            </div>
+          }
+        </div>
+
         <dl class="row-md jh-entity-details">
-          <dt><span>Id</span></dt>
+          <dt><span>Contract Number</span></dt>
           <dd>
-            <span>{{ purchaseOrderRef.id }}</span>
-          </dd>
-          <dt><span>PO Number</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.poNumber }}</span>
-          </dd>
-          <dt><span>Agency Code</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.agencyCode }}</span>
-          </dd>
-          <dt><span>Status</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.status }}</span>
+            @if (passContractId(); as contractId) {
+              <a [routerLink]="['/pass-contract', contractId, 'view']">{{ purchaseOrderRef.contractNumber }}</a>
+            } @else {
+              <span>{{ purchaseOrderRef.contractNumber }}</span>
+            }
           </dd>
           <dt><span>Requester</span></dt>
           <dd>
@@ -43,10 +74,6 @@
           <dd>
             <span>{{ purchaseOrderRef.commodityName }}</span>
           </dd>
-          <dt><span>Contract Number</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.contractNumber }}</span>
-          </dd>
           <dt><span>Supplier</span></dt>
           <dd>
             <span>{{ purchaseOrderRef.supplier }}</span>
@@ -55,21 +82,9 @@
           <dd>
             <span>{{ purchaseOrderRef.orderedDate | formatMediumDatetime }}</span>
           </dd>
-          <dt><span>Create Date</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.createDate | formatMediumDatetime }}</span>
-          </dd>
-          <dt><span>PO Total</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.poTotal }}</span>
-          </dd>
           <dt><span>Fiscal Year</span></dt>
           <dd>
             <span>{{ purchaseOrderRef.fiscalYear }}</span>
-          </dd>
-          <dt><span>PO Title</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.poTitle }}</span>
           </dd>
           <dt><span>Agency Acronym</span></dt>
           <dd>
@@ -79,17 +94,13 @@
           <dd>
             <span>{{ purchaseOrderRef.agencyName }}</span>
           </dd>
-          <dt><span>DCS Last Modified</span></dt>
+          <dt><span>Agency Code</span></dt>
           <dd>
-            <span>{{ purchaseOrderRef.dcsLastModDttm | formatMediumDatetime }}</span>
+            <span>{{ purchaseOrderRef.agencyCode }}</span>
           </dd>
-          <dt><span>DCS Record Created</span></dt>
+          <dt><span>Status</span></dt>
           <dd>
-            <span>{{ purchaseOrderRef.dcsRecCrtDttm | formatMediumDatetime }}</span>
-          </dd>
-          <dt><span>Object Id</span></dt>
-          <dd>
-            <span>{{ purchaseOrderRef.objectId }}</span>
+            <span>{{ purchaseOrderRef.status }}</span>
           </dd>
         </dl>
 

@@ -1,0 +1,263 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-pass-payment-heading" data-cy="PassPaymentCreateUpdateHeading">Create or edit a PASS Payment</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyCode">Agency Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyCode"
+            id="field_agencyCode"
+            data-cy="agencyCode"
+            formControlName="agencyCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyAcronym">Agency Acronym</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyAcronym"
+            id="field_agencyAcronym"
+            data-cy="agencyAcronym"
+            formControlName="agencyAcronym"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_agencyName">Agency Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="agencyName"
+            id="field_agencyName"
+            data-cy="agencyName"
+            formControlName="agencyName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contractNumber">Contract Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="contractNumber"
+            id="field_contractNumber"
+            data-cy="contractNumber"
+            formControlName="contractNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_supplierName">Supplier Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="supplierName"
+            id="field_supplierName"
+            data-cy="supplierName"
+            formControlName="supplierName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_invoiceNumber">Invoice Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="invoiceNumber"
+            id="field_invoiceNumber"
+            data-cy="invoiceNumber"
+            formControlName="invoiceNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_poNumber">PO Number</label>
+          <input type="text" class="form-control" name="poNumber" id="field_poNumber" data-cy="poNumber" formControlName="poNumber" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_voucherNumber">Voucher Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="voucherNumber"
+            id="field_voucherNumber"
+            data-cy="voucherNumber"
+            formControlName="voucherNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paymentDate">Payment Date</label>
+          <div class="d-flex">
+            <input
+              id="field_paymentDate"
+              data-cy="paymentDate"
+              type="datetime-local"
+              class="form-control"
+              name="paymentDate"
+              formControlName="paymentDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paymentAmount">Payment Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="paymentAmount"
+            id="field_paymentAmount"
+            data-cy="paymentAmount"
+            formControlName="paymentAmount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalYear">Fiscal Year</label>
+          <input
+            type="number"
+            class="form-control"
+            name="fiscalYear"
+            id="field_fiscalYear"
+            data-cy="fiscalYear"
+            formControlName="fiscalYear"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionCode">Transaction Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="transactionCode"
+            id="field_transactionCode"
+            data-cy="transactionCode"
+            formControlName="transactionCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paymentType">Payment Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="paymentType"
+            id="field_paymentType"
+            data-cy="paymentType"
+            formControlName="paymentType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_invoiceDate">Invoice Date</label>
+          <div class="d-flex">
+            <input
+              id="field_invoiceDate"
+              data-cy="invoiceDate"
+              type="datetime-local"
+              class="form-control"
+              name="invoiceDate"
+              formControlName="invoiceDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estPaymentDate">Est. Payment Date</label>
+          <div class="d-flex">
+            <input
+              id="field_estPaymentDate"
+              data-cy="estPaymentDate"
+              type="datetime-local"
+              class="form-control"
+              name="estPaymentDate"
+              formControlName="estPaymentDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paymentNumber">Payment Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="paymentNumber"
+            id="field_paymentNumber"
+            data-cy="paymentNumber"
+            formControlName="paymentNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_recordUpdatedDate">Record Updated Date</label>
+          <div class="d-flex">
+            <input
+              id="field_recordUpdatedDate"
+              data-cy="recordUpdatedDate"
+              type="datetime-local"
+              class="form-control"
+              name="recordUpdatedDate"
+              formControlName="recordUpdatedDate"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_recordCreated">Record Created</label>
+          <div class="d-flex">
+            <input
+              id="field_recordCreated"
+              data-cy="recordCreated"
+              type="datetime-local"
+              class="form-control"
+              name="recordCreated"
+              formControlName="recordCreated"
+              placeholder="YYYY-MM-DDTHH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_objectId">Object Id</label>
+          <input type="number" class="form-control" name="objectId" id="field_objectId" data-cy="objectId" formControlName="objectId" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

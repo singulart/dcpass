@@ -1,0 +1,2 @@
+Whenever you add a new Changeset, don't forget to add the path to its file to src/main/resources/META-INF/native-image/io.argorand.poc/dcpass/reachability-metadata.json
+

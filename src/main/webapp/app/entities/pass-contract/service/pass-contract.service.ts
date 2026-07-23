@@ -10,6 +10,13 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { IPassContract, NewPassContract } from '../pass-contract.model';
 
+export interface IContractPaymentSummary {
+  contractNumber?: string | null;
+  totalPaid?: number | null;
+  paymentCount?: number | null;
+  purchaseOrderCount?: number | null;
+}
+
 type RestOf<T extends IPassContract | NewPassContract> = Omit<
   T,
   'awardDate' | 'endDate' | 'startDate' | 'lastModified' | 'recCreatedDate' | 'recUpdatedDate' | 'dcsLastModDttm'
@@ -68,6 +75,12 @@ export class PassContractService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${encodeURIComponent(id)}`, { observe: 'response' });
+  }
+
+  getPaymentSummary(contractNumber: string): Observable<HttpResponse<IContractPaymentSummary>> {
+    return this.http.get<IContractPaymentSummary>(`${this.resourceUrl}/payment-summary/${encodeURIComponent(contractNumber)}`, {
+      observe: 'response',
+    });
   }
 
   getPassContractIdentifier(passContract: Pick<IPassContract, 'id'>): number {

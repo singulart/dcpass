@@ -9,6 +9,12 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { IPurchaseOrder, NewPurchaseOrder } from '../purchase-order.model';
 
+export interface IPurchaseOrderPaymentSummary {
+  poNumber?: string | null;
+  totalPaid?: number | null;
+  paymentCount?: number | null;
+}
+
 type RestOf<T extends IPurchaseOrder | NewPurchaseOrder> = Omit<T, 'orderedDate' | 'createDate' | 'dcsLastModDttm' | 'dcsRecCrtDttm'> & {
   orderedDate?: string | null;
   createDate?: string | null;
@@ -61,6 +67,12 @@ export class PurchaseOrderService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${encodeURIComponent(id)}`, { observe: 'response' });
+  }
+
+  getPaymentSummary(poNumber: string): Observable<HttpResponse<IPurchaseOrderPaymentSummary>> {
+    return this.http.get<IPurchaseOrderPaymentSummary>(`${this.resourceUrl}/payment-summary/${encodeURIComponent(poNumber)}`, {
+      observe: 'response',
+    });
   }
 
   getPurchaseOrderIdentifier(purchaseOrder: Pick<IPurchaseOrder, 'id'>): number {

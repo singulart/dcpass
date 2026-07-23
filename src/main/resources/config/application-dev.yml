@@ -25,6 +25,7 @@ logging:
     io.argorand.poc.dcpass: DEBUG
     io.modelcontextprotocol: DEBUG
     org.springframework.ai: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
 
 spring:
   devtools:
