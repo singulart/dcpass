@@ -94,3 +94,39 @@ export async function fillPassContractForm(
   await page.getByTestId('agencyName').fill('E2E Agency');
   await page.getByTestId('contractStatus').fill('Active');
 }
+
+/**
+ * Waits for a contracts list API response. The large contracts table re-renders after search,
+ * so callers should wait for this before clicking row actions.
+ */
+export function waitForPassContractsListResponse(page: Page) {
+  return page.waitForResponse(
+    response =>
+      response.request().method() === 'GET' &&
+      response.url().includes('/api/pass-contracts') &&
+      !response.url().includes('/payment-summary/') &&
+      response.ok(),
+  );
+}
+
+/** Search the contracts list and wait until the filtered row is stable. */
+export async function searchPassContracts(page: Page, query: string, expectedRowText: string): Promise<void> {
+  await page.getByTestId('searchInput').fill(query);
+  const listResponse = waitForPassContractsListResponse(page);
+  await page.getByTestId('searchButton').click();
+  await listResponse;
+  await expect(page).toHaveURL(new RegExp(`[?&]q=`));
+  await expect(page.locator('tr[data-cy="entityTable"]', { hasText: expectedRowText })).toBeVisible();
+}
+
+/**
+ * Clicks a row action after the contracts table finishes re-rendering.
+ * Retries because Angular replaces row DOM nodes when search/list responses arrive.
+ */
+export async function clickPassContractRowAction(page: Page, rowText: string, actionTestId: string): Promise<void> {
+  await expect(async () => {
+    const action = page.locator('tr[data-cy="entityTable"]', { hasText: rowText }).getByTestId(actionTestId);
+    await expect(action).toBeVisible();
+    await action.click({ timeout: 3000 });
+  }).toPass();
+}

@@ -1830,7 +1830,73 @@
       "type": "io.argorand.poc.dcpass.domain.PassPayment",
       "fields": [
         {
+          "name": "agencyAcronym"
+        },
+        {
+          "name": "agencyCode"
+        },
+        {
+          "name": "agencyName"
+        },
+        {
+          "name": "contractNumber"
+        },
+        {
+          "name": "dcsLastModDttm"
+        },
+        {
+          "name": "dcsRecCrtDttm"
+        },
+        {
+          "name": "estPaymentDate"
+        },
+        {
+          "name": "fiscalYear"
+        },
+        {
           "name": "id"
+        },
+        {
+          "name": "invoiceDate"
+        },
+        {
+          "name": "invoiceNumber"
+        },
+        {
+          "name": "objectId"
+        },
+        {
+          "name": "paymentAmount"
+        },
+        {
+          "name": "paymentDate"
+        },
+        {
+          "name": "paymentNumber"
+        },
+        {
+          "name": "paymentType"
+        },
+        {
+          "name": "poNumber"
+        },
+        {
+          "name": "recordCreated"
+        },
+        {
+          "name": "recordUpdatedDate"
+        },
+        {
+          "name": "searchVector"
+        },
+        {
+          "name": "supplierName"
+        },
+        {
+          "name": "transactionCode"
+        },
+        {
+          "name": "voucherNumber"
         }
       ],
       "methods": [
@@ -2509,6 +2575,10 @@
             "io.argorand.poc.dcpass.repository.PassPaymentRepository",
             "io.argorand.poc.dcpass.service.mapper.PassPaymentMapper"
           ]
+        },
+        {
+          "name": "findByCriteria",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria", "org.springframework.data.domain.Pageable"]
         }
       ]
     },
@@ -2524,6 +2594,22 @@
             "io.argorand.poc.dcpass.repository.PassPaymentRepository",
             "io.argorand.poc.dcpass.service.mapper.PassPaymentMapper"
           ]
+        },
+        {
+          "name": "delete",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "findOne",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "save",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
+        },
+        {
+          "name": "update",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
         }
       ]
     },
@@ -2669,7 +2755,13 @@
       "type": "io.argorand.poc.dcpass.service.criteria.PassContractCriteriaCustomizer"
     },
     {
-      "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria"
+      "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteriaBeanInfo"
@@ -3231,7 +3323,189 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.PassPaymentDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.PassPaymentDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEstPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordCreated",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplierName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTransactionCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVoucherNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setEstPaymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setInvoiceDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setInvoiceNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setPaymentAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setPaymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setPaymentNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPaymentType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRecordCreated",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRecordUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setSupplierName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTransactionCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVoucherNumber",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.PasswordChangeDTO",
@@ -3685,6 +3959,30 @@
             "io.argorand.poc.dcpass.repository.PassPaymentRepository",
             "io.argorand.poc.dcpass.service.PassPaymentQueryService"
           ]
+        },
+        {
+          "name": "createPassPayment",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
+        },
+        {
+          "name": "deletePassPayment",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "getAllPassPayments",
+          "parameterTypes": [
+            "java.lang.String",
+            "io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria",
+            "org.springframework.data.domain.Pageable"
+          ]
+        },
+        {
+          "name": "getPassPayment",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "updatePassPayment",
+          "parameterTypes": ["java.lang.Long", "io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
         }
       ]
     },
@@ -6422,9 +6720,6 @@
     },
     {
       "type": "java.lang.Comparable[]"
-    },
-    {
-      "type": "java.lang.Configurable"
     },
     {
       "type": "java.lang.Deprecated"
@@ -15451,9 +15746,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -29822,15 +30114,6 @@
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
     },
     {
-      "glob": "org/aspectj/weaver/weaver-messages.properties"
-    },
-    {
-      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
-    },
-    {
-      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
-    },
-    {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
     },
     {
@@ -31889,9 +32172,6 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
-    },
-    {
-      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

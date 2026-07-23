@@ -1,9 +1,12 @@
 import { expect, test } from './fixtures';
 import { loginViaUI, USERS } from './helpers/auth';
 import {
+  clickPassContractRowAction,
   createContractsViaApi,
   deleteContractViaApi,
   fillPassContractForm,
+  searchPassContracts,
+  waitForPassContractsListResponse,
   type SeedContract,
 } from './helpers/pass-contract';
 
@@ -25,17 +28,17 @@ test.describe('PASS Contracts', () => {
     await page.goto('/pass-contract');
     await expect(page.getByTestId('PassContractHeading')).toBeVisible();
 
-    await page.getByTestId('searchInput').fill(marker.contractNumber);
-    await page.getByTestId('searchButton').click();
-    await expect(page.getByText(marker.title)).toBeVisible();
+    await searchPassContracts(page, marker.contractNumber, marker.title);
   });
 
   test('anonymous users can open contract details', async ({ page }) => {
     const marker = seeded[0];
-    await page.goto('/pass-contract');
-    await page.getByTestId('searchInput').fill(marker.contractNumber);
-    await page.getByTestId('searchButton').click();
-    await page.locator('tr', { hasText: marker.title }).getByTestId('entityDetailsButton').click();
+    const listResponse = waitForPassContractsListResponse(page);
+    await page.goto(`/pass-contract?q=${encodeURIComponent(marker.contractNumber)}`);
+    await listResponse;
+    await expect(page.locator('tr[data-cy="entityTable"]', { hasText: marker.title })).toBeVisible();
+
+    await clickPassContractRowAction(page, marker.title, 'entityDetailsButton');
     await expect(page.getByTestId('passContractDetailsHeading')).toBeVisible();
     await expect(page.getByText(marker.title)).toBeVisible();
   });
@@ -66,23 +69,20 @@ test.describe('PASS Contracts', () => {
     await page.getByTestId('entityCreateSaveButton').click();
     await expect(page.getByTestId('PassContractHeading')).toBeVisible();
 
-    await page.getByTestId('searchInput').fill(contractNumber);
-    await page.getByTestId('searchButton').click();
-    await expect(page.getByText(title)).toBeVisible();
-
-    await page.locator('tr', { hasText: title }).getByTestId('entityEditButton').click();
+    await searchPassContracts(page, contractNumber, title);
+    await clickPassContractRowAction(page, title, 'entityEditButton');
     await page.getByTestId('title').fill(updatedTitle);
     await page.getByTestId('entityCreateSaveButton').click();
     await expect(page.getByTestId('PassContractHeading')).toBeVisible();
 
-    await page.getByTestId('searchInput').fill(contractNumber);
-    await page.getByTestId('searchButton').click();
-    await expect(page.getByText(updatedTitle)).toBeVisible();
-
-    await page.locator('tr', { hasText: updatedTitle }).getByTestId('entityDeleteButton').click();
+    await searchPassContracts(page, contractNumber, updatedTitle);
+    await clickPassContractRowAction(page, updatedTitle, 'entityDeleteButton');
     await page.getByTestId('entityConfirmDeleteButton').click();
+
     await page.getByTestId('searchInput').fill(contractNumber);
+    const listResponse = waitForPassContractsListResponse(page);
     await page.getByTestId('searchButton').click();
+    await listResponse;
     await expect(page.getByText(updatedTitle)).toHaveCount(0);
   });
 
