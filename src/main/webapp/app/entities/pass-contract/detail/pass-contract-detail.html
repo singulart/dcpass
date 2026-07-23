@@ -10,6 +10,23 @@
 
         <jhi-alert />
 
+        @if (passContractRef.contractNumber) {
+          <div class="contract-paid-total mb-4" data-cy="contractPaidTotal">
+            <div class="contract-paid-total__label">Total paid on purchase orders</div>
+            @if (paymentSummaryLoading()) {
+              <div class="contract-paid-total__value text-muted">Loading…</div>
+            } @else if (paymentSummary(); as summary) {
+              <div class="contract-paid-total__value">{{ summary.totalPaid | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
+              <div class="contract-paid-total__meta">
+                {{ summary.paymentCount ?? 0 }} payment{{ (summary.paymentCount ?? 0) === 1 ? '' : 's' }} across
+                {{ summary.purchaseOrderCount ?? 0 }} purchase order{{ (summary.purchaseOrderCount ?? 0) === 1 ? '' : 's' }}
+              </div>
+            } @else {
+              <div class="contract-paid-total__value text-muted">Unavailable</div>
+            }
+          </div>
+        }
+
         <dl class="row-md jh-entity-details">
           <dt><span>Id</span></dt>
           <dd>

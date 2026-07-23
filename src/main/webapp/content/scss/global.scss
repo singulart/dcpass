@@ -221,6 +221,37 @@ ui bootstrap tweaks
 }
 
 /* ==========================================================================
+Contract payment summary (detail)
+========================================================================== */
+.contract-paid-total {
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid $primary;
+  background: rgba($primary, 0.08);
+}
+
+.contract-paid-total__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $secondary;
+  margin-bottom: 0.35rem;
+}
+
+.contract-paid-total__value {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: $body-color;
+}
+
+.contract-paid-total__meta {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: $secondary;
+}
+
+/* ==========================================================================
 angular-cli removes postcss-rtl processed inline css, processed rules must be added here instead
 ========================================================================== */
 /* page-ribbon.scss */

@@ -1,9 +1,11 @@
 package io.argorand.poc.dcpass.web.rest;
 
 import io.argorand.poc.dcpass.repository.PassContractRepository;
+import io.argorand.poc.dcpass.service.ContractPaymentSummaryService;
 import io.argorand.poc.dcpass.service.PassContractQueryService;
 import io.argorand.poc.dcpass.service.PassContractService;
 import io.argorand.poc.dcpass.service.criteria.PassContractCriteria;
+import io.argorand.poc.dcpass.service.dto.ContractPaymentSummaryDTO;
 import io.argorand.poc.dcpass.service.dto.PassContractDTO;
 import io.argorand.poc.dcpass.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -44,14 +46,18 @@ public class PassContractResource {
 
     private final PassContractQueryService passContractQueryService;
 
+    private final ContractPaymentSummaryService contractPaymentSummaryService;
+
     public PassContractResource(
         PassContractService passContractService,
         PassContractRepository passContractRepository,
-        PassContractQueryService passContractQueryService
+        PassContractQueryService passContractQueryService,
+        ContractPaymentSummaryService contractPaymentSummaryService
     ) {
         this.passContractService = passContractService;
         this.passContractRepository = passContractRepository;
         this.passContractQueryService = passContractQueryService;
+        this.contractPaymentSummaryService = contractPaymentSummaryService;
     }
 
     /**
@@ -128,6 +134,22 @@ public class PassContractResource {
         Page<PassContractDTO> page = passContractQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /pass-contracts/payment-summary/:contractNumber} : total dollars paid on POs for a contract.
+     * <p>
+     * Joins {@code purchase_order} to {@code pass_payment} on PO number for all POs whose
+     * contract number matches, then sums {@code paymentamount}. Multi-line POs are de-duplicated
+     * so each payment is counted once.
+     *
+     * @param contractNumber the PASS contract number (e.g. {@code CW95481}).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the payment summary in body.
+     */
+    @GetMapping("/payment-summary/{contractNumber}")
+    public ResponseEntity<ContractPaymentSummaryDTO> getPaymentSummary(@PathVariable("contractNumber") String contractNumber) {
+        LOG.debug("REST request to get payment summary for contract number : {}", contractNumber);
+        return ResponseEntity.ok(contractPaymentSummaryService.getSummaryByContractNumber(contractNumber));
     }
 
     /**
