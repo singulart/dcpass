@@ -37,6 +37,7 @@
               "src/main/webapp/favicon.ico",
               "src/main/webapp/manifest.webapp",
               "src/main/webapp/robots.txt",
+              "src/main/webapp/sitemap.xml",
               "src/main/webapp/swagger-ui",
               {
                 "glob": "axios.min.js",

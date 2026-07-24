@@ -1,6 +1,7 @@
 # robotstxt.org/
 
 User-agent: *
+Allow: /
 Disallow: /api/account
 Disallow: /api/account/change-password
 Disallow: /api/account/sessions
@@ -8,3 +9,7 @@ Disallow: /api/logs/
 Disallow: /api/users/
 Disallow: /management/
 Disallow: /v3/api-docs/
+Disallow: /admin/
+Disallow: /account/
+
+Sitemap: https://pass.argorand.io/sitemap.xml
