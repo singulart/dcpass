@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, combineLatest, filter, finalize, tap } from 'rxjs';
 
+import { GoogleAnalyticsService } from 'app/core/analytics/google-analytics.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
@@ -68,6 +69,7 @@ export class PassContract implements OnInit {
   protected readonly passContractService = inject(PassContractService);
   protected readonly activatedRoute = inject(ActivatedRoute);
   protected readonly sortService = inject(SortService);
+  protected readonly googleAnalytics = inject(GoogleAnalyticsService);
   protected modalService = inject(NgbModal);
 
   trackId = (item: IPassContract): number => this.passContractService.getPassContractIdentifier(item);
@@ -147,6 +149,7 @@ export class PassContract implements OnInit {
     if (this.dateRangeValidationError()) {
       return;
     }
+    this.googleAnalytics.trackSearch(this.searchInput, 'pass-contract');
     this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
   }
 

@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 import { AppPageTitleStrategy } from 'app/app-page-title-strategy';
+import { GoogleAnalyticsService } from 'app/core/analytics/google-analytics.service';
 import { AccountService } from 'app/core/auth/account.service';
 import Footer from '../footer/footer';
 import PageRibbon from '../profiles/page-ribbon';
@@ -22,16 +23,19 @@ export default class Main implements OnInit {
   private readonly location = inject(Location);
   private readonly appPageTitleStrategy = inject(AppPageTitleStrategy);
   private readonly accountService = inject(AccountService);
+  private readonly googleAnalytics = inject(GoogleAnalyticsService);
 
   /** Avoid GET /api/account in the embedded MCP widget; load once if the user leaves the widget shell. */
   private accountIdentityRequested = false;
 
   ngOnInit(): void {
+    this.googleAnalytics.init();
     this.updateWidgetRoute();
     this.ensureAccountLoadedForShell();
-    this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(() => {
+    this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(event => {
       this.updateWidgetRoute();
       this.ensureAccountLoadedForShell();
+      this.googleAnalytics.trackPageView(event.urlAfterRedirects);
     });
   }
 

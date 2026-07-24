@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, combineLatest, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
 
+import { GoogleAnalyticsService } from 'app/core/analytics/google-analytics.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SEARCH_QUERY_PARAM, SORT } from 'app/config/navigation.constants';
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
@@ -62,6 +63,7 @@ export class PassPayment implements OnInit {
   protected readonly passPaymentService = inject(PassPaymentService);
   protected readonly activatedRoute = inject(ActivatedRoute);
   protected readonly sortService = inject(SortService);
+  protected readonly googleAnalytics = inject(GoogleAnalyticsService);
   protected modalService = inject(NgbModal);
 
   trackId = (item: IPassPayment): number => this.passPaymentService.getPassPaymentIdentifier(item);
@@ -125,6 +127,7 @@ export class PassPayment implements OnInit {
     if (this.paymentDateRangeValidationError()) {
       return;
     }
+    this.googleAnalytics.trackSearch(this.searchInput, 'pass-payment');
     this.handleNavigation(1, this.sortState(), this.filters.filterOptions, this.searchInput);
   }
 
