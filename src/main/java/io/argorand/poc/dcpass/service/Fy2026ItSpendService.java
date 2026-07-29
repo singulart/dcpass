@@ -60,7 +60,7 @@ public class Fy2026ItSpendService {
         LOG.debug("Request to get FY2026 IT spend by PO for agency {} contract {}", agencyAcronym, contractNumber);
         List<Fy2026PoSpendDTO> result = new ArrayList<>();
         for (PoSpendRow row : fy2026ReportRepository.mapPoSpend(agencyAcronym, contractNumber)) {
-            result.add(new Fy2026PoSpendDTO(row.poNumber(), row.poTitle(), row.spend()));
+            result.add(new Fy2026PoSpendDTO(row.purchaseOrderId(), row.poNumber(), row.poTitle(), row.spend()));
         }
         return result;
     }

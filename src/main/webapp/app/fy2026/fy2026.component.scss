@@ -65,6 +65,22 @@
   color: #1a2b2b;
 }
 
+.fy2026__subheading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.65rem;
+  color: #1a2b2b;
+}
+
+.fy2026__agency-grid {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.fy2026__agency-block {
+  min-width: 0;
+}
+
 .fy2026__chart-panel {
   position: relative;
   min-height: 320px;

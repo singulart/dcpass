@@ -49,6 +49,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
     @Query(
         value = """
         SELECT
+          MIN(po.id),
           po.ponumber,
           po.potitle,
           SUM(pp.paymentamount)
@@ -58,8 +59,8 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
         WHERE pp.fiscalyear = 2026
           AND po.agency_acronym = :agencyAcronym
           AND po.contractnumber = :contractNumber
-        GROUP BY 1, 2
-        ORDER BY 3 DESC
+        GROUP BY 2, 3
+        ORDER BY 4 DESC
         """,
         nativeQuery = true
     )
@@ -71,6 +72,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
     @Query(
         value = """
         SELECT
+          MIN(po.id),
           po.ponumber,
           po.potitle,
           SUM(pp.paymentamount)
@@ -80,8 +82,8 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
         WHERE pp.fiscalyear = 2026
           AND po.agency_acronym = :agencyAcronym
           AND po.contractnumber IS NULL
-        GROUP BY 1, 2
-        ORDER BY 3 DESC
+        GROUP BY 2, 3
+        ORDER BY 4 DESC
         """,
         nativeQuery = true
     )
@@ -115,10 +117,11 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
                 : findPoSpendByAgencyAndContract(agencyAcronym, contractNumber);
         List<PoSpendRow> result = new ArrayList<>();
         for (Object[] row : rows) {
-            String poNumber = row[0] == null ? null : row[0].toString();
-            String poTitle = row[1] == null ? null : row[1].toString();
-            BigDecimal spend = row[2] == null ? BigDecimal.ZERO : new BigDecimal(row[2].toString());
-            result.add(new PoSpendRow(poNumber, poTitle, spend));
+            Long purchaseOrderId = row[0] == null ? null : ((Number) row[0]).longValue();
+            String poNumber = row[1] == null ? null : row[1].toString();
+            String poTitle = row[2] == null ? null : row[2].toString();
+            BigDecimal spend = row[3] == null ? BigDecimal.ZERO : new BigDecimal(row[3].toString());
+            result.add(new PoSpendRow(purchaseOrderId, poNumber, poTitle, spend));
         }
         return result;
     }
@@ -127,5 +130,5 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
 
     record ContractSpendRow(String contractTitle, String contractNumber, BigDecimal spend) {}
 
-    record PoSpendRow(String poNumber, String poTitle, BigDecimal spend) {}
+    record PoSpendRow(Long purchaseOrderId, String poNumber, String poTitle, BigDecimal spend) {}
 }

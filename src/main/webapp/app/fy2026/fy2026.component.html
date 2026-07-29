@@ -21,7 +21,7 @@
   </nav>
 
   <div class="fy2026__toolbar">
-    <h2 class="fy2026__heading">{{ heading() }}</h2>
+    <h2 class="fy2026__heading" data-cy="fy2026Heading">{{ heading() }}</h2>
     @if (level() !== 'agency') {
       <button type="button" class="btn btn-outline-secondary btn-sm" (click)="level() === 'po' ? goToContracts() : goToAgencies()">
         <fa-icon [icon]="faArrowLeft"></fa-icon>
@@ -41,16 +41,41 @@
         Loading…
       </div>
     }
-    <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" [style.height]="chartHeight()">
-      <canvas #chartCanvas aria-label="FY2026 spend chart"></canvas>
-    </div>
-  </div>
 
-  @if (!loading() && !error()) {
     @if (level() === 'agency') {
-      <p class="fy2026__hint">Click a slice to see spend by contract for that agency.</p>
-    } @else if (level() === 'contract') {
-      <p class="fy2026__hint">Showing contracts with $50k+ spend. Click a bar to see purchase orders for that contract.</p>
+      <section class="fy2026__agency-grid" [class.fy2026__chart-wrap--dimmed]="loading()">
+        <div class="fy2026__agency-block">
+          <h3 class="fy2026__subheading">Top 20 agencies</h3>
+          <div class="fy2026__chart-wrap" [style.height]="chartHeight()">
+            <canvas #topAgencyCanvas data-cy="fy2026TopAgencyChart" aria-label="Top 20 agencies by IT spend"></canvas>
+          </div>
+          @if (!loading() && !error()) {
+            <p class="fy2026__hint">Click an agency slice to drill down. Click Others to jump to the remaining agencies.</p>
+          }
+        </div>
+
+        @if (hasOthersAgencies()) {
+          <div class="fy2026__agency-block">
+            <h3 class="fy2026__subheading">Other agencies</h3>
+            <div class="fy2026__chart-wrap" [style.height]="chartHeight()">
+              <canvas #othersAgencyCanvas data-cy="fy2026OthersAgencyChart" aria-label="Remaining agencies by IT spend"></canvas>
+            </div>
+            @if (!loading() && !error()) {
+              <p class="fy2026__hint">Agencies outside the top 20. Click a slice to drill down.</p>
+            }
+          </div>
+        }
+      </section>
+    } @else {
+      <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" [style.height]="chartHeight()">
+        <canvas #chartCanvas data-cy="fy2026DrillChart" aria-label="FY2026 spend chart"></canvas>
+      </div>
+      @if (!loading() && !error() && level() === 'contract') {
+        <p class="fy2026__hint">Contracts under $50k are shown as Others. Click any other bar to drill into purchase orders.</p>
+      }
+      @if (!loading() && !error() && level() === 'po') {
+        <p class="fy2026__hint">POs under $50k are grouped into Others. Click any other bar to open that purchase order in a new tab.</p>
+      }
     }
-  }
+  </div>
 </div>

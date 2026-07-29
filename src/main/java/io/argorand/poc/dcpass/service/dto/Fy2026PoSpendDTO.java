@@ -9,16 +9,26 @@ import java.util.Objects;
  */
 public class Fy2026PoSpendDTO implements Serializable {
 
+    private Long purchaseOrderId;
     private String poNumber;
     private String poTitle;
     private BigDecimal spend;
 
     public Fy2026PoSpendDTO() {}
 
-    public Fy2026PoSpendDTO(String poNumber, String poTitle, BigDecimal spend) {
+    public Fy2026PoSpendDTO(Long purchaseOrderId, String poNumber, String poTitle, BigDecimal spend) {
+        this.purchaseOrderId = purchaseOrderId;
         this.poNumber = poNumber;
         this.poTitle = poTitle;
         this.spend = spend;
+    }
+
+    public Long getPurchaseOrderId() {
+        return purchaseOrderId;
+    }
+
+    public void setPurchaseOrderId(Long purchaseOrderId) {
+        this.purchaseOrderId = purchaseOrderId;
     }
 
     public String getPoNumber() {
@@ -53,16 +63,29 @@ public class Fy2026PoSpendDTO implements Serializable {
         if (!(o instanceof Fy2026PoSpendDTO that)) {
             return false;
         }
-        return Objects.equals(poNumber, that.poNumber);
+        return Objects.equals(purchaseOrderId, that.purchaseOrderId) && Objects.equals(poNumber, that.poNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(poNumber);
+        return Objects.hash(purchaseOrderId, poNumber);
     }
 
     @Override
     public String toString() {
-        return "Fy2026PoSpendDTO{" + "poNumber='" + poNumber + "'" + ", poTitle='" + poTitle + "'" + ", spend=" + spend + "}";
+        return (
+            "Fy2026PoSpendDTO{" +
+            "purchaseOrderId=" +
+            purchaseOrderId +
+            ", poNumber='" +
+            poNumber +
+            "'" +
+            ", poTitle='" +
+            poTitle +
+            "'" +
+            ", spend=" +
+            spend +
+            "}"
+        );
     }
 }
