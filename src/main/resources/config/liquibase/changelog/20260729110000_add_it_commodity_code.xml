@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        IT commodity-code allowlist shared by reporting queries and materialized views.
+        Source of truth: config/liquibase/data/it_commodity_codes.csv
+    -->
+    <changeSet id="20260729110000-1" author="jhipster">
+        <createTable tableName="it_commodity_code">
+            <column name="code" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20260729110000-2" author="jhipster">
+        <loadData
+            file="config/liquibase/data/it_commodity_codes.csv"
+            separator=","
+            tableName="it_commodity_code"
+            usePreparedStatements="true">
+            <column name="code" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

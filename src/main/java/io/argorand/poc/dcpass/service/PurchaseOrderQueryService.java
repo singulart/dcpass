@@ -55,6 +55,7 @@ public class PurchaseOrderQueryService extends QueryService<PurchaseOrder> {
         Sort userSort = page.getSort();
         boolean hasFts = ftsQuery != null && !ftsQuery.isBlank();
         boolean hasUserSort = userSort.isSorted();
+        boolean preferColumnSort = SortCriteriaHelper.hasExplicitColumnSort(userSort);
 
         Pageable pageForQuery = hasFts || hasUserSort ? PageRequest.of(page.getPageNumber(), page.getPageSize()) : page;
         Specification<PurchaseOrder> querySpec = specification;
@@ -63,7 +64,7 @@ public class PurchaseOrderQueryService extends QueryService<PurchaseOrder> {
             querySpec = specification.and((root, query, cb) -> {
                 if (query.getResultType() != Long.class && query.getResultType() != long.class) {
                     List<Order> orders = new ArrayList<>();
-                    if (hasFts) {
+                    if (hasFts && !preferColumnSort) {
                         orders.add(
                             cb.desc(cb.function("purchase_order_fts_rank", Float.class, root.get("searchVector"), cb.literal(trimmedFts)))
                         );

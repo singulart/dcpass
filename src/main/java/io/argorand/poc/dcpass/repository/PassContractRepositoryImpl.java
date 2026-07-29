@@ -93,8 +93,11 @@ public class PassContractRepositoryImpl implements PassContractRepositoryCustom 
 
     private List<Order> buildGroupOrders(CriteriaBuilder cb, Root<PassContract> root, Sort sort, String ftsQuery) {
         List<Order> orders = new ArrayList<>();
+        boolean hasFts = ftsQuery != null && !ftsQuery.isBlank();
+        boolean preferColumnSort = SortCriteriaHelper.hasExplicitColumnSort(sort);
 
-        if (ftsQuery != null && !ftsQuery.isBlank()) {
+        // Relevance only when searching without an explicit column sort (default id sort still gets rank).
+        if (hasFts && !preferColumnSort) {
             Expression<Float> rank = cb.function(FTS_RANK_FUNCTION, Float.class, root.get("searchVector"), cb.literal(ftsQuery.trim()));
             orders.add(cb.desc(cb.max(rank)));
         }

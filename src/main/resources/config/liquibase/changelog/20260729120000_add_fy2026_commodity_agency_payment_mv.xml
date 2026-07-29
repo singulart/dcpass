@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Pre-aggregated FY2026 IT spend by agency for the shared IT commodity-code allowlist
+        (it_commodity_code, loaded from config/liquibase/data/it_commodity_codes.csv).
+        Refresh after pass_payment / purchase_order loads:
+          REFRESH MATERIALIZED VIEW mv_fy2026_it_spend_by_agency;
+    -->
+    <changeSet id="20260729120000-1" author="jhipster" dbms="postgresql">
+        <sql>
+            CREATE MATERIALIZED VIEW mv_fy2026_it_spend_by_agency AS
+            SELECT
+                concat(coalesce(pp.agency_acronym, ''), '|', coalesce(pp.agency_name, '')) AS "Agency",
+                sum(pp.paymentamount) AS "Spend"
+            FROM pass_payment pp
+            JOIN purchase_order po ON pp.ponumber = po.ponumber
+            JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
+            WHERE pp.fiscalyear = 2026
+            GROUP BY pp.agency_acronym, pp.agency_name;
+        </sql>
+        <rollback>DROP MATERIALIZED VIEW IF EXISTS mv_fy2026_it_spend_by_agency;</rollback>
+    </changeSet>
+</databaseChangeLog>

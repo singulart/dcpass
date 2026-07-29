@@ -15,7 +15,8 @@ public interface PassContractRepositoryCustom {
      *
      * @param spec matching row filters (commodity / FTS / etc. applied at row level before grouping)
      * @param pageable pagination and sort (applied at the contract-number group level)
-     * @param ftsQuery when non-blank, groups are ordered by best FTS rank first
+     * @param ftsQuery when non-blank and the pageable has no explicit column sort, groups are ordered by
+     *     best FTS rank first; an explicit column sort (anything other than {@code id}) owns ORDER BY
      * @return page of representative entity ids
      */
     Page<Long> findDistinctRepresentativeIds(Specification<PassContract> spec, Pageable pageable, String ftsQuery);

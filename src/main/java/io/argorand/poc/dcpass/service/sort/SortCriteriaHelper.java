@@ -20,7 +20,26 @@ import org.springframework.data.domain.Sort;
  */
 public final class SortCriteriaHelper {
 
+    private static final String DEFAULT_SORT_PROPERTY = "id";
+
     private SortCriteriaHelper() {}
+
+    /**
+     * Whether the client requested ordering by a business column (anything other than the default {@code id}
+     * sort). When true, FTS relevance ranking must not take precedence in {@code ORDER BY}.
+     */
+    public static boolean hasExplicitColumnSort(Sort sort) {
+        if (sort == null || !sort.isSorted()) {
+            return false;
+        }
+        for (Sort.Order sortOrder : sort) {
+            String property = sortOrder.getProperty();
+            if (property != null && !DEFAULT_SORT_PROPERTY.equals(property) && !property.contains("_fts_rank")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static List<Order> toOrders(CriteriaBuilder cb, Root<?> root, Sort sort) {
         List<Order> orders = new ArrayList<>();
