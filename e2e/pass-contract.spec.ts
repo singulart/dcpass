@@ -77,12 +77,10 @@ test.describe('PASS Contracts', () => {
 
     await searchPassContracts(page, contractNumber, updatedTitle);
     await clickPassContractRowAction(page, updatedTitle, 'entityDeleteButton');
+    // Delete dialog calls load() directly; wait for that refresh (re-searching the same `q` would not GET).
+    const listAfterDelete = waitForPassContractsListResponse(page);
     await page.getByTestId('entityConfirmDeleteButton').click();
-
-    await page.getByTestId('searchInput').fill(contractNumber);
-    const listResponse = waitForPassContractsListResponse(page);
-    await page.getByTestId('searchButton').click();
-    await listResponse;
+    await listAfterDelete;
     await expect(page.getByText(updatedTitle)).toHaveCount(0);
   });
 

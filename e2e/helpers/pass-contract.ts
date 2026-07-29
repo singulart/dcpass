@@ -109,12 +109,27 @@ export function waitForPassContractsListResponse(page: Page) {
   );
 }
 
+function searchQueryFromUrl(url: string): string {
+  try {
+    return new URL(url).searchParams.get('q') ?? '';
+  } catch {
+    return '';
+  }
+}
+
 /** Search the contracts list and wait until the filtered row is stable. */
 export async function searchPassContracts(page: Page, query: string, expectedRowText: string): Promise<void> {
-  await page.getByTestId('searchInput').fill(query);
-  const listResponse = waitForPassContractsListResponse(page);
-  await page.getByTestId('searchButton').click();
-  await listResponse;
+  const trimmed = query.trim();
+  await page.getByTestId('searchInput').fill(trimmed);
+
+  // Re-searching the same `q` does not change Angular query params, so handleNavigation
+  // skips a new GET (common after edit save via history.back() to a filtered list).
+  if (searchQueryFromUrl(page.url()) !== trimmed) {
+    const listResponse = waitForPassContractsListResponse(page);
+    await page.getByTestId('searchButton').click();
+    await listResponse;
+  }
+
   await expect(page).toHaveURL(new RegExp(`[?&]q=`));
   await expect(page.locator('tr[data-cy="entityTable"]', { hasText: expectedRowText })).toBeVisible();
 }

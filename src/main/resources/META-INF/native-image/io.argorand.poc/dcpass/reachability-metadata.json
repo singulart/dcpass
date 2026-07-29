@@ -1523,6 +1523,23 @@
       "type": "io.argorand.poc.dcpass.domain.Authority__Accessor_ovqlrv"
     },
     {
+      "type": "io.argorand.poc.dcpass.domain.ItCommodityCode"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.ItCommodityCode_",
+      "fields": [
+        {
+          "name": "class_"
+        },
+        {
+          "name": "code"
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.domain.ItCommodityCode__Accessor_deux4f"
+    },
+    {
       "type": "io.argorand.poc.dcpass.domain.PassContract",
       "fields": [
         {
@@ -2383,6 +2400,18 @@
       "type": "io.argorand.poc.dcpass.repository.AuthorityRepository"
     },
     {
+      "type": "io.argorand.poc.dcpass.repository.Fy2026ReportRepository",
+      "methods": [
+        {
+          "name": "mapContractSpend",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.repository.ItCommodityCodeRepository"
+    },
+    {
       "type": "io.argorand.poc.dcpass.repository.PassContractRepository"
     },
     {
@@ -2489,6 +2518,34 @@
     },
     {
       "type": "io.argorand.poc.dcpass.service.ContractPaymentSummaryService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.Fy2026ItSpendService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.repository.Fy2026ReportRepository"]
+        },
+        {
+          "name": "getSpendByContract",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.Fy2026ItSpendService$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.ItCommodityCodeService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.repository.ItCommodityCodeRepository"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.ItCommodityCodeService$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.service.MailService",
@@ -2940,6 +2997,29 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026AgencySpendDTO"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026ContractSpendDTO",
+      "methods": [
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpend",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026PoSpendDTO"
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
@@ -3860,6 +3940,22 @@
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.AuthorityResource$$SpringCGLIB$$0"
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.Fy2026ReportResource",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.Fy2026ItSpendService"]
+        },
+        {
+          "name": "getSpendByContract",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
+    },
+    {
+      "type": "io.argorand.poc.dcpass.web.rest.Fy2026ReportResource$$SpringCGLIB$$0"
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.McpSseController",
@@ -6380,6 +6476,9 @@
     },
     {
       "type": "jakarta.persistence.criteria.Expression"
+    },
+    {
+      "type": "jakarta.persistence.criteria.Nulls"
     },
     {
       "type": "jakarta.persistence.criteria.Path"
@@ -12582,6 +12681,10 @@
         {
           "name": "<init>",
           "parameterTypes": ["org.hibernate.annotations.Cache", "org.hibernate.models.spi.ModelsContext"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.hibernate.models.spi.ModelsContext"]
         }
       ]
     },
@@ -29004,6 +29107,28 @@
     {
       "type": {
         "proxy": [
+          "io.argorand.poc.dcpass.repository.Fy2026ReportRepository",
+          "org.springframework.data.repository.Repository",
+          "org.springframework.transaction.interceptor.TransactionalProxy",
+          "org.springframework.aop.framework.Advised",
+          "org.springframework.core.DecoratingProxy"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "io.argorand.poc.dcpass.repository.ItCommodityCodeRepository",
+          "org.springframework.data.repository.Repository",
+          "org.springframework.transaction.interceptor.TransactionalProxy",
+          "org.springframework.aop.framework.Advised",
+          "org.springframework.core.DecoratingProxy"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
           "io.argorand.poc.dcpass.repository.PassContractRepository",
           "org.springframework.data.repository.Repository",
           "org.springframework.transaction.interceptor.TransactionalProxy",
@@ -29784,9 +29909,6 @@
       "glob": "config/liquibase/data/user_authority.csv"
     },
     {
-      "glob": "config/liquibase/fake-data/pass_contract.csv"
-    },
-    {
       "glob": "config/liquibase/master.xml"
     },
     {
@@ -29860,6 +29982,9 @@
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/Authority.class"
+    },
+    {
+      "glob": "io/argorand/poc/dcpass/domain/ItCommodityCode.class"
     },
     {
       "glob": "io/argorand/poc/dcpass/domain/PassContract.class"
