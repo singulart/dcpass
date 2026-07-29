@@ -78,6 +78,7 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/api/pass-contracts", "/api/pass-contracts/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/purchase-orders", "/api/purchase-orders/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/pass-payments", "/api/pass-payments/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/fy2026", "/api/fy2026/**").permitAll()
                     .requestMatchers("/sse", "/sse/", "/mcp/**").permitAll()
                     .requestMatchers("/.well-known/**").permitAll()
                     .requestMatchers("/api/**").authenticated()

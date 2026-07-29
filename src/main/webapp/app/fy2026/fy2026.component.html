@@ -1,0 +1,56 @@
+<div class="fy2026">
+  <header class="fy2026__header">
+    <h1>FY2026 IT Spend</h1>
+    <p class="fy2026__lede">Interactive drill-down of District IT commodity payments for fiscal year 2026.</p>
+  </header>
+
+  <nav class="fy2026__breadcrumb" aria-label="Chart level">
+    @if (level() === 'agency') {
+      <span class="fy2026__crumb fy2026__crumb--current">Agencies</span>
+    } @else {
+      <button type="button" class="fy2026__crumb-btn" (click)="goToAgencies()">Agencies</button>
+      <span class="fy2026__sep" aria-hidden="true">/</span>
+      @if (level() === 'contract') {
+        <span class="fy2026__crumb fy2026__crumb--current">{{ selectedAgencyLabel() }}</span>
+      } @else {
+        <button type="button" class="fy2026__crumb-btn" (click)="goToContracts()">{{ selectedAgencyLabel() }}</button>
+        <span class="fy2026__sep" aria-hidden="true">/</span>
+        <span class="fy2026__crumb fy2026__crumb--current">{{ selectedContractLabel() }}</span>
+      }
+    }
+  </nav>
+
+  <div class="fy2026__toolbar">
+    <h2 class="fy2026__heading">{{ heading() }}</h2>
+    @if (level() !== 'agency') {
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="level() === 'po' ? goToContracts() : goToAgencies()">
+        <fa-icon [icon]="faArrowLeft"></fa-icon>
+        Back
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  <div class="fy2026__chart-panel">
+    @if (loading()) {
+      <div class="fy2026__loading fy2026__loading--overlay">
+        <fa-icon [icon]="faSpinner" animation="spin"></fa-icon>
+        Loading…
+      </div>
+    }
+    <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" [style.height]="chartHeight()">
+      <canvas #chartCanvas aria-label="FY2026 spend chart"></canvas>
+    </div>
+  </div>
+
+  @if (!loading() && !error()) {
+    @if (level() === 'agency') {
+      <p class="fy2026__hint">Click a slice to see spend by contract for that agency.</p>
+    } @else if (level() === 'contract') {
+      <p class="fy2026__hint">Showing contracts with $50k+ spend. Click a bar to see purchase orders for that contract.</p>
+    }
+  }
+</div>

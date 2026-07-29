@@ -39,6 +39,11 @@ const routes: Routes = [
     title: 'Contracts Widget',
   },
   {
+    path: 'fy2026',
+    loadComponent: () => import('./fy2026/fy2026.component'),
+    title: 'FY2026 IT Spend',
+  },
+  {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },

@@ -1,0 +1,107 @@
+.fy2026 {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.fy2026__header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  color: #0d3b3b;
+}
+
+.fy2026__lede {
+  margin: 0 0 1.25rem;
+  color: #4a5560;
+  max-width: 40rem;
+}
+
+.fy2026__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.fy2026__crumb--current {
+  font-weight: 600;
+  color: #0d3b3b;
+}
+
+.fy2026__crumb-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #0d6e6e;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+.fy2026__crumb-btn:hover {
+  color: #0a5555;
+}
+
+.fy2026__sep {
+  color: #9aa3ab;
+}
+
+.fy2026__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.fy2026__heading {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1a2b2b;
+}
+
+.fy2026__chart-panel {
+  position: relative;
+  min-height: 320px;
+}
+
+.fy2026__chart-wrap {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(165deg, #f7faf9 0%, #eef5f4 55%, #f8f4ee 100%);
+  border: 1px solid #d5e0dd;
+  padding: 1rem;
+}
+
+.fy2026__chart-wrap--dimmed {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.fy2026__loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem 1rem;
+  color: #4a5560;
+}
+
+.fy2026__loading--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  justify-content: center;
+  background: rgba(247, 250, 249, 0.72);
+  margin: 0;
+}
+
+.fy2026__hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: #5c6b6b;
+}
