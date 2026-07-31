@@ -22,3 +22,5 @@ export interface IFy2026PoSpend {
 }
 
 export type Fy2026ChartLevel = 'agency' | 'contract' | 'po';
+
+export type Fy2026AwardedChartLevel = 'agency' | 'contract';

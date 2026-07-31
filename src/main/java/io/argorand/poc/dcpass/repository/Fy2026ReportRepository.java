@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Native report queries for FY2026 IT spend drill-down charts.
+ * Native report queries for FY2026 IT spend and awarded-PO drill-down charts.
  * Extends {@link PassPayment} repository surface only for Spring Data wiring;
  * all methods are native SQL aggregations.
  */
@@ -89,12 +89,52 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
     )
     List<Object[]> findPoSpendByAgencyAndNullContract(@Param("agencyAcronym") String agencyAcronym);
 
+    @Query(
+        value = """
+        SELECT "Agency", "Awarded"
+        FROM mv_fy2026_it_awarded_pos_by_agency
+        ORDER BY "Awarded" DESC
+        """,
+        nativeQuery = true
+    )
+    List<Object[]> findAgencyAwarded();
+
+    @Query(
+        value = """
+        SELECT
+          COALESCE(
+            (SELECT DISTINCT c.title FROM pass_contract c WHERE c.contractnumber = po.contractnumber),
+            'NO CONTRACT'
+          ),
+          po.contractnumber,
+          SUM(po.pototal)
+        FROM purchase_order po
+        JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
+        WHERE po.fiscalyear = 2026
+          AND po.agency_acronym = :agencyAcronym
+        GROUP BY 1, 2
+        ORDER BY 3 DESC
+        """,
+        nativeQuery = true
+    )
+    List<Object[]> findContractAwardedByAgency(@Param("agencyAcronym") String agencyAcronym);
+
     default List<AgencySpendRow> mapAgencySpend() {
         List<AgencySpendRow> result = new ArrayList<>();
         for (Object[] row : findAgencySpend()) {
             String agencyRaw = row[0] == null ? "" : row[0].toString();
             BigDecimal spend = row[1] == null ? BigDecimal.ZERO : new BigDecimal(row[1].toString());
             result.add(new AgencySpendRow(agencyRaw, spend));
+        }
+        return result;
+    }
+
+    default List<AgencySpendRow> mapAgencyAwarded() {
+        List<AgencySpendRow> result = new ArrayList<>();
+        for (Object[] row : findAgencyAwarded()) {
+            String agencyRaw = row[0] == null ? "" : row[0].toString();
+            BigDecimal awarded = row[1] == null ? BigDecimal.ZERO : new BigDecimal(row[1].toString());
+            result.add(new AgencySpendRow(agencyRaw, awarded));
         }
         return result;
     }
@@ -106,6 +146,17 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
             String contractNumber = row[1] == null ? null : row[1].toString();
             BigDecimal spend = row[2] == null ? BigDecimal.ZERO : new BigDecimal(row[2].toString());
             result.add(new ContractSpendRow(title, contractNumber, spend));
+        }
+        return result;
+    }
+
+    default List<ContractSpendRow> mapContractAwarded(String agencyAcronym) {
+        List<ContractSpendRow> result = new ArrayList<>();
+        for (Object[] row : findContractAwardedByAgency(agencyAcronym)) {
+            String title = row[0] == null ? "NO CONTRACT" : row[0].toString();
+            String contractNumber = row[1] == null ? null : row[1].toString();
+            BigDecimal awarded = row[2] == null ? BigDecimal.ZERO : new BigDecimal(row[2].toString());
+            result.add(new ContractSpendRow(title, contractNumber, awarded));
         }
         return result;
     }

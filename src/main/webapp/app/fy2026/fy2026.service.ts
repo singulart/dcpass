@@ -28,4 +28,13 @@ export class Fy2026Service {
     }
     return this.http.get<IFy2026PoSpend[]>(`${this.resourceUrl}/it-spend-by-po`, { params });
   }
+
+  getAwardedByAgency(): Observable<IFy2026AgencySpend[]> {
+    return this.http.get<IFy2026AgencySpend[]>(`${this.resourceUrl}/it-awarded-by-agency`);
+  }
+
+  getAwardedByContract(agencyAcronym: string): Observable<IFy2026ContractSpend[]> {
+    const params = new HttpParams().set('agencyAcronym', agencyAcronym);
+    return this.http.get<IFy2026ContractSpend[]>(`${this.resourceUrl}/it-awarded-by-contract`, { params });
+  }
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * FY2026 IT spend report data for the interactive drill-down charts.
+ * FY2026 IT spend and awarded purchase-order report data for the interactive drill-down charts.
  */
 @Service
 @Transactional(readOnly = true)
@@ -31,20 +31,7 @@ public class Fy2026ItSpendService {
 
     public List<Fy2026AgencySpendDTO> getSpendByAgency() {
         LOG.debug("Request to get FY2026 IT spend by agency");
-        List<Fy2026AgencySpendDTO> result = new ArrayList<>();
-        for (AgencySpendRow row : fy2026ReportRepository.mapAgencySpend()) {
-            String agencyRaw = row.agencyRaw();
-            String acronym = agencyRaw;
-            String display = agencyRaw;
-            int pipe = agencyRaw.indexOf('|');
-            if (pipe >= 0) {
-                acronym = agencyRaw.substring(0, pipe);
-                String name = agencyRaw.substring(pipe + 1);
-                display = name.isBlank() ? acronym : (acronym.isBlank() ? name : acronym + " — " + name);
-            }
-            result.add(new Fy2026AgencySpendDTO(display, acronym, row.spend()));
-        }
-        return result;
+        return mapAgencyRows(fy2026ReportRepository.mapAgencySpend());
     }
 
     public List<Fy2026ContractSpendDTO> getSpendByContract(String agencyAcronym) {
@@ -61,6 +48,37 @@ public class Fy2026ItSpendService {
         List<Fy2026PoSpendDTO> result = new ArrayList<>();
         for (PoSpendRow row : fy2026ReportRepository.mapPoSpend(agencyAcronym, contractNumber)) {
             result.add(new Fy2026PoSpendDTO(row.purchaseOrderId(), row.poNumber(), row.poTitle(), row.spend()));
+        }
+        return result;
+    }
+
+    public List<Fy2026AgencySpendDTO> getAwardedByAgency() {
+        LOG.debug("Request to get FY2026 IT awarded PO dollars by agency");
+        return mapAgencyRows(fy2026ReportRepository.mapAgencyAwarded());
+    }
+
+    public List<Fy2026ContractSpendDTO> getAwardedByContract(String agencyAcronym) {
+        LOG.debug("Request to get FY2026 IT awarded PO dollars by contract for agency {}", agencyAcronym);
+        List<Fy2026ContractSpendDTO> result = new ArrayList<>();
+        for (ContractSpendRow row : fy2026ReportRepository.mapContractAwarded(agencyAcronym)) {
+            result.add(new Fy2026ContractSpendDTO(row.contractTitle(), row.contractNumber(), row.spend()));
+        }
+        return result;
+    }
+
+    private List<Fy2026AgencySpendDTO> mapAgencyRows(List<AgencySpendRow> rows) {
+        List<Fy2026AgencySpendDTO> result = new ArrayList<>();
+        for (AgencySpendRow row : rows) {
+            String agencyRaw = row.agencyRaw();
+            String acronym = agencyRaw;
+            String display = agencyRaw;
+            int pipe = agencyRaw.indexOf('|');
+            if (pipe >= 0) {
+                acronym = agencyRaw.substring(0, pipe);
+                String name = agencyRaw.substring(pipe + 1);
+                display = name.isBlank() ? acronym : (acronym.isBlank() ? name : acronym + " — " + name);
+            }
+            result.add(new Fy2026AgencySpendDTO(display, acronym, row.spend()));
         }
         return result;
     }

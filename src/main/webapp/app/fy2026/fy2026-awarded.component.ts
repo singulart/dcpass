@@ -3,9 +3,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { ArcElement, Chart, ChartConfiguration, DoughnutController, Tooltip } from 'chart.js';
 
+import { PassContractService } from 'app/entities/pass-contract/service/pass-contract.service';
+
 import { Fy2026Service } from './fy2026.service';
-import { Fy2026AwardedComponent } from './fy2026-awarded.component';
-import { Fy2026ChartLevel, IFy2026AgencySpend, IFy2026ContractSpend, IFy2026PoSpend } from './fy2026.model';
+import { Fy2026AwardedChartLevel, IFy2026AgencySpend, IFy2026ContractSpend } from './fy2026.model';
 import {
   FY2026_OTHERS_COLOR,
   FY2026_OTHERS_LABEL,
@@ -21,66 +22,64 @@ import {
 Chart.register(ArcElement, DoughnutController, Tooltip);
 
 const DOUGHNUT_PALETTE = [
-  '#0d6e6e',
-  '#1a8a8a',
-  '#2a9d8f',
   '#3d5a80',
+  '#4a6fa5',
   '#ee9b00',
   '#ca6702',
   '#bb3e03',
-  '#ae2012',
-  '#9b2226',
+  '#6d597a',
+  '#b56576',
   '#005f73',
   '#0a9396',
   '#94d2bd',
   '#e9d8a6',
-  '#6d597a',
-  '#b56576',
+  '#9b2226',
+  '#ae2012',
+  '#1a8a8a',
+  '#2a9d8f',
 ];
 
-type Fy2026ChartCanvas = HTMLCanvasElement & { __fy2026Chart?: Chart };
+type Fy2026AwardedChartCanvas = HTMLCanvasElement & { __fy2026Chart?: Chart };
 
 type TopAgencySlice = { kind: 'agency'; row: IFy2026AgencySpend } | { kind: 'others'; spend: number };
 
 function bindChartToCanvas(canvas: HTMLCanvasElement, chart: Chart): void {
-  (canvas as Fy2026ChartCanvas).__fy2026Chart = chart;
+  (canvas as Fy2026AwardedChartCanvas).__fy2026Chart = chart;
 }
 
 function unbindChartFromCanvas(canvas: HTMLCanvasElement | undefined | null): void {
   if (canvas) {
-    delete (canvas as Fy2026ChartCanvas).__fy2026Chart;
+    delete (canvas as Fy2026AwardedChartCanvas).__fy2026Chart;
   }
 }
 
 @Component({
-  selector: 'jhi-fy2026',
-  templateUrl: './fy2026.component.html',
+  selector: 'jhi-fy2026-awarded',
+  templateUrl: './fy2026-awarded.component.html',
   styleUrl: './fy2026.component.scss',
-  imports: [FontAwesomeModule, Fy2026AwardedComponent],
+  imports: [FontAwesomeModule],
 })
-export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy {
+export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('topAgencyCanvas') topAgencyCanvas?: ElementRef<HTMLCanvasElement>;
   @ViewChild('othersAgencyCanvas') othersAgencyCanvas?: ElementRef<HTMLCanvasElement>;
 
   readonly faArrowLeft = faArrowLeft;
   readonly faSpinner = faSpinner;
 
-  level = signal<Fy2026ChartLevel>('agency');
+  level = signal<Fy2026AwardedChartLevel>('agency');
   loading = signal(true);
   error = signal<string | null>(null);
   hasOthersAgencies = signal(false);
 
   selectedAgencyAcronym = signal<string | null>(null);
   selectedAgencyLabel = signal<string | null>(null);
-  selectedContractNumber = signal<string | null>(null);
-  selectedContractLabel = signal<string | null>(null);
 
   topLegendItems = signal<Fy2026LegendItem[]>([]);
   othersLegendItems = signal<Fy2026LegendItem[]>([]);
   contractBarItems = signal<Fy2026BarItem[]>([]);
-  poBarItems = signal<Fy2026BarItem[]>([]);
 
   private readonly fy2026Service = inject(Fy2026Service);
+  private readonly passContractService = inject(PassContractService);
 
   private topAgencyChart: Chart | null = null;
   private othersAgencyChart: Chart | null = null;
@@ -88,7 +87,6 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
   private topSlices: TopAgencySlice[] = [];
   private othersAgencyRows: IFy2026AgencySpend[] = [];
   private contractRows: IFy2026ContractSpend[] = [];
-  private poRows: IFy2026PoSpend[] = [];
   private viewReady = false;
   private pendingRender: (() => void) | null = null;
   private pointerDown: { x: number; y: number } | null = null;
@@ -113,33 +111,15 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
   goToAgencies(): void {
     this.selectedAgencyAcronym.set(null);
     this.selectedAgencyLabel.set(null);
-    this.selectedContractNumber.set(null);
-    this.selectedContractLabel.set(null);
     this.level.set('agency');
     this.scheduleRender(() => this.renderAgencyCharts());
   }
 
-  goToContracts(): void {
-    const acronym = this.selectedAgencyAcronym();
-    if (!acronym) {
-      this.goToAgencies();
-      return;
-    }
-    this.selectedContractNumber.set(null);
-    this.selectedContractLabel.set(null);
-    this.level.set('contract');
-    this.loadContracts(acronym);
-  }
-
   heading(): string {
-    switch (this.level()) {
-      case 'contract':
-        return `IT spend by contract — ${this.selectedAgencyLabel() ?? ''}`;
-      case 'po':
-        return `IT spend by purchase order — ${this.selectedContractLabel() ?? ''}`;
-      default:
-        return 'FY2026 IT spend by agency';
+    if (this.level() === 'contract') {
+      return `Contracts with most awarded IT task orders - ${this.selectedAgencyLabel() ?? ''}`;
     }
+    return 'FY2026 awarded IT task orders by agency';
   }
 
   onPointerDown(event: MouseEvent): void {
@@ -174,31 +154,24 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     if (!row || row.isOthers) {
       return;
     }
-    const agency = this.selectedAgencyAcronym();
-    if (agency == null || agency === '') {
+    const contractNumber = row.contractNumber?.trim();
+    if (!contractNumber) {
       return;
     }
-    const contractNumber = row.contractNumber ?? null;
-    this.selectedContractNumber.set(contractNumber);
-    this.selectedContractLabel.set(this.contractDisplayName(row));
-    this.loadPurchaseOrders(agency, contractNumber);
-  }
-
-  onPoRowClick(event: MouseEvent, index: number): void {
-    if (!fy2026IsPlainClick(this.pointerDown, event)) {
-      return;
-    }
-    const row = this.poRows[index];
-    if (!row || row.isOthers || row.purchaseOrderId == null) {
-      return;
-    }
-    window.open(`/purchase-order/${row.purchaseOrderId}/view`, '_blank', 'noopener,noreferrer');
+    this.passContractService.query({ 'contractNumber.equals': contractNumber, size: 1 }).subscribe({
+      next: response => {
+        const id = response.body?.[0]?.id;
+        if (id != null) {
+          window.open(`/pass-contract/${id}/view`, '_blank', 'noopener,noreferrer');
+        }
+      },
+    });
   }
 
   private loadAgencies(): void {
     this.loading.set(true);
     this.error.set(null);
-    this.fy2026Service.getSpendByAgency().subscribe({
+    this.fy2026Service.getAwardedByAgency().subscribe({
       next: rows => {
         this.agencyRows = rows;
         this.splitAgencyRows();
@@ -208,7 +181,7 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
       },
       error: () => {
         this.loading.set(false);
-        this.error.set('Failed to load agency spend data.');
+        this.error.set('Failed to load awarded agency data.');
       },
     });
   }
@@ -230,7 +203,7 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     this.loading.set(true);
     this.error.set(null);
     this.destroyAgencyCharts();
-    this.fy2026Service.getSpendByContract(agencyAcronym).subscribe({
+    this.fy2026Service.getAwardedByContract(agencyAcronym).subscribe({
       next: rows => {
         this.contractRows = this.buildContractRowsWithOthers(rows);
         this.contractBarItems.set(
@@ -238,8 +211,8 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
             this.contractRows.map(row => ({
               label: this.contractDisplayName(row),
               value: fy2026Amount(row.spend),
-              color: row.isOthers ? FY2026_OTHERS_COLOR : '#0d6e6e',
-              clickable: !row.isOthers,
+              color: row.isOthers ? FY2026_OTHERS_COLOR : '#ca6702',
+              clickable: this.isContractClickable(row),
             })),
           ),
         );
@@ -248,46 +221,7 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
       },
       error: () => {
         this.loading.set(false);
-        this.error.set('Failed to load contract spend data.');
-      },
-    });
-  }
-
-  private loadPurchaseOrders(agencyAcronym: string, contractNumber: string | null): void {
-    this.loading.set(true);
-    this.error.set(null);
-    this.fy2026Service.getSpendByPo(agencyAcronym, contractNumber).subscribe({
-      next: rows => {
-        this.loading.set(false);
-        if (rows.length === 1) {
-          const id = rows[0].purchaseOrderId;
-          if (id != null) {
-            window.open(`/purchase-order/${id}/view`, '_blank', 'noopener,noreferrer');
-          }
-          this.selectedContractNumber.set(null);
-          this.selectedContractLabel.set(null);
-          return;
-        }
-        if (rows.length < 2) {
-          this.error.set('No purchase orders found for this contract.');
-          return;
-        }
-        this.poRows = this.buildPoRowsWithOthers(rows);
-        this.poBarItems.set(
-          fy2026BuildBarItems(
-            this.poRows.map(row => ({
-              label: this.poDisplayName(row),
-              value: fy2026Amount(row.spend),
-              color: row.isOthers ? FY2026_OTHERS_COLOR : '#ca6702',
-              clickable: !row.isOthers && row.purchaseOrderId != null,
-            })),
-          ),
-        );
-        this.level.set('po');
-      },
-      error: () => {
-        this.loading.set(false);
-        this.error.set('Failed to load purchase order spend data.');
+        this.error.set('Failed to load awarded contract data.');
       },
     });
   }
@@ -338,42 +272,6 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     return major;
   }
 
-  private buildPoRowsWithOthers(rows: IFy2026PoSpend[]): IFy2026PoSpend[] {
-    const major: IFy2026PoSpend[] = [];
-    let othersSpend = 0;
-    let othersCount = 0;
-    for (const row of rows) {
-      if (fy2026Amount(row.spend) >= 50_000) {
-        major.push(row);
-      } else {
-        othersSpend += fy2026Amount(row.spend);
-        othersCount += 1;
-      }
-    }
-    if (othersCount > 0) {
-      major.push({
-        purchaseOrderId: null,
-        poNumber: FY2026_OTHERS_LABEL,
-        poTitle: FY2026_OTHERS_LABEL,
-        spend: othersSpend,
-        isOthers: true,
-      });
-    }
-    return major;
-  }
-
-  private poDisplayName(row: IFy2026PoSpend): string {
-    if (row.isOthers) {
-      return FY2026_OTHERS_LABEL;
-    }
-    const num = row.poNumber?.trim() ?? '';
-    const title = row.poTitle?.trim() ?? '';
-    if (num && title) {
-      return `${num} — ${title}`;
-    }
-    return num || title || 'Unknown PO';
-  }
-
   private isNoContractTitle(title: string | null | undefined): boolean {
     const trimmed = title?.trim();
     return trimmed == null || trimmed === '' || trimmed.toUpperCase() === 'NO CONTRACT';
@@ -388,6 +286,14 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     }
     const number = row.contractNumber?.trim();
     return number && number !== '' ? number : 'Untitled contract';
+  }
+
+  private isContractClickable(row: IFy2026ContractSpend): boolean {
+    if (row.isOthers) {
+      return false;
+    }
+    const number = row.contractNumber?.trim();
+    return number != null && number !== '';
   }
 
   private selectAgency(row: IFy2026AgencySpend): void {

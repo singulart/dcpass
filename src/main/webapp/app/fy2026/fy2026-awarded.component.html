@@ -1,0 +1,132 @@
+<section class="fy2026__section fy2026__section--awarded" aria-labelledby="fy2026-awarded-heading">
+  <header class="fy2026__section-header">
+    <h2 id="fy2026-awarded-heading">Awarded IT task orders</h2>
+    <p class="fy2026__lede fy2026__lede--section">
+      Purchase orders awarded for IT commodities in FY2026 — these are obligated (promised) dollars, which many not have been paid yet.
+    </p>
+  </header>
+
+  @if (level() !== 'agency') {
+    <nav class="fy2026__breadcrumb" aria-label="Awarded chart level">
+      <button type="button" class="fy2026__crumb-btn" (click)="goToAgencies()">Agencies</button>
+      <span class="fy2026__sep" aria-hidden="true">/</span>
+      <span class="fy2026__crumb fy2026__crumb--current">{{ selectedAgencyLabel() }}</span>
+    </nav>
+  }
+
+  <div class="fy2026__toolbar">
+    <h3 class="fy2026__heading" data-cy="fy2026AwardedHeading">{{ heading() }}</h3>
+    @if (level() !== 'agency') {
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="goToAgencies()">
+        <fa-icon [icon]="faArrowLeft"></fa-icon>
+        Back
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  <div class="fy2026__chart-panel">
+    @if (loading()) {
+      <div class="fy2026__loading fy2026__loading--overlay">
+        <fa-icon [icon]="faSpinner" animation="spin"></fa-icon>
+        Loading…
+      </div>
+    }
+
+    @if (level() === 'agency') {
+      <section class="fy2026__agency-grid" [class.fy2026__chart-wrap--dimmed]="loading()">
+        <div class="fy2026__agency-block">
+          <h4 class="fy2026__subheading">Top 20 agencies</h4>
+          <div class="fy2026__chart-wrap fy2026__chart-wrap--doughnut">
+            <div class="fy2026__doughnut">
+              <div class="fy2026__doughnut-canvas">
+                <canvas
+                  #topAgencyCanvas
+                  data-cy="fy2026AwardedTopAgencyChart"
+                  aria-label="Top 20 agencies by awarded IT PO dollars"
+                ></canvas>
+              </div>
+              <ul class="fy2026__legend" data-cy="fy2026AwardedTopAgencyLegend">
+                @for (item of topLegendItems(); track $index) {
+                  <li
+                    class="fy2026__legend-item fy2026__legend-item--clickable"
+                    (mousedown)="onPointerDown($event)"
+                    (click)="onTopLegendClick($event, item)"
+                  >
+                    <span class="fy2026__legend-swatch" [style.background-color]="item.color" aria-hidden="true"></span>
+                    <span class="fy2026__legend-label">{{ item.label }}</span>
+                    <span class="fy2026__legend-value">{{ item.valueFormatted }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        @if (hasOthersAgencies()) {
+          <div class="fy2026__agency-block">
+            <h4 class="fy2026__subheading">Other agencies</h4>
+            <div class="fy2026__chart-wrap fy2026__chart-wrap--doughnut">
+              <div class="fy2026__doughnut">
+                <div class="fy2026__doughnut-canvas">
+                  <canvas
+                    #othersAgencyCanvas
+                    data-cy="fy2026AwardedOthersAgencyChart"
+                    aria-label="Remaining agencies by awarded IT PO dollars"
+                  ></canvas>
+                </div>
+                <ul class="fy2026__legend" data-cy="fy2026AwardedOthersAgencyLegend">
+                  @for (item of othersLegendItems(); track $index) {
+                    <li
+                      class="fy2026__legend-item fy2026__legend-item--clickable"
+                      (mousedown)="onPointerDown($event)"
+                      (click)="onOthersLegendClick($event, item)"
+                    >
+                      <span class="fy2026__legend-swatch" [style.background-color]="item.color" aria-hidden="true"></span>
+                      <span class="fy2026__legend-label">{{ item.label }}</span>
+                      <span class="fy2026__legend-value">{{ item.valueFormatted }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+        }
+      </section>
+    } @else {
+      <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" data-cy="fy2026AwardedDrillChart">
+        <ul class="fy2026__bar-list">
+          @for (item of contractBarItems(); track $index) {
+            @if (item.clickable) {
+              <li
+                class="fy2026__bar-row fy2026__bar-row--clickable"
+                (mousedown)="onPointerDown($event)"
+                (click)="onContractRowClick($event, $index)"
+              >
+                <span class="fy2026__bar-label">{{ item.label }}</span>
+                <span class="fy2026__bar-track" aria-hidden="true">
+                  <span class="fy2026__bar-fill" [style.width.%]="item.pct" [style.background-color]="item.color"></span>
+                </span>
+                <span class="fy2026__bar-value">{{ item.valueFormatted }}</span>
+              </li>
+            } @else {
+              <li class="fy2026__bar-row">
+                <span class="fy2026__bar-label">{{ item.label }}</span>
+                <span class="fy2026__bar-track" aria-hidden="true">
+                  <span class="fy2026__bar-fill" [style.width.%]="item.pct" [style.background-color]="item.color"></span>
+                </span>
+                <span class="fy2026__bar-value">{{ item.valueFormatted }}</span>
+              </li>
+            }
+          }
+        </ul>
+      </div>
+      @if (!loading() && !error()) {
+        <p class="fy2026__hint">Contracts under $50k are shown as Others. Rows are ranked by awarded purchase-order dollars.</p>
+      }
+    }
+  </div>
+</section>

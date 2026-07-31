@@ -1,81 +1,150 @@
 <div class="fy2026">
   <header class="fy2026__header">
     <h1>FY2026 IT Spend</h1>
-    <p class="fy2026__lede">Interactive drill-down of District IT commodity payments for fiscal year 2026.</p>
+    <p class="fy2026__lede">
+      Interactive views of District IT commodity activity for fiscal year 2026 — actual payments paid, then awarded purchase-order dollars
+      still on the books.
+    </p>
   </header>
 
-  <nav class="fy2026__breadcrumb" aria-label="Chart level">
-    @if (level() === 'agency') {
-      <span class="fy2026__crumb fy2026__crumb--current">Agencies</span>
-    } @else {
-      <button type="button" class="fy2026__crumb-btn" (click)="goToAgencies()">Agencies</button>
-      <span class="fy2026__sep" aria-hidden="true">/</span>
-      @if (level() === 'contract') {
-        <span class="fy2026__crumb fy2026__crumb--current">{{ selectedAgencyLabel() }}</span>
-      } @else {
-        <button type="button" class="fy2026__crumb-btn" (click)="goToContracts()">{{ selectedAgencyLabel() }}</button>
-        <span class="fy2026__sep" aria-hidden="true">/</span>
-        <span class="fy2026__crumb fy2026__crumb--current">{{ selectedContractLabel() }}</span>
-      }
-    }
-  </nav>
+  <section class="fy2026__section" aria-labelledby="fy2026-spend-heading">
+    <header class="fy2026__section-header">
+      <h2 id="fy2026-spend-heading">Actual IT payments</h2>
+      <p class="fy2026__lede fy2026__lede--section">
+        Dollars already paid to contractors. Think of this as the DC's "IT big spenders list".
+      </p>
+    </header>
 
-  <div class="fy2026__toolbar">
-    <h2 class="fy2026__heading" data-cy="fy2026Heading">{{ heading() }}</h2>
     @if (level() !== 'agency') {
-      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="level() === 'po' ? goToContracts() : goToAgencies()">
-        <fa-icon [icon]="faArrowLeft"></fa-icon>
-        Back
-      </button>
-    }
-  </div>
-
-  @if (error()) {
-    <div class="alert alert-danger" role="alert">{{ error() }}</div>
-  }
-
-  <div class="fy2026__chart-panel">
-    @if (loading()) {
-      <div class="fy2026__loading fy2026__loading--overlay">
-        <fa-icon [icon]="faSpinner" animation="spin"></fa-icon>
-        Loading…
-      </div>
-    }
-
-    @if (level() === 'agency') {
-      <section class="fy2026__agency-grid" [class.fy2026__chart-wrap--dimmed]="loading()">
-        <div class="fy2026__agency-block">
-          <h3 class="fy2026__subheading">Top 20 agencies</h3>
-          <div class="fy2026__chart-wrap" [style.height]="chartHeight()">
-            <canvas #topAgencyCanvas data-cy="fy2026TopAgencyChart" aria-label="Top 20 agencies by IT spend"></canvas>
-          </div>
-          @if (!loading() && !error()) {
-            <p class="fy2026__hint">Click an agency slice to drill down. Click Others to jump to the remaining agencies.</p>
-          }
-        </div>
-
-        @if (hasOthersAgencies()) {
-          <div class="fy2026__agency-block">
-            <h3 class="fy2026__subheading">Other agencies</h3>
-            <div class="fy2026__chart-wrap" [style.height]="chartHeight()">
-              <canvas #othersAgencyCanvas data-cy="fy2026OthersAgencyChart" aria-label="Remaining agencies by IT spend"></canvas>
-            </div>
-            @if (!loading() && !error()) {
-              <p class="fy2026__hint">Agencies outside the top 20. Click a slice to drill down.</p>
-            }
-          </div>
+      <nav class="fy2026__breadcrumb" aria-label="Spend chart level">
+        <button type="button" class="fy2026__crumb-btn" (click)="goToAgencies()">Agencies</button>
+        <span class="fy2026__sep" aria-hidden="true">/</span>
+        @if (level() === 'contract') {
+          <span class="fy2026__crumb fy2026__crumb--current">{{ selectedAgencyLabel() }}</span>
+        } @else {
+          <button type="button" class="fy2026__crumb-btn" (click)="goToContracts()">{{ selectedAgencyLabel() }}</button>
+          <span class="fy2026__sep" aria-hidden="true">/</span>
+          <span class="fy2026__crumb fy2026__crumb--current">{{ selectedContractLabel() }}</span>
         }
-      </section>
-    } @else {
-      <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" [style.height]="chartHeight()">
-        <canvas #chartCanvas data-cy="fy2026DrillChart" aria-label="FY2026 spend chart"></canvas>
-      </div>
-      @if (!loading() && !error() && level() === 'contract') {
-        <p class="fy2026__hint">Contracts under $50k are shown as Others. Click any other bar to drill into purchase orders.</p>
-      }
-      @if (!loading() && !error() && level() === 'po') {
-        <p class="fy2026__hint">POs under $50k are grouped into Others. Click any other bar to open that purchase order in a new tab.</p>
-      }
+      </nav>
     }
-  </div>
+
+    <div class="fy2026__toolbar">
+      <h3 class="fy2026__heading" data-cy="fy2026Heading">{{ heading() }}</h3>
+      @if (level() !== 'agency') {
+        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="level() === 'po' ? goToContracts() : goToAgencies()">
+          <fa-icon [icon]="faArrowLeft"></fa-icon>
+          Back
+        </button>
+      }
+    </div>
+
+    @if (error()) {
+      <div class="alert alert-danger" role="alert">{{ error() }}</div>
+    }
+
+    <div class="fy2026__chart-panel">
+      @if (loading()) {
+        <div class="fy2026__loading fy2026__loading--overlay">
+          <fa-icon [icon]="faSpinner" animation="spin"></fa-icon>
+          Loading…
+        </div>
+      }
+
+      @if (level() === 'agency') {
+        <section class="fy2026__agency-grid" [class.fy2026__chart-wrap--dimmed]="loading()">
+          <div class="fy2026__agency-block">
+            <h4 class="fy2026__subheading">Top 20 agencies</h4>
+            <div class="fy2026__chart-wrap fy2026__chart-wrap--doughnut">
+              <div class="fy2026__doughnut">
+                <div class="fy2026__doughnut-canvas">
+                  <canvas #topAgencyCanvas data-cy="fy2026TopAgencyChart" aria-label="Top 20 agencies by IT spend"></canvas>
+                </div>
+                <ul class="fy2026__legend" data-cy="fy2026TopAgencyLegend">
+                  @for (item of topLegendItems(); track $index) {
+                    <li
+                      class="fy2026__legend-item"
+                      [class.fy2026__legend-item--clickable]="true"
+                      (mousedown)="onPointerDown($event)"
+                      (click)="onTopLegendClick($event, item)"
+                    >
+                      <span class="fy2026__legend-swatch" [style.background-color]="item.color" aria-hidden="true"></span>
+                      <span class="fy2026__legend-label">{{ item.label }}</span>
+                      <span class="fy2026__legend-value">{{ item.valueFormatted }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          @if (hasOthersAgencies()) {
+            <div class="fy2026__agency-block">
+              <h4 class="fy2026__subheading">Other agencies</h4>
+              <div class="fy2026__chart-wrap fy2026__chart-wrap--doughnut">
+                <div class="fy2026__doughnut">
+                  <div class="fy2026__doughnut-canvas">
+                    <canvas #othersAgencyCanvas data-cy="fy2026OthersAgencyChart" aria-label="Remaining agencies by IT spend"></canvas>
+                  </div>
+                  <ul class="fy2026__legend" data-cy="fy2026OthersAgencyLegend">
+                    @for (item of othersLegendItems(); track $index) {
+                      <li
+                        class="fy2026__legend-item fy2026__legend-item--clickable"
+                        (mousedown)="onPointerDown($event)"
+                        (click)="onOthersLegendClick($event, item)"
+                      >
+                        <span class="fy2026__legend-swatch" [style.background-color]="item.color" aria-hidden="true"></span>
+                        <span class="fy2026__legend-label">{{ item.label }}</span>
+                        <span class="fy2026__legend-value">{{ item.valueFormatted }}</span>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
+        </section>
+      } @else if (level() === 'contract') {
+        <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" data-cy="fy2026DrillChart">
+          <ul class="fy2026__bar-list">
+            @for (item of contractBarItems(); track $index) {
+              <li
+                class="fy2026__bar-row"
+                [class.fy2026__bar-row--clickable]="item.clickable"
+                (mousedown)="onPointerDown($event)"
+                (click)="onContractRowClick($event, $index)"
+              >
+                <span class="fy2026__bar-label">{{ item.label }}</span>
+                <span class="fy2026__bar-track" aria-hidden="true">
+                  <span class="fy2026__bar-fill" [style.width.%]="item.pct" [style.background-color]="item.color"></span>
+                </span>
+                <span class="fy2026__bar-value">{{ item.valueFormatted }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      } @else {
+        <div class="fy2026__chart-wrap" [class.fy2026__chart-wrap--dimmed]="loading()" data-cy="fy2026DrillChart">
+          <ul class="fy2026__bar-list">
+            @for (item of poBarItems(); track $index) {
+              <li
+                class="fy2026__bar-row"
+                [class.fy2026__bar-row--clickable]="item.clickable"
+                (mousedown)="onPointerDown($event)"
+                (click)="onPoRowClick($event, $index)"
+              >
+                <span class="fy2026__bar-label">{{ item.label }}</span>
+                <span class="fy2026__bar-track" aria-hidden="true">
+                  <span class="fy2026__bar-fill" [style.width.%]="item.pct" [style.background-color]="item.color"></span>
+                </span>
+                <span class="fy2026__bar-value">{{ item.valueFormatted }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </section>
+
+  <jhi-fy2026-awarded />
 </div>

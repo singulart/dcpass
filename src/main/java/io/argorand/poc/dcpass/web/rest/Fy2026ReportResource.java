@@ -59,4 +59,22 @@ public class Fy2026ReportResource {
         String normalized = contractNumber == null || contractNumber.isBlank() ? null : contractNumber;
         return ResponseEntity.ok(fy2026ItSpendService.getSpendByPo(agencyAcronym, normalized));
     }
+
+    /**
+     * {@code GET /fy2026/it-awarded-by-agency} : agency-level awarded IT PO dollars from the materialized view.
+     */
+    @GetMapping("/it-awarded-by-agency")
+    public ResponseEntity<List<Fy2026AgencySpendDTO>> getAwardedByAgency() {
+        LOG.debug("REST request to get FY2026 IT awarded PO dollars by agency");
+        return ResponseEntity.ok(fy2026ItSpendService.getAwardedByAgency());
+    }
+
+    /**
+     * {@code GET /fy2026/it-awarded-by-contract} : contract-level awarded IT PO dollars for an agency.
+     */
+    @GetMapping("/it-awarded-by-contract")
+    public ResponseEntity<List<Fy2026ContractSpendDTO>> getAwardedByContract(@RequestParam String agencyAcronym) {
+        LOG.debug("REST request to get FY2026 IT awarded PO dollars by contract for agency {}", agencyAcronym);
+        return ResponseEntity.ok(fy2026ItSpendService.getAwardedByContract(agencyAcronym));
+    }
 }
