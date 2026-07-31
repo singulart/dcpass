@@ -28887,8 +28887,40 @@
           "parameterTypes": []
         },
         {
+          "name": "getIn",
+          "parameterTypes": []
+        },
+        {
+          "name": "getNotEquals",
+          "parameterTypes": []
+        },
+        {
+          "name": "getNotIn",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpecified",
+          "parameterTypes": []
+        },
+        {
           "name": "setEquals",
           "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "setIn",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "setNotEquals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "setNotIn",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "setSpecified",
+          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -28949,6 +28981,22 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "getContains",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDoesNotContain",
+          "parameterTypes": []
+        },
+        {
+          "name": "setContains",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDoesNotContain",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },

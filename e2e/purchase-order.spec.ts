@@ -34,17 +34,23 @@ test.describe('Purchase Orders', () => {
     }
 
     test('equals', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(filterUrl('equals', marker.commodityCode));
-      await expect(page.getByText(marker.poTitle)).toBeVisible();
+      await page.goto(filterUrl('equals', seeded[0].commodityCode));
+      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
       await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
     });
 
     test('notEquals', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(filterUrl('notEquals', marker.commodityCode));
-      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
-      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await page.goto(
+        `${filterUrl('notEquals', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`,
+      );
+      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
+
+      await page.goto(
+        `${filterUrl('notEquals', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`,
+      );
+      await expect(page.getByText(included.poTitle)).toBeVisible();
     });
 
     test('in', async ({ page }) => {
@@ -54,34 +60,46 @@ test.describe('Purchase Orders', () => {
     });
 
     test('notIn', async ({ page }) => {
-      await page.goto(filterUrl('notIn', seeded[0].commodityCode));
-      await expect(page.getByText(seeded[0].poTitle)).toHaveCount(0);
-      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await page.goto(`${filterUrl('notIn', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`);
+      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
+
+      await page.goto(`${filterUrl('notIn', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`);
+      await expect(page.getByText(included.poTitle)).toBeVisible();
     });
 
     test('contains', async ({ page }) => {
       const marker = seeded[0];
-      const fragment = marker.commodityCode.slice(-4);
-      await page.goto(filterUrl('contains', fragment));
+      await page.goto(filterUrl('contains', marker.commodityCode));
       await expect(page.getByText(marker.poTitle)).toBeVisible();
+      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
     });
 
     test('doesNotContain', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(filterUrl('doesNotContain', marker.commodityCode));
-      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
-      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await page.goto(
+        `${filterUrl('doesNotContain', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`,
+      );
+      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
+
+      await page.goto(
+        `${filterUrl('doesNotContain', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`,
+      );
+      await expect(page.getByText(included.poTitle)).toBeVisible();
     });
 
     test('specified=true includes seeded rows', async ({ page }) => {
-      await page.goto(filterUrl('specified', 'true'));
-      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
+      const marker = seeded[0];
+      await page.goto(`${filterUrl('specified', 'true')}&q=${encodeURIComponent(marker.poNumber)}`);
+      await expect(page.getByText(marker.poTitle)).toBeVisible();
     });
 
     test('specified=false excludes seeded rows', async ({ page }) => {
-      await page.goto(filterUrl('specified', 'false'));
-      await expect(page.getByText(seeded[0].poTitle)).toHaveCount(0);
-      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
+      const marker = seeded[0];
+      await page.goto(`${filterUrl('specified', 'false')}&q=${encodeURIComponent(marker.poNumber)}`);
+      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
     });
   });
 

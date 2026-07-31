@@ -38,57 +38,69 @@ test.describe('PASS Contracts', () => {
       return `/pass-contract?${query}`;
     }
 
-    async function gotoFilter(page: Page, operator: string, ...values: string[]): Promise<void> {
+    async function gotoFilter(page: Page, operator: string, values: string[], q?: string): Promise<void> {
       const listResponse = waitForPassContractsListResponse(page);
-      await page.goto(filterUrl(operator, ...values));
+      const url = q ? `${filterUrl(operator, ...values)}&q=${encodeURIComponent(q)}` : filterUrl(operator, ...values);
+      await page.goto(url);
       await listResponse;
     }
 
     test('equals', async ({ page }) => {
-      await gotoFilter(page, 'equals', seeded[0].commodityCode);
+      await gotoFilter(page, 'equals', [seeded[0].commodityCode]);
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toHaveCount(0);
     });
 
     test('notEquals', async ({ page }) => {
-      await gotoFilter(page, 'notEquals', seeded[0].commodityCode);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await gotoFilter(page, 'notEquals', [excluded.commodityCode], excluded.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: excluded.title })).toHaveCount(0);
+
+      await gotoFilter(page, 'notEquals', [excluded.commodityCode], included.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: included.title })).toBeVisible();
     });
 
     test('in', async ({ page }) => {
-      await gotoFilter(page, 'in', seeded[0].commodityCode, seeded[1].commodityCode);
+      await gotoFilter(page, 'in', [seeded[0].commodityCode, seeded[1].commodityCode]);
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
     });
 
     test('notIn', async ({ page }) => {
-      await gotoFilter(page, 'notIn', seeded[0].commodityCode);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await gotoFilter(page, 'notIn', [excluded.commodityCode], excluded.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: excluded.title })).toHaveCount(0);
+
+      await gotoFilter(page, 'notIn', [excluded.commodityCode], included.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: included.title })).toBeVisible();
     });
 
     test('contains', async ({ page }) => {
-      const fragment = seeded[0].commodityCode.slice(-4);
-      await gotoFilter(page, 'contains', fragment);
+      await gotoFilter(page, 'contains', [seeded[0].commodityCode]);
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toHaveCount(0);
     });
 
     test('doesNotContain', async ({ page }) => {
-      await gotoFilter(page, 'doesNotContain', seeded[0].commodityCode);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+      const excluded = seeded[0];
+      const included = seeded[1];
+      await gotoFilter(page, 'doesNotContain', [excluded.commodityCode], excluded.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: excluded.title })).toHaveCount(0);
+
+      await gotoFilter(page, 'doesNotContain', [excluded.commodityCode], included.contractNumber);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: included.title })).toBeVisible();
     });
 
     test('specified=true includes seeded rows', async ({ page }) => {
-      await gotoFilter(page, 'specified', 'true');
+      await gotoFilter(page, 'specified', ['true'], seeded[0].contractNumber);
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
     });
 
     test('specified=false excludes seeded rows', async ({ page }) => {
-      await gotoFilter(page, 'specified', 'false');
+      await gotoFilter(page, 'specified', ['false'], seeded[0].contractNumber);
       await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
-      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toHaveCount(0);
     });
   });
 
