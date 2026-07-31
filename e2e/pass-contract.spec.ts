@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import { loginViaUI, USERS } from './helpers/auth';
 import {
@@ -29,6 +30,66 @@ test.describe('PASS Contracts', () => {
     await expect(page.getByTestId('PassContractHeading')).toBeVisible();
 
     await searchPassContracts(page, marker.contractNumber, marker.title);
+  });
+
+  test.describe('commodity code filters', () => {
+    function filterUrl(operator: string, ...values: string[]): string {
+      const query = values.map(v => `filter[commodityCode.${operator}]=${encodeURIComponent(v)}`).join('&');
+      return `/pass-contract?${query}`;
+    }
+
+    async function gotoFilter(page: Page, operator: string, ...values: string[]): Promise<void> {
+      const listResponse = waitForPassContractsListResponse(page);
+      await page.goto(filterUrl(operator, ...values));
+      await listResponse;
+    }
+
+    test('equals', async ({ page }) => {
+      await gotoFilter(page, 'equals', seeded[0].commodityCode);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toHaveCount(0);
+    });
+
+    test('notEquals', async ({ page }) => {
+      await gotoFilter(page, 'notEquals', seeded[0].commodityCode);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+    });
+
+    test('in', async ({ page }) => {
+      await gotoFilter(page, 'in', seeded[0].commodityCode, seeded[1].commodityCode);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+    });
+
+    test('notIn', async ({ page }) => {
+      await gotoFilter(page, 'notIn', seeded[0].commodityCode);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+    });
+
+    test('contains', async ({ page }) => {
+      const fragment = seeded[0].commodityCode.slice(-4);
+      await gotoFilter(page, 'contains', fragment);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
+    });
+
+    test('doesNotContain', async ({ page }) => {
+      await gotoFilter(page, 'doesNotContain', seeded[0].commodityCode);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toBeVisible();
+    });
+
+    test('specified=true includes seeded rows', async ({ page }) => {
+      await gotoFilter(page, 'specified', 'true');
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toBeVisible();
+    });
+
+    test('specified=false excludes seeded rows', async ({ page }) => {
+      await gotoFilter(page, 'specified', 'false');
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[0].title })).toHaveCount(0);
+      await expect(page.locator('tr[data-cy="entityTable"]', { hasText: seeded[1].title })).toHaveCount(0);
+    });
   });
 
   test('anonymous users can open contract details', async ({ page }) => {

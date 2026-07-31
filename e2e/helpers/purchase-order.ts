@@ -9,6 +9,7 @@ export type SeedPurchaseOrder = {
   poTitle: string;
   supplier: string;
   requisitionNumber: string;
+  commodityCode: string;
   poTotal: number;
 };
 
@@ -27,7 +28,7 @@ export function uniquePurchaseOrderPayload(index: number) {
     agencyName: 'E2E Test Agency',
     status: 'Ordered',
     requester: 'E2E Requester',
-    commodityCode: '1234567',
+    commodityCode: `${9000000 + (runId % 100000) + index}`,
     commodityName: 'E2E Commodity',
     contractNumber: `E2E-CN-${suffix}`,
     poTotal: 10000 + index * 5000,
@@ -58,6 +59,7 @@ export async function createPurchaseOrdersViaApi(
       poTitle: payload.poTitle,
       supplier: payload.supplier,
       requisitionNumber: payload.requisitionNumber,
+      commodityCode: payload.commodityCode,
       poTotal: payload.poTotal,
     });
   }

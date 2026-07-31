@@ -30,7 +30,7 @@ async function clickChartElement(page: Page, testId: string, elementIndex: numbe
 }
 
 test.describe('FY2026 IT spend charts', () => {
-  test('clicks through agency, contract, and purchase-order charts', async ({ page }) => {
+  test('clicks through agency, contract, and purchase order charts', async ({ page }) => {
     await page.route('**/api/fy2026/it-spend-by-agency', async route => {
       await route.fulfill({
         status: 200,
@@ -85,13 +85,11 @@ test.describe('FY2026 IT spend charts', () => {
     await expect(page.getByTestId('fy2026Heading')).toContainText('IT spend by contract');
     await expect(page.getByTestId('fy2026DrillChart')).toBeVisible();
     await expect(page.getByTestId('fy2026DrillChart')).toContainText('Prime IT Support');
-    await expect(page.getByText(/Contracts under \$50k/i)).toBeVisible();
 
     await page.getByTestId('fy2026DrillChart').getByText('Prime IT Support').click();
     await expect(page.getByTestId('fy2026Heading')).toContainText('IT spend by purchase order');
     await expect(page.getByTestId('fy2026DrillChart')).toBeVisible();
     await expect(page.getByTestId('fy2026DrillChart')).toContainText('PO-101 — Network Gear');
-    await expect(page.getByText(/POs under \$50k/i)).toBeVisible();
 
     const popupPromise = page.waitForEvent('popup');
     await page.getByTestId('fy2026DrillChart').getByText('PO-101 — Network Gear').click();
@@ -135,6 +133,7 @@ test.describe('FY2026 IT spend charts', () => {
         body: JSON.stringify([
           { contractTitle: 'Enterprise Licensing', contractNumber: 'CW99999', spend: 2_000_000 },
           { contractTitle: 'Helpdesk Staffing', contractNumber: 'CW88888', spend: 750_000 },
+          { contractTitle: 'NO CONTRACT', contractNumber: 'CW77777', spend: 400_000 },
           { contractTitle: 'Small Addon', contractNumber: 'CW00002', spend: 9_000 },
         ]),
       });
@@ -160,10 +159,14 @@ test.describe('FY2026 IT spend charts', () => {
     });
 
     await page.getByTestId('fy2026AwardedTopAgencyLegend').getByText('ABC — Alpha Agency').click();
-    await expect(page.getByTestId('fy2026AwardedHeading')).toContainText('Awarded IT task orders');
     await expect(page.getByTestId('fy2026AwardedDrillChart')).toBeVisible();
     await expect(page.getByTestId('fy2026AwardedDrillChart')).toContainText('Enterprise Licensing');
-    await expect(page.getByText(/ranked by awarded purchase-order dollars/i)).toBeVisible();
+    await expect(page.getByText(/ranked by awarded purchase order dollars/i)).toBeVisible();
+    await expect(page.getByTestId('fy2026AwardedUnmatchedLegend')).toContainText('do not match a contract');
+    await expect(page.getByTestId('fy2026AwardedUnmatchedLegend').getByRole('link', { name: 'Open Data DC' })).toHaveAttribute(
+      'href',
+      'https://opendata.dc.gov/',
+    );
 
     const popupPromise = page.waitForEvent('popup');
     await page.getByTestId('fy2026AwardedDrillChart').getByText('Enterprise Licensing').click();

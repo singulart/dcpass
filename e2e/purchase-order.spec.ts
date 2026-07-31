@@ -27,6 +27,64 @@ test.describe('Purchase Orders', () => {
     await expect(page.getByText(marker.poTitle)).toBeVisible();
   });
 
+  test.describe('commodity code filters', () => {
+    function filterUrl(operator: string, ...values: string[]): string {
+      const query = values.map(v => `filter[commodityCode.${operator}]=${encodeURIComponent(v)}`).join('&');
+      return `/purchase-order?${query}`;
+    }
+
+    test('equals', async ({ page }) => {
+      const marker = seeded[0];
+      await page.goto(filterUrl('equals', marker.commodityCode));
+      await expect(page.getByText(marker.poTitle)).toBeVisible();
+      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
+    });
+
+    test('notEquals', async ({ page }) => {
+      const marker = seeded[0];
+      await page.goto(filterUrl('notEquals', marker.commodityCode));
+      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
+      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+    });
+
+    test('in', async ({ page }) => {
+      await page.goto(filterUrl('in', seeded[0].commodityCode, seeded[1].commodityCode));
+      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
+      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+    });
+
+    test('notIn', async ({ page }) => {
+      await page.goto(filterUrl('notIn', seeded[0].commodityCode));
+      await expect(page.getByText(seeded[0].poTitle)).toHaveCount(0);
+      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+    });
+
+    test('contains', async ({ page }) => {
+      const marker = seeded[0];
+      const fragment = marker.commodityCode.slice(-4);
+      await page.goto(filterUrl('contains', fragment));
+      await expect(page.getByText(marker.poTitle)).toBeVisible();
+    });
+
+    test('doesNotContain', async ({ page }) => {
+      const marker = seeded[0];
+      await page.goto(filterUrl('doesNotContain', marker.commodityCode));
+      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
+      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
+    });
+
+    test('specified=true includes seeded rows', async ({ page }) => {
+      await page.goto(filterUrl('specified', 'true'));
+      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
+    });
+
+    test('specified=false excludes seeded rows', async ({ page }) => {
+      await page.goto(filterUrl('specified', 'false'));
+      await expect(page.getByText(seeded[0].poTitle)).toHaveCount(0);
+      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
+    });
+  });
+
   test('anonymous users can open purchase order details', async ({ page }) => {
     const marker = seeded[0];
     await page.goto(`/purchase-order?q=${encodeURIComponent(marker.poNumber)}`);

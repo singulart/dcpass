@@ -4,39 +4,40 @@
   padding: 1.5rem 1.25rem 3rem;
 }
 
-.fy2026__header h1 {
-  font-size: 1.75rem;
+.fy2026__header h1,
+.fy2026__section-header h2 {
   font-weight: 700;
   margin: 0 0 0.35rem;
   color: #0d3b3b;
+}
+
+.fy2026__header h1 {
+  font-size: 1.75rem;
+}
+
+.fy2026__section-header h2 {
+  font-size: 1.35rem;
 }
 
 .fy2026__lede {
   margin: 0 0 1.25rem;
   color: #4a5560;
   max-width: 42rem;
-}
 
-.fy2026__lede--section {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
+  &--section {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
 }
 
 .fy2026__section {
   margin-bottom: 2.75rem;
   padding-top: 0.25rem;
-}
 
-.fy2026__section--awarded {
-  border-top: 1px solid #d5e0dd;
-  padding-top: 2rem;
-}
-
-.fy2026__section-header h2 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 0 0 0.35rem;
-  color: #0d3b3b;
+  &--awarded {
+    border-top: 1px solid #d5e0dd;
+    padding-top: 2rem;
+  }
 }
 
 .fy2026__breadcrumb {
@@ -55,16 +56,16 @@
 
 .fy2026__crumb-btn {
   background: none;
-  border: none;
+  border: 0;
   padding: 0;
   color: #0d6e6e;
   text-decoration: underline;
   cursor: pointer;
   font: inherit;
-}
 
-.fy2026__crumb-btn:hover {
-  color: #0a5555;
+  &:hover {
+    color: #0a5555;
+  }
 }
 
 .fy2026__sep {
@@ -80,18 +81,20 @@
   margin-bottom: 1rem;
 }
 
+.fy2026__heading,
+.fy2026__subheading {
+  font-weight: 600;
+  color: #1a2b2b;
+  margin: 0;
+}
+
 .fy2026__heading {
   font-size: 1.15rem;
-  font-weight: 600;
-  margin: 0;
-  color: #1a2b2b;
 }
 
 .fy2026__subheading {
   font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.65rem;
-  color: #1a2b2b;
+  margin-bottom: 0.65rem;
 }
 
 .fy2026__agency-grid {
@@ -111,13 +114,18 @@
 .fy2026__chart-wrap {
   position: relative;
   width: 100%;
-  background: linear-gradient(165deg, #f7faf9 0%, #eef5f4 55%, #f8f4ee 100%);
+  background: linear-gradient(165deg, #f7faf9, #eef5f4 55%, #f8f4ee);
   border: 1px solid #d5e0dd;
   padding: 1rem;
-}
 
-.fy2026__chart-wrap--doughnut {
-  min-height: 0;
+  &--doughnut {
+    min-height: 0;
+  }
+
+  &--dimmed {
+    opacity: 0.35;
+    pointer-events: none;
+  }
 }
 
 .fy2026__doughnut {
@@ -125,10 +133,8 @@
   grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
   gap: 1rem 1.25rem;
   align-items: start;
-}
 
-@media (max-width: 720px) {
-  .fy2026__doughnut {
+  @media (max-width: 720px) {
     grid-template-columns: 1fr;
   }
 }
@@ -139,13 +145,16 @@
   height: 260px;
 }
 
-.fy2026__legend {
+.fy2026__legend,
+.fy2026__bar-list {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.fy2026__legend {
   max-height: 360px;
   overflow: auto;
-  user-select: text;
 }
 
 .fy2026__legend-item {
@@ -157,14 +166,14 @@
   border-radius: 4px;
   font-size: 0.8125rem;
   line-height: 1.35;
-}
 
-.fy2026__legend-item--clickable {
-  cursor: pointer;
-}
+  &--clickable {
+    cursor: pointer;
 
-.fy2026__legend-item--clickable:hover {
-  background: rgba(13, 110, 110, 0.08);
+    &:hover {
+      background: #0d6e6e14;
+    }
+  }
 }
 
 .fy2026__legend-swatch {
@@ -172,74 +181,68 @@
   height: 12px;
   border-radius: 2px;
   margin-top: 0.2rem;
-  flex-shrink: 0;
+}
+
+.fy2026__legend-label,
+.fy2026__bar-label {
+  color: #1a2b2b;
+  overflow-wrap: anywhere;
 }
 
 .fy2026__legend-label {
   min-width: 0;
-  color: #1a2b2b;
-  overflow-wrap: anywhere;
-  user-select: text;
+}
+
+.fy2026__legend-value,
+.fy2026__bar-value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .fy2026__legend-value {
   color: #4a5560;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  user-select: text;
 }
 
 .fy2026__bar-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  user-select: text;
 }
 
 .fy2026__bar-row {
   display: grid;
-  grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(8rem, 14rem) 1fr auto;
   gap: 0.65rem;
   align-items: center;
   padding: 0.2rem 0.15rem;
   border-radius: 4px;
-  cursor: default;
-}
 
-@media (max-width: 640px) {
-  .fy2026__bar-row {
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
     gap: 0.25rem;
   }
+
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      background: #0d6e6e0f;
+    }
+  }
 }
 
-.fy2026__bar-row--clickable {
-  cursor: pointer;
-}
-
-.fy2026__bar-row--clickable:hover {
-  background: rgba(13, 110, 110, 0.06);
-}
-
-.fy2026__bar-row:not(.fy2026__bar-row--clickable):hover {
-  background: transparent;
+.fy2026__bar-label,
+.fy2026__bar-value {
+  font-size: 0.8125rem;
 }
 
 .fy2026__bar-label {
-  font-size: 0.8125rem;
-  color: #1a2b2b;
   line-height: 1.3;
-  overflow-wrap: anywhere;
-  user-select: text;
 }
 
 .fy2026__bar-track {
-  display: block;
   height: 14px;
-  background: rgba(13, 59, 59, 0.08);
+  background: #0d3b3b14;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -248,21 +251,11 @@
   display: block;
   height: 100%;
   border-radius: 3px;
-  min-width: 0;
 }
 
 .fy2026__bar-value {
-  font-size: 0.8125rem;
   font-weight: 600;
   color: #1a2b2b;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  user-select: text;
-}
-
-.fy2026__chart-wrap--dimmed {
-  opacity: 0.35;
-  pointer-events: none;
 }
 
 .fy2026__loading {
@@ -271,19 +264,45 @@
   gap: 0.5rem;
   padding: 3rem 1rem;
   color: #4a5560;
-}
 
-.fy2026__loading--overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  justify-content: center;
-  background: rgba(247, 250, 249, 0.72);
-  margin: 0;
+  &--overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    justify-content: center;
+    background: #f7faf9b8;
+    margin: 0;
+  }
 }
 
 .fy2026__hint {
   margin: 0.75rem 0 0;
   font-size: 0.875rem;
   color: #5c6b6b;
+}
+
+.fy2026__hints {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+
+  .fy2026__hint {
+    margin: 0;
+  }
+}
+
+.fy2026__bar-legend {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 0.5rem;
+  align-items: start;
+
+  .fy2026__legend-swatch {
+    margin-top: 0.3rem;
+  }
+
+  a {
+    color: #0d6e6e;
+  }
 }

@@ -6,14 +6,6 @@
     </p>
   </header>
 
-  @if (level() !== 'agency') {
-    <nav class="fy2026__breadcrumb" aria-label="Awarded chart level">
-      <button type="button" class="fy2026__crumb-btn" (click)="goToAgencies()">Agencies</button>
-      <span class="fy2026__sep" aria-hidden="true">/</span>
-      <span class="fy2026__crumb fy2026__crumb--current">{{ selectedAgencyLabel() }}</span>
-    </nav>
-  }
-
   <div class="fy2026__toolbar">
     <h3 class="fy2026__heading" data-cy="fy2026AwardedHeading">{{ heading() }}</h3>
     @if (level() !== 'agency') {
@@ -125,7 +117,19 @@
         </ul>
       </div>
       @if (!loading() && !error()) {
-        <p class="fy2026__hint">Contracts under $50k are shown as Others. Rows are ranked by awarded purchase-order dollars.</p>
+        <div class="fy2026__hints">
+          <p class="fy2026__hint">Contracts under $50k are shown as Others. Rows are ranked by awarded purchase order dollars.</p>
+          @if (hasUnmatchedContracts()) {
+            <div class="fy2026__bar-legend" data-cy="fy2026AwardedUnmatchedLegend">
+              <span class="fy2026__legend-swatch" [style.background-color]="unmatchedColor" aria-hidden="true"></span>
+              <p class="fy2026__hint">
+                Gray bars are purchase order references that do not match a contract in PASS. This can happen when the
+                <a href="https://opendata.dc.gov/" target="_blank" rel="noopener noreferrer">Open Data DC</a>
+                datasets and the PASS system are out of sync.
+              </p>
+            </div>
+          }
+        </div>
       }
     }
   </div>

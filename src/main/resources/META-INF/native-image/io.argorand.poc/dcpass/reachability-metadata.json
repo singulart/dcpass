@@ -2400,13 +2400,7 @@
       "type": "io.argorand.poc.dcpass.repository.AuthorityRepository"
     },
     {
-      "type": "io.argorand.poc.dcpass.repository.Fy2026ReportRepository",
-      "methods": [
-        {
-          "name": "mapContractSpend",
-          "parameterTypes": ["java.lang.String"]
-        }
-      ]
+      "type": "io.argorand.poc.dcpass.repository.Fy2026ReportRepository"
     },
     {
       "type": "io.argorand.poc.dcpass.repository.ItCommodityCodeRepository"
@@ -2525,10 +2519,6 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.repository.Fy2026ReportRepository"]
-        },
-        {
-          "name": "getSpendByContract",
-          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2796,8 +2786,16 @@
           "parameterTypes": []
         },
         {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
           "name": "getContractNumber",
           "parameterTypes": []
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
         {
           "name": "setContractNumber",
@@ -2832,6 +2830,14 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         }
       ]
     },
@@ -3002,21 +3008,7 @@
       "type": "io.argorand.poc.dcpass.service.dto.Fy2026AgencySpendDTO"
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.Fy2026ContractSpendDTO",
-      "methods": [
-        {
-          "name": "getContractNumber",
-          "parameterTypes": []
-        },
-        {
-          "name": "getContractTitle",
-          "parameterTypes": []
-        },
-        {
-          "name": "getSpend",
-          "parameterTypes": []
-        }
-      ]
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026ContractSpendDTO"
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.Fy2026PoSpendDTO"
@@ -3947,10 +3939,6 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.service.Fy2026ItSpendService"]
-        },
-        {
-          "name": "getSpendByContract",
-          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -6819,6 +6807,9 @@
     },
     {
       "type": "java.lang.Comparable[]"
+    },
+    {
+      "type": "java.lang.Configurable"
     },
     {
       "type": "java.lang.Deprecated"
@@ -15849,6 +15840,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -29897,6 +29891,9 @@
       "glob": "config/liquibase/changelog/20260729120000_add_fy2026_commodity_agency_payment_mv.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260731120000_add_fy2026_it_awarded_pos_by_agency_mv.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
@@ -30252,6 +30249,15 @@
     },
     {
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
     },
     {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
@@ -32312,6 +32318,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

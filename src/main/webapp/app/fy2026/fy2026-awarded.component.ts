@@ -65,11 +65,13 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
 
   readonly faArrowLeft = faArrowLeft;
   readonly faSpinner = faSpinner;
+  readonly unmatchedColor = FY2026_OTHERS_COLOR;
 
   level = signal<Fy2026AwardedChartLevel>('agency');
   loading = signal(true);
   error = signal<string | null>(null);
   hasOthersAgencies = signal(false);
+  hasUnmatchedContracts = signal(false);
 
   selectedAgencyAcronym = signal<string | null>(null);
   selectedAgencyLabel = signal<string | null>(null);
@@ -111,6 +113,7 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
   goToAgencies(): void {
     this.selectedAgencyAcronym.set(null);
     this.selectedAgencyLabel.set(null);
+    this.hasUnmatchedContracts.set(false);
     this.level.set('agency');
     this.scheduleRender(() => this.renderAgencyCharts());
   }
@@ -206,14 +209,18 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
     this.fy2026Service.getAwardedByContract(agencyAcronym).subscribe({
       next: rows => {
         this.contractRows = this.buildContractRowsWithOthers(rows);
+        this.hasUnmatchedContracts.set(this.contractRows.some(row => !row.isOthers && !this.isContractClickable(row)));
         this.contractBarItems.set(
           fy2026BuildBarItems(
-            this.contractRows.map(row => ({
-              label: this.contractDisplayName(row),
-              value: fy2026Amount(row.spend),
-              color: row.isOthers ? FY2026_OTHERS_COLOR : '#ca6702',
-              clickable: this.isContractClickable(row),
-            })),
+            this.contractRows.map(row => {
+              const clickable = this.isContractClickable(row);
+              return {
+                label: this.contractDisplayName(row),
+                value: fy2026Amount(row.spend),
+                color: clickable ? '#ca6702' : FY2026_OTHERS_COLOR,
+                clickable,
+              };
+            }),
           ),
         );
         this.loading.set(false);
@@ -274,7 +281,20 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
 
   private isNoContractTitle(title: string | null | undefined): boolean {
     const trimmed = title?.trim();
-    return trimmed == null || trimmed === '' || trimmed.toUpperCase() === 'NO CONTRACT';
+    if (trimmed == null || trimmed === '') {
+      return true;
+    }
+    const normalized = trimmed.toUpperCase().replace(/\s+/g, ' ');
+    return (
+      normalized === 'NO CONTRACT' ||
+      normalized === 'N/A' ||
+      normalized === 'NA' ||
+      normalized === 'N/A CONTRACT' ||
+      normalized === 'NA CONTRACT' ||
+      normalized === 'NONE' ||
+      normalized === 'NULL' ||
+      normalized === 'UNKNOWN'
+    );
   }
 
   private contractDisplayName(row: IFy2026ContractSpend): string {
@@ -285,15 +305,15 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
       return row.contractTitle!.trim();
     }
     const number = row.contractNumber?.trim();
-    return number && number !== '' ? number : 'Untitled contract';
+    return number && number !== '' && !this.isNoContractTitle(number) ? number : 'Untitled contract';
   }
 
   private isContractClickable(row: IFy2026ContractSpend): boolean {
-    if (row.isOthers) {
+    if (row.isOthers || this.isNoContractTitle(row.contractTitle)) {
       return false;
     }
     const number = row.contractNumber?.trim();
-    return number != null && number !== '';
+    return !!number && !this.isNoContractTitle(number);
   }
 
   private selectAgency(row: IFy2026AgencySpend): void {

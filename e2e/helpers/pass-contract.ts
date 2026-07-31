@@ -9,6 +9,7 @@ export type SeedContract = {
   contractNumber: string;
   supplier: string;
   description: string;
+  commodityCode: string;
   contractAmount: number;
   awardDate: string;
   startDate: string;
@@ -27,6 +28,8 @@ export function uniqueContractPayload(index: number) {
     description: `E2E searchable description marker ${suffix}`,
     agencyAcronym: 'E2E',
     agencyName: 'E2E Test Agency',
+    commodityCode: `${8000000 + (runId % 100000) + index}`,
+    commodityDescription: 'E2E Commodity',
     contractAmount: 100000 + index * 50000,
     contractStatus: 'Active',
     awardDate: '2025-06-15',
@@ -57,6 +60,7 @@ export async function createContractsViaApi(
       contractNumber: payload.contractNumber,
       supplier: payload.supplier,
       description: payload.description,
+      commodityCode: payload.commodityCode,
       contractAmount: payload.contractAmount,
       awardDate: payload.awardDate,
       startDate: payload.startDate,
