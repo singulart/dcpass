@@ -103,6 +103,7 @@ public class PassPaymentQueryService extends QueryService<PassPayment> {
                 buildStringSpecification(criteria.getVoucherNumber(), PassPayment_.voucherNumber),
                 buildRangeSpecification(criteria.getPaymentDate(), PassPayment_.paymentDate),
                 buildRangeSpecification(criteria.getPaymentAmount(), PassPayment_.paymentAmount),
+                buildRangeSpecification(criteria.getVoucherAmount(), PassPayment_.voucherAmount),
                 buildRangeSpecification(criteria.getFiscalYear(), PassPayment_.fiscalYear),
                 buildStringSpecification(criteria.getTransactionCode(), PassPayment_.transactionCode),
                 buildStringSpecification(criteria.getPaymentType(), PassPayment_.paymentType),

@@ -22,6 +22,7 @@ public class PassPaymentDTO implements Serializable {
     private String voucherNumber;
     private Instant paymentDate;
     private BigDecimal paymentAmount;
+    private BigDecimal voucherAmount;
     private Integer fiscalYear;
     private String transactionCode;
     private String paymentType;
@@ -120,6 +121,14 @@ public class PassPaymentDTO implements Serializable {
 
     public void setPaymentAmount(BigDecimal paymentAmount) {
         this.paymentAmount = paymentAmount;
+    }
+
+    public BigDecimal getVoucherAmount() {
+        return voucherAmount;
+    }
+
+    public void setVoucherAmount(BigDecimal voucherAmount) {
+        this.voucherAmount = voucherAmount;
     }
 
     public Integer getFiscalYear() {
@@ -246,6 +255,7 @@ public class PassPaymentDTO implements Serializable {
             ", voucherNumber='" + getVoucherNumber() + "'" +
             ", paymentDate=" + getPaymentDate() +
             ", paymentAmount=" + getPaymentAmount() +
+            ", voucherAmount=" + getVoucherAmount() +
             ", fiscalYear=" + getFiscalYear() +
             ", transactionCode='" + getTransactionCode() + "'" +
             ", paymentType='" + getPaymentType() + "'" +

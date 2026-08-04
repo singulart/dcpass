@@ -24,7 +24,7 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
         SELECT
           COUNT(DISTINCT po.ponumber),
           COUNT(p.id),
-          COALESCE(SUM(p.paymentamount), 0)
+          COALESCE(SUM(p.voucheramount), 0)
         FROM (
           SELECT DISTINCT ponumber
           FROM purchase_order
@@ -61,7 +61,7 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
         value = """
         SELECT
           COUNT(p.id),
-          COALESCE(SUM(p.paymentamount), 0)
+          COALESCE(SUM(p.voucheramount), 0)
         FROM pass_payment p
         WHERE p.ponumber = :poNumber
         """,

@@ -35,6 +35,7 @@ public class PassPaymentCriteria implements Serializable, Criteria {
     private StringFilter voucherNumber;
     private InstantFilter paymentDate;
     private BigDecimalFilter paymentAmount;
+    private BigDecimalFilter voucherAmount;
     private IntegerFilter fiscalYear;
     private StringFilter transactionCode;
     private StringFilter paymentType;
@@ -63,6 +64,7 @@ public class PassPaymentCriteria implements Serializable, Criteria {
         this.voucherNumber = other.optionalVoucherNumber().map(StringFilter::copy).orElse(null);
         this.paymentDate = other.optionalPaymentDate().map(InstantFilter::copy).orElse(null);
         this.paymentAmount = other.optionalPaymentAmount().map(BigDecimalFilter::copy).orElse(null);
+        this.voucherAmount = other.optionalVoucherAmount().map(BigDecimalFilter::copy).orElse(null);
         this.fiscalYear = other.optionalFiscalYear().map(IntegerFilter::copy).orElse(null);
         this.transactionCode = other.optionalTransactionCode().map(StringFilter::copy).orElse(null);
         this.paymentType = other.optionalPaymentType().map(StringFilter::copy).orElse(null);
@@ -290,6 +292,25 @@ public class PassPaymentCriteria implements Serializable, Criteria {
 
     public void setPaymentAmount(BigDecimalFilter paymentAmount) {
         this.paymentAmount = paymentAmount;
+    }
+
+    public BigDecimalFilter getVoucherAmount() {
+        return voucherAmount;
+    }
+
+    public Optional<BigDecimalFilter> optionalVoucherAmount() {
+        return Optional.ofNullable(voucherAmount);
+    }
+
+    public BigDecimalFilter voucherAmount() {
+        if (voucherAmount == null) {
+            setVoucherAmount(new BigDecimalFilter());
+        }
+        return voucherAmount;
+    }
+
+    public void setVoucherAmount(BigDecimalFilter voucherAmount) {
+        this.voucherAmount = voucherAmount;
     }
 
     public IntegerFilter getFiscalYear() {
@@ -554,6 +575,7 @@ public class PassPaymentCriteria implements Serializable, Criteria {
             Objects.equals(voucherNumber, that.voucherNumber) &&
             Objects.equals(paymentDate, that.paymentDate) &&
             Objects.equals(paymentAmount, that.paymentAmount) &&
+            Objects.equals(voucherAmount, that.voucherAmount) &&
             Objects.equals(fiscalYear, that.fiscalYear) &&
             Objects.equals(transactionCode, that.transactionCode) &&
             Objects.equals(paymentType, that.paymentType) &&
@@ -584,6 +606,7 @@ public class PassPaymentCriteria implements Serializable, Criteria {
             voucherNumber,
             paymentDate,
             paymentAmount,
+            voucherAmount,
             fiscalYear,
             transactionCode,
             paymentType,
@@ -605,7 +628,7 @@ public class PassPaymentCriteria implements Serializable, Criteria {
     public String toString() {
         return "PassPaymentCriteria{" +
 
-            ( id != null ? "id=" + id + ", " : "" ) + ( agencyCode != null ? "agencyCode=" + agencyCode + ", " : "" ) + ( agencyAcronym != null ? "agencyAcronym=" + agencyAcronym + ", " : "" ) + ( agencyName != null ? "agencyName=" + agencyName + ", " : "" ) + ( contractNumber != null ? "contractNumber=" + contractNumber + ", " : "" ) + ( supplierName != null ? "supplierName=" + supplierName + ", " : "" ) + ( invoiceNumber != null ? "invoiceNumber=" + invoiceNumber + ", " : "" ) + ( poNumber != null ? "poNumber=" + poNumber + ", " : "" ) + ( voucherNumber != null ? "voucherNumber=" + voucherNumber + ", " : "" ) + ( paymentDate != null ? "paymentDate=" + paymentDate + ", " : "" ) + ( paymentAmount != null ? "paymentAmount=" + paymentAmount + ", " : "" ) + ( fiscalYear != null ? "fiscalYear=" + fiscalYear + ", " : "" ) + ( transactionCode != null ? "transactionCode=" + transactionCode + ", " : "" ) + ( paymentType != null ? "paymentType=" + paymentType + ", " : "" ) + ( invoiceDate != null ? "invoiceDate=" + invoiceDate + ", " : "" ) + ( estPaymentDate != null ? "estPaymentDate=" + estPaymentDate + ", " : "" ) + ( paymentNumber != null ? "paymentNumber=" + paymentNumber + ", " : "" ) + ( recordUpdatedDate != null ? "recordUpdatedDate=" + recordUpdatedDate + ", " : "" ) + ( recordCreated != null ? "recordCreated=" + recordCreated + ", " : "" ) + ( dcsRecCrtDttm != null ? "dcsRecCrtDttm=" + dcsRecCrtDttm + ", " : "" ) + ( dcsLastModDttm != null ? "dcsLastModDttm=" + dcsLastModDttm + ", " : "" ) + ( objectId != null ? "objectId=" + objectId + ", " : "" ) + ( search != null ? "search=" + search + ", " : "" ) + ( distinct != null ? "distinct=" + distinct : "" ) +
+            ( id != null ? "id=" + id + ", " : "" ) + ( agencyCode != null ? "agencyCode=" + agencyCode + ", " : "" ) + ( agencyAcronym != null ? "agencyAcronym=" + agencyAcronym + ", " : "" ) + ( agencyName != null ? "agencyName=" + agencyName + ", " : "" ) + ( contractNumber != null ? "contractNumber=" + contractNumber + ", " : "" ) + ( supplierName != null ? "supplierName=" + supplierName + ", " : "" ) + ( invoiceNumber != null ? "invoiceNumber=" + invoiceNumber + ", " : "" ) + ( poNumber != null ? "poNumber=" + poNumber + ", " : "" ) + ( voucherNumber != null ? "voucherNumber=" + voucherNumber + ", " : "" ) + ( paymentDate != null ? "paymentDate=" + paymentDate + ", " : "" ) + ( paymentAmount != null ? "paymentAmount=" + paymentAmount + ", " : "" ) + ( voucherAmount != null ? "voucherAmount=" + voucherAmount + ", " : "" ) + ( fiscalYear != null ? "fiscalYear=" + fiscalYear + ", " : "" ) + ( transactionCode != null ? "transactionCode=" + transactionCode + ", " : "" ) + ( paymentType != null ? "paymentType=" + paymentType + ", " : "" ) + ( invoiceDate != null ? "invoiceDate=" + invoiceDate + ", " : "" ) + ( estPaymentDate != null ? "estPaymentDate=" + estPaymentDate + ", " : "" ) + ( paymentNumber != null ? "paymentNumber=" + paymentNumber + ", " : "" ) + ( recordUpdatedDate != null ? "recordUpdatedDate=" + recordUpdatedDate + ", " : "" ) + ( recordCreated != null ? "recordCreated=" + recordCreated + ", " : "" ) + ( dcsRecCrtDttm != null ? "dcsRecCrtDttm=" + dcsRecCrtDttm + ", " : "" ) + ( dcsLastModDttm != null ? "dcsLastModDttm=" + dcsLastModDttm + ", " : "" ) + ( objectId != null ? "objectId=" + objectId + ", " : "" ) + ( search != null ? "search=" + search + ", " : "" ) + ( distinct != null ? "distinct=" + distinct : "" ) +
 
             "}";
     }

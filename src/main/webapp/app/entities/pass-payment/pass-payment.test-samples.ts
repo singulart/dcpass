@@ -13,6 +13,7 @@ export const sampleWithPartialData: IPassPayment = {
   supplierName: 'Acme',
   paymentDate: dayjs('2025-03-03T22:58'),
   paymentAmount: 32588.29,
+  voucherAmount: 1000.5,
   fiscalYear: 2025,
   objectId: 3624,
 };
@@ -29,6 +30,7 @@ export const sampleWithFullData: IPassPayment = {
   voucherNumber: 'VB012220',
   paymentDate: dayjs('2025-03-03T22:58'),
   paymentAmount: 4018.21,
+  voucherAmount: 4018.21,
   fiscalYear: 2025,
   transactionCode: '242',
   paymentType: 'FIRST CLASS MAIL',

@@ -33,7 +33,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
             'NO CONTRACT'
           ),
           po.contractnumber,
-          SUM(pp.paymentamount)
+          SUM(pp.voucheramount)
         FROM pass_payment pp
         JOIN purchase_order po ON pp.ponumber = po.ponumber
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
@@ -52,7 +52,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
           MIN(po.id),
           po.ponumber,
           po.potitle,
-          SUM(pp.paymentamount)
+          SUM(pp.voucheramount)
         FROM pass_payment pp
         JOIN purchase_order po ON pp.ponumber = po.ponumber
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
@@ -75,7 +75,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
           MIN(po.id),
           po.ponumber,
           po.potitle,
-          SUM(pp.paymentamount)
+          SUM(pp.voucheramount)
         FROM pass_payment pp
         JOIN purchase_order po ON pp.ponumber = po.ponumber
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code

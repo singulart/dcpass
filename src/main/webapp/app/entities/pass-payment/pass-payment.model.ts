@@ -12,6 +12,7 @@ export interface IPassPayment {
   voucherNumber?: string | null;
   paymentDate?: dayjs.Dayjs | null;
   paymentAmount?: number | null;
+  voucherAmount?: number | null;
   fiscalYear?: number | null;
   transactionCode?: string | null;
   paymentType?: string | null;

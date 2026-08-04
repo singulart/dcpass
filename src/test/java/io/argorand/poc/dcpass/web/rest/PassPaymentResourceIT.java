@@ -70,6 +70,10 @@ class PassPaymentResourceIT {
     private static final BigDecimal UPDATED_PAYMENT_AMOUNT = new BigDecimal(2);
     private static final BigDecimal SMALLER_PAYMENT_AMOUNT = new BigDecimal(1 - 1);
 
+    private static final BigDecimal DEFAULT_VOUCHER_AMOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_VOUCHER_AMOUNT = new BigDecimal(2);
+    private static final BigDecimal SMALLER_VOUCHER_AMOUNT = new BigDecimal(1 - 1);
+
     private static final Integer DEFAULT_FISCAL_YEAR = 1;
     private static final Integer UPDATED_FISCAL_YEAR = 2;
     private static final Integer SMALLER_FISCAL_YEAR = 1 - 1;
@@ -148,6 +152,7 @@ class PassPaymentResourceIT {
             .voucherNumber(DEFAULT_VOUCHER_NUMBER)
             .paymentDate(DEFAULT_PAYMENT_DATE)
             .paymentAmount(DEFAULT_PAYMENT_AMOUNT)
+            .voucherAmount(DEFAULT_VOUCHER_AMOUNT)
             .fiscalYear(DEFAULT_FISCAL_YEAR)
             .transactionCode(DEFAULT_TRANSACTION_CODE)
             .paymentType(DEFAULT_PAYMENT_TYPE)
@@ -173,6 +178,7 @@ class PassPaymentResourceIT {
             .voucherNumber(UPDATED_VOUCHER_NUMBER)
             .paymentDate(UPDATED_PAYMENT_DATE)
             .paymentAmount(UPDATED_PAYMENT_AMOUNT)
+            .voucherAmount(UPDATED_VOUCHER_AMOUNT)
             .fiscalYear(UPDATED_FISCAL_YEAR)
             .transactionCode(UPDATED_TRANSACTION_CODE)
             .paymentType(UPDATED_PAYMENT_TYPE)
@@ -256,6 +262,7 @@ class PassPaymentResourceIT {
             .andExpect(jsonPath("$.[*].voucherNumber").value(hasItem(DEFAULT_VOUCHER_NUMBER)))
             .andExpect(jsonPath("$.[*].paymentDate").value(hasItem(DEFAULT_PAYMENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].paymentAmount").value(hasItem(sameNumber(DEFAULT_PAYMENT_AMOUNT))))
+            .andExpect(jsonPath("$.[*].voucherAmount").value(hasItem(sameNumber(DEFAULT_VOUCHER_AMOUNT))))
             .andExpect(jsonPath("$.[*].fiscalYear").value(hasItem(DEFAULT_FISCAL_YEAR)))
             .andExpect(jsonPath("$.[*].transactionCode").value(hasItem(DEFAULT_TRANSACTION_CODE)))
             .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE)))
@@ -289,6 +296,7 @@ class PassPaymentResourceIT {
             .andExpect(jsonPath("$.voucherNumber").value(DEFAULT_VOUCHER_NUMBER))
             .andExpect(jsonPath("$.paymentDate").value(DEFAULT_PAYMENT_DATE.toString()))
             .andExpect(jsonPath("$.paymentAmount").value(sameNumber(DEFAULT_PAYMENT_AMOUNT)))
+            .andExpect(jsonPath("$.voucherAmount").value(sameNumber(DEFAULT_VOUCHER_AMOUNT)))
             .andExpect(jsonPath("$.fiscalYear").value(DEFAULT_FISCAL_YEAR))
             .andExpect(jsonPath("$.transactionCode").value(DEFAULT_TRANSACTION_CODE))
             .andExpect(jsonPath("$.paymentType").value(DEFAULT_PAYMENT_TYPE))
@@ -793,6 +801,67 @@ class PassPaymentResourceIT {
         defaultPassPaymentFiltering(
             "paymentAmount.greaterThan=" + SMALLER_PAYMENT_AMOUNT,
             "paymentAmount.greaterThan=" + DEFAULT_PAYMENT_AMOUNT
+        );
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsEqualToSomething() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering("voucherAmount.equals=" + DEFAULT_VOUCHER_AMOUNT, "voucherAmount.equals=" + UPDATED_VOUCHER_AMOUNT);
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsInShouldWork() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering(
+            "voucherAmount.in=" + DEFAULT_VOUCHER_AMOUNT + "," + UPDATED_VOUCHER_AMOUNT,
+            "voucherAmount.in=" + UPDATED_VOUCHER_AMOUNT
+        );
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsNullOrNotNull() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering("voucherAmount.specified=true", "voucherAmount.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsGreaterThanOrEqualToSomething() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering(
+            "voucherAmount.greaterThanOrEqual=" + DEFAULT_VOUCHER_AMOUNT,
+            "voucherAmount.greaterThanOrEqual=" + UPDATED_VOUCHER_AMOUNT
+        );
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsLessThanOrEqualToSomething() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering(
+            "voucherAmount.lessThanOrEqual=" + DEFAULT_VOUCHER_AMOUNT,
+            "voucherAmount.lessThanOrEqual=" + SMALLER_VOUCHER_AMOUNT
+        );
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsLessThanSomething() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering("voucherAmount.lessThan=" + UPDATED_VOUCHER_AMOUNT, "voucherAmount.lessThan=" + DEFAULT_VOUCHER_AMOUNT);
+    }
+
+    @Test
+    @Transactional
+    void getAllPassPaymentsByVoucherAmountIsGreaterThanSomething() throws Exception {
+        insertedPassPayment = passPaymentRepository.saveAndFlush(passPayment);
+        defaultPassPaymentFiltering(
+            "voucherAmount.greaterThan=" + SMALLER_VOUCHER_AMOUNT,
+            "voucherAmount.greaterThan=" + DEFAULT_VOUCHER_AMOUNT
         );
     }
 
@@ -1441,6 +1510,7 @@ class PassPaymentResourceIT {
         updatedPassPayment.voucherNumber(UPDATED_VOUCHER_NUMBER);
         updatedPassPayment.paymentDate(UPDATED_PAYMENT_DATE);
         updatedPassPayment.paymentAmount(UPDATED_PAYMENT_AMOUNT);
+        updatedPassPayment.voucherAmount(UPDATED_VOUCHER_AMOUNT);
         updatedPassPayment.fiscalYear(UPDATED_FISCAL_YEAR);
         updatedPassPayment.transactionCode(UPDATED_TRANSACTION_CODE);
         updatedPassPayment.paymentType(UPDATED_PAYMENT_TYPE);
@@ -1555,6 +1625,7 @@ class PassPaymentResourceIT {
             .andExpect(jsonPath("$.[*].voucherNumber").value(hasItem(DEFAULT_VOUCHER_NUMBER)))
             .andExpect(jsonPath("$.[*].paymentDate").value(hasItem(DEFAULT_PAYMENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].paymentAmount").value(hasItem(sameNumber(DEFAULT_PAYMENT_AMOUNT))))
+            .andExpect(jsonPath("$.[*].voucherAmount").value(hasItem(sameNumber(DEFAULT_VOUCHER_AMOUNT))))
             .andExpect(jsonPath("$.[*].fiscalYear").value(hasItem(DEFAULT_FISCAL_YEAR)))
             .andExpect(jsonPath("$.[*].transactionCode").value(hasItem(DEFAULT_TRANSACTION_CODE)))
             .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE)))

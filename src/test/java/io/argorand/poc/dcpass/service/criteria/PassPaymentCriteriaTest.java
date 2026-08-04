@@ -90,6 +90,7 @@ class PassPaymentCriteriaTest {
         passPaymentCriteria.voucherNumber();
         passPaymentCriteria.paymentDate();
         passPaymentCriteria.paymentAmount();
+        passPaymentCriteria.voucherAmount();
         passPaymentCriteria.fiscalYear();
         passPaymentCriteria.transactionCode();
         passPaymentCriteria.paymentType();
@@ -119,6 +120,7 @@ class PassPaymentCriteriaTest {
                 condition.apply(criteria.getVoucherNumber()) &&
                 condition.apply(criteria.getPaymentDate()) &&
                 condition.apply(criteria.getPaymentAmount()) &&
+                condition.apply(criteria.getVoucherAmount()) &&
                 condition.apply(criteria.getFiscalYear()) &&
                 condition.apply(criteria.getTransactionCode()) &&
                 condition.apply(criteria.getPaymentType()) &&
@@ -150,6 +152,7 @@ class PassPaymentCriteriaTest {
                 condition.apply(criteria.getVoucherNumber(), copy.getVoucherNumber()) &&
                 condition.apply(criteria.getPaymentDate(), copy.getPaymentDate()) &&
                 condition.apply(criteria.getPaymentAmount(), copy.getPaymentAmount()) &&
+                condition.apply(criteria.getVoucherAmount(), copy.getVoucherAmount()) &&
                 condition.apply(criteria.getFiscalYear(), copy.getFiscalYear()) &&
                 condition.apply(criteria.getTransactionCode(), copy.getTransactionCode()) &&
                 condition.apply(criteria.getPaymentType(), copy.getPaymentType()) &&

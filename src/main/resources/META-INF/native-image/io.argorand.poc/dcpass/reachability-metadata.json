@@ -29942,6 +29942,12 @@
       "glob": "config/liquibase/changelog/20260731120000_add_fy2026_it_awarded_pos_by_agency_mv.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260803120000_add_pass_payment_voucher_amount.xml"
+    },
+    {
+      "glob": "config/liquibase/changelog/20260804120000_mv_fy2026_it_spend_use_voucher_amount.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

@@ -155,6 +155,12 @@
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
+            <th scope="col" jhiSortBy="voucherAmount">
+              <div class="d-flex">
+                <span>Voucher Amount</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
             <th scope="col" jhiSortBy="paymentDate">
               <div class="d-flex">
                 <span>Payment Date</span>
@@ -215,6 +221,7 @@
               <td>{{ passPayment.agencyAcronym }} {{ passPayment.agencyName }} {{ passPayment.agencyCode }}</td>
               <td>{{ passPayment.supplierName }}</td>
               <td>{{ passPayment.paymentAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+              <td>{{ passPayment.voucherAmount | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
               <td>{{ passPayment.paymentDate | formatMediumDatetime }}</td>
               <td>{{ passPayment.fiscalYear }}</td>
               <td>{{ passPayment.poNumber }}</td>

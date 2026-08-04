@@ -27,6 +27,8 @@
     <include file="config/liquibase/changelog/20260729110000_add_it_commodity_code.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260729120000_add_fy2026_commodity_agency_payment_mv.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260731120000_add_fy2026_it_awarded_pos_by_agency_mv.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260803120000_add_pass_payment_voucher_amount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260804120000_mv_fy2026_it_spend_use_voucher_amount.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

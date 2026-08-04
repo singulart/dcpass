@@ -39,6 +39,12 @@ public class PassPaymentAsserts {
                     .usingComparator(bigDecimalCompareTo)
                     .isEqualTo(expected.getPaymentAmount())
             )
+            .satisfies(a ->
+                assertThat(a.getVoucherAmount())
+                    .as("check voucherAmount")
+                    .usingComparator(bigDecimalCompareTo)
+                    .isEqualTo(expected.getVoucherAmount())
+            )
             .satisfies(a -> assertThat(a.getFiscalYear()).as("check fiscalYear").isEqualTo(expected.getFiscalYear()))
             .satisfies(a -> assertThat(a.getTransactionCode()).as("check transactionCode").isEqualTo(expected.getTransactionCode()))
             .satisfies(a -> assertThat(a.getPaymentType()).as("check paymentType").isEqualTo(expected.getPaymentType()))

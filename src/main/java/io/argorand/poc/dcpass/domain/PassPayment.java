@@ -56,6 +56,9 @@ public class PassPayment implements Serializable {
     @Column(name = "PAYMENTAMOUNT", precision = 21, scale = 2)
     private BigDecimal paymentAmount;
 
+    @Column(name = "VOUCHERAMOUNT", precision = 21, scale = 2)
+    private BigDecimal voucherAmount;
+
     @Column(name = "FISCALYEAR")
     private Integer fiscalYear;
 
@@ -236,6 +239,19 @@ public class PassPayment implements Serializable {
         this.paymentAmount = paymentAmount;
     }
 
+    public BigDecimal getVoucherAmount() {
+        return this.voucherAmount;
+    }
+
+    public PassPayment voucherAmount(BigDecimal voucherAmount) {
+        this.setVoucherAmount(voucherAmount);
+        return this;
+    }
+
+    public void setVoucherAmount(BigDecimal voucherAmount) {
+        this.voucherAmount = voucherAmount;
+    }
+
     public Integer getFiscalYear() {
         return this.fiscalYear;
     }
@@ -410,6 +426,7 @@ public class PassPayment implements Serializable {
             ", voucherNumber='" + getVoucherNumber() + "'" +
             ", paymentDate=" + getPaymentDate() +
             ", paymentAmount=" + getPaymentAmount() +
+            ", voucherAmount=" + getVoucherAmount() +
             ", fiscalYear=" + getFiscalYear() +
             ", transactionCode='" + getTransactionCode() + "'" +
             ", paymentType='" + getPaymentType() + "'" +

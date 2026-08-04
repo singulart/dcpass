@@ -54,6 +54,7 @@ type PassPaymentFormGroupContent = {
   voucherNumber: FormControl<PassPaymentFormRawValue['voucherNumber']>;
   paymentDate: FormControl<PassPaymentFormRawValue['paymentDate']>;
   paymentAmount: FormControl<PassPaymentFormRawValue['paymentAmount']>;
+  voucherAmount: FormControl<PassPaymentFormRawValue['voucherAmount']>;
   fiscalYear: FormControl<PassPaymentFormRawValue['fiscalYear']>;
   transactionCode: FormControl<PassPaymentFormRawValue['transactionCode']>;
   paymentType: FormControl<PassPaymentFormRawValue['paymentType']>;
@@ -94,6 +95,7 @@ export class PassPaymentFormService {
       voucherNumber: new FormControl(passPaymentRawValue.voucherNumber),
       paymentDate: new FormControl(passPaymentRawValue.paymentDate),
       paymentAmount: new FormControl(passPaymentRawValue.paymentAmount),
+      voucherAmount: new FormControl(passPaymentRawValue.voucherAmount),
       fiscalYear: new FormControl(passPaymentRawValue.fiscalYear),
       transactionCode: new FormControl(passPaymentRawValue.transactionCode),
       paymentType: new FormControl(passPaymentRawValue.paymentType),
