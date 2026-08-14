@@ -6750,6 +6750,14 @@
           "parameterTypes": []
         },
         {
+          "name": "getPaymentNumbers",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumbers",
+          "parameterTypes": []
+        },
+        {
           "name": "getPurchaseOrderCount",
           "parameterTypes": []
         },
@@ -6766,6 +6774,10 @@
           "parameterTypes": ["java.lang.String", "java.math.BigDecimal", "long", "long"]
         },
         {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.math.BigDecimal", "long", "long", "java.util.List", "java.util.List"]
+        },
+        {
           "name": "equals",
           "parameterTypes": ["java.lang.Object"]
         },
@@ -6780,6 +6792,14 @@
         {
           "name": "setPaymentCount",
           "parameterTypes": ["long"]
+        },
+        {
+          "name": "setPaymentNumbers",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "setPoNumbers",
+          "parameterTypes": ["java.util.List"]
         },
         {
           "name": "setPurchaseOrderCount",

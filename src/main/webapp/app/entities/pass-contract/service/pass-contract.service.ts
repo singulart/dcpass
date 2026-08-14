@@ -15,6 +15,8 @@ export interface IContractPaymentSummary {
   totalPaid?: number | null;
   paymentCount?: number | null;
   purchaseOrderCount?: number | null;
+  poNumbers?: string[] | null;
+  paymentNumbers?: string[] | null;
 }
 
 type RestOf<T extends IPassContract | NewPassContract> = Omit<

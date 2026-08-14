@@ -2,6 +2,7 @@ package io.argorand.poc.dcpass.repository;
 
 import io.argorand.poc.dcpass.domain.PassPayment;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +25,7 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
      * PO number ({@code PO123}); amended POs are stored as {@code PO123-V2}. Join on
      * {@code ponumber_base}. Distinct PO bases avoid double-counting multi-line POs.
      *
-     * @return a single row: [purchaseOrderCount, paymentCount, totalPaid]
+     * @return a single row: [purchaseOrderCount, paymentCount, totalPaid, poNumbersCsv, paymentNumbersCsv]
      */
     @Query(
         value = """
@@ -53,7 +54,16 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
         SELECT
           COUNT(DISTINCT matching_pos.ponumber_base),
           COUNT(p.id),
-          COALESCE(SUM(p.voucheramount), 0)
+          COALESCE(SUM(p.voucheramount), 0),
+          (
+            SELECT string_agg(DISTINCT po.ponumber, ',' ORDER BY po.ponumber)
+            FROM purchase_order po
+            JOIN matching_pos m ON po.ponumber_base = m.ponumber_base
+            WHERE po.ponumber IS NOT NULL
+              AND btrim(po.ponumber) <> ''
+          ),
+          string_agg(DISTINCT p.paymentnumber, ',' ORDER BY p.paymentnumber)
+            FILTER (WHERE p.paymentnumber IS NOT NULL AND btrim(p.paymentnumber) <> '')
         FROM matching_pos
         LEFT JOIN pass_payment p ON p.ponumber = matching_pos.ponumber_base
         """,
@@ -64,16 +74,39 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
     default ContractPaymentAggregationResult findPaidSummaryByContractNumber(String contractNumber) {
         List<Object[]> rows = aggregatePaidByContractNumber(contractNumber);
         if (rows == null || rows.isEmpty() || rows.get(0) == null) {
-            return new ContractPaymentAggregationResult(0L, 0L, BigDecimal.ZERO);
+            return new ContractPaymentAggregationResult(0L, 0L, BigDecimal.ZERO, List.of(), List.of());
         }
         Object[] row = rows.get(0);
         long purchaseOrderCount = row[0] == null ? 0L : ((Number) row[0]).longValue();
         long paymentCount = row[1] == null ? 0L : ((Number) row[1]).longValue();
         BigDecimal totalPaid = row[2] == null ? BigDecimal.ZERO : new BigDecimal(row[2].toString());
-        return new ContractPaymentAggregationResult(purchaseOrderCount, paymentCount, totalPaid);
+        List<String> poNumbers = row.length > 3 ? splitCsv(row[3]) : List.of();
+        List<String> paymentNumbers = row.length > 4 ? splitCsv(row[4]) : List.of();
+        return new ContractPaymentAggregationResult(purchaseOrderCount, paymentCount, totalPaid, poNumbers, paymentNumbers);
     }
 
-    record ContractPaymentAggregationResult(long purchaseOrderCount, long paymentCount, BigDecimal totalPaid) {}
+    private static List<String> splitCsv(Object value) {
+        if (value == null) {
+            return List.of();
+        }
+        String raw = value.toString().trim();
+        if (raw.isEmpty()) {
+            return List.of();
+        }
+        return Arrays.stream(raw.split(","))
+            .map(String::trim)
+            .filter(part -> !part.isEmpty())
+            .distinct()
+            .toList();
+    }
+
+    record ContractPaymentAggregationResult(
+        long purchaseOrderCount,
+        long paymentCount,
+        BigDecimal totalPaid,
+        List<String> poNumbers,
+        List<String> paymentNumbers
+    ) {}
 
     /**
      * Sums {@code voucheramount} for payments whose {@code ponumber} matches {@code poNumber}

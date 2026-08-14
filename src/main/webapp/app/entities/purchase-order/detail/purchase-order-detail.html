@@ -34,7 +34,7 @@
                   <a
                     class="contract-value-summary__link"
                     [routerLink]="['/pass-payment']"
-                    [queryParams]="{ q: purchaseOrderRef.poNumber }"
+                    [queryParams]="{ q: paymentSearchQuery() }"
                     target="_blank"
                     rel="noopener"
                     data-cy="purchaseOrderPaymentsLink"

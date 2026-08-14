@@ -2,6 +2,8 @@ package io.argorand.poc.dcpass.service.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,14 +17,29 @@ public class ContractPaymentSummaryDTO implements Serializable {
     private BigDecimal totalPaid;
     private long paymentCount;
     private long purchaseOrderCount;
+    private List<String> poNumbers = new ArrayList<>();
+    private List<String> paymentNumbers = new ArrayList<>();
 
     public ContractPaymentSummaryDTO() {}
 
     public ContractPaymentSummaryDTO(String contractNumber, BigDecimal totalPaid, long paymentCount, long purchaseOrderCount) {
+        this(contractNumber, totalPaid, paymentCount, purchaseOrderCount, List.of(), List.of());
+    }
+
+    public ContractPaymentSummaryDTO(
+        String contractNumber,
+        BigDecimal totalPaid,
+        long paymentCount,
+        long purchaseOrderCount,
+        List<String> poNumbers,
+        List<String> paymentNumbers
+    ) {
         this.contractNumber = contractNumber;
         this.totalPaid = totalPaid;
         this.paymentCount = paymentCount;
         this.purchaseOrderCount = purchaseOrderCount;
+        this.poNumbers = poNumbers == null ? new ArrayList<>() : new ArrayList<>(poNumbers);
+        this.paymentNumbers = paymentNumbers == null ? new ArrayList<>() : new ArrayList<>(paymentNumbers);
     }
 
     public String getContractNumber() {
@@ -57,6 +74,22 @@ public class ContractPaymentSummaryDTO implements Serializable {
         this.purchaseOrderCount = purchaseOrderCount;
     }
 
+    public List<String> getPoNumbers() {
+        return poNumbers;
+    }
+
+    public void setPoNumbers(List<String> poNumbers) {
+        this.poNumbers = poNumbers == null ? new ArrayList<>() : poNumbers;
+    }
+
+    public List<String> getPaymentNumbers() {
+        return paymentNumbers;
+    }
+
+    public void setPaymentNumbers(List<String> paymentNumbers) {
+        this.paymentNumbers = paymentNumbers == null ? new ArrayList<>() : paymentNumbers;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,6 +119,10 @@ public class ContractPaymentSummaryDTO implements Serializable {
             paymentCount +
             ", purchaseOrderCount=" +
             purchaseOrderCount +
+            ", poNumbers=" +
+            poNumbers +
+            ", paymentNumbers=" +
+            paymentNumbers +
             "}"
         );
     }

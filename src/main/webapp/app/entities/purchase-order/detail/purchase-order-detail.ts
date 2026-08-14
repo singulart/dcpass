@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 
@@ -25,6 +25,15 @@ export class PurchaseOrderDetail {
   passContractId = signal<number | null>(null);
   paymentSummary = signal<IPurchaseOrderPaymentSummary | null>(null);
   paymentSummaryLoading = signal(false);
+
+  readonly paymentSearchQuery = computed(() => {
+    const full = this.purchaseOrder()?.poNumber?.trim() ?? '';
+    if (!full) {
+      return '';
+    }
+    const base = full.replace(/-V[0-9]+$/, '');
+    return base && base !== full ? `${full} ${base}` : full;
+  });
 
   protected readonly accountService = inject(AccountService);
   private readonly passContractService = inject(PassContractService);

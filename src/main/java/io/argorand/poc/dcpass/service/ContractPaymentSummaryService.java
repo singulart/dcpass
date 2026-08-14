@@ -37,6 +37,13 @@ public class ContractPaymentSummaryService {
         }
         String trimmed = contractNumber.trim();
         ContractPaymentAggregationResult result = passPaymentRepository.findPaidSummaryByContractNumber(trimmed);
-        return new ContractPaymentSummaryDTO(trimmed, result.totalPaid(), result.paymentCount(), result.purchaseOrderCount());
+        return new ContractPaymentSummaryDTO(
+            trimmed,
+            result.totalPaid(),
+            result.paymentCount(),
+            result.purchaseOrderCount(),
+            result.poNumbers(),
+            result.paymentNumbers()
+        );
     }
 }

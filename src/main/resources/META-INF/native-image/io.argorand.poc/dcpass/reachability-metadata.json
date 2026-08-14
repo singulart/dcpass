@@ -3001,6 +3001,14 @@
           "parameterTypes": []
         },
         {
+          "name": "getPaymentNumbers",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumbers",
+          "parameterTypes": []
+        },
+        {
           "name": "getPurchaseOrderCount",
           "parameterTypes": []
         },

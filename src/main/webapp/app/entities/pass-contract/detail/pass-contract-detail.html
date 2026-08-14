@@ -33,7 +33,7 @@
                   <a
                     class="contract-value-summary__link"
                     [routerLink]="['/pass-payment']"
-                    [queryParams]="{ q: passContractRef.contractNumber }"
+                    [queryParams]="paymentListQueryParams()"
                     target="_blank"
                     rel="noopener"
                     data-cy="contractPaymentsLink"
@@ -43,7 +43,7 @@
                   <a
                     class="contract-value-summary__link"
                     [routerLink]="['/purchase-order']"
-                    [queryParams]="{ q: passContractRef.contractNumber }"
+                    [queryParams]="purchaseOrderListQueryParams()"
                     target="_blank"
                     rel="noopener"
                     data-cy="contractPurchaseOrdersLink"
