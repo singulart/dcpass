@@ -14,25 +14,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>, JpaSpecificationExecutor<PassPayment> {
     /**
-     * Sums {@code paymentamount} for payments whose {@code ponumber} appears on any purchase order
-     * issued under {@code contractNumber}. Distinct PO numbers avoid double-counting multi-line POs.
+     * Sums {@code voucheramount} for payments whose {@code ponumber} matches any purchase order
+     * issued under {@code contractNumber}. PASS payments store the unversioned PO number
+     * ({@code PO123}); amended POs are stored as {@code PO123-V2}. Join on {@code ponumber_base}.
+     * Distinct PO bases avoid double-counting multi-line POs.
      *
      * @return a single row: [purchaseOrderCount, paymentCount, totalPaid]
      */
     @Query(
         value = """
         SELECT
-          COUNT(DISTINCT po.ponumber),
+          COUNT(DISTINCT po.ponumber_base),
           COUNT(p.id),
           COALESCE(SUM(p.voucheramount), 0)
         FROM (
-          SELECT DISTINCT ponumber
+          SELECT DISTINCT ponumber_base
           FROM purchase_order
           WHERE contractnumber = :contractNumber
-            AND ponumber IS NOT NULL
-            AND ponumber <> ''
+            AND ponumber_base IS NOT NULL
+            AND ponumber_base <> ''
         ) po
-        LEFT JOIN pass_payment p ON p.ponumber = po.ponumber
+        LEFT JOIN pass_payment p ON p.ponumber = po.ponumber_base
         """,
         nativeQuery = true
     )
@@ -53,7 +55,8 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
     record ContractPaymentAggregationResult(long purchaseOrderCount, long paymentCount, BigDecimal totalPaid) {}
 
     /**
-     * Sums {@code paymentamount} for payments whose {@code ponumber} matches {@code poNumber}.
+     * Sums {@code voucheramount} for payments whose {@code ponumber} matches {@code poNumber}
+     * after stripping a trailing {@code -Vn} amendment suffix.
      *
      * @return a single row: [paymentCount, totalPaid]
      */
@@ -63,7 +66,7 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
           COUNT(p.id),
           COALESCE(SUM(p.voucheramount), 0)
         FROM pass_payment p
-        WHERE p.ponumber = :poNumber
+        WHERE p.ponumber = regexp_replace(:poNumber, '-V[0-9]+$', '')
         """,
         nativeQuery = true
     )

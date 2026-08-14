@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        PASS payments store the unversioned PO number (PO601566). Amended purchase orders
+        are stored as PO601566-V2 (etc.) and never coexist with the unversioned form.
+        Join payments to POs on this stripped base, not on ponumber equality.
+    -->
+    <changeSet id="20260814120000-1" author="dcpass" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="purchase_order" columnName="ponumber_base"/>
+            </not>
+        </preConditions>
+        <sql>
+            ALTER TABLE purchase_order
+                ADD COLUMN ponumber_base varchar(255)
+                GENERATED ALWAYS AS (regexp_replace(ponumber, '-V[0-9]+$', '')) STORED;
+        </sql>
+        <rollback>
+            ALTER TABLE purchase_order DROP COLUMN IF EXISTS ponumber_base;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260814120000-2" author="dcpass" dbms="postgresql">
+        <sql>
+            CREATE INDEX IF NOT EXISTS idx_purchase_order_ponumber_base
+                ON purchase_order (ponumber_base);
+
+            CREATE INDEX IF NOT EXISTS idx_purchase_order_contractnumber_ponumber_base
+                ON purchase_order (contractnumber, ponumber_base);
+        </sql>
+        <rollback>
+            DROP INDEX IF EXISTS idx_purchase_order_contractnumber_ponumber_base;
+            DROP INDEX IF EXISTS idx_purchase_order_ponumber_base;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260814120000-3" author="dcpass" dbms="postgresql">
+        <sql>
+            DROP MATERIALIZED VIEW IF EXISTS mv_fy2026_it_spend_by_agency;
+
+            CREATE MATERIALIZED VIEW mv_fy2026_it_spend_by_agency AS
+            SELECT
+                concat(coalesce(pp.agency_acronym, ''), '|', coalesce(pp.agency_name, '')) AS "Agency",
+                sum(pp.voucheramount) AS "Spend"
+            FROM pass_payment pp
+            JOIN purchase_order po ON pp.ponumber = po.ponumber_base
+            JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
+            WHERE pp.fiscalyear = 2026
+            GROUP BY pp.agency_acronym, pp.agency_name;
+        </sql>
+        <rollback>
+            DROP MATERIALIZED VIEW IF EXISTS mv_fy2026_it_spend_by_agency;
+
+            CREATE MATERIALIZED VIEW mv_fy2026_it_spend_by_agency AS
+            SELECT
+                concat(coalesce(pp.agency_acronym, ''), '|', coalesce(pp.agency_name, '')) AS "Agency",
+                sum(pp.voucheramount) AS "Spend"
+            FROM pass_payment pp
+            JOIN purchase_order po ON pp.ponumber = po.ponumber
+            JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
+            WHERE pp.fiscalyear = 2026
+            GROUP BY pp.agency_acronym, pp.agency_name;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

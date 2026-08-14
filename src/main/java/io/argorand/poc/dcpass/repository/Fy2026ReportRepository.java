@@ -35,7 +35,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
           po.contractnumber,
           SUM(pp.voucheramount)
         FROM pass_payment pp
-        JOIN purchase_order po ON pp.ponumber = po.ponumber
+        JOIN purchase_order po ON pp.ponumber = po.ponumber_base
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
         WHERE pp.fiscalyear = 2026
           AND po.agency_acronym = :agencyAcronym
@@ -54,7 +54,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
           po.potitle,
           SUM(pp.voucheramount)
         FROM pass_payment pp
-        JOIN purchase_order po ON pp.ponumber = po.ponumber
+        JOIN purchase_order po ON pp.ponumber = po.ponumber_base
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
         WHERE pp.fiscalyear = 2026
           AND po.agency_acronym = :agencyAcronym
@@ -77,7 +77,7 @@ public interface Fy2026ReportRepository extends JpaRepository<io.argorand.poc.dc
           po.potitle,
           SUM(pp.voucheramount)
         FROM pass_payment pp
-        JOIN purchase_order po ON pp.ponumber = po.ponumber
+        JOIN purchase_order po ON pp.ponumber = po.ponumber_base
         JOIN it_commodity_code icc ON po.commoditycode ~ '^[0-9]+$' AND po.commoditycode::bigint = icc.code
         WHERE pp.fiscalyear = 2026
           AND po.agency_acronym = :agencyAcronym

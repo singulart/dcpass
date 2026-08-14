@@ -25,8 +25,8 @@ public class PurchaseOrderPaymentSummaryService {
     }
 
     /**
-     * Returns total dollars paid on payments matching {@code poNumber}.
-     * Empty or blank PO numbers yield a zero summary.
+     * Returns total dollars paid on payments matching {@code poNumber}, ignoring a trailing
+     * {@code -Vn} amendment suffix. Empty or blank PO numbers yield a zero summary.
      */
     public PurchaseOrderPaymentSummaryDTO getSummaryByPoNumber(String poNumber) {
         LOG.debug("Request to get payment summary for PO number : {}", poNumber);

@@ -139,7 +139,8 @@ public class PurchaseOrderResource {
     /**
      * {@code GET  /purchase-orders/payment-summary/:poNumber} : total dollars paid for a purchase order.
      * <p>
-     * Sums {@code paymentamount} on {@code pass_payment} rows whose {@code ponumber} matches.
+     * Sums {@code voucheramount} on {@code pass_payment} rows whose {@code ponumber} matches
+     * the PO number with any trailing {@code -Vn} amendment suffix stripped.
      *
      * @param poNumber the purchase order number (e.g. {@code PO123456}).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the payment summary in body.
