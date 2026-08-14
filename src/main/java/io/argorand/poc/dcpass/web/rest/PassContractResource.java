@@ -139,9 +139,10 @@ public class PassContractResource {
     /**
      * {@code GET  /pass-contracts/payment-summary/:contractNumber} : total dollars paid on POs for a contract.
      * <p>
-     * Joins {@code purchase_order} to {@code pass_payment} on PO number for all POs whose
-     * contract number matches, then sums {@code paymentamount}. Multi-line POs are de-duplicated
-     * so each payment is counted once.
+     * Expands to related contract numbers ({@code pass_contract} rows whose {@code cwinternalid}
+     * equals this contract number), finds matching POs via {@code purchase_order.contractnumber}
+     * and {@code po_contract_map}, then sums {@code voucheramount}. Multi-line POs are
+     * de-duplicated so each payment is counted once.
      *
      * @param contractNumber the PASS contract number (e.g. {@code CW95481}).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the payment summary in body.

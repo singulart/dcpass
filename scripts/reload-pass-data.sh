@@ -85,8 +85,9 @@ SELECT setval('purchase_order_seq', COALESCE((SELECT MAX(id) FROM purchase_order
 SELECT setval('pass_payment_seq', COALESCE((SELECT MAX(id) FROM pass_payment), 1), true);
 SQL
 
-echo "Refreshing FY2026 materialized views..."
+echo "Refreshing PO contract-number map and FY2026 materialized views..."
 psql_q <<'SQL'
+SELECT refresh_po_contract_map();
 REFRESH MATERIALIZED VIEW mv_fy2026_it_spend_by_agency;
 REFRESH MATERIALIZED VIEW mv_fy2026_it_awarded_pos_by_agency;
 SQL
@@ -96,4 +97,5 @@ psql_q -c "SELECT 'pass_contract' AS table, COUNT(*) FROM pass_contract
 UNION ALL SELECT 'purchase_order', COUNT(*) FROM purchase_order
 UNION ALL SELECT 'pass_payment', COUNT(*) FROM pass_payment
 UNION ALL SELECT 'it_commodity_code', COUNT(*) FROM it_commodity_code
+UNION ALL SELECT 'po_contract_map', COUNT(*) FROM po_contract_map
 ORDER BY 1;"

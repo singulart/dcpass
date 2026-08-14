@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Aggregated payment totals for a contract, summed over payments on POs issued under that contract.
+ * Aggregated payment totals for a contract, summed over payments on POs issued under that
+ * contract, related contract numbers, or {@code po_contract_map} links.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class ContractPaymentSummaryDTO implements Serializable {

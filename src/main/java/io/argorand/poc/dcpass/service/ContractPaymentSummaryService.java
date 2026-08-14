@@ -25,7 +25,9 @@ public class ContractPaymentSummaryService {
     }
 
     /**
-     * Returns total dollars paid on any PO issued for {@code contractNumber}.
+     * Returns total dollars paid on any PO issued for {@code contractNumber}, including POs
+     * tagged with related contract numbers ({@code pass_contract} rows whose {@code cwinternalid}
+     * equals this contract number) and POs linked through {@code po_contract_map}.
      * Empty or blank contract numbers yield a zero summary.
      */
     public ContractPaymentSummaryDTO getSummaryByContractNumber(String contractNumber) {

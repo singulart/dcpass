@@ -15,26 +15,47 @@ import org.springframework.stereotype.Repository;
 public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>, JpaSpecificationExecutor<PassPayment> {
     /**
      * Sums {@code voucheramount} for payments whose {@code ponumber} matches any purchase order
-     * issued under {@code contractNumber}. PASS payments store the unversioned PO number
-     * ({@code PO123}); amended POs are stored as {@code PO123-V2}. Join on {@code ponumber_base}.
-     * Distinct PO bases avoid double-counting multi-line POs.
+     * issued under {@code contractNumber} or a related contract number.
+     * <p>
+     * Related numbers are {@code pass_contract.contractnumber} rows whose {@code cwinternalid}
+     * equals this contract number, unioned with the contract number itself. POs are those whose
+     * {@code contractnumber} is in that list, plus POs linked through {@code po_contract_map}
+     * (messy {@code purchase_order.contractnumber} values). PASS payments store the unversioned
+     * PO number ({@code PO123}); amended POs are stored as {@code PO123-V2}. Join on
+     * {@code ponumber_base}. Distinct PO bases avoid double-counting multi-line POs.
      *
      * @return a single row: [purchaseOrderCount, paymentCount, totalPaid]
      */
     @Query(
         value = """
+        WITH related_numbers AS (
+          SELECT :contractNumber AS contractnumber
+          UNION
+          SELECT c.contractnumber
+          FROM pass_contract c
+          WHERE c.cwinternalid = :contractNumber
+            AND c.contractnumber IS NOT NULL
+            AND btrim(c.contractnumber) <> ''
+        ),
+        matching_pos AS (
+          SELECT po.ponumber_base
+          FROM purchase_order po
+          JOIN related_numbers n ON po.contractnumber = n.contractnumber
+          WHERE po.ponumber_base IS NOT NULL
+            AND po.ponumber_base <> ''
+          UNION
+          SELECT m.ponumber_base
+          FROM po_contract_map m
+          JOIN related_numbers n ON m.contractnumber = upper(n.contractnumber)
+          WHERE m.ponumber_base IS NOT NULL
+            AND m.ponumber_base <> ''
+        )
         SELECT
-          COUNT(DISTINCT po.ponumber_base),
+          COUNT(DISTINCT matching_pos.ponumber_base),
           COUNT(p.id),
           COALESCE(SUM(p.voucheramount), 0)
-        FROM (
-          SELECT DISTINCT ponumber_base
-          FROM purchase_order
-          WHERE contractnumber = :contractNumber
-            AND ponumber_base IS NOT NULL
-            AND ponumber_base <> ''
-        ) po
-        LEFT JOIN pass_payment p ON p.ponumber = po.ponumber_base
+        FROM matching_pos
+        LEFT JOIN pass_payment p ON p.ponumber = matching_pos.ponumber_base
         """,
         nativeQuery = true
     )

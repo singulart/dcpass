@@ -29988,6 +29988,9 @@
       "glob": "config/liquibase/changelog/20260814170000_index_cwinternalid_search.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260814180000_add_po_contract_map.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
