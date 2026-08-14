@@ -17,6 +17,7 @@ import {
   fy2026BuildBarItems,
   fy2026FormatCurrency,
   fy2026IsPlainClick,
+  fy2026RowAt,
 } from './fy2026-chart.util';
 
 Chart.register(ArcElement, DoughnutController, Tooltip);
@@ -153,8 +154,8 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
     if (!fy2026IsPlainClick(this.pointerDown, event)) {
       return;
     }
-    const row = this.contractRows[index];
-    if (!row || row.isOthers) {
+    const row = fy2026RowAt(this.contractRows, index);
+    if (row == null || row.isOthers) {
       return;
     }
     const contractNumber = row.contractNumber?.trim();
@@ -162,7 +163,7 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
     this.passContractService.query({ 'contractNumber.equals': contractNumber, size: 1 }).subscribe({
-      next: response => {
+      next(response) {
         const id = response.body?.[0]?.id;
         if (id != null) {
           window.open(`/pass-contract/${id}/view`, '_blank', 'noopener,noreferrer');
@@ -432,7 +433,7 @@ export class Fy2026AwardedComponent implements OnInit, AfterViewInit, OnDestroy 
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: ctx => {
+              label(ctx) {
                 const value = typeof ctx.parsed === 'number' ? ctx.parsed : 0;
                 return ` ${fy2026FormatCurrency(value)}`;
               },

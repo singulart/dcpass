@@ -9,10 +9,9 @@ export default class TruncatePipe implements PipeTransform {
     if (value == null || value === '') {
       return '';
     }
-    const str = String(value);
-    if (str.length <= limit) {
-      return str;
+    if (value.length <= limit) {
+      return value;
     }
-    return str.slice(0, limit).trim() + suffix;
+    return value.slice(0, limit).trim() + suffix;
   }
 }

@@ -17,6 +17,18 @@ export default defineConfig(
   },
   { ignores: ['src/main/docker/'] },
   { ignores: ['target/classes/static/', 'target/', 'dist/'] },
+  {
+    ignores: [
+      'coverage/',
+      'coverage-e2e/',
+      'playwright-report/',
+      'playwright/.cache/',
+      'test-results/',
+      'blob-report/',
+      '.nyc_output/',
+      'assets/monocart-coverage-app.js',
+    ],
+  },
   eslint.configs.recommended,
   {
     files: ['**/*.{js,cjs,mjs}'],

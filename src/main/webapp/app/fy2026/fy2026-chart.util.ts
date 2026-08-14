@@ -25,6 +25,13 @@ export function fy2026Amount(value: number | null | undefined): number {
   return value ?? 0;
 }
 
+export function fy2026RowAt<T>(rows: T[], index: number): T | undefined {
+  if (index < 0 || index >= rows.length) {
+    return undefined;
+  }
+  return rows[index];
+}
+
 export function fy2026FormatCurrency(value: number): string {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
 }
@@ -67,7 +74,7 @@ export function fy2026IsPlainClick(down: { x: number; y: number } | null, event:
   return selection.length === 0;
 }
 
-export function fy2026BuildBarItems(rows: Array<{ label: string; value: number; color: string; clickable: boolean }>): Fy2026BarItem[] {
+export function fy2026BuildBarItems(rows: { label: string; value: number; color: string; clickable: boolean }[]): Fy2026BarItem[] {
   const values = rows.map(r => r.value);
   const max = Math.max(0, ...values);
   const useLog = fy2026NeedsLogScale(values);

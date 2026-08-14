@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, LOCALE_ID, importProvidersFrom, inject } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import {
   NavigationError,
@@ -49,20 +49,19 @@ if (environment.DEBUG_INFO_ENABLED) {
 }
 
 /** ChatGPT MCP widget: SPA shell sets this flag so we open {@code /contracts-widget} inside the host sandbox. */
-function contractsWidgetChatgptEmbedInitializer(router: Router): () => Promise<void> {
-  return () => {
-    const w = window as unknown as { __DCPASS_EMBED_CONTRACTS_WIDGET__?: boolean };
-    if (w.__DCPASS_EMBED_CONTRACTS_WIDGET__) {
-      return router.navigateByUrl('/contracts-widget', { replaceUrl: true }).then(() => undefined);
-    }
-    return Promise.resolve();
-  };
+function contractsWidgetChatgptEmbedInitializer(): Promise<void> {
+  const router = inject(Router);
+  const w = window as unknown as { __DCPASS_EMBED_CONTRACTS_WIDGET__?: boolean };
+  if (w.__DCPASS_EMBED_CONTRACTS_WIDGET__) {
+    return router.navigateByUrl('/contracts-widget', { replaceUrl: true }).then(() => undefined);
+  }
+  return Promise.resolve();
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, ...routerFeatures),
-    { provide: APP_INITIALIZER, useFactory: contractsWidgetChatgptEmbedInitializer, deps: [Router], multi: true },
+    provideAppInitializer(contractsWidgetChatgptEmbedInitializer),
     importProvidersFrom(BrowserModule),
     // Set this to true to enable service worker (PWA)
     importProvidersFrom(ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })),

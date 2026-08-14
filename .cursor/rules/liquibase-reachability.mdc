@@ -1,0 +1,22 @@
+---
+description: Register every new Liquibase changelog in GraalVM native-image reachability metadata
+globs: "**/config/liquibase/**,**/reachability-metadata*.json"
+alwaysApply: true
+---
+
+# Liquibase + native-image reachability
+
+When adding or including a Liquibase changelog, also register it as a resource glob in **both**:
+
+- `src/main/resources/META-INF/native-image/io.argorand.poc/dcpass/reachability-metadata.json`
+- `src/main/resources/META-INF/native-image/io.argorand.poc/dcpass/reachability-metadata.filled.json`
+
+Insert a `resources.globs` entry next to the other `config/liquibase/changelog/*.xml` paths (keep chronological order):
+
+```json
+{
+  "glob": "config/liquibase/changelog/YYYYMMDDHHMMSS_description.xml"
+}
+```
+
+Native image will not see the changeset if it is only added to `master.xml`.

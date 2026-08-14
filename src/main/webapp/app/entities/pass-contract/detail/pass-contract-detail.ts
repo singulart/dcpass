@@ -31,7 +31,10 @@ export class PassContractDetail {
   constructor() {
     toObservable(this.passContract)
       .pipe(
-        map(contract => contract?.contractNumber?.trim() || null),
+        map(contract => {
+          const contractNumber = contract?.contractNumber?.trim();
+          return contractNumber == null || contractNumber === '' ? null : contractNumber;
+        }),
         distinctUntilChanged(),
         tap(contractNumber => {
           this.paymentSummaryLoading.set(!!contractNumber);

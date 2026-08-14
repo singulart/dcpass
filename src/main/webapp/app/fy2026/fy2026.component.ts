@@ -16,6 +16,7 @@ import {
   fy2026BuildBarItems,
   fy2026FormatCurrency,
   fy2026IsPlainClick,
+  fy2026RowAt,
 } from './fy2026-chart.util';
 
 Chart.register(ArcElement, DoughnutController, Tooltip);
@@ -170,8 +171,8 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     if (!fy2026IsPlainClick(this.pointerDown, event)) {
       return;
     }
-    const row = this.contractRows[index];
-    if (!row || row.isOthers) {
+    const row = fy2026RowAt(this.contractRows, index);
+    if (row == null || row.isOthers) {
       return;
     }
     const agency = this.selectedAgencyAcronym();
@@ -188,8 +189,8 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
     if (!fy2026IsPlainClick(this.pointerDown, event)) {
       return;
     }
-    const row = this.poRows[index];
-    if (!row || row.isOthers || row.purchaseOrderId == null) {
+    const row = fy2026RowAt(this.poRows, index);
+    if (row == null || row.isOthers || row.purchaseOrderId == null) {
       return;
     }
     window.open(`/purchase-order/${row.purchaseOrderId}/view`, '_blank', 'noopener,noreferrer');
@@ -506,7 +507,7 @@ export default class Fy2026Component implements OnInit, AfterViewInit, OnDestroy
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: ctx => {
+              label(ctx) {
                 const value = typeof ctx.parsed === 'number' ? ctx.parsed : 0;
                 return ` ${fy2026FormatCurrency(value)}`;
               },
