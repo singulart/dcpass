@@ -1,14 +1,9 @@
-WITH dcss_contracts AS (
-    SELECT DISTINCT con.contractnumber
-    FROM pass_contract con
-    WHERE pass_contract_fts_match(con.search_vector, 'DCSS') OR procurementmethoddescription = 'DC Supply Schedule'
-),
-po_by_fy AS (
+WITH po_by_fy AS (
     SELECT
         po.fiscalyear,
         SUM(po.pototal) AS po_total
     FROM purchase_order po
-    WHERE po.contractnumber IN (SELECT contractnumber FROM dcss_contracts)
+    WHERE po.contractnumber IN (SELECT contractnumber FROM pass_contract_dcss)
     GROUP BY po.fiscalyear
 ),
 pay_by_fy AS (
@@ -19,7 +14,7 @@ pay_by_fy AS (
     WHERE pa.ponumber IN (
         SELECT po.ponumber_base
         FROM purchase_order po
-        WHERE po.contractnumber IN (SELECT contractnumber FROM dcss_contracts)
+        WHERE po.contractnumber IN (SELECT contractnumber FROM pass_contract_dcss)
     )
     GROUP BY pa.fiscalyear
 )
