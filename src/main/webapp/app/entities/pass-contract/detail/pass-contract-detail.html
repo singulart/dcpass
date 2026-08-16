@@ -222,6 +222,10 @@
           <dd>
             <span>{{ passContractRef.contractTypeDescription }}</span>
           </dd>
+          <dt><span>Procurement Method</span></dt>
+          <dd>
+            <span data-cy="contractProcurementMethod">{{ passContractRef.procurementMethodDescription }}</span>
+          </dd>
           <dt><span>Contract Details Link</span></dt>
           <dd>
             @if (passContractRef.contractDetailsLink) {
