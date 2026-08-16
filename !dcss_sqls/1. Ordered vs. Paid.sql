@@ -1,21 +1,16 @@
 WITH po_by_fy AS (
     SELECT
-        po.fiscalyear,
-        SUM(po.pototal) AS po_total
-    FROM purchase_order po
-    WHERE po.contractnumber IN (SELECT contractnumber FROM pass_contract_dcss)
-    GROUP BY po.fiscalyear
+        fiscalyear,
+        SUM(pototal) AS po_total
+    FROM purchase_order_dcss
+    GROUP BY fiscalyear
 ),
 pay_by_fy AS (
     SELECT
         pa.fiscalyear,
         SUM(pa.voucheramount) AS voucher_total
     FROM pass_payment pa
-    WHERE pa.ponumber IN (
-        SELECT po.ponumber_base
-        FROM purchase_order po
-        WHERE po.contractnumber IN (SELECT contractnumber FROM pass_contract_dcss)
-    )
+    WHERE pa.ponumber IN (SELECT ponumber_base FROM purchase_order_dcss)
     GROUP BY pa.fiscalyear
 )
 SELECT
