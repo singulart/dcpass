@@ -34474,6 +34474,9 @@
       "glob": "config/liquibase/changelog/20260814180000_add_po_contract_map.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260815200000_po_contract_map_agency_fts.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

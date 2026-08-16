@@ -19,7 +19,7 @@ public interface PassPaymentRepository extends JpaRepository<PassPayment, Long>,
      * issued under {@code contractNumber} or a related contract number.
      * <p>
      * Related numbers are {@code pass_contract.contractnumber} rows whose {@code cwinternalid}
-     * equals this contract number, unioned with the contract number itself. POs are those whose
+     * equals this contract number. POs are those whose
      * {@code contractnumber} is in that list, plus POs linked through {@code po_contract_map}
      * (messy {@code purchase_order.contractnumber} values). PASS payments store the unversioned
      * PO number ({@code PO123}); amended POs are stored as {@code PO123-V2}. Join on

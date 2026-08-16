@@ -32,6 +32,7 @@
     <include file="config/liquibase/changelog/20260814120000_match_payments_on_ponumber_base.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260814170000_index_cwinternalid_search.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260814180000_add_po_contract_map.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260815200000_po_contract_map_agency_fts.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

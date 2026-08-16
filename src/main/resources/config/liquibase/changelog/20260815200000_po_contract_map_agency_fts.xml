@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        strategy tags which local job wrote the row so the two !data_cleanup
+        scripts can rebuild independently. Prod gets the populated table by copy.
+    -->
+    <changeSet id="20260815200000-1" author="dcpass">
+        <addColumn tableName="po_contract_map">
+            <column name="strategy" type="varchar(32)"/>
+        </addColumn>
+        <createIndex indexName="idx_po_contract_map_strategy" tableName="po_contract_map">
+            <column name="strategy"/>
+        </createIndex>
+        <comment>Existing rows came from the messy-token parser.</comment>
+        <sql>UPDATE po_contract_map SET strategy = 'messy_token' WHERE strategy IS NULL;</sql>
+    </changeSet>
+</databaseChangeLog>
