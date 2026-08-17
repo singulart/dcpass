@@ -10,6 +10,9 @@ WHERE pass_contract_fts_match(con.search_vector, 'DCSS')
 -- "Messy" POs (slashes, extra text) match through po_contract_map.
 -- PASS sometimes stores the same PO as several rows that differ only by
 -- agency label, each repeating the same total. Take only one row per PO (see PO459123).
+
+-- POs that self-identify as DCSS (title or contract number) are included even
+-- when there are no matching contract numbers.
 DROP VIEW IF EXISTS purchase_order_dcss;
 CREATE VIEW purchase_order_dcss AS
 WITH dcss AS MATERIALIZED (
@@ -35,6 +38,14 @@ matched AS (
     SELECT po.id
     FROM map_bases mb
     JOIN purchase_order po ON po.ponumber_base = mb.ponumber_base
+
+    UNION
+
+    SELECT po.id
+    FROM purchase_order po
+    WHERE po.ponumber_base IS NOT NULL
+      AND po.ponumber_base <> ''
+      AND (po.potitle ~* 'dcss' OR po.contractnumber ~* 'dcss')
 )
 SELECT DISTINCT ON (po.ponumber_base) po.*
 FROM purchase_order po
