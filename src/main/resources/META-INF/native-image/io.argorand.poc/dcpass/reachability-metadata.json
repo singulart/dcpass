@@ -30002,6 +30002,9 @@
       "glob": "config/liquibase/changelog/20260815200000_po_contract_map_agency_fts.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260817180000_add_pass_contract_mapping.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

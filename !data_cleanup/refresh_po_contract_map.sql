@@ -1,9 +1,7 @@
 -- Local-only attribution job. Do not run on production.
--- Prod receives po_contract_map by table copy after this has been applied locally.
+-- This table is needed for prod: copy manually from local DB.
 --
 -- Parses messy purchase_order.contractnumber values (slash, brace, colon, space).
--- Rebuilds only strategy = 'messy_token' rows.
--- Requires po_contract_map.strategy (Liquibase 20260815200000-1).
 --
 --   psql -h localhost -U dcpass -d dcpass -f !data_cleanup/refresh_po_contract_map.sql
 

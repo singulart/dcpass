@@ -1,4 +1,4 @@
--- Top Agencies by DCSS PO dollar value, by Year.  Min $250,000.
+-- Top Agencies by DCSS PO dollar value, by Year.  Shows agencies ordered $250,000 or more.
 SELECT
     fiscalyear AS fiscal_year,
     RANK() OVER (
