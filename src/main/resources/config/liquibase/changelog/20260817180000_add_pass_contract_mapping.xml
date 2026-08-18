@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Manually populated mappings between agency-specific contract nomenclature
+        (e.g. GAGA-2021-T-0190) and the OCP / Contract Wizard number (e.g. CW45053).
+        Liquibase creates the empty table; rows are added by hand, not by the
+        po_contract_map refresh jobs.
+    -->
+    <changeSet id="20260817180000-1" author="dcpass">
+        <comment>
+            Manually populated mappings between agency-specific contract nomenclature and OCP (CW) numbers.
+        </comment>
+        <createTable tableName="pass_contract_mapping"
+                     remarks="Manually populated mappings between agency-specific contract nomenclature and OCP (CW) numbers.">
+            <column name="agency_format" type="varchar(255)" remarks="Agency-specific contract number (e.g. GAGA-2021-T-0190).">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cw_format" type="varchar(255)" remarks="OCP / Contract Wizard number (e.g. CW45053).">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex indexName="idx_pass_contract_mapping_cw_format" tableName="pass_contract_mapping">
+            <column name="cw_format"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

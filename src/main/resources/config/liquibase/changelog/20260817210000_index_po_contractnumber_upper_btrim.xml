@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        purchase_order_dcss matches clean POs with upper(btrim(contractnumber)).
+        Without this expression index Postgres sorts all PO rows on disk for that join.
+        Partial predicate matches the view's ponumber_base filter; INCLUDE (id) covers
+        the matched-id projection.
+    -->
+    <changeSet id="20260817210000-1" author="dcpass" dbms="postgresql">
+        <sql>
+            CREATE INDEX IF NOT EXISTS idx_purchase_order_contractnumber_upper_btrim
+                ON purchase_order (upper(btrim(contractnumber)))
+                INCLUDE (id)
+                WHERE ponumber_base IS NOT NULL
+                  AND ponumber_base &lt;&gt; '';
+        </sql>
+        <rollback>DROP INDEX IF EXISTS idx_purchase_order_contractnumber_upper_btrim;</rollback>
+    </changeSet>
+</databaseChangeLog>
