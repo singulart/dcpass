@@ -1,8 +1,14 @@
-WITH po_by_fy AS (
+-- Materialize the DCSS PO set once. purchase_order_dcss is expensive, and
+-- referencing it in both CTEs would evaluate the view twice.
+WITH dcss_pos AS MATERIALIZED (
+    SELECT fiscalyear, pototal, ponumber_base
+    FROM purchase_order_dcss
+),
+po_by_fy AS (
     SELECT
         fiscalyear,
         SUM(pototal) AS po_total
-    FROM purchase_order_dcss
+    FROM dcss_pos
     GROUP BY fiscalyear
 ),
 pay_by_fy AS (
@@ -10,7 +16,7 @@ pay_by_fy AS (
         pa.fiscalyear,
         SUM(pa.voucheramount) AS voucher_total
     FROM pass_payment pa
-    WHERE pa.ponumber IN (SELECT ponumber_base FROM purchase_order_dcss)
+    WHERE pa.ponumber IN (SELECT ponumber_base FROM dcss_pos)
     GROUP BY pa.fiscalyear
 )
 SELECT

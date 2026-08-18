@@ -2,20 +2,27 @@
 -- Catalog rows also qualify when contractnumber or cwinternalid appears in
 -- pass_contract_mapping (agency_format or cw_format).
 CREATE OR REPLACE VIEW pass_contract_dcss AS
+WITH mapping_keys AS MATERIALIZED (
+    SELECT upper(btrim(agency_format)) AS k
+    FROM pass_contract_mapping
+    WHERE agency_format IS NOT NULL
+      AND btrim(agency_format) <> ''
+    UNION
+    SELECT upper(btrim(cw_format))
+    FROM pass_contract_mapping
+    WHERE cw_format IS NOT NULL
+      AND btrim(cw_format) <> ''
+)
 SELECT *
 FROM pass_contract con
 WHERE pass_contract_fts_match(con.search_vector, 'DCSS')
    OR con.procurementmethoddescription = 'DC Supply Schedule'
-   OR EXISTS (
-        SELECT 1
-        FROM pass_contract_mapping m
-        WHERE upper(btrim(con.contractnumber)) IN (upper(btrim(m.agency_format)), upper(btrim(m.cw_format)))
-           OR (
-                con.cwinternalid IS NOT NULL
-                AND btrim(con.cwinternalid) <> ''
-                AND upper(btrim(con.cwinternalid)) IN (upper(btrim(m.agency_format)), upper(btrim(m.cw_format)))
-           )
-    );
+   OR upper(btrim(con.contractnumber)) IN (SELECT k FROM mapping_keys)
+   OR (
+        con.cwinternalid IS NOT NULL
+        AND btrim(con.cwinternalid) <> ''
+        AND upper(btrim(con.cwinternalid)) IN (SELECT k FROM mapping_keys)
+   );
 
 -- The definition of DCSS purchase orders. Reports choose columns as needed.
 -- Clean POs match on contractnumber (case-insensitive, trimmed).
@@ -55,11 +62,20 @@ map_bases AS MATERIALIZED (
     JOIN dcss n ON m.contractnumber = n.cn_upper
 ),
 matched AS (
+    -- LATERAL + OFFSET 0 keeps a nested loop into
+    -- idx_purchase_order_contractnumber_upper_btrim. A plain JOIN estimates a
+    -- 10M-row merge and sorts all 275k POs on disk (the MATERIALIZED dcss CTE
+    -- has no stats). OFFSET 0 is an optimizer fence, not a skip.
     SELECT po.id
     FROM dcss n
-    JOIN purchase_order po ON upper(btrim(po.contractnumber)) = n.cn_upper
-    WHERE po.ponumber_base IS NOT NULL
-      AND po.ponumber_base <> ''
+    JOIN LATERAL (
+        SELECT id
+        FROM purchase_order po
+        WHERE upper(btrim(po.contractnumber)) = n.cn_upper
+          AND po.ponumber_base IS NOT NULL
+          AND po.ponumber_base <> ''
+        OFFSET 0
+    ) po ON true
 
     UNION
 

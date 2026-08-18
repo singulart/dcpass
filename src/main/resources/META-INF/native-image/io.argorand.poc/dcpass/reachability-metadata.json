@@ -30005,6 +30005,9 @@
       "glob": "config/liquibase/changelog/20260817180000_add_pass_contract_mapping.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260817210000_index_po_contractnumber_upper_btrim.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {
