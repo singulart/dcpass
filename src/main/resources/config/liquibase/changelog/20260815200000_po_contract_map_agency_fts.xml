@@ -17,5 +17,9 @@
         </createIndex>
         <comment>Existing rows came from the messy-token parser.</comment>
         <sql>UPDATE po_contract_map SET strategy = 'messy_token' WHERE strategy IS NULL;</sql>
+        <rollback>
+            <dropIndex indexName="idx_po_contract_map_strategy" tableName="po_contract_map"/>
+            <dropColumn tableName="po_contract_map" columnName="strategy"/>
+        </rollback>
     </changeSet>
 </databaseChangeLog>
