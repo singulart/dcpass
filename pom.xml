@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.1.0</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
@@ -287,7 +287,7 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <!-- TODO This is a manually hacked, locally stored version. I need to check periodcally if the core product implemented the cnange. -->
+            <!-- TODO This is a manually hacked, locally stored version. I need to check periodcally if the core product implemented the change. -->
             <version>7.2.1.Patch</version>
         </dependency>
         <dependency>

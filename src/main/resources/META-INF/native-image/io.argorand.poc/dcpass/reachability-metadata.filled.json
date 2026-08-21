@@ -4170,6 +4170,14 @@
         {
           "name": "aggregatePaidByPoNumber",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$splitCsv$0",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "splitCsv",
+          "parameterTypes": ["java.lang.Object"]
         }
       ]
     },
@@ -4757,11 +4765,35 @@
           "parameterTypes": []
         },
         {
+          "name": "getContractStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractTypeDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getProcurementMethodDescription",
+          "parameterTypes": []
+        },
+        {
           "name": "setCommodityCode",
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
         {
           "name": "setContractNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractStatus",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractTypeDescription",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setProcurementMethodDescription",
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
         {
@@ -4937,14 +4969,6 @@
           "parameterTypes": []
         },
         {
-          "name": "getContractStatus",
-          "parameterTypes": []
-        },
-        {
-          "name": "getContractTypeDescription",
-          "parameterTypes": []
-        },
-        {
           "name": "getContractingOfficer",
           "parameterTypes": []
         },
@@ -5014,10 +5038,6 @@
         },
         {
           "name": "getObjectId",
-          "parameterTypes": []
-        },
-        {
-          "name": "getProcurementMethodDescription",
           "parameterTypes": []
         },
         {
@@ -5549,14 +5569,6 @@
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
         {
-          "name": "setContractStatus",
-          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
-        },
-        {
-          "name": "setContractTypeDescription",
-          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
-        },
-        {
           "name": "setContractingOfficer",
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
@@ -5627,10 +5639,6 @@
         {
           "name": "setObjectId",
           "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
-        },
-        {
-          "name": "setProcurementMethodDescription",
-          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
         },
         {
           "name": "setPublishedVersionId",
@@ -11306,6 +11314,9 @@
       "type": "java.lang.Comparable[]"
     },
     {
+      "type": "java.lang.Configurable"
+    },
+    {
       "type": "java.lang.Deprecated"
     },
     {
@@ -12785,6 +12796,14 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setTableName",
           "parameterTypes": ["java.lang.String"]
         }
@@ -13175,11 +13194,39 @@
           "parameterTypes": []
         },
         {
+          "name": "setAssociatedWith",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setClustered",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
           "name": "setIndexName",
           "parameterTypes": ["java.lang.String"]
         },
         {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTablespace",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setUnique",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setUsing",
           "parameterTypes": ["java.lang.String"]
         }
       ]
@@ -13314,11 +13361,35 @@
           "parameterTypes": []
         },
         {
+          "name": "setCatalogName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setIfNotExists",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setRemarks",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setRowDependencies",
           "parameterTypes": ["java.lang.Boolean"]
         },
         {
+          "name": "setSchemaName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
           "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTablespace",
           "parameterTypes": ["java.lang.String"]
         }
       ]
@@ -13357,7 +13428,21 @@
       "type": "liquibase.change.core.DropAllForeignKeyConstraintsChangeCustomizer"
     },
     {
-      "type": "liquibase.change.core.DropColumnChange"
+      "type": "liquibase.change.core.DropColumnChange",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setColumnName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "liquibase.change.core.DropColumnChangeBeanInfo"
@@ -13422,7 +13507,21 @@
       "type": "liquibase.change.core.DropForeignKeyConstraintChangeCustomizer"
     },
     {
-      "type": "liquibase.change.core.DropIndexChange"
+      "type": "liquibase.change.core.DropIndexChange",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setIndexName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "liquibase.change.core.DropIndexChangeBeanInfo"
@@ -14134,6 +14233,207 @@
       "type": "liquibase.database.jvm.JdbcConnectionPatterns"
     },
     {
+      "type": "liquibase.datatype.core.BigIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.BinaryTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.BlobType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.BooleanType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.CharType"
+    },
+    {
+      "type": "liquibase.datatype.core.ClobType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.ClobTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.CurrencyType"
+    },
+    {
+      "type": "liquibase.datatype.core.DatabaseFunctionType"
+    },
+    {
+      "type": "liquibase.datatype.core.DateTimeType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DateType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DateTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DecimalType"
+    },
+    {
+      "type": "liquibase.datatype.core.DoubleDataTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.DoubleType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.FloatType"
+    },
+    {
+      "type": "liquibase.datatype.core.IntType"
+    },
+    {
+      "type": "liquibase.datatype.core.MediumIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.NCharType"
+    },
+    {
+      "type": "liquibase.datatype.core.NVarcharType"
+    },
+    {
+      "type": "liquibase.datatype.core.NumberType"
+    },
+    {
+      "type": "liquibase.datatype.core.SmallIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.TextDataTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimeType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimeTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampNTZTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TimestampTypeSnowflake",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.TinyIntType"
+    },
+    {
+      "type": "liquibase.datatype.core.UUIDType"
+    },
+    {
+      "type": "liquibase.datatype.core.UnknownType"
+    },
+    {
+      "type": "liquibase.datatype.core.VarcharType",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "liquibase.datatype.core.XMLType"
+    },
+    {
       "type": "liquibase.diff.compare.core.CatalogComparator"
     },
     {
@@ -14284,7 +14584,13 @@
       "type": "liquibase.plugin.Plugin"
     },
     {
+      "type": "liquibase.precondition.AbstractPrecondition"
+    },
+    {
       "type": "liquibase.precondition.CustomPreconditionWrapper"
+    },
+    {
+      "type": "liquibase.precondition.PreconditionLogic"
     },
     {
       "type": "liquibase.precondition.core.AndPrecondition"
@@ -14296,7 +14602,21 @@
       "type": "liquibase.precondition.core.ChangeSetExecutedPrecondition"
     },
     {
-      "type": "liquibase.precondition.core.ColumnExistsPrecondition"
+      "type": "liquibase.precondition.core.ColumnExistsPrecondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setColumnName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTableName",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "liquibase.precondition.core.DBMSPrecondition"
@@ -14308,7 +14628,13 @@
       "type": "liquibase.precondition.core.IndexExistsPrecondition"
     },
     {
-      "type": "liquibase.precondition.core.NotPrecondition"
+      "type": "liquibase.precondition.core.NotPrecondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "liquibase.precondition.core.ObjectQuotingStrategyPrecondition"
@@ -14317,7 +14643,13 @@
       "type": "liquibase.precondition.core.OrPrecondition"
     },
     {
-      "type": "liquibase.precondition.core.PreconditionContainer"
+      "type": "liquibase.precondition.core.PreconditionContainer",
+      "methods": [
+        {
+          "name": "setOnFail",
+          "parameterTypes": ["liquibase.precondition.core.PreconditionContainer$FailOption"]
+        }
+      ]
     },
     {
       "type": "liquibase.precondition.core.PrimaryKeyExistsPrecondition"
@@ -20360,6 +20692,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -34192,6 +34527,9 @@
       "glob": "META-INF/services/liquibase.database.jvm.ConnectionPatterns"
     },
     {
+      "glob": "META-INF/services/liquibase.datatype.LiquibaseDataType"
+    },
+    {
       "glob": "META-INF/services/liquibase.diff.compare.DatabaseObjectComparator"
     },
     {
@@ -34838,6 +35176,15 @@
     },
     {
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
     },
     {
       "glob": "org/hibernate/hibernate-configuration-3.0.dtd"
@@ -36898,6 +37245,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.aspectj.weaver.weaver-messages"
     },
     {
       "bundle": "org.springframework.security.messages"

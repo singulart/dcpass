@@ -1,6 +1,33 @@
 {
   "reflection": [
     {
+      "type": "org.hibernate.bytecode.internal.none.BytecodeProviderImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.apache.coyote.AbstractProtocol",
+      "methods": [
+        {
+          "name": "getName",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
+      "methods": [
+        {
+          "name": "getCause",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "Configurable"
     },
     {
@@ -793,6 +820,14 @@
         {
           "name": "main",
           "parameterTypes": ["java.lang.String[]"]
+        },
+        {
+          "name": "lambda$logApplicationStartup$0",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "logApplicationStartup",
+          "parameterTypes": ["org.springframework.core.env.Environment"]
         }
       ]
     },
@@ -806,6 +841,22 @@
         {
           "name": "logAround",
           "parameterTypes": ["org.aspectj.lang.ProceedingJoinPoint"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.springframework.core.env.Environment"]
+        },
+        {
+          "name": "applicationPackagePointcut",
+          "parameterTypes": []
+        },
+        {
+          "name": "logger",
+          "parameterTypes": ["org.aspectj.lang.JoinPoint"]
+        },
+        {
+          "name": "springBeanPointcut",
+          "parameterTypes": []
         }
       ]
     },
@@ -831,6 +882,14 @@
         {
           "name": "getAsyncStart",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAsyncStart",
+          "parameterTypes": ["java.lang.Boolean"]
         }
       ]
     },
@@ -839,6 +898,14 @@
       "methods": [
         {
           "name": "getAsyncExecutor",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.springframework.boot.autoconfigure.task.TaskExecutionProperties"]
+        },
+        {
+          "name": "getAsyncUncaughtExceptionHandler",
           "parameterTypes": []
         }
       ]
@@ -885,6 +952,22 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "isLoggerSafe",
+          "parameterTypes": ["ch.qos.logback.classic.spi.ILoggingEvent"]
+        },
+        {
+          "name": "toAnsiString",
+          "parameterTypes": ["java.lang.String", "org.springframework.boot.ansi.AnsiElement"]
+        },
+        {
+          "name": "transform",
+          "parameterTypes": ["ch.qos.logback.classic.spi.ILoggingEvent", "java.lang.String"]
+        },
+        {
+          "name": "transform",
+          "parameterTypes": ["java.lang.Object", "java.lang.String"]
         }
       ]
     },
@@ -898,6 +981,22 @@
         {
           "name": "hibernatePropertiesCustomizer",
           "parameterTypes": ["javax.cache.CacheManager"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["tech.jhipster.config.JHipsterProperties"]
+        },
+        {
+          "name": "createCache",
+          "parameterTypes": ["javax.cache.CacheManager", "java.lang.String"]
+        },
+        {
+          "name": "lambda$cacheManagerCustomizer$0",
+          "parameterTypes": ["javax.cache.CacheManager"]
+        },
+        {
+          "name": "lambda$hibernatePropertiesCustomizer$0",
+          "parameterTypes": ["javax.cache.CacheManager", "java.util.Map"]
         }
       ]
     },
@@ -951,6 +1050,10 @@
         {
           "name": "setGitProperties",
           "parameterTypes": ["org.springframework.boot.info.GitProperties"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -991,7 +1094,13 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.config.DatabaseConfiguration"
+      "type": "io.argorand.poc.dcpass.config.DatabaseConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.config.DatabaseConfiguration$$SpringCGLIB$$0",
@@ -1012,7 +1121,17 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.config.DateTimeFormatConfiguration"
+      "type": "io.argorand.poc.dcpass.config.DateTimeFormatConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "addFormatters",
+          "parameterTypes": ["org.springframework.format.FormatterRegistry"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.config.DateTimeFormatConfiguration$$SpringCGLIB$$0",
@@ -1041,6 +1160,10 @@
         },
         {
           "name": "jdk8TimeModule",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
           "parameterTypes": []
         }
       ]
@@ -1086,6 +1209,10 @@
       "methods": [
         {
           "name": "hibernate7Module",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
           "parameterTypes": []
         }
       ]
@@ -1139,6 +1266,10 @@
             "io.argorand.poc.dcpass.config.ApplicationProperties",
             "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
           ]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.springframework.core.env.Environment"]
         }
       ]
     },
@@ -1184,6 +1315,10 @@
         {
           "name": "loggingAspect",
           "parameterTypes": ["org.springframework.core.env.Environment"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -1224,7 +1359,18 @@
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.config.LoggingConfiguration"
+      "type": "io.argorand.poc.dcpass.config.LoggingConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "tech.jhipster.config.JHipsterProperties",
+            "tools.jackson.databind.ObjectMapper"
+          ]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.config.LoggingConfiguration$$SpringCGLIB$$0",
@@ -1259,6 +1405,50 @@
         {
           "name": "passwordEncoder",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["tech.jhipster.config.JHipsterProperties"]
+        },
+        {
+          "name": "lambda$filterChain$0",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.CsrfConfigurer"]
+        },
+        {
+          "name": "lambda$filterChain$1",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.HeadersConfigurer"]
+        },
+        {
+          "name": "lambda$filterChain$2",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.HeadersConfigurer$ContentSecurityPolicyConfig"]
+        },
+        {
+          "name": "lambda$filterChain$3",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.HeadersConfigurer$ReferrerPolicyConfig"]
+        },
+        {
+          "name": "lambda$filterChain$4",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.HeadersConfigurer$PermissionsPolicyConfig"]
+        },
+        {
+          "name": "lambda$filterChain$5",
+          "parameterTypes": [
+            "org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$AuthorizationManagerRequestMatcherRegistry"
+          ]
+        },
+        {
+          "name": "lambda$filterChain$6",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer"]
+        },
+        {
+          "name": "lambda$filterChain$7",
+          "parameterTypes": ["org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer"]
+        },
+        {
+          "name": "lambda$filterChain$8",
+          "parameterTypes": [
+            "org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer"
+          ]
         }
       ]
     },
@@ -1313,6 +1503,22 @@
         {
           "name": "jwtEncoder",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSecretKey",
+          "parameterTypes": []
+        },
+        {
+          "name": "lambda$jwtDecoder$0",
+          "parameterTypes": [
+            "org.springframework.security.oauth2.jwt.NimbusJwtDecoder",
+            "io.argorand.poc.dcpass.management.SecurityMetersService",
+            "java.lang.String"
+          ]
         }
       ]
     },
@@ -1358,6 +1564,26 @@
         {
           "name": "corsFilter",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["org.springframework.core.env.Environment", "tech.jhipster.config.JHipsterProperties"]
+        },
+        {
+          "name": "customize",
+          "parameterTypes": ["org.springframework.boot.web.server.WebServerFactory"]
+        },
+        {
+          "name": "onStartup",
+          "parameterTypes": ["jakarta.servlet.ServletContext"]
+        },
+        {
+          "name": "resolvePathPrefix",
+          "parameterTypes": []
+        },
+        {
+          "name": "setLocationForStaticAssets",
+          "parameterTypes": ["org.springframework.boot.web.server.WebServerFactory"]
         }
       ]
     },
@@ -1432,6 +1658,30 @@
         {
           "name": "getLastModifiedDate",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCreatedBy",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setLastModifiedBy",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLastModifiedDate",
+          "parameterTypes": ["java.time.Instant"]
         }
       ]
     },
@@ -1452,6 +1702,12 @@
         },
         {
           "name": "lastModifiedDate"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -1478,6 +1734,34 @@
         {
           "name": "updateEntityState",
           "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "isNew",
+          "parameterTypes": []
+        },
+        {
+          "name": "name",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setIsPersisted",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -1490,13 +1774,45 @@
         {
           "name": "name"
         }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
       ]
     },
     {
       "type": "io.argorand.poc.dcpass.domain.Authority__Accessor_ovqlrv"
     },
     {
-      "type": "io.argorand.poc.dcpass.domain.ItCommodityCode"
+      "type": "io.argorand.poc.dcpass.domain.ItCommodityCode",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCode",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.domain.ItCommodityCode_",
@@ -1506,6 +1822,12 @@
         },
         {
           "name": "code"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -1661,6 +1983,570 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "agency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "awardDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "commodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "commodityDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractAdministratorEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractAdministratorName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractAdministratorPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "contractDetailsLink",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractOfficerPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractTypeDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractingOfficer",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractingOfficerEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractingSplst",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractingSplstEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "corporateEmailAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "corporatePhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "currentOptionPeriod",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "cwInternalId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "description",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "documentVersion",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "endDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "getAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAwardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractDetailsLink",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractOfficerPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractTypeDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingOfficer",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingOfficerEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingSplst",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingSplstEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCorporateEmailAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCorporatePhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCurrentOptionPeriod",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCwInternalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDocumentVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEndDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLastModified",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMarketType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getProcurementMethodDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPublishedVersionId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecCreatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRowId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSource",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStartDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTotalOptionPeriods",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorCity",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorState",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorZip",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "lastModified",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "marketType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "procurementMethodDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "publishedVersionId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "recCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "recUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "rowId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAwardDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAdministratorPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setContractDetailsLink",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractOfficerPhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractTypeDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficer",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingOfficerEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplst",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractingSplstEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporateEmailAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCorporatePhone",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCurrentOptionPeriod",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCwInternalId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDocumentVersion",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setEndDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setLastModified",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setMarketType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setProcurementMethodDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPublishedVersionId",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRecCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRecUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRowId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setSource",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStartDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTotalOptionPeriods",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setVendorAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorCity",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorState",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVendorZip",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "source",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "startDate",
+          "parameterTypes": ["java.time.LocalDate"]
+        },
+        {
+          "name": "supplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "title",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        },
+        {
+          "name": "totalOptionPeriods",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "vendorAddress",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "vendorCity",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "vendorState",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "vendorZip",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -1811,6 +2697,12 @@
         {
           "name": "vendorZip"
         }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
       ]
     },
     {
@@ -1896,6 +2788,294 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "dcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "estPaymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEstPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordCreated",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplierName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTransactionCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVoucherAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVoucherNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "invoiceDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "invoiceNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "paymentAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "paymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "paymentNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "paymentType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "poNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "recordCreated",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "recordUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setEstPaymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setInvoiceDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setInvoiceNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setPaymentAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setPaymentDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setPaymentNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPaymentType",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRecordCreated",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setRecordUpdatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setSupplierName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTransactionCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setVoucherAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setVoucherNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "supplierName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        },
+        {
+          "name": "transactionCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "voucherAmount",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "voucherNumber",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -1977,6 +3157,12 @@
         {
           "name": "voucherNumber"
         }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
       ]
     },
     {
@@ -2053,6 +3239,258 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "commodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "commodityName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "dcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCreateDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getOrderedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTotal",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequester",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequisitionNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "orderedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "poNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "poTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "poTotal",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "requester",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "requisitionNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCreateDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["java.lang.Integer"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setOrderedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoTotal",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "setRequester",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setRequisitionNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStatus",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "status",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "supplier",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -2124,6 +3562,12 @@
         },
         {
           "name": "supplier"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -2217,6 +3661,82 @@
         {
           "name": "isActivated",
           "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getActivationKey",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAuthorities",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPassword",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setActivated",
+          "parameterTypes": ["boolean"]
+        },
+        {
+          "name": "setActivationKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAuthorities",
+          "parameterTypes": ["java.util.Set"]
+        },
+        {
+          "name": "setEmail",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setFirstName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setImageUrl",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLangKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLastName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLogin",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPassword",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setResetDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setResetKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -2265,6 +3785,12 @@
         {
           "name": "resetKey"
         }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
       ]
     },
     {
@@ -2285,6 +3811,26 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.micrometer.core.instrument.MeterRegistry"]
+        },
+        {
+          "name": "invalidTokensCounterForCauseBuilder",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "trackTokenExpired",
+          "parameterTypes": []
+        },
+        {
+          "name": "trackTokenInvalidSignature",
+          "parameterTypes": []
+        },
+        {
+          "name": "trackTokenMalformed",
+          "parameterTypes": []
+        },
+        {
+          "name": "trackTokenUnsupported",
+          "parameterTypes": []
         }
       ]
     },
@@ -2301,6 +3847,10 @@
         {
           "name": "setWidgetPublicBaseUrl",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getPublicBaseUrl",
+          "parameterTypes": []
         }
       ]
     },
@@ -2309,6 +3859,10 @@
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMeta",
           "parameterTypes": []
         }
       ]
@@ -2319,6 +3873,50 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "buildEmbeddedWidgetHtml",
+          "parameterTypes": []
+        },
+        {
+          "name": "errorPage",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "escapeBodyText",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "escapeHtmlAttribute",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "httpFetchShell",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$rewritePathRelativeSrcHref$0",
+          "parameterTypes": ["java.lang.String", "java.util.regex.MatchResult"]
+        },
+        {
+          "name": "loadRawIndexHtml",
+          "parameterTypes": []
+        },
+        {
+          "name": "normalizedBase",
+          "parameterTypes": []
+        },
+        {
+          "name": "rewritePathRelativeSrcHref",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "rewriteRootRelativeSrcHref",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "transform",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
         }
       ]
     },
@@ -2327,6 +3925,10 @@
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMeta",
           "parameterTypes": []
         }
       ]
@@ -2369,6 +3971,38 @@
             "java.lang.String",
             "java.lang.Integer"
           ]
+        },
+        {
+          "name": "buildApiParams",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.time.LocalDate",
+            "java.time.LocalDate",
+            "java.time.LocalDate",
+            "java.time.LocalDate",
+            "java.time.LocalDate",
+            "java.time.LocalDate",
+            "java.math.BigDecimal",
+            "java.math.BigDecimal",
+            "int",
+            "int"
+          ]
+        },
+        {
+          "name": "buildModelFacingSummary",
+          "parameterTypes": ["int", "long", "int", "int"]
+        },
+        {
+          "name": "buildResultMeta",
+          "parameterTypes": []
+        },
+        {
+          "name": "parseAmount",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.util.List"]
+        },
+        {
+          "name": "parseDate",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.util.List"]
         }
       ]
     },
@@ -2379,16 +4013,88 @@
       "type": "io.argorand.poc.dcpass.repository.AuthorityRepository"
     },
     {
-      "type": "io.argorand.poc.dcpass.repository.Fy2026ReportRepository"
+      "type": "io.argorand.poc.dcpass.repository.Fy2026ReportRepository",
+      "methods": [
+        {
+          "name": "findAgencyAwarded",
+          "parameterTypes": []
+        },
+        {
+          "name": "findAgencySpend",
+          "parameterTypes": []
+        },
+        {
+          "name": "findContractAwardedByAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findContractSpendByAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findPoSpendByAgencyAndContract",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "findPoSpendByAgencyAndNullContract",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "mapAgencyAwarded",
+          "parameterTypes": []
+        },
+        {
+          "name": "mapAgencySpend",
+          "parameterTypes": []
+        },
+        {
+          "name": "mapContractAwarded",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "mapContractSpend",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "mapPoSpend",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.repository.ItCommodityCodeRepository"
+      "type": "io.argorand.poc.dcpass.repository.ItCommodityCodeRepository",
+      "methods": [
+        {
+          "name": "findAllCodes",
+          "parameterTypes": []
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.repository.PassContractRepository"
+      "type": "io.argorand.poc.dcpass.repository.PassContractRepository",
+      "methods": [
+        {
+          "name": "findByContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findByContractNumberIn",
+          "parameterTypes": ["java.util.Collection"]
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.repository.PassContractRepositoryCustom"
+      "type": "io.argorand.poc.dcpass.repository.PassContractRepositoryCustom",
+      "methods": [
+        {
+          "name": "findDistinctRepresentativeIds",
+          "parameterTypes": [
+            "org.springframework.data.jpa.domain.Specification",
+            "org.springframework.data.domain.Pageable",
+            "java.lang.String"
+          ]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.repository.PassContractRepositoryImpl",
@@ -2409,6 +4115,40 @@
             "org.springframework.data.domain.Pageable",
             "java.lang.String"
           ]
+        },
+        {
+          "name": "aggregateSortPath",
+          "parameterTypes": ["jakarta.persistence.criteria.CriteriaBuilder", "jakarta.persistence.criteria.Path", "boolean"]
+        },
+        {
+          "name": "applyPredicate",
+          "parameterTypes": [
+            "org.springframework.data.jpa.domain.Specification",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
+        },
+        {
+          "name": "buildGroupOrders",
+          "parameterTypes": [
+            "jakarta.persistence.criteria.CriteriaBuilder",
+            "jakarta.persistence.criteria.Root",
+            "org.springframework.data.domain.Sort",
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "contractGroupKey",
+          "parameterTypes": ["jakarta.persistence.criteria.CriteriaBuilder", "jakarta.persistence.criteria.Root"]
+        },
+        {
+          "name": "countDistinctGroups",
+          "parameterTypes": ["jakarta.persistence.criteria.CriteriaBuilder", "org.springframework.data.jpa.domain.Specification"]
+        },
+        {
+          "name": "isFtsRankSort",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2422,6 +4162,22 @@
         {
           "name": "findPaidSummaryByPoNumber",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "aggregatePaidByContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "aggregatePaidByPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$splitCsv$0",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "splitCsv",
+          "parameterTypes": ["java.lang.Object"]
         }
       ]
     },
@@ -2442,6 +4198,26 @@
         {
           "name": "findOneWithAuthoritiesByLogin",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "findAllByIdNotNullAndActivatedIsTrue",
+          "parameterTypes": ["org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "findOneByActivationKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findOneByResetKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "findOneWithAuthoritiesByEmailIgnoreCase",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2458,6 +4234,26 @@
         {
           "name": "loadUserByUsername",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createSpringSecurityUser",
+          "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$loadUserByUsername$0",
+          "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$loadUserByUsername$1",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$loadUserByUsername$2",
+          "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$loadUserByUsername$3",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -2469,6 +4265,10 @@
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCurrentAuditor",
           "parameterTypes": []
         }
       ]
@@ -2498,6 +4298,30 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.repository.Fy2026ReportRepository"]
+        },
+        {
+          "name": "getAwardedByAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAwardedByContract",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getSpendByAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpendByContract",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getSpendByPo",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "mapAgencyRows",
+          "parameterTypes": ["java.util.List"]
         }
       ]
     },
@@ -2510,6 +4334,10 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.repository.ItCommodityCodeRepository"]
+        },
+        {
+          "name": "getCodes",
+          "parameterTypes": []
         }
       ]
     },
@@ -2531,6 +4359,22 @@
         {
           "name": "sendCreationEmail",
           "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "sendEmail",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "boolean", "boolean"]
+        },
+        {
+          "name": "sendEmailFromTemplate",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User", "java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "sendEmailFromTemplateSync",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User", "java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "sendEmailSync",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "boolean", "boolean"]
         }
       ]
     },
@@ -2554,6 +4398,39 @@
         {
           "name": "toDtoWithCommodities",
           "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract"]
+        },
+        {
+          "name": "$deserializeLambda$",
+          "parameterTypes": ["java.lang.invoke.SerializedLambda"]
+        },
+        {
+          "name": "buildFullTextSearchSpecification",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createSpecification",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassContractCriteria"]
+        },
+        {
+          "name": "lambda$buildFullTextSearchSpecification$d8546ae4$1",
+          "parameterTypes": [
+            "java.lang.String",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
+        },
+        {
+          "name": "lambda$toCommodityDtos$0",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract"]
+        },
+        {
+          "name": "toCommodityDtos",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toDtoWithCommodities",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract", "java.util.List"]
         }
       ]
     },
@@ -2605,6 +4482,40 @@
         {
           "name": "findByCriteria",
           "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria", "org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "$deserializeLambda$",
+          "parameterTypes": ["java.lang.invoke.SerializedLambda"]
+        },
+        {
+          "name": "buildFullTextSearchSpecification",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createSpecification",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria"]
+        },
+        {
+          "name": "lambda$buildFullTextSearchSpecification$8cef00b6$1",
+          "parameterTypes": [
+            "java.lang.String",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
+        },
+        {
+          "name": "lambda$findByCriteria$cbe304b2$1",
+          "parameterTypes": [
+            "boolean",
+            "boolean",
+            "java.lang.String",
+            "boolean",
+            "org.springframework.data.domain.Sort",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
         }
       ]
     },
@@ -2671,6 +4582,40 @@
         {
           "name": "findByCriteria",
           "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria", "org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "$deserializeLambda$",
+          "parameterTypes": ["java.lang.invoke.SerializedLambda"]
+        },
+        {
+          "name": "buildFullTextSearchSpecification",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "createSpecification",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria"]
+        },
+        {
+          "name": "lambda$buildFullTextSearchSpecification$887f751e$1",
+          "parameterTypes": [
+            "java.lang.String",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
+        },
+        {
+          "name": "lambda$findByCriteria$f0e0ccf2$1",
+          "parameterTypes": [
+            "boolean",
+            "boolean",
+            "java.lang.String",
+            "boolean",
+            "org.springframework.data.domain.Sort",
+            "jakarta.persistence.criteria.Root",
+            "jakarta.persistence.criteria.CriteriaQuery",
+            "jakarta.persistence.criteria.CriteriaBuilder"
+          ]
         }
       ]
     },
@@ -2751,6 +4696,53 @@
         {
           "name": "updateUser",
           "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "clearUserCaches",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "completePasswordReset",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "getAllPublicUsers",
+          "parameterTypes": ["org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "getAuthorities",
+          "parameterTypes": []
+        },
+        {
+          "name": "lambda$changePassword$0",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$completePasswordReset$0",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$completePasswordReset$1",
+          "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$deleteUser$0",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$updateUser$0",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO", "io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "lambda$updateUser$1",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "io.argorand.poc.dcpass.domain.User"
+          ]
         }
       ]
     },
@@ -2803,6 +4795,946 @@
         {
           "name": "setProcurementMethodDescription",
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassContractCriteria"]
+        },
+        {
+          "name": "agency",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "awardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "commodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "commodityDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractAdministratorEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractAdministratorName",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractAdministratorPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractDetailsLink",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractOfficerPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractTypeDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractingOfficer",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractingOfficerEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractingSplst",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractingSplstEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "copy",
+          "parameterTypes": []
+        },
+        {
+          "name": "corporateEmailAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "corporatePhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "currentOptionPeriod",
+          "parameterTypes": []
+        },
+        {
+          "name": "cwInternalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "description",
+          "parameterTypes": []
+        },
+        {
+          "name": "distinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "documentVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "endDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAwardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAdministratorPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractDetailsLink",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractOfficerPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingOfficer",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingOfficerEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingSplst",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractingSplstEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCorporateEmailAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCorporatePhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCurrentOptionPeriod",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCwInternalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDocumentVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEndDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLastModified",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMarketType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPublishedVersionId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecCreatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRowId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSearch",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSource",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStartDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTotalOptionPeriods",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorCity",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorState",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVendorZip",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "lambda$toString$0",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "lambda$toString$1",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$10",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "lambda$toString$11",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$12",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$13",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$14",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "lambda$toString$15",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$16",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$17",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$18",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$19",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "lambda$toString$2",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$20",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$21",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$22",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$23",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$24",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$25",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$26",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$27",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$28",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$29",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$3",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$30",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "lambda$toString$31",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$32",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$33",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$34",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$35",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$36",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$37",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$38",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$39",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$4",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "lambda$toString$40",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$41",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$42",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "lambda$toString$43",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "lambda$toString$44",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "lambda$toString$45",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "lambda$toString$46",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$toString$47",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "lambda$toString$5",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lambda$toString$6",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "lambda$toString$7",
+          "parameterTypes": ["tech.jhipster.service.filter.BigDecimalFilter"]
+        },
+        {
+          "name": "lambda$toString$8",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "lambda$toString$9",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "lastModified",
+          "parameterTypes": []
+        },
+        {
+          "name": "marketType",
+          "parameterTypes": []
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAwardDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCommodityDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractAdministratorEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractAdministratorName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractAdministratorPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractDetailsLink",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractOfficerPhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractTypeDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractingOfficer",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractingOfficerEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractingSplst",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractingSplstEmail",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCorporateEmailAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCorporatePhone",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCurrentOptionPeriod",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCwInternalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDocumentVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalEndDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalLastModified",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalMarketType",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalProcurementMethodDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPublishedVersionId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRecCreatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRecUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRowId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalSearch",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalSource",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalStartDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalTotalOptionPeriods",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVendorAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVendorCity",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVendorState",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVendorZip",
+          "parameterTypes": []
+        },
+        {
+          "name": "procurementMethodDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "publishedVersionId",
+          "parameterTypes": []
+        },
+        {
+          "name": "recCreatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "recUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "rowId",
+          "parameterTypes": []
+        },
+        {
+          "name": "search",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgency",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAwardDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "setCommodityDescription",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractAdministratorEmail",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractAdministratorName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractAdministratorPhone",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractAmount",
+          "parameterTypes": ["tech.jhipster.service.filter.BigDecimalFilter"]
+        },
+        {
+          "name": "setContractDetailsLink",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractOfficerPhone",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractingOfficer",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractingOfficerEmail",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractingSplst",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractingSplstEmail",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCorporateEmailAddress",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCorporatePhone",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCurrentOptionPeriod",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCwInternalId",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDescription",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setDistinct",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setDocumentVersion",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setEndDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setLastModified",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setMarketType",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setPublishedVersionId",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setRecCreatedDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setRecUpdatedDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setRowId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setSearch",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSource",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setStartDate",
+          "parameterTypes": ["tech.jhipster.service.filter.LocalDateFilter"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setTitle",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setTotalOptionPeriods",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "setVendorAddress",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setVendorCity",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setVendorState",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setVendorZip",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "source",
+          "parameterTypes": []
+        },
+        {
+          "name": "startDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "supplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "title",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        },
+        {
+          "name": "totalOptionPeriods",
+          "parameterTypes": []
+        },
+        {
+          "name": "vendorAddress",
+          "parameterTypes": []
+        },
+        {
+          "name": "vendorCity",
+          "parameterTypes": []
+        },
+        {
+          "name": "vendorState",
+          "parameterTypes": []
+        },
+        {
+          "name": "vendorZip",
+          "parameterTypes": []
         }
       ]
     },
@@ -2817,6 +5749,422 @@
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PassPaymentCriteria"]
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "copy",
+          "parameterTypes": []
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "dcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "distinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "estPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "getEstPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getInvoiceNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPaymentType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordCreated",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRecordUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSearch",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplierName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getTransactionCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVoucherAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVoucherNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "invoiceDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "invoiceNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalEstPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalInvoiceDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalInvoiceNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPaymentAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPaymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPaymentNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPaymentType",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRecordCreated",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRecordUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalSupplierName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalTransactionCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVoucherAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalVoucherNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "paymentAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "paymentDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "paymentNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "paymentType",
+          "parameterTypes": []
+        },
+        {
+          "name": "poNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "recordCreated",
+          "parameterTypes": []
+        },
+        {
+          "name": "recordUpdatedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "search",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDistinct",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setEstPaymentDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setInvoiceDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setInvoiceNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setPaymentAmount",
+          "parameterTypes": ["tech.jhipster.service.filter.BigDecimalFilter"]
+        },
+        {
+          "name": "setPaymentDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setPaymentNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setPaymentType",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setRecordCreated",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setRecordUpdatedDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setSearch",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSupplierName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setTransactionCode",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setVoucherAmount",
+          "parameterTypes": ["tech.jhipster.service.filter.BigDecimalFilter"]
+        },
+        {
+          "name": "setVoucherNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "supplierName",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        },
+        {
+          "name": "transactionCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "voucherAmount",
+          "parameterTypes": []
+        },
+        {
+          "name": "voucherNumber",
           "parameterTypes": []
         }
       ]
@@ -2841,6 +6189,366 @@
         {
           "name": "setCommodityCode",
           "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.criteria.PurchaseOrderCriteria"]
+        },
+        {
+          "name": "agencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "agencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "commodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "commodityName",
+          "parameterTypes": []
+        },
+        {
+          "name": "contractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "copy",
+          "parameterTypes": []
+        },
+        {
+          "name": "createDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "dcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "dcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "distinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "fiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCommodityName",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCreateDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "getDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "getFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getOrderedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTotal",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequester",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRequisitionNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSearch",
+          "parameterTypes": []
+        },
+        {
+          "name": "getStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "id",
+          "parameterTypes": []
+        },
+        {
+          "name": "objectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalAgencyName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCommodityCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCommodityName",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalCreateDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDcsLastModDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDcsRecCrtDttm",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalDistinct",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalFiscalYear",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalObjectId",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalOrderedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPoTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalPoTotal",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRequester",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalRequisitionNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalStatus",
+          "parameterTypes": []
+        },
+        {
+          "name": "optionalSupplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "orderedDate",
+          "parameterTypes": []
+        },
+        {
+          "name": "poNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "poTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "poTotal",
+          "parameterTypes": []
+        },
+        {
+          "name": "requester",
+          "parameterTypes": []
+        },
+        {
+          "name": "requisitionNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "search",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyCode",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setAgencyName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCommodityName",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setCreateDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDcsLastModDttm",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDcsRecCrtDttm",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setDistinct",
+          "parameterTypes": ["java.lang.Boolean"]
+        },
+        {
+          "name": "setFiscalYear",
+          "parameterTypes": ["tech.jhipster.service.filter.IntegerFilter"]
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setObjectId",
+          "parameterTypes": ["tech.jhipster.service.filter.LongFilter"]
+        },
+        {
+          "name": "setOrderedDate",
+          "parameterTypes": ["tech.jhipster.service.filter.InstantFilter"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setPoTitle",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setPoTotal",
+          "parameterTypes": ["tech.jhipster.service.filter.BigDecimalFilter"]
+        },
+        {
+          "name": "setRequester",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setRequisitionNumber",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setSearch",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setStatus",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "setSupplier",
+          "parameterTypes": ["tech.jhipster.service.filter.StringFilter"]
+        },
+        {
+          "name": "status",
+          "parameterTypes": []
+        },
+        {
+          "name": "supplier",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -2967,6 +6675,30 @@
         {
           "name": "setLogin",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "setCreatedBy",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCreatedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "setLastModifiedBy",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setLastModifiedDate",
+          "parameterTypes": ["java.time.Instant"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -2979,6 +6711,34 @@
         },
         {
           "name": "getCommodityDescription",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCommodityCode",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setCommodityDescription",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
           "parameterTypes": []
         }
       ]
@@ -3012,17 +6772,211 @@
         {
           "name": "getTotalPaid",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.math.BigDecimal", "long", "long"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.math.BigDecimal", "long", "long", "java.util.List", "java.util.List"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPaymentCount",
+          "parameterTypes": ["long"]
+        },
+        {
+          "name": "setPaymentNumbers",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "setPoNumbers",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "setPurchaseOrderCount",
+          "parameterTypes": ["long"]
+        },
+        {
+          "name": "setTotalPaid",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.Fy2026AgencySpendDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026AgencySpendDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.math.BigDecimal"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAgencyAcronym",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpend",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAgency",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setAgencyAcronym",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSpend",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.Fy2026ContractSpendDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026ContractSpendDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.math.BigDecimal"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getContractNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getContractTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpend",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setContractNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setContractTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setSpend",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.Fy2026PoSpendDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.Fy2026PoSpendDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.Long", "java.lang.String", "java.lang.String", "java.math.BigDecimal"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getPoNumber",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPoTitle",
+          "parameterTypes": []
+        },
+        {
+          "name": "getPurchaseOrderId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpend",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPoTitle",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setPurchaseOrderId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setSpend",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.PassContractDTO",
@@ -3402,6 +7356,22 @@
         {
           "name": "setVendorZip",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCommodities",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -3595,6 +7565,18 @@
         {
           "name": "setVoucherNumber",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -3604,6 +7586,26 @@
         {
           "name": "<init>",
           "parameterTypes": ["java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCurrentPassword",
+          "parameterTypes": []
+        },
+        {
+          "name": "getNewPassword",
+          "parameterTypes": []
+        },
+        {
+          "name": "setCurrentPassword",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setNewPassword",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -3773,6 +7775,18 @@
         {
           "name": "setSupplier",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
@@ -3790,20 +7804,122 @@
         {
           "name": "getTotalPaid",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.math.BigDecimal", "long"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setPaymentCount",
+          "parameterTypes": ["long"]
+        },
+        {
+          "name": "setPoNumber",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setTotalPaid",
+          "parameterTypes": ["java.math.BigDecimal"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.dto.UserDTO"
+      "type": "io.argorand.poc.dcpass.service.dto.UserDTO",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "equals",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getLogin",
+          "parameterTypes": []
+        },
+        {
+          "name": "hashCode",
+          "parameterTypes": []
+        },
+        {
+          "name": "setId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "setLogin",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.dto.package-info"
     },
     {
-      "type": "io.argorand.poc.dcpass.service.mapper.EntityMapper"
+      "type": "io.argorand.poc.dcpass.service.mapper.EntityMapper",
+      "methods": [
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["java.lang.Object", "java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.util.List"]
+        }
+      ]
     },
     {
-      "type": "io.argorand.poc.dcpass.service.mapper.PassContractMapper"
+      "type": "io.argorand.poc.dcpass.service.mapper.PassContractMapper",
+      "methods": [
+        {
+          "name": "toDto",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.lang.Object"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.service.mapper.PassContractMapperImpl",
@@ -3811,6 +7927,38 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract", "io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["java.lang.Object", "java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassContract"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassContractDTO"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.util.List"]
         }
       ]
     },
@@ -3823,6 +7971,38 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassPayment", "io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["java.lang.Object", "java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PassPayment"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PassPaymentDTO"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.util.List"]
         }
       ]
     },
@@ -3835,6 +8015,38 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PurchaseOrder", "io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        },
+        {
+          "name": "partialUpdate",
+          "parameterTypes": ["java.lang.Object", "java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.PurchaseOrder"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toDto",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.PurchaseOrderDTO"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.lang.Object"]
+        },
+        {
+          "name": "toEntity",
+          "parameterTypes": ["java.util.List"]
         }
       ]
     },
@@ -3844,6 +8056,58 @@
         {
           "name": "<init>",
           "parameterTypes": []
+        },
+        {
+          "name": "authoritiesFromStrings",
+          "parameterTypes": ["java.util.Set"]
+        },
+        {
+          "name": "lambda$authoritiesFromStrings$0",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "toDtoId",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "toDtoIdSet",
+          "parameterTypes": ["java.util.Set"]
+        },
+        {
+          "name": "toDtoLogin",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "toDtoLoginSet",
+          "parameterTypes": ["java.util.Set"]
+        },
+        {
+          "name": "userDTOToUser",
+          "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
+          "name": "userDTOsToUsers",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "userFromId",
+          "parameterTypes": ["java.lang.Long"]
+        },
+        {
+          "name": "userToAdminUserDTO",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "userToUserDTO",
+          "parameterTypes": ["io.argorand.poc.dcpass.domain.User"]
+        },
+        {
+          "name": "usersToAdminUserDTOs",
+          "parameterTypes": ["java.util.List"]
+        },
+        {
+          "name": "usersToUserDTOs",
+          "parameterTypes": ["java.util.List"]
         }
       ]
     },
@@ -3877,6 +8141,22 @@
         {
           "name": "saveAccount",
           "parameterTypes": ["io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
+          "name": "finishPasswordReset",
+          "parameterTypes": ["io.argorand.poc.dcpass.web.rest.vm.KeyAndPasswordVM"]
+        },
+        {
+          "name": "isPasswordLengthInvalid",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "lambda$getAccount$0",
+          "parameterTypes": []
+        },
+        {
+          "name": "lambda$saveAccount$0",
+          "parameterTypes": []
         }
       ]
     },
@@ -3904,6 +8184,14 @@
         {
           "name": "authorize",
           "parameterTypes": ["io.argorand.poc.dcpass.web.rest.vm.LoginVM"]
+        },
+        {
+          "name": "createToken",
+          "parameterTypes": ["org.springframework.security.core.Authentication", "boolean"]
+        },
+        {
+          "name": "isAuthenticated",
+          "parameterTypes": ["java.security.Principal"]
         }
       ]
     },
@@ -3916,6 +8204,14 @@
         {
           "name": "getIdToken",
           "parameterTypes": []
+        },
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setIdToken",
+          "parameterTypes": ["java.lang.String"]
         }
       ]
     },
@@ -3958,6 +8254,26 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.service.Fy2026ItSpendService"]
+        },
+        {
+          "name": "getAwardedByAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAwardedByContract",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getSpendByAgency",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSpendByContract",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getSpendByPo",
+          "parameterTypes": ["java.lang.String", "java.lang.String"]
         }
       ]
     },
@@ -3990,6 +8306,10 @@
       "methods": [
         {
           "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "openaiAppsChallenge",
           "parameterTypes": []
         }
       ]
@@ -4098,6 +8418,14 @@
         {
           "name": "<init>",
           "parameterTypes": ["io.argorand.poc.dcpass.service.UserService"]
+        },
+        {
+          "name": "getAllPublicUsers",
+          "parameterTypes": ["org.springframework.data.domain.Pageable"]
+        },
+        {
+          "name": "onlyContainsAllowedProperties",
+          "parameterTypes": ["org.springframework.data.domain.Pageable"]
         }
       ]
     },
@@ -4189,6 +8517,10 @@
         {
           "name": "updateUser",
           "parameterTypes": ["java.lang.String", "io.argorand.poc.dcpass.service.dto.AdminUserDTO"]
+        },
+        {
+          "name": "onlyContainsAllowedProperties",
+          "parameterTypes": ["org.springframework.data.domain.Pageable"]
         }
       ]
     },
@@ -4210,11 +8542,127 @@
         {
           "name": "handleAnyException",
           "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
+        },
+        {
+          "name": "buildCause",
+          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
+        },
+        {
+          "name": "buildHeaders",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "containsPackageName",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "customizeProblem",
+          "parameterTypes": [
+            "tech.jhipster.web.rest.errors.ProblemDetailWithCause",
+            "java.lang.Throwable",
+            "org.springframework.web.context.request.NativeWebRequest"
+          ]
+        },
+        {
+          "name": "extractResponseStatus",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "extractTitle",
+          "parameterTypes": ["java.lang.Throwable", "int"]
+        },
+        {
+          "name": "extractTitleForResponseStatus",
+          "parameterTypes": ["java.lang.Throwable", "int"]
+        },
+        {
+          "name": "extractURI",
+          "parameterTypes": ["org.springframework.web.context.request.NativeWebRequest"]
+        },
+        {
+          "name": "getCustomizedErrorDetails",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "getCustomizedTitle",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "getFieldErrors",
+          "parameterTypes": ["org.springframework.web.bind.MethodArgumentNotValidException"]
+        },
+        {
+          "name": "getMappedMessageKey",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "getMappedStatus",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "getMappedType",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "getPathValue",
+          "parameterTypes": ["org.springframework.web.context.request.NativeWebRequest"]
+        },
+        {
+          "name": "getProblemDetailWithCause",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "handleExceptionInternal",
+          "parameterTypes": [
+            "java.lang.Exception",
+            "java.lang.Object",
+            "org.springframework.http.HttpHeaders",
+            "org.springframework.http.HttpStatusCode",
+            "org.springframework.web.context.request.WebRequest"
+          ]
+        },
+        {
+          "name": "isCasualChainEnabled",
+          "parameterTypes": []
+        },
+        {
+          "name": "lambda$getFieldErrors$0",
+          "parameterTypes": ["org.springframework.validation.FieldError"]
+        },
+        {
+          "name": "resolveResponseStatus",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "toStatus",
+          "parameterTypes": ["java.lang.Throwable"]
+        },
+        {
+          "name": "wrapAndCustomizeProblem",
+          "parameterTypes": ["java.lang.Throwable", "org.springframework.web.context.request.NativeWebRequest"]
         }
       ]
     },
     {
-      "type": "io.argorand.poc.dcpass.web.rest.errors.FieldErrorVM"
+      "type": "io.argorand.poc.dcpass.web.rest.errors.FieldErrorVM",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String"]
+        },
+        {
+          "name": "getField",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMessage",
+          "parameterTypes": []
+        },
+        {
+          "name": "getObjectName",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.errors.package-info"
@@ -4223,7 +8671,29 @@
       "type": "io.argorand.poc.dcpass.web.rest.package-info"
     },
     {
-      "type": "io.argorand.poc.dcpass.web.rest.vm.KeyAndPasswordVM"
+      "type": "io.argorand.poc.dcpass.web.rest.vm.KeyAndPasswordVM",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getKey",
+          "parameterTypes": []
+        },
+        {
+          "name": "getNewPassword",
+          "parameterTypes": []
+        },
+        {
+          "name": "setKey",
+          "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "setNewPassword",
+          "parameterTypes": ["java.lang.String"]
+        }
+      ]
     },
     {
       "type": "io.argorand.poc.dcpass.web.rest.vm.LoginVM",
@@ -4251,6 +8721,22 @@
         {
           "name": "setUsername",
           "parameterTypes": ["java.lang.String"]
+        },
+        {
+          "name": "getPassword",
+          "parameterTypes": []
+        },
+        {
+          "name": "getUsername",
+          "parameterTypes": []
+        },
+        {
+          "name": "isRememberMe",
+          "parameterTypes": []
+        },
+        {
+          "name": "toString",
+          "parameterTypes": []
         }
       ]
     },
