@@ -3,15 +3,10 @@
 -- pass_contract_mapping (agency_format or cw_format).
 CREATE OR REPLACE VIEW pass_contract_dcss AS
 WITH mapping_keys AS MATERIALIZED (
-    SELECT upper(btrim(agency_format)) AS k
-    FROM pass_contract_mapping
-    WHERE agency_format IS NOT NULL
-      AND btrim(agency_format) <> ''
-    UNION
-    SELECT upper(btrim(cw_format))
-    FROM pass_contract_mapping
-    WHERE cw_format IS NOT NULL
-      AND btrim(cw_format) <> ''
+    SELECT DISTINCT upper(btrim(k)) AS k
+    FROM pass_contract_mapping m,
+         LATERAL (VALUES (m.agency_format), (m.cw_format)) AS v(k)
+    WHERE btrim(k) <> ''
 )
 SELECT *
 FROM pass_contract con
@@ -44,17 +39,10 @@ WITH dcss AS MATERIALIZED (
 
     UNION
 
-    SELECT upper(btrim(agency_format))
-    FROM pass_contract_mapping
-    WHERE agency_format IS NOT NULL
-      AND btrim(agency_format) <> ''
-
-    UNION
-
-    SELECT upper(btrim(cw_format))
-    FROM pass_contract_mapping
-    WHERE cw_format IS NOT NULL
-      AND btrim(cw_format) <> ''
+    SELECT upper(btrim(k))
+    FROM pass_contract_mapping m,
+         LATERAL (VALUES (m.agency_format), (m.cw_format)) AS v(k)
+    WHERE btrim(k) <> ''
 ),
 map_bases AS MATERIALIZED (
     SELECT DISTINCT m.ponumber_base
