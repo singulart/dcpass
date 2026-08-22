@@ -34821,6 +34821,9 @@
       "glob": "config/liquibase/changelog/20260817210000_index_po_contractnumber_upper_btrim.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260821120000_index_slash_split_contract_number_search.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

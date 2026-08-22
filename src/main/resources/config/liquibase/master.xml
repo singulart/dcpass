@@ -35,6 +35,7 @@
     <include file="config/liquibase/changelog/20260815200000_po_contract_map_agency_fts.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260817180000_add_pass_contract_mapping.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260817210000_index_po_contractnumber_upper_btrim.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260821120000_index_slash_split_contract_number_search.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

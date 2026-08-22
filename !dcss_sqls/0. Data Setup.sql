@@ -89,6 +89,7 @@ matched AS (
     FROM purchase_order po
     WHERE po.ponumber_base IS NOT NULL
       AND po.ponumber_base <> ''
+      AND po.status NOT IN ('Canceled', 'Cancelling')
       AND (po.potitle ~* 'dcss' OR po.contractnumber ~* 'dcss')
 )
 SELECT DISTINCT ON (po.ponumber_base) po.*
