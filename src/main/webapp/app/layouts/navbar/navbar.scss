@@ -8,7 +8,7 @@ Navbar
 
 .navbar-version {
   font-size: 0.65em;
-  color: $navbar-dark-color;
+  color: #000;
 }
 
 .profile-image {
@@ -18,10 +18,25 @@ Navbar
 
 .navbar {
   padding: 0.2rem 1rem;
+  --bs-navbar-color: #000;
+  --bs-navbar-hover-color: #000;
+  --bs-navbar-active-color: #000;
+  --bs-navbar-brand-color: #000;
+  --bs-navbar-brand-hover-color: #000;
+  --bs-navbar-disabled-color: #000;
+
   .dropdown-item.active,
   .dropdown-item.active:focus,
   .dropdown-item.active:hover {
     background-color: $dark;
+  }
+
+  .navbar-brand,
+  .navbar-title,
+  .navbar-version,
+  a.nav-link,
+  .navbar-toggler {
+    color: #000;
   }
 
   a.nav-link {
@@ -30,7 +45,7 @@ Navbar
 
   .navbar-toggler {
     &:hover {
-      color: $navbar-dark-hover-color;
+      color: #000;
     }
   }
 }
