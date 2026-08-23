@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Equality lookup for payment-summary related_numbers:
+        pass_contract rows whose cwinternalid equals the requested contract number.
+        Without this index the CTE seq-scans the full catalog (~50k rows).
+    -->
+    <changeSet id="20260823140000-1" author="dcpass" dbms="postgresql">
+        <sql>
+            CREATE INDEX IF NOT EXISTS idx_pass_contract_cwinternalid
+                ON pass_contract (cwinternalid);
+        </sql>
+        <rollback>DROP INDEX IF EXISTS idx_pass_contract_cwinternalid;</rollback>
+    </changeSet>
+</databaseChangeLog>

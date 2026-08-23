@@ -140,8 +140,8 @@ public class PassContractResource {
      * {@code GET  /pass-contracts/payment-summary/:contractNumber} : total dollars paid on POs for a contract.
      * <p>
      * Expands to related contract numbers ({@code pass_contract} rows whose {@code cwinternalid}
-     * equals this contract number), finds matching POs via {@code purchase_order.contractnumber}
-     * and {@code po_contract_map}, then sums {@code voucheramount}. Multi-line POs are
+     * equals this contract number), finds matching POs via purchase-order FTS and
+     * {@code po_contract_map}, then sums {@code voucheramount}. Multi-line POs are
      * de-duplicated so each payment is counted once. The response includes the matching
      * purchase-order numbers and payment numbers for list drill-down filters.
      *

@@ -34824,6 +34824,9 @@
       "glob": "config/liquibase/changelog/20260821120000_index_slash_split_contract_number_search.xml"
     },
     {
+      "glob": "config/liquibase/changelog/20260823140000_index_pass_contract_cwinternalid.xml"
+    },
+    {
       "glob": "config/liquibase/data/authority.csv"
     },
     {

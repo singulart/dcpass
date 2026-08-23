@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Aggregated payment totals for a contract, summed over payments on POs issued under that
- * contract, related contract numbers, or {@code po_contract_map} links.
+ * Aggregated payment totals for a contract, summed over payments on POs that FTS-match
+ * that contract (or related numbers) or that are linked through {@code po_contract_map}.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class ContractPaymentSummaryDTO implements Serializable {
