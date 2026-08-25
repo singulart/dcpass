@@ -167,3 +167,14 @@ coverage/
 /blob-report/
 /playwright/.cache/
 /coverage-e2e/
+
+######################
+# Palantir SuperRepo / Foundry CLI
+######################
+.dev-server
+.palantir
+.security/
+*.pem
+env.yml
+ontology/node_modules/
+ontology/dist/

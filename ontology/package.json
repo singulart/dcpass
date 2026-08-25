@@ -1,0 +1,19 @@
+{
+  "name": "pass-ontology",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Palantir Ontology-as-code SuperRepo",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "build": "npx @osdk/maker-import -i external-imports/ontology-full-metadata.json -o src/generated-imports && tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@osdk/client": "2.47.0",
+    "@osdk/maker": "0.52.0",
+    "@osdk/maker-import": "0.23.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

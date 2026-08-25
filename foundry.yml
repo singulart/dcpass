@@ -1,0 +1,15 @@
+# SuperRepo manifest. SuperRepo is beta; see
+# https://www.palantir.com/docs/foundry/superrepo/overview
+minCliVersion: '0.205.0'
+components:
+  - type: ONTOLOGY
+    path: ./ontology
+imports:
+  - ontology: ontology/external-imports/ontology-full-metadata.json
+bundle:
+  name: 'dcpass-ontology'
+  description: 'DC PASS procurement ontology: Agency, Vendor, ContractInstrument, ContractAward, PurchaseOrder, Payment.'
+  mavenCoordinate: 'io.argorand.poc.dcpass:dcpass-ontology'
+  installMode: SINGLETON
+osdkOutput: ontology/osdk-output
+apiNamespace: io.argorand.poc.dcpass
