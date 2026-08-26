@@ -174,7 +174,10 @@ coverage/
 .dev-server
 .palantir
 .security/
+.nx
 *.pem
 env.yml
+/build/store.zip
 ontology/node_modules/
 ontology/dist/
+ontology/build/

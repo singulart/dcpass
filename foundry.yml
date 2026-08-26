@@ -8,8 +8,13 @@ imports:
   - ontology: ontology/external-imports/ontology-full-metadata.json
 bundle:
   name: 'dcpass-ontology'
-  description: 'DC PASS procurement ontology: Agency, Vendor, ContractInstrument, ContractAward, PurchaseOrder, Payment.'
-  mavenCoordinate: 'io.argorand.poc.dcpass:dcpass-ontology'
+  description: 'DC PASS procurement ontology: Agency, Vendor, ContractAward, PurchaseOrder, Payment.'
+  mavenCoordinate: 'com.palantirfoundry.usw-23.argorand.pass.marketplace-store-3a48c9c7-517b-400f-b7c6-41788c50b23c:dcpass-ontology'
   installMode: SINGLETON
 osdkOutput: ontology/osdk-output
 apiNamespace: io.argorand.poc.dcpass
+signingKeys:
+  - type: local
+    local:
+      name: 'default'
+      path: '/Users/lex/Library/Application Support/foundry-cli/keys/default.pem'

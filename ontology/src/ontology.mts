@@ -5,9 +5,12 @@ import type { LinkType, ObjectTypeDefinition } from "@osdk/maker";
  * DC PASS Ontology-as-code.
  *
  * Grain notes (do not map 1:1 to the raw CSVs):
- * - ContractInstrument is the public CONTRACTNUMBER (shared by many DCSS awards).
- * - ContractAward is CWINTERNALID, the vendor-specific award.
- * - PurchaseOrder is ponumber_base (strip -V[n]); payments join on that base.
+ * - ContractAward is one extract row, not CWINTERNALID. The CSV repeats the same
+ *   CW id per commodity line (~5k ids, up to 93 rows). PK is a surrogate
+ *   passContractId (DB id or row hash). CONTRACTNUMBER is a property.
+ * - PurchaseOrder is one extract row, not PONUMBER / ponumber_base. Those repeat
+ *   when the same PO is copied across agency acronyms (~5k numbers). PK is a
+ *   surrogate purchaseOrderId. poNumberBase is still the join key to payments.
  * - Payment is a financial disbursement; many rows have no PASS PO.
  *
  * Backing datasets are left empty for SuperRepo preview. Bind Foundry datasets
@@ -133,51 +136,27 @@ export const Vendor: ObjectTypeDefinition = defineObject({
   includeEmptyBackingDatasource: true,
 });
 
-export const ContractInstrument: ObjectTypeDefinition = defineObject({
-  apiName: "contractInstrument",
-  displayName: "Contract instrument",
-  pluralDisplayName: "Contract instruments",
-  description:
-    "The public CONTRACTNUMBER (DCSS-…, GAGA-…, CW…). One instrument can have many Contract Awards (DCSS multi-vendor schedules).",
-  titlePropertyApiName: "contractNumber",
-  primaryKeyPropertyApiName: "contractNumber",
-  icon: { locator: "document", color: "#7961DB" },
-  properties: {
-    contractNumber: {
-      type: "string",
-      displayName: "Contract number",
-      description: "Normalized CONTRACTNUMBER.",
-    },
-    numberFormat: {
-      ...optionalString,
-      displayName: "Number format",
-      description: "cw, agency, or unknown.",
-    },
-    isDcss: {
-      type: "boolean",
-      displayName: "DCSS",
-      description: "True when this number is on the DC Supply Schedule catalog.",
-      nullability: optional,
-    },
-  },
-  editsEnabled: true,
-  includeEmptyBackingDatasource: true,
-});
-
 export const ContractAward: ObjectTypeDefinition = defineObject({
   apiName: "contractAward",
   displayName: "Contract award",
   pluralDisplayName: "Contract awards",
   description:
-    "A vendor-specific award keyed by CWINTERNALID. Status and amount on this object are the latest published option period.",
+    "PASS contract",
   titlePropertyApiName: "title",
-  primaryKeyPropertyApiName: "cwInternalId",
+  primaryKeyPropertyApiName: "passContractId",
   icon: { locator: "endorsed", color: "#8F4B95" },
   properties: {
-    cwInternalId: {
+    passContractId: {
       type: "string",
+      displayName: "PASS contract ID",
+      description:
+        "Surrogate primary key. PASS_Contracts has no unique native id; use the database id or a row hash at ingest.",
+    },
+    cwInternalId: {
+      ...optionalString,
       displayName: "CW internal ID",
-      description: "Synthetic key when the extract has no value.",
+      description:
+        "Contract Wizard id. Repeated across commodity lines",
     },
     title: {
       type: "string",
@@ -236,6 +215,14 @@ export const ContractAward: ObjectTypeDefinition = defineObject({
       ...optionalString,
       displayName: "Contract details URL",
     },
+    commodityCode: {
+      ...optionalString,
+      displayName: "Commodity code",
+    },
+    commodityName: {
+      ...optionalString,
+      displayName: "Commodity description",
+    },
     agencyCode: {
       ...optionalString,
       displayName: "Agency code",
@@ -249,7 +236,6 @@ export const ContractAward: ObjectTypeDefinition = defineObject({
     contractNumber: {
       ...optionalString,
       displayName: "Contract number",
-      description: "Foreign key to Contract instrument.",
     },
   },
   editsEnabled: true,
@@ -261,20 +247,27 @@ export const PurchaseOrder: ObjectTypeDefinition = defineObject({
   displayName: "Purchase order",
   pluralDisplayName: "Purchase orders",
   description:
-    "A PASS purchase order keyed by ponumber_base (PO601566-V2 stored as PO601566). Join payments on this base, not the versioned PONUMBER.",
+    "A PASS purchase-order extract row. PONUMBER / ponumber_base are not unique (same PO copied across agency acronyms).",
   titlePropertyApiName: "poTitle",
-  primaryKeyPropertyApiName: "poNumberBase",
+  primaryKeyPropertyApiName: "purchaseOrderId",
   icon: { locator: "box", color: "#D9822B" },
   properties: {
-    poNumberBase: {
+    purchaseOrderId: {
       type: "string",
+      displayName: "Purchase order ID",
+      description:
+        "Surrogate primary key. Use the database id or a row hash at ingest. Not a PASS column.",
+    },
+    poNumberBase: {
+      ...optionalString,
       displayName: "Normalized PO number",
-      description: "PONUMBER with -V[n] stripped.",
+      description:
+        "PONUMBER with -V[n] stripped. Join key to payments; not unique in the extract.",
     },
     poNumber: {
       ...optionalString,
       displayName: "PO number",
-      description: "Versioned number as stored (PO590924-V2).",
+      description: "Versioned number as stored (PO590924-V2). Not unique.",
     },
     status: {
       ...optionalString,
@@ -324,7 +317,13 @@ export const PurchaseOrder: ObjectTypeDefinition = defineObject({
     agencyCode: {
       ...optionalString,
       displayName: "Agency code",
-      description: "Foreign key to Agency.",
+      description: "Foreign key to Agency (TO0, AA0).",
+    },
+    agencyAcronym: {
+      ...optionalString,
+      displayName: "Agency acronym",
+      description:
+        "Why PONUMBER repeats: one extract row per acronym (MOAA, MOTA) under the same agency code.",
     },
     vendorId: {
       ...optionalString,
@@ -408,12 +407,14 @@ export const Payment: ObjectTypeDefinition = defineObject({
     poNumberBase: {
       ...optionalString,
       displayName: "PO number",
-      description: "Foreign key to Purchase order when the payment cites a PASS PO.",
+      description:
+        "Payment PONUMBER, usually already unversioned. Matches purchaseOrder.poNumberBase; that side is not unique.",
     },
     contractNumber: {
       ...optionalString,
       displayName: "Contract number",
-      description: "Foreign key to Contract instrument when populated (~25% of payments).",
+      description:
+        "Public CONTRACTNUMBER when populated (~25% of payments). Not unique; not a link.",
     },
   },
   editsEnabled: true,
@@ -556,28 +557,6 @@ export const vendorPayments: LinkType = defineLink({
   editsEnabled: true,
 });
 
-export const instrumentAwards: LinkType = defineLink({
-  apiName: "instrumentAwards",
-  one: {
-    object: ContractInstrument,
-    metadata: {
-      apiName: "awards",
-      displayName: "Contract award",
-      pluralDisplayName: "Contract awards",
-    },
-  },
-  toMany: {
-    object: ContractAward,
-    metadata: {
-      apiName: "instrument",
-      displayName: "Contract instrument",
-      pluralDisplayName: "Contract instruments",
-    },
-  },
-  manyForeignKeyProperty: "contractNumber",
-  editsEnabled: true,
-});
-
 /** Messy PO→contract attribution (po_contract_map). Join table bound after ingest. */
 export const awardPurchaseOrders: LinkType = defineLink({
   apiName: "awardPurchaseOrders",
@@ -603,7 +582,7 @@ export const awardPurchaseOrders: LinkType = defineLink({
 
 export const purchaseOrderPayments: LinkType = defineLink({
   apiName: "purchaseOrderPayments",
-  one: {
+  many: {
     object: PurchaseOrder,
     metadata: {
       apiName: "payments",
@@ -614,33 +593,11 @@ export const purchaseOrderPayments: LinkType = defineLink({
   toMany: {
     object: Payment,
     metadata: {
-      apiName: "purchaseOrder",
+      apiName: "purchaseOrders",
       displayName: "Purchase order",
       pluralDisplayName: "Purchase orders",
     },
   },
-  manyForeignKeyProperty: "poNumberBase",
   editsEnabled: true,
-});
-
-export const instrumentPayments: LinkType = defineLink({
-  apiName: "instrumentPayments",
-  one: {
-    object: ContractInstrument,
-    metadata: {
-      apiName: "payments",
-      displayName: "Payment",
-      pluralDisplayName: "Payments",
-    },
-  },
-  toMany: {
-    object: Payment,
-    metadata: {
-      apiName: "contractInstrument",
-      displayName: "Contract instrument",
-      pluralDisplayName: "Contract instruments",
-    },
-  },
-  manyForeignKeyProperty: "contractNumber",
-  editsEnabled: true,
+  includeEmptyBackingDatasource: true,
 });

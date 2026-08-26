@@ -1,0 +1,13 @@
+{
+  "name": "dcpass",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["ontology:build"],
+      "options": {
+        "command": "foundry bundle --project-version \"${FOUNDRY_PRODUCT_VERSION:-1.0.0}\""
+      }
+    }
+  }
+}

@@ -5,9 +5,8 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <!--
-        Rebuild search_vector so slash-joined CONTRACTNUMBER values are findable by
-        either side of the slash. Postgres treats "A/B" as a file path, so the
-        original text is kept and the same value is also indexed with "/" as spaces.
+        Make slash-joined CONTRACTNUMBER values findable by
+        either side of the slash. 
         Applied to pass_contract, purchase_order, and pass_payment.
         Local DCSS views that select search_vector are dropped first and are
         not recreated here; rebuild them from !dcss_sqls/0. Data Setup.sql.

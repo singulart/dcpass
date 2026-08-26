@@ -20,10 +20,10 @@ pay_by_fy AS (
     GROUP BY pa.fiscalyear
 )
 SELECT
-    COALESCE(po.fiscalyear, pay.fiscalyear) AS fiscal_year,
-    po.po_total,
-    pay.voucher_total
+    COALESCE(po.fiscalyear, pay.fiscalyear) AS "Fiscal Year",
+    po.po_total AS "Ordered via DCSS",
+    pay.voucher_total AS "Paid"
 FROM po_by_fy po
 FULL OUTER JOIN pay_by_fy pay
     ON po.fiscalyear = pay.fiscalyear
-ORDER BY fiscal_year;
+ORDER BY "Fiscal Year";
