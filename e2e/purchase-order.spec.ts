@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import { loginViaUI, USERS } from './helpers/auth';
 import {
@@ -6,6 +7,22 @@ import {
   fillPurchaseOrderForm,
   type SeedPurchaseOrder,
 } from './helpers/purchase-order';
+
+/** JHipster StringFilter operators, exercised the same way for every string property. */
+const STRING_FILTER_FIELDS = [
+  'poNumber',
+  'poTitle',
+  'agencyName',
+  'agencyAcronym',
+  'agencyCode',
+  'status',
+  'supplier',
+  'requester',
+  'contractNumber',
+  'requisitionNumber',
+  'commodityCode',
+  'commodityName',
+] as const satisfies ReadonlyArray<keyof SeedPurchaseOrder>;
 
 test.describe('Purchase Orders', () => {
   let seeded: SeedPurchaseOrder[] = [];
@@ -27,81 +44,83 @@ test.describe('Purchase Orders', () => {
     await expect(page.getByText(marker.poTitle)).toBeVisible();
   });
 
-  test.describe('commodity code filters', () => {
-    function filterUrl(operator: string, ...values: string[]): string {
-      const query = values.map(v => `filter[commodityCode.${operator}]=${encodeURIComponent(v)}`).join('&');
-      return `/purchase-order?${query}`;
-    }
+  for (const field of STRING_FILTER_FIELDS) {
+    test.describe(`${field} filters`, () => {
+      function fieldValue(order: SeedPurchaseOrder): string {
+        return order[field];
+      }
 
-    test('equals', async ({ page }) => {
-      await page.goto(filterUrl('equals', seeded[0].commodityCode));
-      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
-      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
+      function filterUrl(operator: string, ...values: string[]): string {
+        const query = values.map(v => `filter[${field}.${operator}]=${encodeURIComponent(v)}`).join('&');
+        return `/purchase-order?${query}`;
+      }
+
+      function row(page: Page, poTitle: string) {
+        return page.locator('tr[data-cy="entityTable"]', { hasText: poTitle });
+      }
+
+      test('equals', async ({ page }) => {
+        await page.goto(filterUrl('equals', fieldValue(seeded[0])));
+        await expect(row(page, seeded[0].poTitle)).toBeVisible();
+        await expect(row(page, seeded[1].poTitle)).toHaveCount(0);
+      });
+
+      test('notEquals', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('notEquals', fieldValue(excluded))}&q=${encodeURIComponent(excluded.poNumber)}`);
+        await expect(row(page, excluded.poTitle)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('notEquals', fieldValue(excluded))}&q=${encodeURIComponent(included.poNumber)}`);
+        await expect(row(page, included.poTitle)).toBeVisible();
+      });
+
+      test('in', async ({ page }) => {
+        await page.goto(filterUrl('in', fieldValue(seeded[0]), fieldValue(seeded[1])));
+        await expect(row(page, seeded[0].poTitle)).toBeVisible();
+        await expect(row(page, seeded[1].poTitle)).toBeVisible();
+      });
+
+      test('notIn', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('notIn', fieldValue(excluded))}&q=${encodeURIComponent(excluded.poNumber)}`);
+        await expect(row(page, excluded.poTitle)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('notIn', fieldValue(excluded))}&q=${encodeURIComponent(included.poNumber)}`);
+        await expect(row(page, included.poTitle)).toBeVisible();
+      });
+
+      test('contains', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(filterUrl('contains', fieldValue(marker)));
+        await expect(row(page, marker.poTitle)).toBeVisible();
+        await expect(row(page, seeded[1].poTitle)).toHaveCount(0);
+      });
+
+      test('doesNotContain', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('doesNotContain', fieldValue(excluded))}&q=${encodeURIComponent(excluded.poNumber)}`);
+        await expect(row(page, excluded.poTitle)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('doesNotContain', fieldValue(excluded))}&q=${encodeURIComponent(included.poNumber)}`);
+        await expect(row(page, included.poTitle)).toBeVisible();
+      });
+
+      test('specified=true includes seeded rows', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(`${filterUrl('specified', 'true')}&q=${encodeURIComponent(marker.poNumber)}`);
+        await expect(row(page, marker.poTitle)).toBeVisible();
+      });
+
+      test('specified=false excludes seeded rows', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(`${filterUrl('specified', 'false')}&q=${encodeURIComponent(marker.poNumber)}`);
+        await expect(row(page, marker.poTitle)).toHaveCount(0);
+      });
     });
-
-    test('notEquals', async ({ page }) => {
-      const excluded = seeded[0];
-      const included = seeded[1];
-      await page.goto(
-        `${filterUrl('notEquals', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`,
-      );
-      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
-
-      await page.goto(
-        `${filterUrl('notEquals', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`,
-      );
-      await expect(page.getByText(included.poTitle)).toBeVisible();
-    });
-
-    test('in', async ({ page }) => {
-      await page.goto(filterUrl('in', seeded[0].commodityCode, seeded[1].commodityCode));
-      await expect(page.getByText(seeded[0].poTitle)).toBeVisible();
-      await expect(page.getByText(seeded[1].poTitle)).toBeVisible();
-    });
-
-    test('notIn', async ({ page }) => {
-      const excluded = seeded[0];
-      const included = seeded[1];
-      await page.goto(`${filterUrl('notIn', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`);
-      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
-
-      await page.goto(`${filterUrl('notIn', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`);
-      await expect(page.getByText(included.poTitle)).toBeVisible();
-    });
-
-    test('contains', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(filterUrl('contains', marker.commodityCode));
-      await expect(page.getByText(marker.poTitle)).toBeVisible();
-      await expect(page.getByText(seeded[1].poTitle)).toHaveCount(0);
-    });
-
-    test('doesNotContain', async ({ page }) => {
-      const excluded = seeded[0];
-      const included = seeded[1];
-      await page.goto(
-        `${filterUrl('doesNotContain', excluded.commodityCode)}&q=${encodeURIComponent(excluded.poNumber)}`,
-      );
-      await expect(page.getByText(excluded.poTitle)).toHaveCount(0);
-
-      await page.goto(
-        `${filterUrl('doesNotContain', excluded.commodityCode)}&q=${encodeURIComponent(included.poNumber)}`,
-      );
-      await expect(page.getByText(included.poTitle)).toBeVisible();
-    });
-
-    test('specified=true includes seeded rows', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(`${filterUrl('specified', 'true')}&q=${encodeURIComponent(marker.poNumber)}`);
-      await expect(page.getByText(marker.poTitle)).toBeVisible();
-    });
-
-    test('specified=false excludes seeded rows', async ({ page }) => {
-      const marker = seeded[0];
-      await page.goto(`${filterUrl('specified', 'false')}&q=${encodeURIComponent(marker.poNumber)}`);
-      await expect(page.getByText(marker.poTitle)).toHaveCount(0);
-    });
-  });
+  }
 
   test('anonymous users can open purchase order details', async ({ page }) => {
     const marker = seeded[0];

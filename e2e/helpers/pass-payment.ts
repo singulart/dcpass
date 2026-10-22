@@ -3,36 +3,54 @@ import { authHeaders, authenticateApi, USERS } from './auth';
 
 const backendURL = process.env.E2E_BACKEND_URL ?? 'http://localhost:8080';
 
+/** Every JHipster StringFilter property on a PASS payment. */
+export const PAYMENT_STRING_FIELDS = [
+  'agencyCode',
+  'agencyAcronym',
+  'agencyName',
+  'contractNumber',
+  'supplierName',
+  'invoiceNumber',
+  'poNumber',
+  'voucherNumber',
+  'transactionCode',
+  'paymentType',
+  'paymentNumber',
+] as const;
+
+export type PaymentStringField = (typeof PAYMENT_STRING_FIELDS)[number];
+
 export type SeedPassPayment = {
   id: number;
-  paymentNumber: string;
-  supplierName: string;
-  invoiceNumber: string;
-  poNumber: string;
-  voucherNumber: string;
-  contractNumber: string;
   paymentAmount: number;
-};
+} & { [K in PaymentStringField]: string };
 
 const runId = Date.now();
 
-export function uniquePassPaymentPayload(index: number) {
+function uniquePassPaymentStrings(index: number): { [K in PaymentStringField]: string } {
   const suffix = `${runId}-${index}`;
+  const values = Object.fromEntries(PAYMENT_STRING_FIELDS.map(field => [field, `${field}${index}X${runId}`])) as {
+    [K in PaymentStringField]: string;
+  };
+  // Keep the identifiers the rest of the suite searches for, and keep them from being substrings of each other.
+  values.paymentNumber = `E2E-PAY-${suffix}`;
+  values.supplierName = `E2E Payment Supplier ${suffix}`;
+  values.invoiceNumber = `E2E-INV-${suffix}`;
+  values.poNumber = `E2E-PO-${suffix}`;
+  values.voucherNumber = `E2E-VB-${suffix}`;
+  values.contractNumber = `E2E-CN-${suffix}`;
+  values.agencyCode = `AC${index}X${runId}`;
+  values.agencyAcronym = `AA${index}X${runId}`;
+  values.agencyName = `E2E Agency ${index}X${runId}`;
+  return values;
+}
+
+export function uniquePassPaymentPayload(index: number) {
   return {
     id: null as null,
-    paymentNumber: `E2E-PAY-${suffix}`,
-    supplierName: `E2E Payment Supplier ${suffix}`,
-    invoiceNumber: `E2E-INV-${suffix}`,
-    poNumber: `E2E-PO-${suffix}`,
-    voucherNumber: `E2E-VB-${suffix}`,
-    contractNumber: `E2E-CN-${suffix}`,
-    agencyCode: 'E2E',
-    agencyAcronym: 'E2E',
-    agencyName: 'E2E Test Agency',
+    ...uniquePassPaymentStrings(index),
     paymentAmount: 1500 + index * 250,
     fiscalYear: 2025,
-    transactionCode: '242',
-    paymentType: 'CHECK',
     paymentDate: '2025-06-15T12:00:00Z',
     invoiceDate: '2025-06-10T12:00:00Z',
     estPaymentDate: '2025-06-14T12:00:00Z',
@@ -50,15 +68,13 @@ export async function createPassPaymentsViaApi(request: APIRequestContext, count
       data: payload,
     });
     expect(response.ok(), await response.text()).toBeTruthy();
-    const body = (await response.json()) as SeedPassPayment;
+    const body = (await response.json()) as { id: number };
+    const strings = Object.fromEntries(PAYMENT_STRING_FIELDS.map(field => [field, payload[field]])) as {
+      [K in PaymentStringField]: string;
+    };
     created.push({
+      ...strings,
       id: body.id,
-      paymentNumber: payload.paymentNumber,
-      supplierName: payload.supplierName,
-      invoiceNumber: payload.invoiceNumber,
-      poNumber: payload.poNumber,
-      voucherNumber: payload.voucherNumber,
-      contractNumber: payload.contractNumber,
       paymentAmount: payload.paymentAmount,
     });
   }

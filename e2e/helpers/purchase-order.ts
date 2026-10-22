@@ -10,6 +10,13 @@ export type SeedPurchaseOrder = {
   supplier: string;
   requisitionNumber: string;
   commodityCode: string;
+  commodityName: string;
+  agencyCode: string;
+  agencyAcronym: string;
+  agencyName: string;
+  status: string;
+  requester: string;
+  contractNumber: string;
   poTotal: number;
 };
 
@@ -23,13 +30,13 @@ export function uniquePurchaseOrderPayload(index: number) {
     poTitle: `E2E Purchase Order ${suffix}`,
     supplier: `E2E Supplier ${suffix}`,
     requisitionNumber: `E2E-RQ-${suffix}`,
-    agencyCode: 'E2E',
-    agencyAcronym: 'E2E',
-    agencyName: 'E2E Test Agency',
-    status: 'Ordered',
-    requester: 'E2E Requester',
+    agencyCode: `AC${index}X${runId}`,
+    agencyAcronym: `AA${index}X${runId}`,
+    agencyName: `E2E Agency ${index}X${runId}`,
+    status: `Status${index}X${runId}`,
+    requester: `E2E Requester ${index}X${runId}`,
     commodityCode: `${9000000 + (runId % 100000) + index}`,
-    commodityName: 'E2E Commodity',
+    commodityName: `E2E Commodity ${index}X${runId}`,
     contractNumber: `E2E-CN-${suffix}`,
     poTotal: 10000 + index * 5000,
     fiscalYear: 2025,
@@ -60,6 +67,13 @@ export async function createPurchaseOrdersViaApi(
       supplier: payload.supplier,
       requisitionNumber: payload.requisitionNumber,
       commodityCode: payload.commodityCode,
+      commodityName: payload.commodityName,
+      agencyCode: payload.agencyCode,
+      agencyAcronym: payload.agencyAcronym,
+      agencyName: payload.agencyName,
+      status: payload.status,
+      requester: payload.requester,
+      contractNumber: payload.contractNumber,
       poTotal: payload.poTotal,
     });
   }

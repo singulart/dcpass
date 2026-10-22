@@ -1,6 +1,8 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import { loginViaUI, USERS } from './helpers/auth';
 import {
+  PAYMENT_STRING_FIELDS,
   createPassPaymentsViaApi,
   deletePassPaymentViaApi,
   fillPassPaymentForm,
@@ -27,6 +29,84 @@ test.describe('PASS Payments', () => {
     await expect(page.getByText(marker.supplierName)).toBeVisible();
     await expect(page.getByRole('link', { name: marker.paymentNumber })).toBeVisible();
   });
+
+  for (const field of PAYMENT_STRING_FIELDS) {
+    test.describe(`${field} filters`, () => {
+      function fieldValue(payment: SeedPassPayment): string {
+        return payment[field];
+      }
+
+      function filterUrl(operator: string, ...values: string[]): string {
+        const query = values.map(v => `filter[${field}.${operator}]=${encodeURIComponent(v)}`).join('&');
+        return `/pass-payment?${query}`;
+      }
+
+      function row(page: Page, supplierName: string) {
+        return page.locator('tr[data-cy="entityTable"]', { hasText: supplierName });
+      }
+
+      test('equals', async ({ page }) => {
+        await page.goto(filterUrl('equals', fieldValue(seeded[0])));
+        await expect(row(page, seeded[0].supplierName)).toBeVisible();
+        await expect(row(page, seeded[1].supplierName)).toHaveCount(0);
+      });
+
+      test('notEquals', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('notEquals', fieldValue(excluded))}&q=${encodeURIComponent(excluded.paymentNumber)}`);
+        await expect(row(page, excluded.supplierName)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('notEquals', fieldValue(excluded))}&q=${encodeURIComponent(included.paymentNumber)}`);
+        await expect(row(page, included.supplierName)).toBeVisible();
+      });
+
+      test('in', async ({ page }) => {
+        await page.goto(filterUrl('in', fieldValue(seeded[0]), fieldValue(seeded[1])));
+        await expect(row(page, seeded[0].supplierName)).toBeVisible();
+        await expect(row(page, seeded[1].supplierName)).toBeVisible();
+      });
+
+      test('notIn', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('notIn', fieldValue(excluded))}&q=${encodeURIComponent(excluded.paymentNumber)}`);
+        await expect(row(page, excluded.supplierName)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('notIn', fieldValue(excluded))}&q=${encodeURIComponent(included.paymentNumber)}`);
+        await expect(row(page, included.supplierName)).toBeVisible();
+      });
+
+      test('contains', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(filterUrl('contains', fieldValue(marker)));
+        await expect(row(page, marker.supplierName)).toBeVisible();
+        await expect(row(page, seeded[1].supplierName)).toHaveCount(0);
+      });
+
+      test('doesNotContain', async ({ page }) => {
+        const excluded = seeded[0];
+        const included = seeded[1];
+        await page.goto(`${filterUrl('doesNotContain', fieldValue(excluded))}&q=${encodeURIComponent(excluded.paymentNumber)}`);
+        await expect(row(page, excluded.supplierName)).toHaveCount(0);
+
+        await page.goto(`${filterUrl('doesNotContain', fieldValue(excluded))}&q=${encodeURIComponent(included.paymentNumber)}`);
+        await expect(row(page, included.supplierName)).toBeVisible();
+      });
+
+      test('specified=true includes seeded rows', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(`${filterUrl('specified', 'true')}&q=${encodeURIComponent(marker.paymentNumber)}`);
+        await expect(row(page, marker.supplierName)).toBeVisible();
+      });
+
+      test('specified=false excludes seeded rows', async ({ page }) => {
+        const marker = seeded[0];
+        await page.goto(`${filterUrl('specified', 'false')}&q=${encodeURIComponent(marker.paymentNumber)}`);
+        await expect(row(page, marker.supplierName)).toHaveCount(0);
+      });
+    });
+  }
 
   test('anonymous users can search payments by purchase order number', async ({ page }) => {
     const marker = seeded[0];

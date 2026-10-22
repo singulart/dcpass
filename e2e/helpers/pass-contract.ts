@@ -3,35 +3,76 @@ import { authHeaders, authenticateApi, USERS } from './auth';
 
 const backendURL = process.env.E2E_BACKEND_URL ?? 'http://localhost:8080';
 
+/** Every JHipster StringFilter property on a PASS contract. */
+export const CONTRACT_STRING_FIELDS = [
+  'procurementMethodDescription',
+  'agencyAcronym',
+  'agencyName',
+  'agency',
+  'contractNumber',
+  'contractStatus',
+  'title',
+  'contractingOfficer',
+  'marketType',
+  'commodityCode',
+  'commodityDescription',
+  'currentOptionPeriod',
+  'supplier',
+  'description',
+  'contractTypeDescription',
+  'contractingOfficerEmail',
+  'vendorAddress',
+  'vendorCity',
+  'vendorState',
+  'vendorZip',
+  'publishedVersionId',
+  'documentVersion',
+  'contractingSplst',
+  'contractingSplstEmail',
+  'source',
+  'contractDetailsLink',
+  'contractAdministratorName',
+  'contractAdministratorEmail',
+  'contractAdministratorPhone',
+  'contractOfficerPhone',
+  'cwInternalId',
+  'corporatePhone',
+  'corporateEmailAddress',
+] as const;
+
+export type ContractStringField = (typeof CONTRACT_STRING_FIELDS)[number];
+
 export type SeedContract = {
   id: number;
-  title: string;
-  contractNumber: string;
-  supplier: string;
-  description: string;
-  commodityCode: string;
   contractAmount: number;
   awardDate: string;
   startDate: string;
   endDate: string;
-};
+} & { [K in ContractStringField]: string };
 
 const runId = Date.now();
 
-export function uniqueContractPayload(index: number) {
+function uniqueContractStrings(index: number): { [K in ContractStringField]: string } {
   const suffix = `${runId}-${index}`;
+  const values = Object.fromEntries(CONTRACT_STRING_FIELDS.map(field => [field, `${field}${index}X${runId}`])) as {
+    [K in ContractStringField]: string;
+  };
+  // Keep the identifiers the rest of the suite searches for, and keep them from being substrings of each other.
+  values.title = `E2E PASS Contract ${suffix}`;
+  values.contractNumber = `E2E-CN-${suffix}`;
+  values.supplier = `E2E Supplier ${suffix}`;
+  values.description = `E2E searchable description marker ${suffix}`;
+  values.commodityCode = `${8000000 + (runId % 100000) + index}`;
+  values.agencyAcronym = `AA${index}X${runId}`;
+  values.agencyName = `E2E Agency ${index}X${runId}`;
+  return values;
+}
+
+export function uniqueContractPayload(index: number) {
   return {
     id: null as null,
-    title: `E2E PASS Contract ${suffix}`,
-    contractNumber: `E2E-CN-${suffix}`,
-    supplier: `E2E Supplier ${suffix}`,
-    description: `E2E searchable description marker ${suffix}`,
-    agencyAcronym: 'E2E',
-    agencyName: 'E2E Test Agency',
-    commodityCode: `${8000000 + (runId % 100000) + index}`,
-    commodityDescription: 'E2E Commodity',
+    ...uniqueContractStrings(index),
     contractAmount: 100000 + index * 50000,
-    contractStatus: 'Active',
     awardDate: '2025-06-15',
     startDate: '2025-07-01',
     endDate: '2026-06-30',
@@ -53,14 +94,13 @@ export async function createContractsViaApi(
       data: payload,
     });
     expect(response.ok(), await response.text()).toBeTruthy();
-    const body = (await response.json()) as SeedContract;
+    const body = (await response.json()) as { id: number };
+    const strings = Object.fromEntries(CONTRACT_STRING_FIELDS.map(field => [field, payload[field]])) as {
+      [K in ContractStringField]: string;
+    };
     created.push({
+      ...strings,
       id: body.id,
-      title: payload.title,
-      contractNumber: payload.contractNumber,
-      supplier: payload.supplier,
-      description: payload.description,
-      commodityCode: payload.commodityCode,
       contractAmount: payload.contractAmount,
       awardDate: payload.awardDate,
       startDate: payload.startDate,
